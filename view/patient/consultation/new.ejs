@@ -1,0 +1,107 @@
+<button
+  type="button"
+  class="btn me-2 btn-outline-success px-2 py-1"
+  data-bs-toggle="modal"
+  data-bs-target="#acte-<%= patient.id %>"
+>
+  <i class="bi bi-plus-lg"></i>
+</button>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="acte-<%= patient.id %>"
+   data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">
+          Ajouter Acte
+        </h5>
+
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+
+      <div class="modal-body">
+        <form action="/patient/<%=patient.id%>/acte" method="POST">
+          <div class="form-floating mb-3">
+            <input
+              class="form-control"
+              type="date"
+              id="dateacte"
+              name="consultation[dateacte]"
+              placeholder="date de l'acte"
+              required
+              autofocus
+            />
+            <label for="dateacte" class="form-labelfs-6">Date de l'acte</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+
+          <div class="form-floating mb-3">
+            <select
+              id="medecin"
+              name="consultation[medecin]"
+              class="form-select"
+              required
+            >
+              <option selected disabled>Medecin</option>
+              <option class="option" value="Dr.TOUATI">Dr.TOUATI</option>
+            </select>
+
+            <label for="medecin" class="form-label">Medecin</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+
+          <div class="form-floating mb-3">
+            <select
+              id="acte"
+              name="consultation[acte]"
+              class="form-select"
+              required
+            >
+              <option selected disabled>Acte</option>
+              <option class="option" value="Consultation">Consultation</option>
+              <option class="option" value="Chirurgie">Chirurgie</option>
+              <option class="option" value="KT">KT</option>
+            </select>
+
+            <label for="acte" class="form-label">Acte</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+
+          <div class="mb-2">
+            <!-- <label for="comment">Commentaire</label> -->
+            <textarea
+              class="form-control"
+              name="consultation[comment]"
+              id="comment"
+              rows="4"
+              placeholder="Commentaire"
+            ></textarea>
+          </div>
+
+          <div class="modal-footer mt-4">
+            <button
+            type="button"
+            class="btn btn-outline-secondary"
+            data-bs-dismiss="modal"
+            >
+            Annuler
+          </button>
+          <button class="btn btn-outline-success">Ajouter</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

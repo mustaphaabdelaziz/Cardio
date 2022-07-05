@@ -1,0 +1,156 @@
+<% layout('layouts/boilerplate')%>
+
+<div class="container mt-4">
+  <div class="col m-auto bg-light rounded-5 p-2">
+    <h3 class="mb-4 text-center text-success">Liste des patients</h3>
+    <div class="d-flex mb-2 justify-content-center">
+      <div class="form-floating col-2 me-2">
+        <select
+          id="age"
+          name="age"
+          class="form-select"
+          required
+          onchange="filterAge(12)"
+        >
+          <!-- <option selected disabled >Age</option> -->
+          <option class="option" value="all">Tous</option>
+          <option class="option" value="above">+12</option>
+          <option class="option" value="under">-12</option>
+        </select>
+
+        <label id="hide" for="acte" class="form-label">Age</label>
+        <div class="valid-feedback">BIEN</div>
+      </div>
+      <div class="form-floating col-2 me-2">
+        <select
+          id="lastacte"
+          name="lastacte"
+          class="form-select"
+          required
+          onchange="filterActe('lastacte',5)"
+        >
+          <!-- <option selected disabled >Age</option> -->
+          <option class="option" value="all">Tous</option>
+          <option class="option" value="consultation">Consultation</option>
+          <option class="option" value="chirurgie">Chirurgie</option>
+          <option class="option" value="kt">KT</option>
+          <option class="option" value="no-acte">No Acte</option>
+        </select>
+
+        <label id="hide" for="lastacte" class="form-label">Last Acte</label>
+        <div class="valid-feedback">BIEN</div>
+      </div>
+      <div class="form-floating col-2 me-2">
+        <select
+          id="nextacte"
+          name="nextacte"
+          class="form-select"
+          required
+          onchange="filterActe('nextacte',6)"
+        >
+          <!-- <option selected disabled >Age</option> -->
+          <option class="option" value="all">Tous</option>
+          <option class="option" value="consultation">Consultation</option>
+          <option class="option" value="chirurgie">Chirurgie</option>
+          <option class="option" value="kt">KT</option>
+          <option class="option" value="no-acte">No Acte</option>
+        </select>
+
+        <label id="hide" for="nextacte" class="form-label">Next Acte</label>
+        <div class="valid-feedback">BIEN</div>
+      </div>
+    </div>
+  </div>
+  <form class="d-flex mt-2">
+    <input
+      id="search"
+      class="form-control mb-2"
+      type="search"
+      placeholder="Search"
+      aria-label="Search"
+    />
+  </form>
+
+  <table
+    class="table table-striped table-hover table-borderless text-center sortable"
+    id="patientTable"
+  >
+    <thead class="table-success">
+      <tr>
+        <th scope="col">N°</th>
+        <th scope="col">Nom</th>
+        <th scope="col">Prénom</th>
+        <th scope="col">Age</th>
+        <th scope="col">Gender</th>
+        <th scope="col">Téléphone</th>
+        <th scope="col">Dérniere acte</th>
+        <th scope="col">Prochaine acte</th>
+        <th id="hide" scope="col">Ajouter Acte</th>
+        <th id="hide" scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody id="tablebody">
+      <% var i=1 %> <% for (patient of patients){%>
+
+      <tr>
+        <th
+          class="clickable"
+          onclick="window.location='/patient/<%=patient.id%>'"
+          scope="row"
+        >
+          <%= i%><% i=i+1; %>
+        </th>
+        <td
+          class="clickable"
+          onclick="window.location='/patient/<%=patient.id%>'"
+        >
+          <%= patient.lastname.toUpperCase()%>
+        </td>
+        <td
+          class="clickable"
+          onclick="window.location='/patient/<%=patient.id%>'"
+        >
+          <%=patient.firstname.toUpperCase()%>
+        </td>
+        <td
+          class="clickable"
+          onclick="window.location='/patient/<%=patient.id%>'"
+        >
+          <%=patient.age%>
+        </td>
+        <td
+          class="clickable"
+          onclick="window.location='/patient/<%=patient.id%>'"
+        >
+          <%=patient.gender%>
+        </td>
+        <td
+          class="clickable"
+          onclick="window.location='/patient/<%=patient.id%>'"
+        >
+          <%=patient.phone%>
+        </td>
+        <td
+          class="clickable"
+          onclick="window.location='/patient/<%=patient.id%>'"
+        >
+          <%=patient.lastacte.acte%>
+        </td>
+        <td
+          class="clickable"
+          onclick="window.location='/patient/<%=patient.id%>'"
+        >
+          <%=patient.nextacte.acte%>
+        </td>
+
+        <th><%- include("./consultation/new")%></th>
+        <th>
+          <div class="d-flex justify-content-center align-items-center">
+            <%- include("./edit")%> <%- include("./delete")%>
+          </div>
+        </th>
+      </tr>
+      <% }%>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,114 @@
+<% layout('layouts/boilerplate')%>
+<div class="container">
+  <div class="card my-3">
+    <div class="row">
+      <div class="col-12">
+        <div class="d-flex flex-column align-items-center">
+          <a href="/">
+            <img src="/assets/logo.png" alt="" height="200px" />
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="tab-content">
+        <!-- ============================= Creation du Patient =============================================== -->
+        <div
+          aria-labelledby="patientRegisterTab "
+          role="tabpanel"
+          class="mt-2 my-5 tab-pane fade active show"
+          id="patientRegisterForm"
+        >
+          <h3 class="m-4 text-center text-success">Nouveau Patient</h3>
+          <form
+            class="row g-3 m-2"
+            action="/patient"
+            id="personal"
+            method="POST"
+            class="needs-validation"
+            novalidate
+            autocomplete="off"
+          >
+            <div class="form-floating col-md-6">
+              
+              <input
+                id="patientFirstName"
+                name="patient[firstname]"
+                
+                type="text"
+                class="form-control"
+                required
+                autofocus
+              />
+              <label for="patientFirstName" class="form-label">Firstname</label>
+            </div>
+            <div class="form-floating col-md-6">
+             
+              <input
+                id="patientLastName"
+                name="patient[lastname]"
+                type="text"
+                
+                class="form-control"
+                required
+              />
+              <label for="patientLastName" class="form-label">Lastname</label>
+            </div>
+
+            <div class="form-floating col-md-6">
+             
+              <input
+                id="patientBirthDate"
+                name="patient[birthdate]"
+                
+                type="date"
+                class="form-control"
+                required
+              />
+              <label for="patientBirthDate" class="form-label"
+              >Birthdate
+            </label>
+            </div>
+            <div class="form-floating col-md-6">
+             
+              <select
+                id="patientGender"
+                name="patient[gender]"
+                class="form-select"
+                required
+              >
+                <option selected disabled>Gender</option>
+                <option class="option" value="Male">Male</option>
+                <option class="option" value="Female">Female</option>
+              </select>
+              <label for="patientGender" class="form-label">Gender</label>
+            </div>
+
+            <div class="form-floating col-md-6">
+             
+              <input
+                type="text"
+                class="form-control"
+                id="patientPhoneNumber"
+                
+                name="patient[phone]"
+                required
+              />
+              <label for="patientPhoneNumber" class="form-label">Phone</label>
+            </div>
+
+            <div class="mb-2 mt-4 text-center">
+              <button
+                type="submit"
+                id="patient-register"
+                class="btn btn-outline-success"
+              >
+                Ajouter <i class="bi bi-person-plus-fill"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

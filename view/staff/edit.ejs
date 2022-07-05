@@ -1,0 +1,121 @@
+<button
+  type="button"
+  class="me-3 btn btn-outline-warning px-2 py-1"
+  data-bs-toggle="modal"
+  data-bs-target="#edit-<%= staff.id %>"
+>
+  <i class="bi bi-pencil-fill"></i>
+</button>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="edit-<%= staff.id %>"
+  
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Modifier Personnelle</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          required
+        ></button>
+      </div>
+
+      <div class="modal-body">
+        <form
+          class=""
+          action="/staffs/<%= staff.id %>/?_method=PUT"
+          id="personal"
+          method="POST"
+          novalidate
+        >
+          <div class="form-floating  mb-3">
+            <input
+            id="staffFirstName"
+            name="staff[firstname]"
+            placeholder="firstname"
+            type="text"
+            class="form-control"
+            required
+            autofocus
+            value="<%= staff.firstname %>"
+            />
+            <label for="staffFirstName" class="form-label">Firstname</label>
+          </div>
+          <div class="form-floating  mb-3">
+            <input
+            id="staffLastName"
+            name="staff[lastname]"
+            type="text"
+            placeholder="lastname"
+            class="form-control"
+            required
+            value="<%= staff.lastname%>"
+            />
+            <label for="staffLastName" class="form-label">Lastname</label>
+          </div>
+
+          <div class="form-floating  mb-3">
+            <input id="staffBirthDate" name="staff[birthdate]"
+            placeholder="birthdate" type="date" class="form-control" required
+            value="<%= moment(staff.birthdate).format("YYYY-MM-DD")%>" />
+            <label for="staffBirthDate" class="form-label">Birthdate </label>
+          </div>
+          <div class="form-floating  mb-3">
+            <select
+            id="staffGender"
+            name="staff[gender]"
+            class="form-select"
+            required
+            >
+            <option disabled>Gender</option>
+            <% if (staff.gender === 'Male'){%>
+              <option class="option" value="Male" selected>Male</option>
+              <option class="option" value="Female">Female</option>
+              <% }else{ %>
+                <option class="option" value="Male">Male</option>
+                <option class="option" value="Female" selected>Female</option>
+                <% } %>
+              </select>
+              <label for="staffGender" class="form-label">Gender</label>
+          </div>
+
+          <div class="form-floating  mb-3">
+            <input
+            type="text"
+              class="form-control"
+              id="staffPhoneNumber"
+              placeholder="phone"
+              name="staff[phone]"
+              required
+              value="<%= staff.phone %>"
+              />
+              <label for="staffPhoneNumber" class="form-label">Phone</label>
+          </div>
+
+          <div class="modal-footer mt-3">
+            <button
+            type="button"
+            class="btn btn-outline-danger"
+            data-bs-dismiss="modal"
+            >
+            Annuler
+          </button>
+          <button type="submit" id="staff-edit" class="btn btn-outline-warning">
+            Modifier 
+          </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
