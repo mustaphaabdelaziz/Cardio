@@ -36,6 +36,7 @@
           action="/patient/<%= patient.id %>/?_method=PUT"
           id="personal"
           method="POST"
+          class="needs-validation"
           novalidate
         >
           <div class="form-floating  mb-3">
@@ -77,7 +78,7 @@
             class="form-select"
             required
             >
-            <option disabled>Gender</option>
+            <option disabled value="">Gender</option>
             <% if (patient.gender === 'Male'){%>
               <option class="option" value="Male" selected>Male</option>
               <option class="option" value="Female">Female</option>

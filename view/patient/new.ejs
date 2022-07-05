@@ -21,80 +21,76 @@
         >
           <h3 class="m-4 text-center text-success">Nouveau Patient</h3>
           <form
-            class="row g-3 m-2"
+            class="row g-3 m-2 needs-validation"
             action="/patient"
             id="personal"
             method="POST"
-            class="needs-validation"
-            novalidate
+            
             autocomplete="off"
+            novalidate
           >
             <div class="form-floating col-md-6">
-              
               <input
                 id="patientFirstName"
                 name="patient[firstname]"
-                
                 type="text"
                 class="form-control"
                 required
                 autofocus
               />
-              <label for="patientFirstName" class="form-label">Firstname</label>
+              <label for="patientFirstName" class="form-label">Prénom</label>
+              <div class="valid-feedback">BIEN</div>
             </div>
             <div class="form-floating col-md-6">
-             
               <input
                 id="patientLastName"
                 name="patient[lastname]"
                 type="text"
-                
                 class="form-control"
                 required
               />
-              <label for="patientLastName" class="form-label">Lastname</label>
+              <label for="patientLastName" class="form-label">Nom</label>
+              <div class="valid-feedback">BIEN</div>
             </div>
 
             <div class="form-floating col-md-6">
-             
               <input
                 id="patientBirthDate"
                 name="patient[birthdate]"
-                
                 type="date"
                 class="form-control"
                 required
               />
               <label for="patientBirthDate" class="form-label"
-              >Birthdate
-            </label>
+                >Date de Naissance
+              </label>
+              <div class="valid-feedback">BIEN</div>
             </div>
             <div class="form-floating col-md-6">
-             
               <select
                 id="patientGender"
                 name="patient[gender]"
                 class="form-select"
                 required
               >
-                <option selected disabled>Gender</option>
+                <option selected disabled value="">Genre</option>
                 <option class="option" value="Male">Male</option>
                 <option class="option" value="Female">Female</option>
               </select>
-              <label for="patientGender" class="form-label">Gender</label>
+              <label for="patientGender" class="form-label">Genre</label>
+              <div class="valid-feedback">BIEN</div>
             </div>
 
             <div class="form-floating col-md-6">
-             
               <input
                 type="text"
                 class="form-control"
                 id="patientPhoneNumber"
-                
                 name="patient[phone]"
                 required
               />
-              <label for="patientPhoneNumber" class="form-label">Phone</label>
+              <label for="patientPhoneNumber" class="form-label">Téléphone</label>
+              <div class="valid-feedback">BIEN</div>
             </div>
 
             <div class="mb-2 mt-4 text-center">

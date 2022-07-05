@@ -14,6 +14,7 @@ const Staff = new Schema(
     birthdate: Date,
     gender: String,
     role: String,
+    phone:String,
   },
   opts
 );

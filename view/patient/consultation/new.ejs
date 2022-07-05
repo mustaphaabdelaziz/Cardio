@@ -11,7 +11,7 @@
 <div
   class="modal fade"
   id="acte-<%= patient.id %>"
-   data-bs-keyboard="false"
+  data-bs-keyboard="false"
   tabindex="-1"
   aria-labelledby="staticBackdropLabel"
   aria-hidden="true"
@@ -19,9 +19,7 @@
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">
-          Ajouter Acte
-        </h5>
+        <h5 class="modal-title" id="staticBackdropLabel">Ajouter Acte</h5>
 
         <button
           type="button"
@@ -32,7 +30,12 @@
       </div>
 
       <div class="modal-body">
-        <form action="/patient/<%=patient.id%>/acte" method="POST">
+        <form
+          class="needs-validation"
+          novalidate
+          action="/patient/<%=patient.id%>/acte"
+          method="POST"
+        >
           <div class="form-floating mb-3">
             <input
               class="form-control"
@@ -54,7 +57,7 @@
               class="form-select"
               required
             >
-              <option selected disabled>Medecin</option>
+              <option selected disabled value="">Medecin</option>
               <option class="option" value="Dr.TOUATI">Dr.TOUATI</option>
             </select>
 
@@ -69,7 +72,7 @@
               class="form-select"
               required
             >
-              <option selected disabled>Acte</option>
+              <option selected disabled value="">Acte</option>
               <option class="option" value="Consultation">Consultation</option>
               <option class="option" value="Chirurgie">Chirurgie</option>
               <option class="option" value="KT">KT</option>
@@ -92,13 +95,13 @@
 
           <div class="modal-footer mt-4">
             <button
-            type="button"
-            class="btn btn-outline-secondary"
-            data-bs-dismiss="modal"
+              type="button"
+              class="btn btn-outline-secondary"
+              data-bs-dismiss="modal"
             >
-            Annuler
-          </button>
-          <button class="btn btn-outline-success">Ajouter</button>
+              Annuler
+            </button>
+            <button class="btn btn-outline-success">Ajouter</button>
           </div>
         </form>
       </div>

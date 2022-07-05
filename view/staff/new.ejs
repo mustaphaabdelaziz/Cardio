@@ -5,14 +5,14 @@
   data-bs-toggle="modal"
   data-bs-target="#newstaff"
 >
- Ajouter personnelle
+  Ajouter personnelle
 </button>
 
 <!-- Modal -->
 <div
   class="modal fade"
   id="newstaff"
-   data-bs-keyboard="false"
+  data-bs-keyboard="false"
   tabindex="-1"
   aria-labelledby="staticBackdropLabel"
   aria-hidden="true"
@@ -20,9 +20,7 @@
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">
-          Ajouter Acte
-        </h5>
+        <h5 class="modal-title" id="staticBackdropLabel">Ajouter Acte</h5>
 
         <button
           type="button"
@@ -34,105 +32,91 @@
 
       <div class="modal-body">
         <form
-        class="row g-3"
-        action="/staffs"
-        id="personal"
-        method="POST"
-        class="needs-validation"
-        novalidate
-        autocomplete="off"
-      >
-        <div class="form-floating">
-          
-          <input
-            id="staffFirstName"
-            name="staff[firstname]"
-            
-            type="text"
-            class="form-control"
-            required
-            autofocus
-          />
-          <label for="staffFirstName" class="form-label">Firstname</label>
-        </div>
-        <div class="form-floating">
+          class="row g-3"
+          action="/staffs"
+          id="personal"
+          method="POST"
+          class="needs-validation"
          
-          <input
-            id="staffLastName"
-            name="staff[lastname]"
-            type="text"
-            
-            class="form-control"
-            required
-          />
-          <label for="staffLastName" class="form-label">Lastname</label>
-        </div>
+          autocomplete="off"
+        >
+          <div class="form-floating">
+            <input
+              id="staffFirstName"
+              name="staff[firstname]"
+              type="text"
+              class="form-control"
+              required
+              autofocus
+            />
+            <label for="staffFirstName" class="form-label">Firstname</label>
+          </div>
+          <div class="form-floating">
+            <input
+              id="staffLastName"
+              name="staff[lastname]"
+              type="text"
+              class="form-control"
+              required
+            />
+            <label for="staffLastName" class="form-label">Lastname</label>
+          </div>
 
-        <div class="form-floating col-md-6">
-         
-          <input
-            id="staffBirthDate"
-            name="staff[birthdate]"
-            
-            type="date"
-            class="form-control"
-            required
-          />
-          <label for="staffBirthDate" class="form-label"
-          >Birthdate
-        </label>
-        </div>
-        <div class="form-floating col-md-6">
-         
-          <select
-            id="staffGender"
-            name="staff[gender]"
-            class="form-select"
-            required
-          >
-            <option selected disabled>Gender</option>
-            <option class="option" value="Male">Male</option>
-            <option class="option" value="Female">Female</option>
-          </select>
-          <label for="staffGender" class="form-label">Gender</label>
-        </div>
+          <div class="form-floating col-md-6">
+            <input
+              id="staffBirthDate"
+              name="staff[birthdate]"
+              type="date"
+              class="form-control"
+              required
+            />
+            <label for="staffBirthDate" class="form-label">Birthdate </label>
+          </div>
+          <div class="form-floating col-md-6">
+            <select
+              id="staffGender"
+              name="staff[gender]"
+              class="form-select"
+              required
+            >
+              <option selected disabled value="">Gender</option>
+              <option class="option" value="Male">Male</option>
+              <option class="option" value="Female">Female</option>
+            </select>
+            <label for="staffGender" class="form-label">Gender</label>
+          </div>
 
-        <div class="form-floating">
-         
-          <input
-            type="text"
-            class="form-control"
-            id="stafemail"
-            
-            name="staff[email]"
-            required
-          />
-          <label for="staffemail" class="form-label">Email</label>
-        </div>
-        <div class="form-floating">
-         
-          <input
-            type="text"
-            class="form-control"
-            id="staffPhone"
-            
-            name="staff[phone]"
-            required
-          />
-          <label for="staffPhone" class="form-label">Phone</label>
-        </div>
-       
+          <div class="form-floating">
+            <input
+              type="text"
+              class="form-control"
+              id="stafemail"
+              name="staff[email]"
+              required
+            />
+            <label for="staffemail" class="form-label">Email</label>
+          </div>
+          <div class="form-floating">
+            <input
+              type="text"
+              class="form-control"
+              id="staffPhone"
+              name="staff[phone]"
+              required
+            />
+            <label for="staffPhone" class="form-label">Phone</label>
+          </div>
 
-        <div class="mb-2 mt-4 text-center">
-          <button
-            type="submit"
-            id="staff-register"
-            class="btn btn-outline-success"
-          >
-            Ajouter <i class="bi bi-person-plus-fill"></i>
-          </button>
-        </div>
-      </form>
+          <div class="mb-2 mt-4 text-center">
+            <button
+              type="submit"
+              id="staff-register"
+              class="btn btn-outline-success"
+            >
+              Ajouter <i class="bi bi-person-plus-fill"></i>
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </div>

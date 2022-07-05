@@ -25,6 +25,7 @@
         action="/patient/<%= patient.id %>/acte/<%= consultation.id %>?_method=PUT" 
         method="POST"
         id="personal" 
+        class="needs-validation"
         novalidate>
           <div class="form-floating mb-3">
             <input 
@@ -45,7 +46,7 @@
             name="consultation[medecin]" 
             class="form-select" 
             required>
-            <option  disabled>Medecin</option>
+            <option  disabled value="">Medecin</option>
             <% if (consultation.medecin === 'Dr.TOUATI'){%>
               <option class="option" value="Dr.TOUATI"selected>Dr.TOUATI</option>
             <%}%>
@@ -58,7 +59,7 @@
 
           <div class="form-floating mb-3">
             <select id="acte" name="consultation[acte]" class="form-select" required>
-              <option disabled>Acte</option>
+              <option disabled value="">Acte</option>
               <% switch (consultation.acte) { case "Consultation" :%>
               <option class="option" value="Consultation" selected>
                 Consultation
