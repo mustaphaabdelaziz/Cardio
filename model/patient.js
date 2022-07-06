@@ -15,10 +15,18 @@ const Patient = new Schema(
         birthdate: Date,
         phone: String,
         gender: String,
+        medecinref: {
+            type: String,
+            default:"/"
+        },
 
         consultation: [
             {
                 medecin: String,
+                technicien:  {
+                    type: String,
+                    default:"/"
+                },
                 date: Date,
                 acte: String,
                 comment:{
@@ -32,6 +40,14 @@ const Patient = new Schema(
 );
 Patient.virtual("fullname").get(function () {
     return this.lastname + " " + this.firstname;
+});
+Patient.virtual("drlastname").get(function () {
+    if (this.medecinref==="/") {
+        return this.medecinref;
+    } else {
+        return "Dr. "+this.medecinref;
+    }
+   
 });
 Patient.virtual("age").get(function () {
     var now = moment();

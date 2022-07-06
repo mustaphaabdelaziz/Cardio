@@ -1,40 +1,64 @@
 let pdf = require("html-pdf");
 const moment = require("moment");
-const patient = require("../model/patient");
+const Staff = require("../model/staff");
+
 const Patient = require("../model/patient");
 
 module.exports.listepatient = async (req, res) => {
+  const medecins = await Staff.find({fonction:"Medecin"});
+  const techniciens = await Staff.find({fonction:"technicien"});
+  // res.send(medecins)
   const patients = await Patient.find({});
-  res.render("patient/index", { patients, moment });
-  // res.render("patient/accuse", { patients, moment });
+  res.render("patient/index", { patients, moment, medecins,techniciens });
+  
 };
-module.exports.creationform = (req, res) => {
-  res.render("patient/new");
+module.exports.creationform = async(req, res) => {
+  const medecins = await Staff.find({fonction:"Medecin"});
+  res.render("patient/new",{medecins});
 };
 module.exports.showpatient = async (req, res) => {
   // get the patient id from the patients table
   const { id } = req.params;
+  const medecins = await Staff.find({fonction:"Medecin"});
+  const techniciens = await Staff.find({fonction:"technicien"});
   // find the patient in the database
   const patient = await Patient.findById(id);
   // send it to the client
-  res.render("patient/show", { patient, moment });
+  res.render("patient/show", { patient, moment, medecins,techniciens});
   // res.send(patient)
 };
 
 module.exports.createpatient = async (req, res) => {
-  var { firstname, lastname, birthdate, gender, phone } = req.body.patient;
+  var { firstname, lastname, birthdate, gender,medecinref, phone } = req.body.patient;
 
   const patient = new Patient({
     firstname,
     lastname,
     birthdate,
     phone,
+    medecinref,
     gender,
   });
   await patient.save();
   req.flash("success", "Patient ajouté avec succès");
   res.redirect("/patient");
 };
+module.exports.createandreturn = async (req, res) => {
+  var { firstname, lastname, birthdate, gender,medecinref, phone } = req.body.patient;
+
+  const patient = new Patient({
+    firstname,
+    lastname,
+    birthdate,
+    phone,
+    medecinref,
+    gender,
+  });
+  await patient.save();
+  req.flash("success", "Patient ajouté avec succès");
+  res.redirect("/patient/new");
+};
+
 module.exports.showEditForm = async (req, res) => {
   res.render("patient/edit");
 };

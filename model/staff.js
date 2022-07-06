@@ -11,15 +11,26 @@ const Staff = new Schema(
   {
     firstname: String,
     lastname: String,
-    birthdate: Date,
-    gender: String,
-    role: String,
-    phone:String,
+    externe: {
+      type: String,
+      default: "interne",
+    },
+    fonction: String,
+    phone: String,
+    email: String,
   },
   opts
 );
 Staff.virtual("fullname").get(function () {
   return this.lastname + " " + this.firstname;
+});
+
+Staff.virtual("typestuff").get(function () {
+  if (this.externe === "externe") {
+    return this.fonction + " externe";
+  } else {
+    return this.fonction + " interne";
+  }
 });
 
 module.exports = mongoose.model("Staff", Staff);

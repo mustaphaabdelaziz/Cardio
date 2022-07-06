@@ -32,7 +32,6 @@
 
       <div class="modal-body">
         <form
-          class=""
           action="/patient/<%= patient.id %>/?_method=PUT"
           id="personal"
           method="POST"
@@ -43,33 +42,35 @@
             <input
             id="patientFirstName"
             name="patient[firstname]"
-            placeholder="firstname"
+            placeholder="Prénom"
             type="text"
             class="form-control"
             required
             autofocus
             value="<%= patient.firstname %>"
             />
-            <label for="patientFirstName" class="form-label">Firstname</label>
+            <label for="patientFirstName" class="form-label">Prénom</label>
+            <div class="valid-feedback">BIEN</div>
           </div>
           <div class="form-floating  mb-3">
             <input
             id="patientLastName"
             name="patient[lastname]"
             type="text"
-            placeholder="lastname"
+            placeholder="Nom"
             class="form-control"
             required
             value="<%= patient.lastname%>"
             />
-            <label for="patientLastName" class="form-label">Lastname</label>
+            <label for="patientLastName" class="form-label">Nom</label>
+            <div class="valid-feedback">BIEN</div>
           </div>
 
           <div class="form-floating  mb-3">
             <input id="patientBirthDate" name="patient[birthdate]"
-            placeholder="birthdate" type="date" class="form-control" required
+            placeholder="Date de Naissance" type="date" class="form-control" required
             value="<%= moment(patient.birthdate).format("YYYY-MM-DD")%>" />
-            <label for="patientBirthDate" class="form-label">Birthdate </label>
+            <label for="patientBirthDate" class="form-label">Date de Naissance</label>
           </div>
           <div class="form-floating  mb-3">
             <select
@@ -78,7 +79,7 @@
             class="form-select"
             required
             >
-            <option disabled value="">Gender</option>
+            <option disabled value="">Genre</option>
             <% if (patient.gender === 'Male'){%>
               <option class="option" value="Male" selected>Male</option>
               <option class="option" value="Female">Female</option>
@@ -87,7 +88,8 @@
                 <option class="option" value="Female" selected>Female</option>
                 <% } %>
               </select>
-              <label for="patientGender" class="form-label">Gender</label>
+              <label for="patientGender" class="form-label">Genre</label>
+              <div class="valid-feedback">BIEN</div>
           </div>
 
           <div class="form-floating  mb-3">
@@ -95,12 +97,35 @@
             type="text"
               class="form-control"
               id="patientPhoneNumber"
-              placeholder="phone"
+              placeholder="Téléphone"
               name="patient[phone]"
               required
               value="<%= patient.phone %>"
               />
-              <label for="patientPhoneNumber" class="form-label">Phone</label>
+              <label for="patientPhoneNumber" class="form-label">Téléphone</label>
+              <div class="valid-feedback">BIEN</div>
+          </div>
+          <div class="form-floating mb-3">
+            <select
+              id="medeciref"
+              name="patient[medecinref]"
+              class="form-select"
+              required
+            >
+              <option disabled value="" selected>Médecin Ref</option>
+              <option class="option" value="/">/</option>
+              <% for(medecin of medecins ){ %>
+
+                <% if(patient.medecinref===medecin.lastname) {%> 
+              <option class="option" value="<%= medecin.lastname%>" selected>Dr. <%= medecin.lastname.toUpperCase()%></option>
+                <% } else { %>
+                  <option class="option" value="<%= medecin.lastname%>">Dr. <%= medecin.lastname.toUpperCase()%></option>
+                   <% } %>
+              <% } %>
+            </select>
+
+            <label for="medecinref" class="form-label">Médecin Ref</label>
+            <div class="valid-feedback">BIEN</div>
           </div>
 
           <div class="modal-footer mt-3">

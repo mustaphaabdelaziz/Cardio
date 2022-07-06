@@ -1,4 +1,5 @@
 <% layout('layouts/boilerplate')%>
+
 <div class="container mt-4">
   <div class="col m-auto bg-light rounded-5 p-2">
     <h3 class="mb-4 text-center text-success">Liste des patients</h3>
@@ -35,7 +36,8 @@
           <option class="option" value="kt">KT</option>
           <option class="option" value="no-acte">No Acte</option>
         </select>
-        <label id="hide" for="lastacte" class="form-label">Last Acte</label>
+
+        <label id="hide" for="lastacte" class="form-label">Dérnière Acte</label>
         <div class="valid-feedback">BIEN</div>
       </div>
       <div class="form-floating col-2 me-2">
@@ -54,14 +56,11 @@
           <option class="option" value="no-acte">No Acte</option>
         </select>
 
-        <label id="hide" for="nextacte" class="form-label">Next Acte</label>
+        <label id="hide" for="nextacte" class="form-label">Prochaine Acte</label>
         <div class="valid-feedback">BIEN</div>
       </div>
     </div>
   </div>
-  <div class="mb-3 ">
-    <%- include("../staff/new")%>
-  </div> 
   <form class="d-flex mt-2">
     <input
       id="search"
@@ -71,7 +70,6 @@
       aria-label="Search"
     />
   </form>
-  
 
   <table
     class="table table-striped table-hover table-borderless text-center sortable"

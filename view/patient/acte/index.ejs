@@ -24,12 +24,12 @@
           </div>
           <div  class="form-floating col-3 me-2">
             <input class="form-control" type="date" id="start" name="start">
-            <label id="hide" for="start" class="form-label"> Begin</label>
+            <label id="hide" for="start" class="form-label">De:</label>
 
           </div>
           <div class="form-floating col-3">
             <input class="form-control" onkeydown="filterDate()" type="date" id="end" name="end">
-            <label id="hide" for="end" class="form-label">Finish</label>
+            <label id="hide" for="end" class="form-label">A:</label>
           </div>
         </div>
       </div>
@@ -45,6 +45,7 @@
             <th scope="col">Age</th>
             <th scope="col">Gender</th>
             <th scope="col">Medecin</th>
+            <th scope="col">Technicien</th>
             <th scope="col">Date acte</th>
 
 
@@ -73,7 +74,10 @@
               <%=patient.gender%>
             </td>
             <td class="clickable " onclick="window.location='/patient/<%=patient.id%>'">
-              <%=consultation.medecin%>
+             Dr. <%=consultation.medecin.toUpperCase()%>
+            </td>
+            <td class="clickable " onclick="window.location='/patient/<%=patient.id%>'">
+              <%=consultation.technicien.toUpperCase()%>
             </td>
             <td class="clickable " onclick="window.location='/patient/<%=patient.id%>'">
               <%=moment(consultation.date).format("DD/MM/YYYY")%>

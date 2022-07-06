@@ -2,10 +2,8 @@
 
 <div class="container mt-4">
   <div class="col m-auto">
-    <h3 class="mb-4 text-center text-success">Liste des personnelle</h3>
-    <div class="mb-3">
-      <%- include("./new")%>
-    </div>
+    <h3 class="mb-4 text-center text-success">Liste des personnels</h3>
+    <div class="mb-3"><%- include("./new")%></div>
     <form class="d-flex">
       <input
         id="search"
@@ -23,7 +21,8 @@
           <th scope="col">N°</th>
           <th scope="col">Nom</th>
           <th scope="col">Prénom</th>
-          <th scope="col">Gender</th>
+          <th scope="col">Fonction</th>
+          <th scope="col">Email</th>
           <th scope="col">Téléphone</th>
           <th id="item1" scope="col">Action</th>
         </tr>
@@ -55,8 +54,14 @@
             class="clickable"
             onclick="window.location='/staffs/<%=staff.id%>'"
           >
-            <%=staff.gender%>
+            <%=staff.typestuff.toUpperCase()%> 
           </td>
+          <td
+          class="clickable"
+          onclick="window.location='/staffs/<%=staff.id%>'"
+        >
+          <%=staff.email%>
+        </td>
           <td
             class="clickable"
             onclick="window.location='/staffs/<%=staff.id%>'"

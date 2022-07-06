@@ -52,6 +52,7 @@ app.use("/patient/:id/acte", consultationRoutes)
 app.use("/acte", acteRoutes)
 // ========================================================
 app.get("/", (req, res) => {
+  console.log("dfgdfgdfg")
   res.render("home");
 });
 

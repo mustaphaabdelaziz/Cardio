@@ -1,6 +1,7 @@
 const moment = require("moment");
 const Patient = require("../model/patient");
 
+
 module.exports.showcform = async (req, res) => {
   res.send("patient/new");
 };
@@ -9,14 +10,15 @@ module.exports.showc = async (req, res) => {
   // get the patient id from the patients table
   const { id } = req.params;
   // find the patient in the database
+ 
   const patient = await Patient.findById(id);
   // send it to the client
   res.render("patient/show", { patient });
-  // res.send(patient)
+  
 };
 
 module.exports.addActe = async (req, res) => {
-  var { dateacte, medecin, acte, comment } = req.body.consultation;
+  var { dateacte, medecin, technicien, acte, comment } = req.body.consultation;
   const { id } = req.params;
   const patient = await Patient.findByIdAndUpdate(
     id,
@@ -24,6 +26,7 @@ module.exports.addActe = async (req, res) => {
       $push: {
         consultation: {
           medecin: medecin,
+          technicien: technicien,
           date: dateacte,
           acte: acte,
           comment: comment,
@@ -52,7 +55,7 @@ module.exports.updatePatientActe = async (req, res) => {
   const { id, idacte } = req.params;
   console.log("idacte", idacte);
   console.log("id", id);
-  const { dateacte, acte, medecin, comment } = req.body.consultation;
+  const { dateacte, acte, medecin, technicien, comment } = req.body.consultation;
   console.log(req.body.consultation);
   const patient = await Patient.updateOne(
     {
@@ -63,7 +66,8 @@ module.exports.updatePatientActe = async (req, res) => {
       $set: {
         "consultation.$.date": dateacte,
         "consultation.$.acte": acte,
-        "consultation.$.medecin": medecin, 
+        "consultation.$.medecin": medecin,
+        "consultation.$.technicien": technicien, 
         "consultation.$.comment": comment,
       },
     }

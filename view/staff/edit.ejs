@@ -11,7 +11,6 @@
 <div
   class="modal fade"
   id="edit-<%= staff.id %>"
-  
   data-bs-keyboard="false"
   tabindex="-1"
   aria-labelledby="staticBackdropLabel"
@@ -20,7 +19,7 @@
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Modifier Personnelle</h5>
+        <h5 class="modal-title" id="staticBackdropLabel">Modifier Personnel</h5>
         <button
           type="button"
           class="btn-close"
@@ -32,87 +31,136 @@
 
       <div class="modal-body">
         <form
-          class=""
+          class="row g-3 needs-validation"
           action="/staffs/<%= staff.id %>/?_method=PUT"
           id="personal"
           method="POST"
           novalidate
         >
-          <div class="form-floating  mb-3">
+          <div class="form-floating">
             <input
-            id="staffFirstName"
-            name="staff[firstname]"
-            placeholder="firstname"
-            type="text"
-            class="form-control"
-            required
-            autofocus
-            value="<%= staff.firstname %>"
-            />
-            <label for="staffFirstName" class="form-label">Firstname</label>
-          </div>
-          <div class="form-floating  mb-3">
-            <input
-            id="staffLastName"
-            name="staff[lastname]"
-            type="text"
-            placeholder="lastname"
-            class="form-control"
-            required
-            value="<%= staff.lastname%>"
-            />
-            <label for="staffLastName" class="form-label">Lastname</label>
-          </div>
-
-          <div class="form-floating  mb-3">
-            <input id="staffBirthDate" name="staff[birthdate]"
-            placeholder="birthdate" type="date" class="form-control" required
-            value="<%= moment(staff.birthdate).format("YYYY-MM-DD")%>" />
-            <label for="staffBirthDate" class="form-label">Birthdate </label>
-          </div>
-          <div class="form-floating  mb-3">
-            <select
-            id="staffGender"
-            name="staff[gender]"
-            class="form-select"
-            required
-            >
-            <option disabled value="">Gender</option>
-            <% if (staff.gender === 'Male'){%>
-              <option class="option" value="Male" selected>Male</option>
-              <option class="option" value="Female">Female</option>
-              <% }else{ %>
-                <option class="option" value="Male">Male</option>
-                <option class="option" value="Female" selected>Female</option>
-                <% } %>
-              </select>
-              <label for="staffGender" class="form-label">Gender</label>
-          </div>
-
-          <div class="form-floating  mb-3">
-            <input
-            type="text"
+              id="staffLastName"
+              name="staff[lastname]"
+              type="text"
               class="form-control"
-              id="staffPhoneNumber"
-              placeholder="phone"
-              name="staff[phone]"
+              value="<%= staff.lastname %>"
               required
-              value="<%= staff.phone %>"
-              />
-              <label for="staffPhoneNumber" class="form-label">Phone</label>
+            />
+            <label for="staffLastName" class="form-label">Nom</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <div class="form-floating">
+            <input
+              id="staffFirstName"
+              name="staff[firstname]"
+              type="text"
+              class="form-control"
+              value="<%= staff.firstname %>"
+              required
+              autofocus
+            />
+            <label for="staffFirstName" class="form-label">Prénom</label>
+            <div class="valid-feedback">BIEN</div>
           </div>
 
+          <div class="form-floating">
+            <select
+              id="staffFonction"
+              name="staff[fonction]"
+              class="form-select"
+              value="<%= staff.fonction %>"
+              required
+            >
+              <option selected disabled value="">Fonction</option>
+              <% if (staff.fonction === 'Medecin'){%>
+              <option class="option" value="Medecin" selected>Medecin</option>
+              <option class="option" value="technicien">Technicien</option>
+              <option class="option" value="assitant">
+                Assitant(e) Medical(e)
+              </option>
+              <% }else if(staff.fonction === 'technicien'){ %>
+              <option class="option" value="Medecin">Medecin</option>
+              <option class="option" value="technicien" selected>
+                Technicien
+              </option>
+              <option class="option" value="assitant">
+                Assitant(e) Medical(e)
+              </option>
+              <% }else { %>
+              <option class="option" value="Medecin">Medecin</option>
+              <option class="option" value="technicien">Technicien</option>
+              <option class="option" value="assitant" selected>
+                Assitant(e) Medical(e)
+              </option>
+              <% } %>
+            </select>
+            <label for="staffGender" class="form-label">Fonction</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <div class="form-floating">
+            <div class="d-flex align-item-start form-check form-switch ms-2">
+              <% if (staff.externe === 'externe'){%>
+              <input
+                class="form-check-input me-2"
+                type="checkbox"
+                name="staff[externe]"
+                value="externe"
+                role="switch"
+                id="externe"
+                checked
+              />
+              <% }else{ %>
+              <input
+                class="form-check-input me-2"
+                type="checkbox"
+                name="staff[externe]"
+                value="externe"
+                role="switch"
+                id="externe"
+              />
+              <% } %>
+              <label class="form-check-label" for="externe">Externe</label>
+              <div class="valid-feedback">BIEN</div>
+            </div>
+          </div>
+
+          <div class="form-floating">
+            <input
+              type="text"
+              class="form-control"
+              id="stafemail"
+              name="staff[email]"
+              value="<%= staff.email %>"
+            />
+            <label for="staffemail" class="form-label">Email</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <div class="form-floating">
+            <input
+              type="text"
+              class="form-control"
+              id="staffPhone"
+              name="staff[phone]"
+              value="<%= staff.phone %>"
+            />
+            <label for="staffPhone" class="form-label">Téléphone</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
           <div class="modal-footer mt-3">
             <button
-            type="button"
-            class="btn btn-outline-danger"
-            data-bs-dismiss="modal"
+              type="button"
+              class="btn btn-outline-danger"
+              data-bs-dismiss="modal"
             >
-            Annuler
-          </button>
-          <button type="submit" id="staff-edit" class="btn btn-outline-warning">
-            Modifier 
-          </button>
+              Annuler
+            </button>
+            <button
+              type="submit"
+              id="staff-edit"
+              class="btn btn-outline-warning"
+            >
+              Modifier
+            </button>
           </div>
         </form>
       </div>

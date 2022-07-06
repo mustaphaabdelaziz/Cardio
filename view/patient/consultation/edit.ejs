@@ -1,65 +1,101 @@
-<button type="button" class="me-3 btn btn-outline-warning px-2 py-1" data-bs-toggle="modal"
-  data-bs-target="#editCons-<%=consultation.id %>">
+<button
+  type="button"
+  class="me-3 btn btn-outline-warning px-2 py-1"
+  data-bs-toggle="modal"
+  data-bs-target="#editCons-<%=consultation.id %>"
+>
   <i class="bi bi-pencil-fill"></i>
 </button>
 
 <!-- Modal -->
-<div class="modal fade" id="editCons-<%= consultation.id %>" data-bs-keyboard="false"
-  tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div
+  class="modal fade"
+  id="editCons-<%= consultation.id %>"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="staticBackdropLabel">Modification Acte</h5>
-        <button 
-        type="button" 
-        class="btn-close" 
-        data-bs-dismiss="modal" 
-        aria-label="Close" 
-        required>
-        </button>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          required
+        ></button>
       </div>
 
       <div class="modal-body">
         <form 
-        class="" 
         action="/patient/<%= patient.id %>/acte/<%= consultation.id %>?_method=PUT" 
         method="POST"
         id="personal" 
         class="needs-validation"
         novalidate>
           <div class="form-floating mb-3">
-            <input 
-            class="form-control" 
-            type="date" 
-            id="dateacte" 
-            name="consultation[dateacte]"
-            placeholder="date de l'acte" 
-            required autofocus 
+            <input class="form-control" type="date" id="dateacte"
+            name="consultation[dateacte]" placeholder="date de l'acte" required
+            autofocus
             value="<%=moment(consultation.date).format("YYYY-MM-DD")%>"/>
             <label for="dateacte" class="form-labelfs-6">Date de l'acte</label>
             <div class="valid-feedback">BIEN</div>
           </div>
 
           <div class="form-floating mb-3">
-            <select 
-            id="medecin"
-            name="consultation[medecin]" 
-            class="form-select" 
-            required>
-            <option  disabled value="">Medecin</option>
-            <% if (consultation.medecin === 'Dr.TOUATI'){%>
-              <option class="option" value="Dr.TOUATI"selected>Dr.TOUATI</option>
-            <%}%>
+            <select
+              id="medecin"
+              name="consultation[medecin]"
+              class="form-select"
+              required
+            >
+              <option disabled value="" selected>Medecin</option>
+              <% for(medecin of medecins ){ %>
+                <% if(consultation.medecin===medecin.lastname) {%> 
+              <option class="option" value="<%= medecin.lastname%>" selected>Dr. <%= medecin.lastname.toUpperCase()%></option>
+                <% } else { %>
+                  <option class="option" value="<%= medecin.lastname%>">Dr. <%= medecin.lastname.toUpperCase()%></option>
+                   <% } %>
+              <% } %>
             </select>
-            
 
             <label for="medecin" class="form-label">Medecin</label>
             <div class="valid-feedback">BIEN</div>
           </div>
 
           <div class="form-floating mb-3">
-            <select id="acte" name="consultation[acte]" class="form-select" required>
-              <option disabled value="">Acte</option>
+            <select
+              id="technicien"
+              name="consultation[technicien]"
+              class="form-select"
+              required
+            >
+              <option class="option" value="" disabled selected>Technicen</option>
+              <option class="option" value="/">/</option>
+              <% for(technicien of techniciens ){ %>
+                <% if(consultation.technicien===technicien.fullname) {%> 
+              <option class="option" value="<%= technicien.fullname%>" selected><%= technicien.fullname.toUpperCase()%></option>
+                <% } else { %>
+                  <option class="option" value="<%= technicien.fullname%>"><%= technicien.fullname.toUpperCase()%></option>
+                   <% } %>
+              <% } %>
+            </select>
+
+            <label for=technicien" class="form-label">Technicien</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+
+          <div class="form-floating mb-3">
+            <select
+              id="acte"
+              name="consultation[acte]"
+              class="form-select"
+              required
+            >
+              <option disabled>Acte</option>
               <% switch (consultation.acte) { case "Consultation" :%>
               <option class="option" value="Consultation" selected>
                 Consultation
@@ -84,29 +120,38 @@
           </div>
 
           <div class="mb-2">
-            <textarea 
-            class="form-control"
-            name="consultation[comment]"
-            id="editcomment"
-            rows="4"
-            placeholder="Commentraire"
+            <textarea
+              class="form-control"
+              name="consultation[comment]"
+              id="editcomment"
+              rows="4"
+              placeholder="Commentraire"
             ><%=consultation.comment%></textarea>
           </div>
 
           <div class="modal-footer mt-3">
             <button
-            type="button"
-            class="btn btn-outline-danger"
-            data-bs-dismiss="modal"
+              type="button"
+              class="btn btn-outline-danger"
+              data-bs-dismiss="modal"
             >
-            Annuler
-          </button>
-          <button type="submit" id="patient-register" class="btn btn-outline-warning">
-            Modifier 
-          </button>
+              Annuler
+            </button>
+            <button
+              type="submit"
+              id="patient-register"
+              class="btn btn-outline-warning"
+            >
+              Modifier
+            </button>
           </div>
         </form>
       </div>
     </div>
   </div>
 </div>
+
+<script>
+  const tabib ='<%- consultation.medecin %>'
+
+</script>
