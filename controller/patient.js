@@ -382,7 +382,7 @@ module.exports.generatePatientpdf = async (req, res) => {
   });
 
   pdfDoc = pdfmake.createPdfKitDocument(listTableDocs, {});
-  await pdfDoc.pipe(fs.createWriteStream(`${patient.fullname}.pdf`));
+  await pdfDoc.pipe(fs.createWriteStream("patient.pdf"));
   // pdfDoc.createPdf(listTableDocs).open({}, win);
   pdfDoc.end();
   pdfDoc.pipe(res);
