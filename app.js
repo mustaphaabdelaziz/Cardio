@@ -52,13 +52,8 @@ app.use("/patient/:id/acte", consultationRoutes)
 app.use("/acte", acteRoutes)
 // ========================================================
 app.get("/", (req, res) => {
-  console.log("dfgdfgdfg")
   res.render("home");
 });
-
-app.get("/generateReport", (req, res) => {
- 
-})
 const port = 8000;
 
 app.listen(port, () => {

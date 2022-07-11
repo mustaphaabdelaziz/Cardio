@@ -1,5 +1,7 @@
 <% layout('layouts/boilerplate')%>
-
+<script>
+  const ps = {patients:<%-JSON.stringify(patients)%>}
+</script>
 <div class="container mt-4">
   <div class="col m-auto bg-light rounded-5 p-2">
     <h3 class="mb-4 text-center text-success">Liste des patients</h3>
@@ -56,9 +58,17 @@
           <option class="option" value="no-acte">No Acte</option>
         </select>
 
-        <label id="hide" for="nextacte" class="form-label">Prochaine Acte</label>
+        <label id="hide" for="nextacte" class="form-label"
+          >Prochaine Acte</label
+        >
         <div class="valid-feedback">BIEN</div>
       </div>
+      <a
+        class="btn btn-outline-secondary py-3 px-2"
+        href="/patient/generatepdf"
+        target="_blank"
+        >Imprimer <i class="bi bi-printer-fill py-3 px-2"></i>
+      </a>
     </div>
   </div>
   <form class="d-flex mt-2">

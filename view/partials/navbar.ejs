@@ -1,8 +1,10 @@
-<nav class="navbar navbar-expand-lg sticky-top navbar-light bg-light opacity-10 shadow-sm m-0 p-0">
+<nav
+  class="navbar navbar-expand-lg sticky-top navbar-light bg-light opacity-10 shadow-sm m-0 p-0"
+>
   <div class="container-fluid">
     <a class="navbar-brand fw-bold text-light" href="/">
       <img
-      id="assest"
+        id="assest"
         src="/assets/logo.png"
         alt=""
         width="80"
@@ -36,57 +38,65 @@
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-          Patient
+            Patient
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li>
               <a class="dropdown-item" href="/patient/new">Nouveau patient</a>
             </li>
-         
+
             <li>
               <a class="dropdown-item" href="/patient">Liste des patients</a>
             </li>
           </ul>
-        
         </li>
         <li class="nav-item dropdown">
-          <a  class="nav-link dropdown-toggle"
-          href="#"
-          id="navbarDropdown"
-          role="button"
-          data-bs-toggle="dropdown"
-          aria-expanded="false">Acte</a>
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="navbarDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            >Acte</a
+          >
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li >
-              <a class="dropdown-item" href="/acte/Consultation">Liste des consultations</a>
-              <a class="dropdown-item" href="/acte/Chirurgie">Liste des chirurgies</a>
+            <li>
+              <a class="dropdown-item" href="/acte/Consultation"
+                >Liste des consultations</a
+              >
+              <a class="dropdown-item" href="/acte/Chirurgie"
+                >Liste des chirurgies</a
+              >
               <a class="dropdown-item" href="/acte/KT">Liste des KT</a>
             </li>
           </ul>
         </li>
         <li class="nav-item dropdown">
-          <a  class="nav-link dropdown-toggle"
-          href="#"
-          id="navbarDropdown"
-          role="button"
-          data-bs-toggle="dropdown"
-          aria-expanded="false">Personel</a>
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="navbarDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            >Personel</a
+          >
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li >
+            <li>
               <a class="dropdown-item" href="/staffs">Liste des Personels</a>
               <!-- <a class="dropdown-item" href="/praticiens">Liste Praticiens</a> -->
-              
             </li>
           </ul>
         </li>
-      
-        
       </ul>
-      
-      <button class="btn btn-outline-secondary" id="printPDF" onclick="printPDF()">Imprimer <i class="bi bi-printer-fill py-3 px-2"></i></button>
-      <!-- <a class="btn btn-outline-secondary" href="/patient/generatepdf">Imprimer <i class="bi bi-printer-fill py-3 px-2"></i></a> -->
-      
-      
+
+      <a
+        class="btn btn-outline-secondary"
+        href="/patient/generatepdf"
+        target="_blank"
+        >Imprimer <i class="bi bi-printer-fill py-3 px-2"></i
+      ></a>
     </div>
   </div>
 </nav>

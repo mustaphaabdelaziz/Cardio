@@ -10,9 +10,11 @@ const {
   updatePatient,
   generatepdf,
   createandreturn,
+  generatePatientpdf
 } = require("../controller/patient");
 
 router.route("/generatepdf").get(catchAsync(generatepdf));
+router.route("/generatepdf/:id").get(catchAsync(generatePatientpdf));
 router.route("/new").get(creationform)
 router.route("/").get(listepatient).post(createpatient);
 router.route("/patient/new").post(createandreturn)

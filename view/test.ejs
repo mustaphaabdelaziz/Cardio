@@ -5,18 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <script src="build/pdfmake.min.js"></script>
-    <script src="build/vfs_fonts.js"></script>
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
   </head>
   <body>
-    <div class="container mt-4">
-      <div class="col m-auto bg-light rounded-5 p-2">
+    <div>
+      <div>
         <h1>Patient Liste</h1>
-        <table
-          class="table table-striped table-hover table-borderless text-center sortable"
-          id="patientTable"
-        >
-          <thead class="table-success">
+        <table>
+          <thead>
             <tr>
               <th scope="col">N°</th>
               <th scope="col">Nom</th>
@@ -26,11 +22,11 @@
               <th scope="col">Téléphone</th>
               <th scope="col">Dérniere acte</th>
               <th scope="col">Prochaine acte</th>
-              <th id="hide" scope="col">Ajouter Acte</th>
-              <th id="hide" scope="col">Action</th>
+              <th scope="col">Ajouter Acte</th>
+              <th scope="col">Action</th>
             </tr>
           </thead>
-          <tbody id="tablebody">
+          <tbody>
             <% var i=1 %> <% for (patient of patients){%>
             <tr>
               <th scope="row"><%= i%><% i=i+1; %></th>
