@@ -8,8 +8,9 @@ const {
   showStaff,
   deleteStaff,
   updateStaff,
+  generatepdf,
 } = require("../controller/staff");
-
+router.route("/generatepdf").get(catchAsync(generatepdf));
 router.route("/new").get(creationform);
 router.route("/").get(listeStaff).post(createStaff);
 router

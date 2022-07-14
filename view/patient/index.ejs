@@ -1,11 +1,10 @@
 <% layout('layouts/boilerplate')%>
-<script>
-  const ps = {patients:<%-JSON.stringify(patients)%>}
-</script>
+
 <div class="container mt-4">
   <div class="col m-auto bg-light rounded-5 p-2">
     <h3 class="mb-4 text-center text-success">Liste des patients</h3>
     <div class="d-flex mb-2 justify-content-center">
+      <%- include("./newModal")%>
       <div class="form-floating col-2 me-2">
         <select
           id="age"
