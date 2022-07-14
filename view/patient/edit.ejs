@@ -38,6 +38,19 @@
           class="needs-validation"
           novalidate
         >
+        <div class="form-floating  mb-3">
+          <input
+          id="patientLastName"
+          name="patient[lastname]"
+          type="text"
+          placeholder="Nom"
+          class="form-control"
+          required
+          value="<%= patient.lastname%>"
+          />
+          <label for="patientLastName" class="form-label">Nom</label>
+          <div class="valid-feedback">BIEN</div>
+        </div>
           <div class="form-floating  mb-3">
             <input
             id="patientFirstName"
@@ -52,19 +65,7 @@
             <label for="patientFirstName" class="form-label">Prénom</label>
             <div class="valid-feedback">BIEN</div>
           </div>
-          <div class="form-floating  mb-3">
-            <input
-            id="patientLastName"
-            name="patient[lastname]"
-            type="text"
-            placeholder="Nom"
-            class="form-control"
-            required
-            value="<%= patient.lastname%>"
-            />
-            <label for="patientLastName" class="form-label">Nom</label>
-            <div class="valid-feedback">BIEN</div>
-          </div>
+          
 
           <div class="form-floating  mb-3">
             <input id="patientBirthDate" name="patient[birthdate]"

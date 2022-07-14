@@ -9,6 +9,7 @@ var fonts = {
     bolditalics: "fonts/roboto/Roboto-MediumItalic.ttf",
   },
 };
+ 
 
 const moment = require("moment");
 const Staff = require("../model/staff");
@@ -94,8 +95,15 @@ module.exports.generatepdf = async (req, res) => {
   const patients = await Patient.find({});
   let pdfmake = new Pdfmake(fonts);
   let listTableDocs = {
-    header:{
-      image: "public/assets/en-tete.png",width:580,height:100, margin: [20,10,20,80],
+    pageSize: "A4",
+    pageOrientation: "portrait",
+    // [left, top, right, bottom]
+    pageMargins: [20, 55, 20, 80],
+    header: {
+      image: "public/assets/en-tete.png",
+      width: 590,
+      height: 80,
+      margin: [0, 05, 0, 20],
     },
     content: [
       // { image: "public/assets/en-tete.png"},
@@ -110,13 +118,13 @@ module.exports.generatepdf = async (req, res) => {
         fontSize: 25,
         bold: true,
         alignment: "center",
-        margin: [0, 150, 0, 20],
+        margin: [0, 50, 0, 0],
       },
       subheader: {
         fontSize: 12,
         alignment: "center",
         // [left, top, right, bottom]
-        margin: [30, 10, 30, 10],
+        margin: [30, 05, 30, 10],
         color: "#4caf82",
       },
       tableHeader: { bold: true, fontSize: 13, color: "#4caf82" },
@@ -124,7 +132,7 @@ module.exports.generatepdf = async (req, res) => {
         fontSize: 11,
         alignment: "center",
         // [left, top, right, bottom]
-        margin: [0, 10, 0, 10],
+        margin: [20, 10, 10, 10],
         color: "#061e30",
       },
       text: {
@@ -220,33 +228,47 @@ module.exports.generatePatientpdf = async (req, res) => {
   const patient = await Patient.findById(id);
   console.log(patient.fullname);
   let pdfmake = new Pdfmake(fonts);
+
   let listTableDocs = {
     pageSize: "A4",
     pageOrientation: "portrait",
     // [left, top, right, bottom]
     pageMargins: [20, 80, 20, 80],
-    header:{
-      image: "public/assets/en-tete.png",width:580,height:100, margin: [20,10,20,80],
+    header: {
+      image: "public/assets/en-tete.png",
+      width: 590,
+      height: 80,
+      margin: [0, 10, 0, 80],
     },
 
     content: [
       {
-        color: "#1e4620",
+        color: "#061e30",
         margin: [30, 50, 0, 10],
         columns: [
           // column 1
           {
             // auto-sized columns have their widths based on their content
             width: "*",
+            stack: [
+              { text: `${patient.fullname.toUpperCase()}` },
+              {
+                qr: `http://192.168.1.78:8000/patient/${patient.id}`,
+                fit: '120',
+                foreground: "#1e3444",
+                margin: [10, 10, 10, 10],
+                alignment: "center",
+              },
+            ],
             text: `${patient.fullname.toUpperCase()}`,
-            fontSize: 26,
+            fontSize: 22,
           },
           // column 2
           {
             // star-sized columns fill the remaining space
             // if there's more than one star-column, available width is divided equally
             width: "*",
-            fontSize: 16,
+            fontSize: 13,
             columns: [
               {
                 width: "*",
@@ -267,7 +289,7 @@ module.exports.generatePatientpdf = async (req, res) => {
                   `${patient.phone}`,
                   `${patient.nextacte.acte}`,
                   `${moment(patient.nextacte.date).format("DD/MM/YYYY")}`,
-                  `${patient.medecinref}`,
+                  `Dr. ${patient.medecinref}`,
                 ],
               },
             ],
@@ -301,7 +323,7 @@ module.exports.generatePatientpdf = async (req, res) => {
         fontSize: 13,
         color: "#061e30",
         fillOpacity: 0.3,
-        fillColor: ["stripe45d", "#2196f3"],
+        fillColor: ["stripe45d", "#1e4620"],
       },
       table: {
         fontSize: 11,
@@ -367,21 +389,10 @@ module.exports.generatePatientpdf = async (req, res) => {
       }),
     ],
   };
-  var qrCode = {
-    // colored QR
-    qr: "text in QR",
-    foreground: "red",
-    background: "yellow",
-  };
+
   listTableDocs["content"].push({
     table: table,
     style: "table",
-  });
-  listTableDocs["content"].push({
-    qr: `${patient.id}`,
-    foreground: "#1e3444",
-    alignment: "right",
-    margin: [0, 80, 0, 10],
   });
 
   pdfDoc = pdfmake.createPdfKitDocument(listTableDocs, {});

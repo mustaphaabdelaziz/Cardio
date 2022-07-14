@@ -47,6 +47,7 @@
             <th scope="col">Medecin</th>
             <th scope="col">Technicien</th>
             <th scope="col">Date acte</th>
+            <th scope="col">Commentaire</th>
 
 
           </tr>
@@ -82,6 +83,9 @@
             <td class="clickable " onclick="window.location='/patient/<%=patient.id%>'">
               <%=moment(consultation.date).format("DD/MM/YYYY")%>
             </td>
+            <td class="text-center data">
+              <%-include("../commentViewer")%>
+          </td>
           </tr>
           <% }}}%>
         </tbody>

@@ -1,11 +1,11 @@
 <button
   id="item2"
   type="button"
-  class="btn btn-outline-success me-2"
+  class="btn btn-outline-success ms-2"
   data-bs-toggle="modal"
   data-bs-target="#newPatient"
 >
-  <i class="bi bi-person-plus-fill me-2"></i>Nouveau patient
+Nouveau patient <i class="bi bi-person-plus-fill me-2"></i>
 </button>
 
 <!-- Modal -->
@@ -39,6 +39,18 @@
           autocomplete="off"
           novalidate
         >
+          
+          <div class="form-floating col-md-6">
+            <input
+              id="patientLastName"
+              name="patient[lastname]"
+              type="text"
+              class="form-control"
+              required
+            />
+            <label for="patientLastName" class="form-label">Nom</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
           <div class="form-floating col-md-6">
             <input
               id="patientFirstName"
@@ -49,17 +61,6 @@
               autofocus
             />
             <label for="patientFirstName" class="form-label">Prénom</label>
-            <div class="valid-feedback">BIEN</div>
-          </div>
-          <div class="form-floating col-md-6">
-            <input
-              id="patientLastName"
-              name="patient[lastname]"
-              type="text"
-              class="form-control"
-              required
-            />
-            <label for="patientLastName" class="form-label">Nom</label>
             <div class="valid-feedback">BIEN</div>
           </div>
 
