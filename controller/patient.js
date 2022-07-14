@@ -94,8 +94,11 @@ module.exports.generatepdf = async (req, res) => {
   const patients = await Patient.find({});
   let pdfmake = new Pdfmake(fonts);
   let listTableDocs = {
+    header:{
+      image: "public/assets/en-tete.png",width:580,height:100, margin: [20,10,20,80],
+    },
     content: [
-      { image: "public/assets/logo.png", height: 80, width: 80 },
+      // { image: "public/assets/en-tete.png"},
       {
         text: "Liste Des Patients",
         style: "header",
@@ -107,7 +110,7 @@ module.exports.generatepdf = async (req, res) => {
         fontSize: 25,
         bold: true,
         alignment: "center",
-        margin: [0, 30, 0, 20],
+        margin: [0, 150, 0, 20],
       },
       subheader: {
         fontSize: 12,
@@ -222,14 +225,14 @@ module.exports.generatePatientpdf = async (req, res) => {
     pageOrientation: "portrait",
     // [left, top, right, bottom]
     pageMargins: [20, 80, 20, 80],
-    header: {
-      columns: [{ image: "public/assets/logo.png", height: 80, width: 80 }],
+    header:{
+      image: "public/assets/en-tete.png",width:580,height:100, margin: [20,10,20,80],
     },
 
     content: [
       {
         color: "#1e4620",
-        margin: [0, 10, 0, 10],
+        margin: [30, 50, 0, 10],
         columns: [
           // column 1
           {
