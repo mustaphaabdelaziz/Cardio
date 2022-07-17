@@ -43,8 +43,8 @@
             <th scope="col">Nom</th>
             <th scope="col">Prénom</th>
             <th scope="col">Age</th>
-            <th scope="col">Gender</th>
-            <th scope="col">Medecin</th>
+            <th scope="col">Téléphone</th>
+             <th scope="col">Medecin</th>
             <th scope="col">Technicien</th>
             <th scope="col">Date acte</th>
             <th scope="col">Commentaire</th>
@@ -69,12 +69,12 @@
               <%=patient.firstname.toUpperCase()%>
             </td>
             <td class="clickable " onclick="window.location='/patient/<%=patient.id%>'">
-              <%= patient.age%> Ans
+              <%= patient.age%>
             </td>
             <td class="clickable " onclick="window.location='/patient/<%=patient.id%>'">
-              <%=patient.gender%>
+              <%= patient.phone%>
             </td>
-            <td class="clickable " onclick="window.location='/patient/<%=patient.id%>'">
+             <td class="clickable " onclick="window.location='/patient/<%=patient.id%>'">
              Dr. <%=consultation.medecin.toUpperCase()%>
             </td>
             <td class="clickable " onclick="window.location='/patient/<%=patient.id%>'">

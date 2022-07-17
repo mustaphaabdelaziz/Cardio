@@ -9,7 +9,6 @@ var fonts = {
     bolditalics: "fonts/roboto/Roboto-MediumItalic.ttf",
   },
 };
- 
 
 const moment = require("moment");
 const Staff = require("../model/staff");
@@ -31,7 +30,7 @@ module.exports.showpatient = async (req, res) => {
   // get the patient id from the patients table
   const { id } = req.params;
   const medecins = await Staff.find({ fonction: "Medecin" });
-  const techniciens = await Staff.find({ fonction: "technicien" });
+  const techniciens = await Staff.find({ fonction: "technicien cathlab" });
   // find the patient in the database
   const patient = await Patient.findById(id);
   // send it to the client
@@ -40,14 +39,32 @@ module.exports.showpatient = async (req, res) => {
 };
 
 module.exports.createpatient = async (req, res) => {
-  var { firstname, lastname, birthdate, gender, medecinref, phone } =
-    req.body.patient;
-
-  const patient = new Patient({
+  var {
     firstname,
     lastname,
+    father,
+    birthdate,
+    gender,
+    medecinref,
+    phone,
+    phone2,
+  } = req.body.patient;
+  if (phone2 === "") {
+    phone2 = "/";
+  }
+  if (father === "") {
+    father = "/";
+  }
+
+  const patient = new Patient({
+    firstname:
+      firstname.charAt(0).toUpperCase() + firstname.slice(1).toLowerCase(),
+    lastname:
+      lastname.charAt(0).toUpperCase() + lastname.slice(1).toLowerCase(),
+    father: father.charAt(0).toUpperCase() + father.slice(1).toLowerCase(),
     birthdate,
     phone,
+    phone2,
     medecinref,
     gender,
   });
@@ -56,14 +73,33 @@ module.exports.createpatient = async (req, res) => {
   res.redirect("/patient");
 };
 module.exports.createandreturn = async (req, res) => {
-  var { firstname, lastname, birthdate, gender, medecinref, phone } =
-    req.body.patient;
-
-  const patient = new Patient({
+  var {
     firstname,
     lastname,
+    father,
+    birthdate,
+    gender,
+    medecinref,
+    phone,
+    phone2,
+  } = req.body.patient;
+
+  if (phone2 === "") {
+    phone2 = "/";
+  }
+  if (father === "") {
+    father = "/";
+  }
+
+  const patient = new Patient({
+    firstname:
+      firstname.charAt(0).toUpperCase() + firstname.slice(1).toLowerCase(),
+    lastname:
+      lastname.charAt(0).toUpperCase() + lastname.slice(1).toLowerCase(),
+    father: father.charAt(0).toUpperCase() + father.slice(1).toLowerCase(),
     birthdate,
     phone,
+    phone2,
     medecinref,
     gender,
   });
@@ -77,9 +113,39 @@ module.exports.showEditForm = async (req, res) => {
 };
 module.exports.updatePatient = async (req, res) => {
   const { id } = req.params;
-  const { patient } = req.body;
+  var {
+    firstname,
+    lastname,
+    father,
+    birthdate,
+    gender,
+    medecinref,
+    phone,
+    phone2,
+  } = req.body.patient;
+  if (phone2 === "") {
+    phone2 = "/";
+  }
+  if (father === "") {
+    father = "/";
+  }
 
-  await Patient.findByIdAndUpdate(id, { ...patient }, { new: true });
+  await Patient.findByIdAndUpdate(
+    id,
+    {
+      firstname:
+        firstname.charAt(0).toUpperCase() + firstname.slice(1).toLowerCase(),
+      lastname:
+        lastname.charAt(0).toUpperCase() + lastname.slice(1).toLowerCase(),
+      father: father.charAt(0).toUpperCase() + father.slice(1).toLowerCase(),
+      birthdate,
+      phone,
+      phone2,
+      medecinref,
+      gender,
+    },
+    { new: true }
+  );
   req.flash("success", "Patient a été modifié avec succès");
   res.redirect("back");
 };
@@ -118,7 +184,8 @@ module.exports.generatepdf = async (req, res) => {
         fontSize: 25,
         bold: true,
         alignment: "center",
-        margin: [0, 50, 0, 0],
+        margin: [0, 80, 0, 20],
+        color: "#061e30",
       },
       subheader: {
         fontSize: 12,
@@ -127,7 +194,13 @@ module.exports.generatepdf = async (req, res) => {
         margin: [30, 05, 30, 10],
         color: "#4caf82",
       },
-      tableHeader: { bold: true, fontSize: 13, color: "#4caf82" },
+      tableHeader: {
+        bold: true,
+        fontSize: 13,
+        color: "#061e30",
+        fillOpacity: 0.1,
+        fillColor: ["stripe45d", "#1e4620"],
+      },
       table: {
         fontSize: 11,
         alignment: "center",
@@ -149,7 +222,18 @@ module.exports.generatepdf = async (req, res) => {
     // you can declare how many rows should be treated as headers
     headerRows: 1,
     // widths:number of columns in the table here we have 8 columns
-    widths: ["auto", "auto", "auto", "auto", "auto", "auto", "auto", "auto"],
+    widths: [
+      "auto",
+      "auto",
+      "auto",
+      "auto",
+      "auto",
+      "auto",
+      "auto",
+      "auto",
+      "auto",
+      "auto",
+    ],
 
     body: [
       [
@@ -170,6 +254,12 @@ module.exports.generatepdf = async (req, res) => {
         },
 
         {
+          text: "Father",
+          style: "tableHeader",
+          // rowSpan: 3,
+        },
+
+        {
           text: "Age",
           style: "tableHeader",
           // rowSpan: 3,
@@ -180,10 +270,16 @@ module.exports.generatepdf = async (req, res) => {
           // rowSpan: 3,
         },
         {
-          text: "Téléphone",
+          text: "Téléphone 1",
           style: "tableHeader",
           // rowSpan: 3,
         },
+        {
+          text: "Téléphone 2",
+          style: "tableHeader",
+          // rowSpan: 3,
+        },
+
         {
           text: "Dérnier Acte",
           style: "tableHeader",
@@ -201,9 +297,11 @@ module.exports.generatepdf = async (req, res) => {
           index + 1,
           patient.lastname,
           patient.firstname,
+          patient.father,
           patient.age,
           patient.gender,
           patient.phone,
+          patient.phone2,
           patient.lastacte.acte,
           patient.nextacte.acte,
         ];
@@ -226,7 +324,13 @@ module.exports.generatePatientpdf = async (req, res) => {
   const { id } = req.params;
   console.log(id);
   const patient = await Patient.findById(id);
-  console.log(patient.fullname);
+  var date ;
+  if(patient.nextacte.date==="Rien"){
+    date = "/";
+  }else{
+    date = moment(patient.nextacte.date).format("DD/MM/YYYY");
+  }
+
   let pdfmake = new Pdfmake(fonts);
 
   let listTableDocs = {
@@ -243,28 +347,50 @@ module.exports.generatePatientpdf = async (req, res) => {
 
     content: [
       {
+        columns: [
+          {
+            // width: "*",
+            text: "Fiche Patient:",
+            fontSize: 18,
+            alignment: "left",
+            margin: [0, 30, 0, 0],
+            bold: true,
+          },
+          {
+            // width: 100,
+            text: `${patient.fullname.toUpperCase()}`,
+            alignment: "left",
+            margin: [0, 30, 0, 0],
+            fontSize: 18,
+            alignment: "left",
+          },
+        ],
+      },
+      // {
+      //   text: `${patient.fullname.toUpperCase()}`,
+      //   color: "#061e30",
+      //   margin: [30, 0, 0, 10],
+      //   fontSize: 22,
+      //   alignment: "center",
+      // },
+      {
         color: "#061e30",
-        margin: [30, 50, 0, 10],
+        margin: [30, 20, 0, 10],
+
         columns: [
           // column 1
           {
             // auto-sized columns have their widths based on their content
             width: "*",
-            stack: [
-              { text: `${patient.fullname.toUpperCase()}` },
-              {
-                qr: `http://192.168.1.78:8000/patient/${patient.id}`,
-                fit: '120',
-                foreground: "#1e3444",
-                margin: [10, 10, 10, 10],
-                alignment: "center",
-              },
-            ],
-            text: `${patient.fullname.toUpperCase()}`,
-            fontSize: 22,
+            qr: `http://oasis-cardiologie.ddns.net:8000/patient//generatepdf/${patient.id}`,
+            fit: "80",
+            foreground: "#1e3444",
+            // margin: [0, 0, 10, 0],
+            alignment: "center",
           },
           // column 2
           {
+            alignment: "left",
             // star-sized columns fill the remaining space
             // if there's more than one star-column, available width is divided equally
             width: "*",
@@ -283,13 +409,15 @@ module.exports.generatePatientpdf = async (req, res) => {
                 bold: true,
               },
               {
+                // margin: [30, 0, 20, 0],
+                // alignment: "left",
                 width: "*",
                 stack: [
-                  `${patient.age} ans`,
+                  `${patient.age}`,
                   `${patient.phone}`,
                   `${patient.nextacte.acte}`,
-                  `${moment(patient.nextacte.date).format("DD/MM/YYYY")}`,
-                  `Dr. ${patient.medecinref}`,
+                  `${date}`,
+                  `${patient.drlastname}`,
                 ],
               },
             ],
@@ -322,7 +450,7 @@ module.exports.generatePatientpdf = async (req, res) => {
         bold: true,
         fontSize: 13,
         color: "#061e30",
-        fillOpacity: 0.3,
+        fillOpacity: 0.1,
         fillColor: ["stripe45d", "#1e4620"],
       },
       table: {

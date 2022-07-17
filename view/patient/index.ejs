@@ -90,9 +90,10 @@
         <th scope="col">N°</th>
         <th scope="col">Nom</th>
         <th scope="col">Prénom</th>
+        <th scope="col">Père</th>
         <th scope="col">Age</th>
-        <th scope="col">Gender</th>
-        <th scope="col">Téléphone</th>
+        <th scope="col">Tél 1</th>
+        <th scope="col">Tél 2</th>
         <th scope="col">Dérniere acte</th>
         <th scope="col">Prochaine acte</th>
         <th id="hide" scope="col">Ajouter Acte</th>
@@ -114,13 +115,19 @@
           class="clickable"
           onclick="window.location='/patient/<%=patient.id%>'"
         >
-          <%= patient.lastname.toUpperCase()%>
+          <%= patient.lastname %>
         </td>
         <td
           class="clickable"
           onclick="window.location='/patient/<%=patient.id%>'"
         >
-          <%=patient.firstname.toUpperCase()%>
+          <%=patient.firstname %>
+        </td>
+        <td
+          class="clickable"
+          onclick="window.location='/patient/<%=patient.id%>'"
+        >
+          <%=patient.father %>
         </td>
         <td
           class="clickable"
@@ -128,17 +135,18 @@
         >
           <%=patient.age%>
         </td>
-        <td
-          class="clickable"
-          onclick="window.location='/patient/<%=patient.id%>'"
-        >
-          <%=patient.gender%>
-        </td>
+       
         <td
           class="clickable"
           onclick="window.location='/patient/<%=patient.id%>'"
         >
           <%=patient.phone%>
+        </td>
+        <td
+          class="clickable"
+          onclick="window.location='/patient/<%=patient.id%>'"
+        >
+          <%=patient.phone2%>
         </td>
         <td
           class="clickable"

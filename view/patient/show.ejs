@@ -11,7 +11,7 @@
                 <div class="d-flex">
                     <div class="col d-flex m-auto">
                         <h2>
-                            <%=patient.fullname.toUpperCase() %>
+                            <%=patient.fullname  %>
 
                         </h2>
                         <div class="ms-2">
@@ -25,17 +25,25 @@
                     </div>
                     <div class="col-2 mt-2">
                         <p>Age:</p>
-                        <p>Téléphone:</p>
+                        <p>Genre:</p>
+                        <p>Téléphone 1:</p>
+                        <p>Téléphone 2:</p>
                         <p>Prochaine acte:</p>
                         <p>Date:</p>
                         <p>Medecin Ref:</p>
                     </div>
                     <div class="col-2 mt-2">
                         <p>
-                            <%=patient.age%> ans
+                            <%=patient.age%>
+                        </p>
+                        <p>
+                            <%=patient.gender%>
                         </p>
                         <p>
                             <%=patient.phone%>
+                        </p>
+                        <p>
+                            <%=patient.phone2%>
                         </p>
                         <p>
                             <%=patient.nextacte.acte%>
@@ -48,7 +56,7 @@
                         <p>/</p>
                         <% } %>
                         <p>
-                            <%=patient.drlastname.toUpperCase()%>
+                            <%=patient.drlastname %>
                         </p>
                     </div>
                 </div>
@@ -88,10 +96,10 @@
                     <%= consultation.acte%>
                 </td>
                 <td class="data">
-                    Dr. <%=consultation.medecin.toUpperCase()%>
+                    Dr. <%=consultation.medecin %>
                 </td>
                 <td class="data">
-                    <%= consultation.technicien.toUpperCase()%>
+                    <%= consultation.technicien %>
                 </td>
                 <td class="data">
                     <%=moment(consultation.date).format("DD/MM/YYYY")%>

@@ -42,8 +42,8 @@ module.exports.createStaff = async (req, res) => {
   }
 
   const staff = new Staff({
-    firstname,
-    lastname,
+    firstname: firstname.charAt(0).toUpperCase() + firstname.slice(1).toLowerCase(),
+    lastname: lastname.charAt(0).toUpperCase() + lastname.slice(1).toLowerCase(),
     fonction,
     phone: phone1,
     email: email1,
@@ -62,23 +62,32 @@ module.exports.updateStaff = async (req, res) => {
     req.body.staff;
   const type = externe;
   let phone1 = phone.trim();
-  let email1 = email.trim();
+    let email1 = email.trim();
   if (phone1 === "") {
     phone1 = "/";
   }
-  if (email1 === "") {
+    if (email1 === "") {
     email1 = "/";
   }
   if (type === "externe") {
     await Staff.findByIdAndUpdate(
       id,
-      { firstname, lastname, fonction, phone:phone1, email:email1, externe},
+      { firstname:firstname.charAt(0).toUpperCase() + firstname.slice(1).toLowerCase(),
+         lastname : lastname.charAt(0).toUpperCase() + lastname.slice(1).toLowerCase(),
+          fonction, phone: phone1, email: email1, externe },
       { new: true }
     );
   } else {
     await Staff.findByIdAndUpdate(
       id,
-      { firstname, lastname, fonction, phone:phone1, email:email1, externe:"interne" },
+      {
+        firstname:firstname.charAt(0).toUpperCase() + firstname.slice(1).toLowerCase(),
+        lastname : lastname.charAt(0).toUpperCase() + lastname.slice(1).toLowerCase(),
+        fonction,
+        phone: phone1,
+        email: email1,
+        externe: "interne",
+      },
       { new: true }
     );
   }
@@ -97,8 +106,15 @@ module.exports.generatepdf = async (req, res) => {
   const staffs = await Staff.find({});
   let pdfmake = new Pdfmake(fonts);
   let listTableDocs = {
-    header:{
-      image: "public/assets/en-tete.png",width:580,height:100, margin: [20,10,20,80],
+    pageSize: "A4",
+    pageOrientation: "portrait",
+    // [left, top, right, bottom]
+    pageMargins: [20, 55, 20, 80],
+    header: {
+      image: "public/assets/en-tete.png",
+      width: 590,
+      height: 80,
+      margin: [0, 05, 0, 20],
     },
     content: [
       // { image: "public/assets/en-tete.png"},
@@ -113,7 +129,8 @@ module.exports.generatepdf = async (req, res) => {
         fontSize: 25,
         bold: true,
         alignment: "center",
-        margin: [0, 150, 0, 20],
+        margin: [0, 80, 0, 20],
+        color: "#061e30",
       },
       subheader: {
         fontSize: 12,
@@ -122,12 +139,18 @@ module.exports.generatepdf = async (req, res) => {
         margin: [30, 10, 30, 10],
         color: "#4caf82",
       },
-      tableHeader: { bold: true, fontSize: 13, color: "#4caf82" },
+      tableHeader: {
+        bold: true,
+        fontSize: 13,
+        color: "#061e30",
+        fillOpacity: 0.1,
+        fillColor: ["stripe45d", "#1e4620"],
+      },
       table: {
         fontSize: 11,
         alignment: "center",
         // [left, top, right, bottom]
-        // margin: [40, 10, 20, 10], 
+        // margin: [40, 10, 20, 10],
         color: "#061e30",
       },
       text: {
@@ -184,7 +207,6 @@ module.exports.generatepdf = async (req, res) => {
           style: "tableHeader",
           // rowSpan: 3,
         },
-       
       ],
       // now data and values
       ...staffs.map((staff, index) => {
@@ -196,7 +218,6 @@ module.exports.generatepdf = async (req, res) => {
           staff.fonction,
           staff.phone,
           staff.email,
-          
         ];
       }),
     ],

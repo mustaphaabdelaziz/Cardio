@@ -43,8 +43,8 @@
           id="patientLastName"
           name="patient[lastname]"
           type="text"
-          placeholder="Nom"
-          class="form-control"
+           class="form-control"
+           style="text-transform: capitalize"
           required
           value="<%= patient.lastname%>"
           />
@@ -55,7 +55,7 @@
             <input
             id="patientFirstName"
             name="patient[firstname]"
-            placeholder="Prénom"
+            style="text-transform: capitalize"
             type="text"
             class="form-control"
             required
@@ -65,11 +65,23 @@
             <label for="patientFirstName" class="form-label">Prénom</label>
             <div class="valid-feedback">BIEN</div>
           </div>
+          <div class="form-floating  mb-3">
+            <input
+            id="father"
+            name="patient[father]"
+            type="text"
+            style="text-transform: capitalize"
+            class="form-control"
+            value="<%= patient.father%>"
+            />
+            <label for="father" class="form-label">Père</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
           
 
           <div class="form-floating  mb-3">
             <input id="patientBirthDate" name="patient[birthdate]"
-            placeholder="Date de Naissance" type="date" class="form-control" required
+           type="date" class="form-control" 
             value="<%= moment(patient.birthdate).format("YYYY-MM-DD")%>" />
             <label for="patientBirthDate" class="form-label">Date de Naissance</label>
           </div>
@@ -98,12 +110,25 @@
             type="text"
               class="form-control"
               id="patientPhoneNumber"
-              placeholder="Téléphone"
+             
               name="patient[phone]"
               required
               value="<%= patient.phone %>"
               />
-              <label for="patientPhoneNumber" class="form-label">Téléphone</label>
+              <label for="patientPhoneNumber" class="form-label">Téléphone 1</label>
+              <div class="valid-feedback">BIEN</div>
+          </div>
+          <div class="form-floating  mb-3">
+            <input
+            type="text"
+              class="form-control"
+              id="patientPhoneNumber2"
+             
+              name="patient[phone2]"
+              
+              value="<%= patient.phone2 %>"
+              />
+              <label for="patientPhoneNumber2" class="form-label">Téléphone 2</label>
               <div class="valid-feedback">BIEN</div>
           </div>
           <div class="form-floating mb-3">
@@ -111,16 +136,16 @@
               id="medeciref"
               name="patient[medecinref]"
               class="form-select"
-              required
+              
             >
               <option disabled value="" selected>Médecin Ref</option>
               <option class="option" value="/">/</option>
               <% for(medecin of medecins ){ %>
 
                 <% if(patient.medecinref===medecin.lastname) {%> 
-              <option class="option" value="<%= medecin.lastname%>" selected>Dr. <%= medecin.lastname.toUpperCase()%></option>
+              <option class="option" value="<%= medecin.lastname%>" selected>Dr. <%= medecin.lastname %></option>
                 <% } else { %>
-                  <option class="option" value="<%= medecin.lastname%>">Dr. <%= medecin.lastname.toUpperCase()%></option>
+                  <option class="option" value="<%= medecin.lastname%>">Dr. <%= medecin.lastname %></option>
                    <% } %>
               <% } %>
             </select>

@@ -25,8 +25,8 @@ module.exports.addActe = async (req, res) => {
     {
       $push: {
         consultation: {
-          medecin: medecin,
-          technicien: technicien,
+          medecin: medecin.charAt(0).toUpperCase() + medecin.slice(1).toLowerCase(),
+          technicien: technicien.charAt(0).toUpperCase() + technicien.slice(1).toLowerCase(),
           date: dateacte,
           acte: acte,
           comment: comment,

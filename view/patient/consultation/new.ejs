@@ -61,7 +61,7 @@
               <% for(medecin of medecins ){ %>
 
               <option class="option" value="<%= medecin.lastname%>">
-                Dr. <%= medecin.lastname.toUpperCase()%>
+                Dr. <%= medecin.lastname %>
               </option>
               <% } %>
             </select>
@@ -81,7 +81,7 @@
               <% for(technicien of techniciens ){ %>
 
               <option class="option" value="<%= technicien.fullname%>">
-                <%=technicien.fullname.toUpperCase()%>
+                <%=technicien.fullname %>
               </option>
               <% } %>
             </select>
@@ -114,6 +114,7 @@
               id="comment"
               rows="4"
               placeholder="Commentaire"
+              style="text-transform: capitalize"
             ></textarea>
           </div>
 

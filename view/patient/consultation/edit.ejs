@@ -55,9 +55,9 @@
               <option disabled value="" selected>Medecin</option>
               <% for(medecin of medecins ){ %>
                 <% if(consultation.medecin===medecin.lastname) {%> 
-              <option class="option" value="<%= medecin.lastname%>" selected>Dr. <%= medecin.lastname.toUpperCase()%></option>
+              <option class="option" value="<%= medecin.lastname%>" selected>Dr. <%= medecin.lastname %></option>
                 <% } else { %>
-                  <option class="option" value="<%= medecin.lastname%>">Dr. <%= medecin.lastname.toUpperCase()%></option>
+                  <option class="option" value="<%= medecin.lastname%>">Dr. <%= medecin.lastname %></option>
                    <% } %>
               <% } %>
             </select>
@@ -77,9 +77,9 @@
               <option class="option" value="/">/</option>
               <% for(technicien of techniciens ){ %>
                 <% if(consultation.technicien===technicien.fullname) {%> 
-              <option class="option" value="<%= technicien.fullname%>" selected><%= technicien.fullname.toUpperCase()%></option>
+              <option class="option" value="<%= technicien.fullname%>" selected><%= technicien.fullname %></option>
                 <% } else { %>
-                  <option class="option" value="<%= technicien.fullname%>"><%= technicien.fullname.toUpperCase()%></option>
+                  <option class="option" value="<%= technicien.fullname%>"><%= technicien.fullname %></option>
                    <% } %>
               <% } %>
             </select>
@@ -125,6 +125,7 @@
               name="consultation[comment]"
               id="editcomment"
               rows="4"
+              style="text-transform: capitalize"
               placeholder="Commentraire"
             ><%=consultation.comment%></textarea>
           </div>

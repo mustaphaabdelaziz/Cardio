@@ -47,6 +47,7 @@
         name="staff[lastname]"
         type="text"
         class="form-control"
+        style="text-transform: capitalize"
         autofocus
         required
       />
@@ -59,6 +60,7 @@
           <input
             id="staffFirstName"
             name="staff[firstname]"
+            style="text-transform: capitalize"
             type="text"
             class="form-control"
             
@@ -76,7 +78,7 @@
           >
             <option selected disabled value="">Fonction</option>
             <option class="option" value="Medecin">Médecin</option>
-            <option class="option" value="technicien">Technicien</option>
+            <option class="option" value="technicien cathlab">Technicien cathlab</option>
             <option class="option" value="assitant(e) Medicale">Assitant(e) Medical(e)</option>
           </select>
           <label for="staffFonction" class="form-label">Fonction</label>
@@ -95,10 +97,11 @@
         <div class="form-floating">
          
           <input
-            type="text"
+            type="email"
             class="form-control"
             id="stafemail"
             name="staff[email]"
+            style="text-transform: lowercase"
             
           />
           <label for="staffemail" class="form-label">Email</label>

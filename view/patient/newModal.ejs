@@ -5,7 +5,7 @@
   data-bs-toggle="modal"
   data-bs-target="#newPatient"
 >
-Nouveau patient <i class="bi bi-person-plus-fill me-2"></i>
+  Nouveau patient <i class="bi bi-person-plus-fill me-2"></i>
 </button>
 
 <!-- Modal -->
@@ -17,7 +17,9 @@ Nouveau patient <i class="bi bi-person-plus-fill me-2"></i>
   aria-labelledby="staticBackdropLabel"
   aria-hidden="true"
 >
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+  <div
+    class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg"
+  >
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="staticBackdropLabel">Ajouter Patient</h5>
@@ -39,14 +41,15 @@ Nouveau patient <i class="bi bi-person-plus-fill me-2"></i>
           autocomplete="off"
           novalidate
         >
-          
           <div class="form-floating col-md-6">
             <input
               id="patientLastName"
               name="patient[lastname]"
               type="text"
               class="form-control"
+              style="text-transform: capitalize"
               required
+              autofocus
             />
             <label for="patientLastName" class="form-label">Nom</label>
             <div class="valid-feedback">BIEN</div>
@@ -57,24 +60,58 @@ Nouveau patient <i class="bi bi-person-plus-fill me-2"></i>
               name="patient[firstname]"
               type="text"
               class="form-control"
+              style="text-transform: capitalize"
               required
-              autofocus
             />
             <label for="patientFirstName" class="form-label">Prénom</label>
             <div class="valid-feedback">BIEN</div>
           </div>
-
+          <div class="form-floating col-md-6">
+            <input
+              id="father"
+              name="patient[father]"
+              style="text-transform: capitalize"
+              type="text"
+              class="form-control"
+            />
+            <label for="father" class="form-label">Père</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
           <div class="form-floating col-md-6">
             <input
               id="patientBirthDate"
               name="patient[birthdate]"
               type="date"
               class="form-control"
-              required
             />
             <label for="patientBirthDate" class="form-label"
               >Date de Naissance
             </label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+         
+
+          <div class="form-floating col-md-6">
+            <input
+              type="text"
+              class="form-control"
+              id="patientPhoneNumber"
+              name="patient[phone]"
+              required
+            />
+            <label for="patientPhoneNumber" class="form-label">Téléphone 1</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <div class="form-floating col-md-6">
+            <input
+              type="text"
+              class="form-control"
+              id="patientPhoneNumber2"
+              name="patient[phone2]"
+            />
+            <label for="patientPhoneNumber2" class="form-label"
+              >Téléphone 2</label
+            >
             <div class="valid-feedback">BIEN</div>
           </div>
           <div class="form-floating col-md-6">
@@ -93,18 +130,6 @@ Nouveau patient <i class="bi bi-person-plus-fill me-2"></i>
           </div>
 
           <div class="form-floating col-md-6">
-            <input
-              type="text"
-              class="form-control"
-              id="patientPhoneNumber"
-              name="patient[phone]"
-              required
-            />
-            <label for="patientPhoneNumber" class="form-label">Téléphone</label>
-            <div class="valid-feedback">BIEN</div>
-          </div>
-
-          <div class="form-floating col-md-6">
             <select
               id="medecinref"
               name="patient[medecinref]"
@@ -116,7 +141,7 @@ Nouveau patient <i class="bi bi-person-plus-fill me-2"></i>
               <% for(medecin of medecins ){ %>
 
               <option class="option" value="<%= medecin.lastname%>">
-                Dr. <%= medecin.lastname.toUpperCase()%>
+                Dr. <%= medecin.lastname %>
               </option>
               <% } %>
             </select>
