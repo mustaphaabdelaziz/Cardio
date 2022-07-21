@@ -18,7 +18,7 @@ const ExpressError = require("../utils/ExpressError");
 //   const { id } = req.params;
 //   const event = await Event.findById(id);
 //   if (!event.author._id.equals(req.user._id)) {
-//     // console.log("is the same user");
+//     
 //     req.flash("error", "You do not have permission to do that!");
 //     return res.redirect(`/events/${id}`);
 //   }

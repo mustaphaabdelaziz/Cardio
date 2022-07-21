@@ -16,7 +16,6 @@ const Staff = require("../model/staff");
 const Patient = require("../model/patient");
 
 module.exports.listepatient = async (req, res) => {
-  
   const medecins = await Staff.find({ fonction: "Medecin" });
   const techniciens = await Staff.find({ fonction: "technicien" });
   // res.send(medecins)
@@ -152,7 +151,7 @@ module.exports.updatePatient = async (req, res) => {
 };
 module.exports.deletePatient = async (req, res) => {
   const { id } = req.params;
-  console.log(id);
+  
   await Patient.findByIdAndDelete(id);
   req.flash("success", "Patient a été supprimé");
   res.redirect("/patient");
@@ -198,11 +197,10 @@ module.exports.generatepdf = async (req, res) => {
       tableHeader: {
         bold: true,
         fontSize: 13,
-        alignment:"center",
+        alignment: "center",
         color: "#061e30",
         fillOpacity: 0.1,
         fillColor: ["stripe45d", "#1e4620"],
-        
       },
       table: {
         fontSize: 11,
@@ -236,10 +234,9 @@ module.exports.generatepdf = async (req, res) => {
       "auto",
       "auto",
     ],
-    
+
     body: [
       [
-        
         {
           text: "N°",
           style: "tableHeader",
@@ -319,12 +316,12 @@ module.exports.generatepdf = async (req, res) => {
 };
 module.exports.generatePatientpdf = async (req, res) => {
   const { id } = req.params;
-  console.log(id);
+
   const patient = await Patient.findById(id);
-  var date ;
-  if(patient.nextacte.date==="Rien"){
+  var date;
+  if (patient.nextacte.date === "Rien") {
     date = "/";
-  }else{
+  } else {
     date = moment(patient.nextacte.date).format("DD/MM/YYYY");
   }
 

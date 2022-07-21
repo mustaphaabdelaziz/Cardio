@@ -97,7 +97,7 @@ module.exports.updateStaff = async (req, res) => {
 };
 module.exports.deleteStaff = async (req, res) => {
   const { id } = req.params;
-  console.log(id);
+ 
   await Staff.findByIdAndDelete(id);
   req.flash("success", "Staff a été supprimé");
   res.redirect("/staffs");

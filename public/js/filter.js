@@ -50,18 +50,17 @@ function filter(age) {
 }
 function filterAge(age) {
   var selected = document.getElementById("age").value || "all";
-  console.log(selected);
   // Loop through all table rows, and hide those who don't match the search query
   for (i = 0; i < tr.length; i++) {
     td = tr[i].getElementsByTagName("td")[3];
     if (td) {
-      // console.log(td.textContent);
+     
       txtValue = parseInt(td.textContent);
       if (selected === "all") {
         tr[i].style.display = "";
       } else {
         if (selected === "above") {
-          // console.log(txtValue)
+       
           if (txtValue >= age) {
             tr[i].style.display = "";
           } else {
@@ -79,15 +78,15 @@ function filterAge(age) {
   }
 }
 function filterActe(idSelect, idColumn) {
-  console.log(idSelect)
+
   var selected = document.getElementById(idSelect).value;
-  console.log(selected);
+ 
   // Loop through all table rows, and hide those who don't match the search query
   for (i = 0; i < tr.length; i++) {
     td = tr[i].getElementsByTagName("td")[idColumn];
     if (td) {
       txtValue = td.textContent.toLowerCase().trim();
-      console.log(txtValue);
+      
       switch (selected) {
         case "all":
           tr[i].style.display = "";
@@ -126,22 +125,21 @@ function filterActe(idSelect, idColumn) {
 }
 
 function filterDate() {
-  console.log("filterDate");
+ 
   var start = document.getElementById("start").value;
   var end = document.getElementById("end").value;
-  // console.log(start,end)
+ 
   for (i = 0; i < tr.length; i++) {
     td = tr[i].getElementsByTagName("td")[6];
     if (td) {
       txtValue = td.textContent.toString();
 
       if (start && end) {
-        //  console.log("start && end")
-        //  console.log(txtValue)
+        
 
         // [] indicates that the start and end dates are includered in the range
         if (moment(txtValue).isBetween(start, end, "day", "[]")) {
-          // console.log("good");
+        
           tr[i].style.display = "";
         } else {
           tr[i].style.display = "none";
