@@ -76,6 +76,7 @@
               <option class="option" value="" disabled selected>Technicen</option>
               <option class="option" value="/">/</option>
               <% for(technicien of techniciens ){ %>
+              
                 <% if(consultation.technicien===technicien.fullname) {%> 
               <option class="option" value="<%= technicien.fullname%>" selected><%= technicien.fullname %></option>
                 <% } else { %>

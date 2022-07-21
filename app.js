@@ -2,8 +2,8 @@ if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
 
-const express = require("express")
-const app = express()
+const express = require("express");
+const app = express();
 const path = require("path");
 let ejs = require("ejs");
 let pdf = require("html-pdf");
@@ -22,11 +22,13 @@ const DBConnection = require("./database/connection");
 const { sessionConfig } = require("./config/sessionConfig");
 // the local file contain all the local variable
 const { locals } = require("./config/local");
-const patientRoutes = require("./routes/patient")
-const staffRoutes = require("./routes/staff")
-const consultationRoutes = require("./routes/consultation")
-const acteRoutes = require("./routes/acte")
-const Patient = require("./model/patient")
+const patientRoutes = require("./routes/patient");
+const staffRoutes = require("./routes/staff");
+const consultationRoutes = require("./routes/consultation");
+const acteRoutes = require("./routes/acte");
+// const Patient = require("./model/patient")
+const ExpressError = require("./utils/ExpressError");
+const { errorPage } = require("./middleware/middleware");
 // ==================== App Configuration =================
 app.set("trust proxy", true);
 app.engine("ejs", ejsMate);
@@ -46,14 +48,18 @@ app.use(cors());
 // =========================================================
 
 // ================= App Routes =======================
-app.use("/patient", patientRoutes)
-app.use("/staffs", staffRoutes)
-app.use("/patient/:id/acte", consultationRoutes)
-app.use("/acte", acteRoutes)
+app.use("/patient", patientRoutes);
+app.use("/staffs", staffRoutes);
+app.use("/patient/:id/acte", consultationRoutes);
+app.use("/acte", acteRoutes);
 // ========================================================
 app.get("/", (req, res) => {
   res.render("home");
 });
+app.all("*", (req, res, next) => {
+  next(new ExpressError("page not found", 404));
+});
+app.use(errorPage);
 const port = 8000;
 
 app.listen(port, () => {
@@ -61,4 +67,3 @@ app.listen(port, () => {
   console.log(`   ----- SERVER IS RUNNING ON PORT ${port} ----`);
   console.log("===================================================");
 });
-

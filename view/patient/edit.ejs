@@ -110,9 +110,9 @@
             type="text"
               class="form-control"
               id="patientPhoneNumber"
-             
               name="patient[phone]"
               required
+              maxlength="10"
               value="<%= patient.phone %>"
               />
               <label for="patientPhoneNumber" class="form-label">Téléphone 1</label>
@@ -125,7 +125,7 @@
               id="patientPhoneNumber2"
              
               name="patient[phone2]"
-              
+              maxlength="10"
               value="<%= patient.phone2 %>"
               />
               <label for="patientPhoneNumber2" class="form-label">Téléphone 2</label>

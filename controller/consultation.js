@@ -36,9 +36,10 @@ module.exports.addActe = async (req, res) => {
     { new: true }
   );
 
-  const redirectUrl = `back`;
+  // const redirectUrl = `back`;
   req.flash("success", "Acte ajouté avec succès");
-  res.redirect(redirectUrl);
+  // res.redirect(redirectUrl);
+  res.redirect("/patient")
 };
 module.exports.deletePatientActe = async (req, res) => {
   const { id, idacte } = req.params;

@@ -1,26 +1,73 @@
 var table = document.getElementById("patientTable");
 var tr = table.getElementsByTagName("tr");
 var txtValue;
-function filterAge(age) {
-  var selected = document.getElementById("age").value;
 
+function filter(age) {
+  var selected = document.getElementById("age").value;
+  var start = document.getElementById("start").value || moment("01/01/1800");
+  var end = document.getElementById("end").value || moment().add(2000, "year");
+  var tddate, tdage, ageValue, dateValue;
+
+  for (i = 0; i < tr.length; i++) {
+    tdage = tr[i].getElementsByTagName("td")[2];
+    tddate = tr[i].getElementsByTagName("td")[6];
+    if (tdage && tddate) {
+      ageValue = parseInt(tdage.textContent);
+
+      dateValue = tddate.textContent.toString();
+      if (start && end && selected) {
+        // [] indicates that the start and end dates are includered in the range
+        if (
+          moment(dateValue).isBetween(start, end, "day", "[]") &&
+          selected != "all"
+        ) {
+          switch (selected) {
+            case "above":
+              if (ageValue >= age) {
+                tr[i].style.display = "";
+              } else {
+                tr[i].style.display = "none";
+              }
+              break;
+            case "below":
+              if (ageValue <= age) {
+                tr[i].style.display = "";
+              } else {
+                tr[i].style.display = "none";
+              }
+              break;
+          }
+        } else if (moment(dateValue).isBetween(start, end, "day", "[]")) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      } else {
+        tr[i].style.display = "";
+      }
+    }
+  }
+}
+function filterAge(age) {
+  var selected = document.getElementById("age").value || "all";
+  console.log(selected);
   // Loop through all table rows, and hide those who don't match the search query
   for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[2];
+    td = tr[i].getElementsByTagName("td")[3];
     if (td) {
-      console.log(td.textContent);
+      // console.log(td.textContent);
       txtValue = parseInt(td.textContent);
       if (selected === "all") {
         tr[i].style.display = "";
       } else {
         if (selected === "above") {
-          console.log(txtValue)
+          // console.log(txtValue)
           if (txtValue >= age) {
             tr[i].style.display = "";
           } else {
             tr[i].style.display = "none";
           }
-        } else if (selected === "under") {
+        } else if (selected === "below") {
           if (txtValue <= age) {
             tr[i].style.display = "";
           } else {
@@ -30,8 +77,9 @@ function filterAge(age) {
       }
     }
   }
-} 
-function filterActe(idSelect,idColumn) {
+}
+function filterActe(idSelect, idColumn) {
+  console.log(idSelect)
   var selected = document.getElementById(idSelect).value;
   console.log(selected);
   // Loop through all table rows, and hide those who don't match the search query
@@ -39,6 +87,7 @@ function filterActe(idSelect,idColumn) {
     td = tr[i].getElementsByTagName("td")[idColumn];
     if (td) {
       txtValue = td.textContent.toLowerCase().trim();
+      console.log(txtValue);
       switch (selected) {
         case "all":
           tr[i].style.display = "";
@@ -76,23 +125,23 @@ function filterActe(idSelect,idColumn) {
   }
 }
 
-
-function filterDate(event) {
-
+function filterDate() {
   console.log("filterDate");
   var start = document.getElementById("start").value;
   var end = document.getElementById("end").value;
+  // console.log(start,end)
   for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[5];
+    td = tr[i].getElementsByTagName("td")[6];
     if (td) {
       txtValue = td.textContent.toString();
-    
+
       if (start && end) {
-       
-      
+        //  console.log("start && end")
+        //  console.log(txtValue)
+
         // [] indicates that the start and end dates are includered in the range
         if (moment(txtValue).isBetween(start, end, "day", "[]")) {
-          console.log("good");
+          // console.log("good");
           tr[i].style.display = "";
         } else {
           tr[i].style.display = "none";

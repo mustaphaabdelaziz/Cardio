@@ -16,6 +16,7 @@ const Staff = require("../model/staff");
 const Patient = require("../model/patient");
 
 module.exports.listepatient = async (req, res) => {
+  
   const medecins = await Staff.find({ fonction: "Medecin" });
   const techniciens = await Staff.find({ fonction: "technicien" });
   // res.send(medecins)
@@ -197,15 +198,17 @@ module.exports.generatepdf = async (req, res) => {
       tableHeader: {
         bold: true,
         fontSize: 13,
+        alignment:"center",
         color: "#061e30",
         fillOpacity: 0.1,
         fillColor: ["stripe45d", "#1e4620"],
+        
       },
       table: {
         fontSize: 11,
         alignment: "center",
         // [left, top, right, bottom]
-        margin: [20, 10, 10, 10],
+        margin: [10, 10, 10, 10],
         color: "#061e30",
       },
       text: {
@@ -232,11 +235,11 @@ module.exports.generatepdf = async (req, res) => {
       "auto",
       "auto",
       "auto",
-      "auto",
     ],
-
+    
     body: [
       [
+        
         {
           text: "N°",
           style: "tableHeader",
@@ -265,17 +268,12 @@ module.exports.generatepdf = async (req, res) => {
           // rowSpan: 3,
         },
         {
-          text: "Genre",
+          text: "Tél 1",
           style: "tableHeader",
           // rowSpan: 3,
         },
         {
-          text: "Téléphone 1",
-          style: "tableHeader",
-          // rowSpan: 3,
-        },
-        {
-          text: "Téléphone 2",
+          text: "Tél 2",
           style: "tableHeader",
           // rowSpan: 3,
         },
@@ -299,7 +297,6 @@ module.exports.generatepdf = async (req, res) => {
           patient.firstname,
           patient.father,
           patient.age,
-          patient.gender,
           patient.phone,
           patient.phone2,
           patient.lastacte.acte,
