@@ -1,0 +1,172 @@
+<button
+  type="button"
+  class="me-3 btn btn-outline-warning px-2 py-1"
+  data-bs-toggle="modal"
+  data-bs-target="#edit-<%= staff.id %>"
+>
+  <i class="bi bi-pencil-fill"></i>
+</button>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="edit-<%= staff.id %>"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Modifier Personnel</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          required
+        ></button>
+      </div>
+
+      <div class="modal-body">
+        <form
+          class="row g-3 needs-validation"
+          action="/staffs/<%= staff.id %>/?_method=PUT"
+          id="personal"
+          method="POST"
+          novalidate
+        >
+          <div class="form-floating">
+            <input
+              id="staffLastName"
+              name="staff[lastname]"
+              type="text"
+              class="form-control"
+              style="text-transform: capitalize"
+              value="<%= staff.lastname %>"
+              required
+            />
+            <label for="staffLastName" class="form-label">Nom</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <div class="form-floating">
+            <input
+              id="staffFirstName"
+              name="staff[firstname]"
+              type="text"
+              class="form-control"
+              style="text-transform: capitalize"
+              value="<%= staff.firstname %>"
+              required
+              autofocus
+            />
+            <label for="staffFirstName" class="form-label">Prénom</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+
+          <div class="form-floating">
+            <select
+              id="staffFonction"
+              name="staff[fonction]"
+              class="form-select"
+              value="<%= staff.fonction %>"
+              required
+            >
+              <option selected disabled value="">Fonction</option>
+              <% if (staff.fonction === 'Medecin'){%>
+              <option class="option" value="Medecin" selected>Medecin</option>
+              <option class="option" value="technicien cathlab">Technicien cathlab</option>
+              <option class="option" value="assitant(e) Medicale">
+                Assitant(e) Medical(e)
+              </option>
+              <% }else if(staff.fonction === 'technicien cathlab'){ %>
+              <option class="option" value="Medecin">Medecin</option>
+              <option class="option" value="technicien cathlab" selected>
+                Technicien
+              </option>
+              <option class="option" value="assitant(e) Medicale">
+                Assitant(e) Medical(e)
+              </option>
+              <% }else { %>
+              <option class="option" value="Medecin">Medecin</option>
+              <option class="option" value="technicien cathlab">Technicien cathlab</option>
+              <option class="option" value="assitant(e) Medicale" selected>
+                Assitant(e) Medical(e)
+              </option>
+              <% } %>
+            </select>
+            <label for="staffGender" class="form-label">Fonction</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <div class="form-floating">
+            <div class="d-flex align-item-start form-check form-switch ms-2">
+              <% if (staff.externe === 'externe'){%>
+              <input
+                class="form-check-input me-2"
+                type="checkbox"
+                name="staff[externe]"
+                value="externe"
+                role="switch"
+                id="externe"
+                checked
+              />
+              <% }else{ %>
+              <input
+                class="form-check-input me-2"
+                type="checkbox"
+                name="staff[externe]"
+                value="externe"
+                role="switch"
+                id="externe"
+              />
+              <% } %>
+              <label class="form-check-label" for="externe">Externe</label>
+              <div class="valid-feedback">BIEN</div>
+            </div>
+          </div>
+
+          <div class="form-floating">
+            <input
+              type="text"
+              class="form-control"
+              style="text-transform: lowercase"
+              id="stafemail"
+              name="staff[email]"
+              value="<%= staff.email %>"
+            />
+            <label for="staffemail" class="form-label">Email</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <div class="form-floating">
+            <input
+              type="text"
+              class="form-control"
+              id="staffPhone"
+              name="staff[phone]"
+              value="<%= staff.phone %>"
+            />
+            <label for="staffPhone" class="form-label">Téléphone</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <div class="modal-footer mt-3">
+            <button
+              type="button"
+              class="btn btn-outline-danger"
+              data-bs-dismiss="modal"
+            >
+              Annuler
+            </button>
+            <button
+              type="submit"
+              id="staff-edit"
+              class="btn btn-outline-warning"
+            >
+              Modifier
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

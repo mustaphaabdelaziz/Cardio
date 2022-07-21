@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" type="x-icon" href="/assets/logo.png" />
+    <title>Oasis Cardiologie</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/event.css" />
+    <link rel="stylesheet" href="/css/eventCard.css" />
+    <link rel="stylesheet" href="/css/loginForm.css" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/login.css" />
+    <link rel="stylesheet" href="/css/navbar.css" />
+    <link rel="stylesheet" href="/css/profileCard.css" />
+    <link rel="stylesheet" href="/css/userProfile.css" />
+    <!-- <link rel="stylesheet" type="text/css" href="/css/print.min.css" /> -->
+
+    <link rel="stylesheet" href="/css/table.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css"
+    />
+    <!-- <link
+      rel="stylesheet"
+      type="text/css"
+      href="/DataTables/datatables.min.css"
+    /> -->
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment-with-locales.min.js"
+      integrity="sha512-vFABRuf5oGUaztndx4KoAEUVQnOvAIFs59y4tO0DILGWhQiFnFHiR+ZJfxLDyJlXgeut9Z07Svuvm+1Jv89w5g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- <script type="text/javascript" src="/DataTables/datatables.min.js"></script> -->
+    <script>
+      $(document).ready(function () {
+        $("#search").on("keyup", function () {
+          var value = $(this).val().toLowerCase();
+          $("#tablebody tr").filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+          });
+        });
+      });
+    </script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.3.0-beta.2/pdfmake.min.js"
+      integrity="sha512-k9XKlDENMt9s19gEl+L6F/r+OWAR4pesbUd8/SKQVMt3b1ECqsRXgLA9XnJoq4J9mjlxLQabfTxf3268lzpFUQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.3.0-beta.2/vfs_fonts.min.js"
+      integrity="sha512-6RDwGHTexMgLUqN/M2wHQ5KIR9T3WVbXd7hg0bnT+vs5ssavSnCica4Uw0EJnrErHzQa6LRfItjECPqRt4iZmA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <style type="text/css">
+      @media print {
+        #search,
+        #navbarSupportedbutton,
+        #hide,
+        .btn,
+        #age,
+        #start,
+        #end,
+        #checkbox {
+          display: none;
+        }
+        #assest {
+          width: 120px;
+          height: 100px;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="d-flex flex-column">
+    <%- include("../partials/navbar")%>
+    <main class=""><%- include("../partials/flash")%><%- body %></main>
+    <script src="https://cdn.jsdelivr.net/npm/underscore@1.13.4/underscore-umd-min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script async src="/js/validate-form.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/sorttable.js"></script>
+    <script src="/js/filter.js"></script>
+    <!-- <script src="/js/print.min.js"></script> -->
+    <script src="/js/pdfMake.js"></script>
+    <!-- <script src="/js/search.js"></script> -->
+  </body>
+</html>

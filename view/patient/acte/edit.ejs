@@ -1,0 +1,115 @@
+<button
+  type="button"
+  class="me-3 btn btn-outline-warning px-2 py-1"
+  data-bs-toggle="modal"
+  data-bs-target="#edit-<%= patient.id %>"
+>
+  <i class="bi bi-trash-fill"></i>
+</button>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="edit-<%= patient.id %>"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Prochaine Acte</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          required
+        ></button>
+      </div>
+
+      <div class="modal-body">
+        <form
+          class="row g-3"
+          action="/patient/<%= patient.id %>/?_method=PUT"
+          id="personal"
+          method="POST"
+          class="needs-validation"
+          novalidate
+        >
+          <div class="col-md-6">
+            <label for="patientFirstName" class="form-label">Firstname</label>
+            <input
+              id="patientFirstName"
+              name="patient[firstname]"
+              placeholder="firstname"
+              type="text"
+              class="form-control"
+              required
+              autofocus
+              value="<%= patient.firstname %>"
+            />
+          </div>
+          <div class="col-md-6">
+            <label for="patientLastName" class="form-label">Lastname</label>
+            <input
+              id="patientLastName"
+              name="patient[lastname]"
+              type="text"
+              placeholder="lastname"
+              class="form-control"
+              required
+              value="<%= patient.lastname%>"
+            />
+          </div>
+
+          <div class="col-md-6">
+            <label for="patientBirthDate" class="form-label">Birthdate </label>
+            <input id="patientBirthDate" name="patient[birthdate]"
+            placeholder="birthdate" type="date" class="form-control" required
+            value="<%= moment(patient.birthdate).format("YYYY-MM-DD")%>" />
+          </div>
+          <div class="col-md-6">
+            <label for="patientGender" class="form-label">Gender</label>
+            <select
+              id="patientGender"
+              name="patient[gender]"
+              class="form-select"
+              required
+            >
+              <option disabled>Gender</option>
+              <% if (patient.gender === 'Male'){%>
+              <option class="option" value="Male" selected>Male</option>
+              <option class="option" value="Female">Female</option>
+              <% }else{ %>
+              <option class="option" value="Male">Male</option>
+              <option class="option" value="Female" selected>Female</option>
+              <% } %>
+            </select>
+          </div>
+
+          <div class="col-md-6">
+            <label for="patientPhoneNumber" class="form-label">Phone</label>
+            <input
+              type="text"
+              class="form-control"
+              id="patientPhoneNumber"
+              placeholder="phone"
+              name="patient[phone]"
+              required
+              value="<%= patient.phone %>"
+            />
+          </div>
+
+          <div class="mb-3 text-center">
+            <button type="submit" id="patient-register" class="btn btn-warning">
+              Modifier <i class="bi bi-pencil-fill"></i>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

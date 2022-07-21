@@ -1,0 +1,168 @@
+<% layout('layouts/boilerplate')%>
+<div class="container">
+  <div class="card my-3">
+    <div class="row">
+      <div class="col-12">
+        <div class="d-flex flex-column align-items-center">
+          <a href="/">
+            <img src="/assets/logo.png" alt="" height="200px" />
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="tab-content">
+        <!-- ============================= Creation du Patient =============================================== -->
+        <div
+          aria-labelledby="patientRegisterTab "
+          role="tabpanel"
+          class="mt-2 my-5 tab-pane fade active show"
+          id="patientRegisterForm"
+        >
+          <h3 class="m-4 text-center text-success">Nouveau Patient</h3>
+          <form
+            class="row g-3 m-2 needs-validation"
+            action="/patient"
+            id="personal"
+            method="POST"
+            autocomplete="off"
+            novalidate
+          >
+            <div class="form-floating col-md-6">
+              <input
+                id="patientLastName"
+                name="patient[lastname]"
+                type="text"
+                class="form-control"
+                style="text-transform: lowercase"
+                required
+                autofocus
+              />
+              <label for="patientLastName" class="form-label">Nom</label>
+              <div class="valid-feedback">BIEN</div>
+            </div>
+            <div class="form-floating col-md-6">
+              <input
+                id="patientFirstName"
+                name="patient[firstname]"
+                type="text"
+                class="form-control"
+                style="text-transform: lowercase"
+                required
+              />
+              <label for="patientFirstName" class="form-label">Prénom</label>
+              <div class="valid-feedback">BIEN</div>
+            </div>
+            <div class="form-floating col-md-6">
+              <input
+                id="father"
+                name="patient[father]"
+                type="text"
+                class="form-control"
+                style="text-transform: lowercase"
+                
+              />
+              <label for="father" class="form-label">Père</label>
+              <div class="valid-feedback">BIEN</div>
+            </div>
+            <div class="form-floating col-md-6">
+              <input
+                id="patientBirthDate"
+                name="patient[birthdate]"
+                type="date"
+                class="form-control"
+                
+              />
+              <label for="patientBirthDate" class="form-label"
+                >Date de Naissance
+              </label>
+              <div class="valid-feedback">BIEN</div>
+            </div>
+           
+
+            <div class="form-floating col-md-6">
+              <input
+                type="text"
+                class="form-control"
+                id="patientPhoneNumber"
+                name="patient[phone]"
+                required
+                maxlength="10"
+              />
+              <label for="patientPhoneNumber" class="form-label"
+                >Téléphone 1</label
+              >
+              <div class="valid-feedback">BIEN</div>
+            </div>
+            <div class="form-floating col-md-6">
+              <input
+                type="text"
+                class="form-control"
+                id="patientPhoneNumber2"
+                name="patient[phone2]"
+                maxlength="10"
+                
+              />
+              <label for="patientPhoneNumber2" class="form-label"
+                >Téléphone 2</label
+              >
+              <div class="valid-feedback">BIEN</div>
+            </div>
+            <div class="form-floating col-md-6">
+              <select
+                id="patientGender"
+                name="patient[gender]"
+                class="form-select"
+                required
+              >
+                <option selected disabled value="">Genre</option>
+                <option class="option" value="Male">Male</option>
+                <option class="option" value="Female">Female</option>
+              </select>
+              <label for="patientGender" class="form-label">Genre</label>
+              <div class="valid-feedback">BIEN</div>
+            </div>
+
+            <div class="form-floating col-md-6">
+              <select
+                id="medecinref"
+                name="patient[medecinref]"
+                class="form-select"
+              >
+                <option class="option" value="" disabled selected>
+                  Medecin Ref
+                </option>
+                <% for(medecin of medecins ){ %>
+
+                <option class="option" value="<%= medecin.lastname%>">
+                  Dr. <%= medecin.lastname %>
+                </option>
+                <% } %>
+              </select>
+              <label for="medecinref" class="form-label">Medecin Ref</label>
+              <div class="valid-feedback">BIEN</div>
+            </div>
+
+            <div class="mb-2 mt-4 text-center">
+              <button
+                type="submit"
+                id="patient-register"
+                class="btn btn-outline-success"
+                formaction="patient/new"
+              >
+                Ajouter autre patient <i class="bi bi-person-plus-fill"></i>
+              </button>
+              <button
+                type="submit"
+                id="patient-register"
+                class="btn btn-outline-success"
+              >
+                Ajouter <i class="bi bi-person-plus-fill"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

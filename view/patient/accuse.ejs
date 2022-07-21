@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="build/pdfmake.min.js"></script>
+    <script src="build/vfs_fonts.js"></script>
+  </head>
+  <body>
+    <div class="container mt-4">
+      <div class="col m-auto bg-light rounded-5 p-2">
+        <h1>Patient Liste</h1>
+        <table
+          class="table table-striped table-hover table-borderless text-center sortable"
+          id="patientTable"
+        >
+          <thead class="table-success">
+            <tr>
+              <th scope="col">N°</th>
+              <th scope="col">Nom</th>
+              <th scope="col">Prénom</th>
+              <th scope="col">Age</th>
+              <th scope="col">Gender</th>
+              <th scope="col">Téléphone</th>
+              <th scope="col">Dérniere acte</th>
+              <th scope="col">Prochaine acte</th>
+              <th id="hide" scope="col">Ajouter Acte</th>
+              <th id="hide" scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody id="tablebody">
+            <% var i=1 %> <% for (patient of patients){%>
+            <tr>
+              <th scope="row"><%= i%><% i=i+1; %></th>
+              <td><%= patient.lastname.toUpperCase()%></td>
+              <td><%=patient.firstname.toUpperCase()%></td>
+              <td><%=patient.age%></td>
+              <td><%=patient.gender%></td>
+              <td><%=patient.phone%></td>
+              <td><%=patient.lastacte.acte%></td>
+              <td><%=patient.nextacte.acte%></td>
+              <% }%>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
