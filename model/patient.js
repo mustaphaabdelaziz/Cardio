@@ -27,6 +27,7 @@ const Patient = new Schema(
       type: String,
       default: "/",
     },
+ 
 
     consultation: [
       {
@@ -40,6 +41,10 @@ const Patient = new Schema(
         comment: {
           type: String,
           default: "Pas de commentaire",
+        },
+        status:{
+          type: String,
+          default: "non",
         },
       },
     ],

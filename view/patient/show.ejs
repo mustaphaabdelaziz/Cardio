@@ -81,6 +81,7 @@
                 <th scope="col">Technicien</th>
                 <th scope="col">Date acte</th>
                 <th id="hide" scope="col">Commentaire</th>
+                <th id="hide" scope="col">Confirmé</th>
                 <th id="hide" scope="col">Action</th>
             </tr>
         </thead>
@@ -108,6 +109,11 @@
                 <td class="text-center data">
                     <%-include("./commentViewer")%>
                 </td>
+                <% if (consultation.status==="oui"){%>
+                    <th class="p-3"><span class="rounded-pill badge bg-success">OUI</span></th>
+                    <%}else{%>
+                    <th class="p-3"><span class="rounded-pill badge bg-lightCoral">NON</span></th>
+                    <%}%>
                 <th>
                     <div class="d-flex justify-content-center align-items-center">
                         <%- include("./consultation/edit")%>

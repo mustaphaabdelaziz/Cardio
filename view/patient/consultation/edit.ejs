@@ -3,6 +3,7 @@
   class="me-3 btn btn-outline-warning px-2 py-1"
   data-bs-toggle="modal"
   data-bs-target="#editCons-<%=consultation.id %>"
+  onclick="selectActe2('<%=consultation.id %>','<%=consultation.acte%>')"
 >
   <i class="bi bi-pencil-fill"></i>
 </button>
@@ -65,38 +66,15 @@
             <label for="medecin" class="form-label">Medecin</label>
             <div class="valid-feedback">BIEN</div>
           </div>
-
           <div class="form-floating mb-3">
             <select
-              id="technicien"
-              name="consultation[technicien]"
-              class="form-select"
-              required
-            >
-              <option class="option" value="" disabled selected>Technicen</option>
-              <option class="option" value="/">/</option>
-              <% for(technicien of techniciens ){ %>
-              
-                <% if(consultation.technicien===technicien.fullname) {%> 
-              <option class="option" value="<%= technicien.fullname%>" selected><%= technicien.fullname %></option>
-                <% } else { %>
-                  <option class="option" value="<%= technicien.fullname%>"><%= technicien.fullname %></option>
-                   <% } %>
-              <% } %>
-            </select>
-
-            <label for=technicien" class="form-label">Technicien</label>
-            <div class="valid-feedback">BIEN</div>
-          </div>
-
-          <div class="form-floating mb-3">
-            <select
-              id="acte"
+              id="<%=consultation.id %>"
               name="consultation[acte]"
               class="form-select"
               required
+              onchange="selectActe2('<%=consultation.id %>',this.value)"
             >
-              <option disabled>Acte</option>
+              <option disabled value="">Acte</option>
               <% switch (consultation.acte) { case "Consultation" :%>
               <option class="option" value="Consultation" selected>
                 Consultation
@@ -116,11 +94,61 @@
               <% break; } %>
             </select>
 
-            <label for="acte" class="form-label">Acte</label>
+            <label for="acte2" class="form-label">Acte</label>
             <div class="valid-feedback">BIEN</div>
           </div>
+          
+            <div class="form-floating mb-3" id="tech-<%=consultation.id%>">
+            <select
+              id="technicien"
+              name="consultation[technicien]"
+              class="form-select"
+              
+            >
+              <option class="option" value="" disabled selected>Technicen</option>
+              <option class="option" value="/">/</option>
+              <% for(technicien of techniciens ){ %>
+              
+                <% if(consultation.technicien===technicien.fullname) {%> 
+              <option class="option" value="<%= technicien.fullname%>" selected><%= technicien.fullname %></option>
+                <% } else { %>
+                  <option class="option" value="<%= technicien.fullname%>"><%= technicien.fullname %></option>
+                   <% } %>
+              <% } %>
+            </select>
 
-          <div class="mb-2">
+            <label for=technicien" class="form-label">Technicien</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+         
+          
+          <div class="form-floating mb-2">
+            <div class="d-flex align-item-start form-check form-switch ms-2">
+              <% if (consultation.status === "oui"){%>
+              <input
+                class="form-check-input me-2"
+                type="checkbox"
+                name="consultation[status]"
+                value="oui"
+                role="switch"
+                id="status"
+                checked
+              />
+              <% }else{ %>
+              <input
+                class="form-check-input me-2"
+                type="checkbox"
+                name="consultation[status]"
+                value="oui"
+                role="switch"
+                id="status"
+              />
+              <% } %>
+              <label class="form-check-label" for="status">Confirmé ?</label>
+              <div class="valid-feedback">BIEN</div>
+            </div>
+          </div>
+          <div class="">
             <textarea
               class="form-control"
               name="consultation[comment]"
@@ -130,6 +158,7 @@
               placeholder="Commentraire"
             ><%=consultation.comment%></textarea>
           </div>
+          
 
           <div class="modal-footer mt-3">
             <button
@@ -152,8 +181,3 @@
     </div>
   </div>
 </div>
-
-<script>
-  const tabib ='<%- consultation.medecin %>'
-
-</script>

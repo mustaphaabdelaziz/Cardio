@@ -23,7 +23,7 @@
             <div class="valid-feedback">BIEN</div>
           </div>
           <div  class="form-floating col-3 me-2">
-            <input class="form-control" type="date" id="start" name="start">
+            <input class="form-control" type="date" id="start" name="start" onkeydown="filter(12)">
             <label id="hide" for="start" class="form-label">De:</label>
 
           </div>
@@ -31,6 +31,12 @@
             <input class="form-control" onkeydown="filter(12)" type="date" id="end" name="end">
             <label id="hide" for="end" class="form-label">A:</label>
           </div>
+          <a
+          class="btn btn-outline-secondary py-3 px-2 ms-2"
+          href="/acte/<%= acte %>/generatepdf"
+          target="_blank"
+          >Imprimer <i class="bi bi-printer-fill py-3 px-2"></i>
+        </a>
         </div>
       </div>
       <form class="d-flex mt-2">
@@ -48,6 +54,7 @@
             <th scope="col">Technicien</th>
             <th scope="col">Date acte</th>
             <th scope="col">Commentaire</th>
+            <th scope="col">Confirmé</th>
 
 
           </tr>
@@ -86,6 +93,11 @@
             <td class="text-center data">
               <%-include("../commentViewer")%>
           </td>
+          <% if (consultation.status==="oui"){%>
+            <th class="p-3"><span class="rounded-pill badge bg-success">OUI</span></th>
+            <%}else{%>
+            <th class="p-3"><span class="rounded-pill badge bg-lightCoral">NON</span></th>
+            <%}%>
           </tr>
           <% }}}%>
         </tbody>

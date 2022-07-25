@@ -48,7 +48,9 @@ module.exports.createpatient = async (req, res) => {
     medecinref,
     phone,
     phone2,
+    status,
   } = req.body.patient;
+
   if (phone2 === "") {
     phone2 = "/";
   }
@@ -67,6 +69,7 @@ module.exports.createpatient = async (req, res) => {
     phone2,
     medecinref,
     gender,
+    status,
   });
   await patient.save();
   req.flash("success", "Patient ajouté avec succès");
@@ -82,6 +85,7 @@ module.exports.createandreturn = async (req, res) => {
     medecinref,
     phone,
     phone2,
+    status,
   } = req.body.patient;
 
   if (phone2 === "") {
@@ -122,36 +126,60 @@ module.exports.updatePatient = async (req, res) => {
     medecinref,
     phone,
     phone2,
+    status,
   } = req.body.patient;
+  
   if (phone2 === "") {
     phone2 = "/";
   }
   if (father === "") {
     father = "/";
   }
-
-  await Patient.findByIdAndUpdate(
-    id,
-    {
-      firstname:
-        firstname.charAt(0).toUpperCase() + firstname.slice(1).toLowerCase(),
-      lastname:
-        lastname.charAt(0).toUpperCase() + lastname.slice(1).toLowerCase(),
-      father: father.charAt(0).toUpperCase() + father.slice(1).toLowerCase(),
-      birthdate,
-      phone,
-      phone2,
-      medecinref,
-      gender,
-    },
-    { new: true }
-  );
+  const state = status;
+  if(state === "oui"){
+    await Patient.findByIdAndUpdate(
+      id,
+      {
+        firstname:
+          firstname.charAt(0).toUpperCase() + firstname.slice(1).toLowerCase(),
+        lastname:
+          lastname.charAt(0).toUpperCase() + lastname.slice(1).toLowerCase(),
+        father: father.charAt(0).toUpperCase() + father.slice(1).toLowerCase(),
+        birthdate,
+        phone,
+        phone2,
+        medecinref,
+        gender,
+        status,
+      },
+      { new: true }
+    );
+  }else{
+    await Patient.findByIdAndUpdate(
+      id,
+      {
+        firstname:
+          firstname.charAt(0).toUpperCase() + firstname.slice(1).toLowerCase(),
+        lastname:
+          lastname.charAt(0).toUpperCase() + lastname.slice(1).toLowerCase(),
+        father: father.charAt(0).toUpperCase() + father.slice(1).toLowerCase(),
+        birthdate,
+        phone,
+        phone2,
+        medecinref,
+        gender,
+        status:"non",
+      },
+      { new: true }
+    );
+  }
+  
   req.flash("success", "Patient a été modifié avec succès");
   res.redirect("back");
 };
 module.exports.deletePatient = async (req, res) => {
   const { id } = req.params;
-  
+
   await Patient.findByIdAndDelete(id);
   req.flash("success", "Patient a été supprimé");
   res.redirect("/patient");
@@ -169,7 +197,7 @@ module.exports.generatepdf = async (req, res) => {
       image: "public/assets/en-tete.png",
       width: 590,
       height: 80,
-      margin: [0, 05, 0, 20],
+      margin: [0, 05, 0, 0],
     },
     content: [
       // { image: "public/assets/en-tete.png"},

@@ -5,7 +5,7 @@
   data-bs-toggle="modal"
   data-bs-target="#dpatient-<%= patient.id %>"
 >
-<i class="bi bi-trash-fill"></i>
+  <i class="bi bi-trash-fill"></i>
 </button>
 
 <!-- Modal -->
@@ -20,9 +20,8 @@
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-       
         <h5 class="modal-title" id="staticBackdropLabel">
-         Suppression de <%=patient.fullname %>
+          Suppression de <%=patient.fullname %>
         </h5>
 
         <button
@@ -35,22 +34,32 @@
 
       <div class="modal-body">
         <div class="d-flex justify-content-start align-items-center">
-          <img class="" height="30" width="30" src="/assets/close.png" alt="close">
+          <img
+            class=""
+            height="30"
+            width="30"
+            src="/assets/close.png"
+            alt="close"
+          />
           <p class="mt-3 ms-2">Vous êtes sûr?</p>
         </div>
-        <form class="" id="delete-form" action="/patient/<%=patient.id %>/?_method=DELETE" method="POST">
-            <div class="modal-footer mt-4">
-                <button
-                type="button"
-                class="btn btn-outline-secondary"
-                data-bs-dismiss="modal"
-                >
-                Annuler
+        <form
+          class=""
+          id="delete-form"
+          action="/patient/<%=patient.id %>/?_method=DELETE"
+          method="POST"
+        >
+          <div class="modal-footer mt-4">
+            <button
+              type="button"
+              class="btn btn-outline-secondary"
+              data-bs-dismiss="modal"
+            >
+              Annuler
             </button>
             <button class="btn btn-outline-danger">Supprimer</button>
-        </div>
-    </form>
-    
+          </div>
+        </form>
       </div>
     </div>
   </div>

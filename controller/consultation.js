@@ -16,14 +16,12 @@ module.exports.showc = async (req, res) => {
 };
 
 module.exports.addActe = async (req, res) => {
-  let { dateacte, medecin, technicien, acte, comment } = req.body.consultation;
+  let { dateacte, medecin, technicien, acte, comment, status } =
+    req.body.consultation;
   const { id } = req.params;
-  
-  let tech,med;
-  if (technicien)
-     tech = technicien.charAt(0).toUpperCase() + technicien.slice(1).toLowerCase();
-  if (medecin)
-     med = medecin.charAt(0).toUpperCase() + medecin.slice(1).toLowerCase();
+  let tech, med;
+  if (technicien) tech = technicien;
+  if (medecin) med = medecin;
   const patient = await Patient.findByIdAndUpdate(
     id,
     {
@@ -34,12 +32,12 @@ module.exports.addActe = async (req, res) => {
           date: dateacte,
           acte: acte,
           comment: comment,
+          status: status,
         },
       },
     },
     { new: true }
   );
-  
 
   const redirectUrl = `back`;
   req.flash("success", "Acte ajouté avec succès");
@@ -60,25 +58,48 @@ module.exports.deletePatientActe = async (req, res) => {
 module.exports.updatePatientActe = async (req, res) => {
   const { id, idacte } = req.params;
 
-
-  const { dateacte, acte, medecin, technicien, comment } =
+  const { dateacte, acte, medecin, technicien, comment,status } =
     req.body.consultation;
+  const state = status;
+  let patient;
 
-  const patient = await Patient.updateOne(
-    {
-      id,
-      "consultation._id": idacte,
-    },
-    {
-      $set: {
-        "consultation.$.date": dateacte,
-        "consultation.$.acte": acte,
-        "consultation.$.medecin": medecin,
-        "consultation.$.technicien": technicien,
-        "consultation.$.comment": comment,
+  if(state==="oui"){
+     patient = await Patient.updateOne(
+      {
+        id,
+        "consultation._id": idacte,
       },
-    }
-  );
+      {
+        $set: {
+          "consultation.$.date": dateacte,
+          "consultation.$.acte": acte,
+          "consultation.$.medecin": medecin,
+          "consultation.$.technicien": technicien,
+          "consultation.$.comment": comment,
+          "consultation.$.status":state,
+        },
+      }
+    );
+  }else{
+    patient = await Patient.updateOne(
+      {
+        id,
+        "consultation._id": idacte,
+      },
+      {
+        $set: {
+          "consultation.$.date": dateacte,
+          "consultation.$.acte": acte,
+          "consultation.$.medecin": medecin,
+          "consultation.$.technicien": technicien,
+          "consultation.$.comment": comment,
+          "consultation.$.status":"non",
+          
+        },
+      }
+    );
+  }
+  
   // res.send(patient);
   req.flash("success", "Acte à été modifé avec succès");
   res.redirect(`/patient/${id}`);

@@ -4,8 +4,14 @@ var txtValue;
 
 function filter(age) {
   var selected = document.getElementById("age").value;
-  var start = document.getElementById("start").value || moment("01/01/1800");
-  var end = document.getElementById("end").value || moment().add(2000, "year");
+  var start =
+    document.getElementById("start").value ||
+    moment("01/01/1800", "DD/MM/YYYY").format("YYYY-MM-DD");
+
+  var end =
+    document.getElementById("end").value ||
+    moment("31/12/" + moment().add(2000, "year").year(), "DD/MM/YYYY");
+
   var tddate, tdage, ageValue, dateValue;
 
   for (i = 0; i < tr.length; i++) {
@@ -13,12 +19,13 @@ function filter(age) {
     tddate = tr[i].getElementsByTagName("td")[6];
     if (tdage && tddate) {
       ageValue = parseInt(tdage.textContent);
+      dateValue = tddate.innerText;
 
-      dateValue = tddate.textContent.toString();
       if (start && end && selected) {
         // [] indicates that the start and end dates are includered in the range
+
         if (
-          moment(dateValue).isBetween(start, end, "day", "[]") &&
+          moment(dateValue, "DD/MM/YYYY").isBetween(start, end, "days", "[]") &&
           selected != "all"
         ) {
           switch (selected) {
@@ -37,7 +44,9 @@ function filter(age) {
               }
               break;
           }
-        } else if (moment(dateValue).isBetween(start, end, "day", "[]")) {
+        } else if (
+          moment(dateValue, "DD/MM/YYYY").isBetween(start, end, "day", "[]")
+        ) {
           tr[i].style.display = "";
         } else {
           tr[i].style.display = "none";
@@ -54,13 +63,11 @@ function filterAge(age) {
   for (i = 0; i < tr.length; i++) {
     td = tr[i].getElementsByTagName("td")[3];
     if (td) {
-     
       txtValue = parseInt(td.textContent);
       if (selected === "all") {
         tr[i].style.display = "";
       } else {
         if (selected === "above") {
-       
           if (txtValue >= age) {
             tr[i].style.display = "";
           } else {
@@ -78,15 +85,14 @@ function filterAge(age) {
   }
 }
 function filterActe(idSelect, idColumn) {
-
   var selected = document.getElementById(idSelect).value;
- 
+
   // Loop through all table rows, and hide those who don't match the search query
   for (i = 0; i < tr.length; i++) {
     td = tr[i].getElementsByTagName("td")[idColumn];
     if (td) {
       txtValue = td.textContent.toLowerCase().trim();
-      
+
       switch (selected) {
         case "all":
           tr[i].style.display = "";
@@ -125,21 +131,17 @@ function filterActe(idSelect, idColumn) {
 }
 
 function filterDate() {
- 
   var start = document.getElementById("start").value;
   var end = document.getElementById("end").value;
- 
+
   for (i = 0; i < tr.length; i++) {
     td = tr[i].getElementsByTagName("td")[6];
     if (td) {
       txtValue = td.textContent.toString();
 
       if (start && end) {
-        
-
         // [] indicates that the start and end dates are includered in the range
         if (moment(txtValue).isBetween(start, end, "day", "[]")) {
-        
           tr[i].style.display = "";
         } else {
           tr[i].style.display = "none";

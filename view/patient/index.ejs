@@ -4,7 +4,6 @@
   <div class="col m-auto bg-light rounded-5 p-2">
     <h3 class="mb-4 text-center text-success">Liste des patients</h3>
     <div class="d-flex mb-2 justify-content-center">
-     
       <div class="form-floating col-2 me-2">
         <select
           id="age"
@@ -87,17 +86,17 @@
   >
     <thead class="table-success">
       <tr>
-        <th scope="col">N°</th>
-        <th scope="col">Nom</th>
-        <th scope="col">Prénom</th>
-        <th scope="col">Père</th>
-        <th scope="col">Age</th>
-        <th scope="col">Tél 1</th>
-        <th scope="col">Tél 2</th>
-        <th scope="col">Dérniere acte</th>
-        <th scope="col">Prochaine acte</th>
-        <th id="hide" scope="col">Ajouter Acte</th>
-        <th id="hide" scope="col">Action</th>
+        <th  scope="col">N°</th>
+        <th  scope="col">Nom</th>
+        <th  scope="col">Prénom</th>
+        <th  scope="col">Père</th>
+        <th  scope="col">Age</th>
+        <th  scope="col">Tél 1</th>
+        <th  scope="col">Tél 2</th>
+        <th  scope="col">Dérniere acte</th>
+        <th  scope="col">Prochaine acte</th>
+        <th  id="hide" scope="col">Ajouter Acte</th>
+        <th  id="hide" scope="col">Action</th>
       </tr>
     </thead>
     <tbody id="tablebody">
@@ -135,7 +134,7 @@
         >
           <%=patient.age%>
         </td>
-       
+
         <td
           class="clickable"
           onclick="window.location='/patient/<%=patient.id%>'"
@@ -160,7 +159,7 @@
         >
           <%=patient.nextacte.acte%>
         </td>
-
+       
         <th><%- include("./consultation/new")%></th>
         <th>
           <div class="d-flex justify-content-center align-items-center">

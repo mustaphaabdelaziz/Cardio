@@ -4,13 +4,15 @@
   class="btn btn-outline-success"
   data-bs-toggle="modal"
   data-bs-target="#newstaff"
-><i class="bi bi-person-plus-fill me-2"></i>Ajouter</button>
+>
+  <i class="bi bi-person-plus-fill me-2"></i>Ajouter
+</button>
 
 <!-- Modal -->
 <div
   class="modal fade"
   id="newstaff"
-   data-bs-keyboard="false"
+  data-bs-keyboard="false"
   tabindex="-1"
   aria-labelledby="staticBackdropLabel"
   aria-hidden="true"
@@ -18,9 +20,7 @@
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">
-          Ajouter Personnel
-        </h5>
+        <h5 class="modal-title" id="staticBackdropLabel">Ajouter Personnel</h5>
 
         <button
           type="button"
@@ -39,97 +39,98 @@
           autocomplete="off"
           novalidate
         >
-    
-    <div class="form-floating">
-     
-      <input
-        id="staffLastName"
-        name="staff[lastname]"
-        type="text"
-        class="form-control"
-        style="text-transform: capitalize"
-        autofocus
-        required
-      />
-      <label for="staffLastName" class="form-label">Nom</label>
-      <div class="valid-feedback">BIEN</div>
-    </div>
+          <div class="form-floating">
+            <input
+              id="staffLastName"
+              name="staff[lastname]"
+              type="text"
+              class="form-control"
+              style="text-transform: capitalize"
+              autofocus
+              required
+            />
+            <label for="staffLastName" class="form-label">Nom</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
 
-        <div class="form-floating">
-          
-          <input
-            id="staffFirstName"
-            name="staff[firstname]"
-            style="text-transform: capitalize"
-            type="text"
-            class="form-control"
-            
-             />
-          <label for="staffFirstName" class="form-label">Prénom</label>
-          <div class="valid-feedback">BIEN</div>
-        </div>
-        <div class="form-floating">
-         
-          <select
-            id="staffFonction"
-            name="staff[fonction]"
-            class="form-select"
-            required
-          >
-            <option selected disabled value="">Fonction</option>
-            <option class="option" value="Medecin">Médecin</option>
-            <option class="option" value="technicien cathlab">Technicien cathlab</option>
-            <option class="option" value="assitant(e) Medicale">Assitant(e) Medical(e)</option>
-          </select>
-          <label for="staffFonction" class="form-label">Fonction</label>
-          <div class="valid-feedback">BIEN</div>
-        </div>
-        <div class="form-floating">
+          <div class="form-floating">
+            <input
+              id="staffFirstName"
+              name="staff[firstname]"
+              style="text-transform: capitalize"
+              type="text"
+              class="form-control"
+            />
+            <label for="staffFirstName" class="form-label">Prénom</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <div class="form-floating">
+            <select
+              id="staffFonction"
+              name="staff[fonction]"
+              class="form-select"
+              required
+            >
+              <option selected disabled value="">Fonction</option>
+              <option class="option" value="Medecin">Médecin</option>
+              <option class="option" value="technicien cathlab">
+                Technicien cathlab
+              </option>
+              <option class="option" value="assitant(e) Medicale">
+                Assitant(e) Medical(e)
+              </option>
+            </select>
+            <label for="staffFonction" class="form-label">Fonction</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <div class="form-floating">
+            <div class="form-check form-switch ms-2">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                name="staff[externe]"
+                value="externe"
+                role="switch"
+                id="externe"
+              />
+              <label class="form-check-label" for="externe">Externe</label>
+              <div class="valid-feedback">BIEN</div>
+            </div>
+          </div>
 
-        <div class="form-check form-switch ms-2">
-          <input class="form-check-input" type="checkbox" name="staff[externe]" value="externe" role="switch" id="externe">
-          <label class="form-check-label" for="externe">Externe</label>
-          <div class="valid-feedback">BIEN</div>
-        </div>
-      </div>
+          <div class="form-floating">
+            <input
+              type="email"
+              class="form-control"
+              id="stafemail"
+              name="staff[email]"
+              style="text-transform: lowercase"
+            />
+            <label for="staffemail" class="form-label">Email</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <div class="form-floating">
+            <input
+              type="text"
+              class="form-control"
+              id="staffPhone"
+              name="staff[phone]"
+            />
+            <label for="staffPhone" class="form-label">Télephone</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
 
-        
-        <div class="form-floating">
-         
-          <input
-            type="email"
-            class="form-control"
-            id="stafemail"
-            name="staff[email]"
-            style="text-transform: lowercase"
-            
-          />
-          <label for="staffemail" class="form-label">Email</label>
-          <div class="valid-feedback">BIEN</div>
-        </div>
-        <div class="form-floating">
-         
-          <input
-            type="text"
-            class="form-control"
-            id="staffPhone"
-            name="staff[phone]"
-          />
-          <label for="staffPhone" class="form-label">Télephone</label>
-          <div class="valid-feedback">BIEN</div>
-        </div>
-       
-        <div class="modal-footer mt-4">
-          <button
-          type="button"
-          class="btn btn-outline-danger"
-          data-bs-dismiss="modal"
-          >
-          Annuler
-        </button>
-        <button class="btn btn-outline-success">Ajouter</button>
-        </div>
-      </form>
+          <div class="modal-footer mt-4">
+            <button
+              type="button"
+              class="btn btn-outline-danger"
+              data-bs-dismiss="modal"
+            >
+              Annuler
+            </button>
+            <button class="btn btn-outline-success">Ajouter</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>

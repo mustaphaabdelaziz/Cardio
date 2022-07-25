@@ -31,10 +31,10 @@
 
       <div class="modal-body">
         <form
-        action="/patient/<%=patient.id%>/acte"
-        method="POST"
-        class="needs-validation"
-        novalidate
+          action="/patient/<%=patient.id%>/acte"
+          method="POST"
+          class="needs-validation"
+          novalidate
         >
           <div class="form-floating mb-3">
             <input
@@ -69,7 +69,25 @@
             <div class="valid-feedback">BIEN</div>
           </div>
 
+         
           <div class="form-floating mb-3">
+            <select
+              id="acte"
+              name="consultation[acte]"
+              class="form-select"
+              required
+              onchange="selectActe(this)"
+            >
+              <option selected disabled>Acte</option>
+              <option class="option" value="Consultation">Consultation</option>
+              <option class="option" value="Chirurgie">Chirurgie</option>
+              <option class="option" value="KT">KT</option>
+            </select>
+
+            <label for="acte" class="form-label">Acte</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <div class="form-floating mb-3" id="technicien-div" style="display:none;">
             <select
               id="technicien"
               name="consultation[technicien]"
@@ -89,24 +107,22 @@
             <label for="technicien" class="form-label">Technicien</label>
             <div class="valid-feedback">BIEN</div>
           </div>
-          <div class="form-floating mb-3">
-            <select
-              id="acte"
-              name="consultation[acte]"
-              class="form-select"
-              required
-            >
-              <option selected disabled>Acte</option>
-              <option class="option" value="Consultation">Consultation</option>
-              <option class="option" value="Chirurgie">Chirurgie</option>
-              <option class="option" value="KT">KT</option>
-            </select>
-
-            <label for="acte" class="form-label">Acte</label>
-            <div class="valid-feedback">BIEN</div>
+          <div class="form-floating mb-2">
+            <div class="d-flex align-item-start form-check form-switch ms-2">
+              <input
+                class="form-check-input me-2"
+                type="checkbox"
+                name="consultation[status]"
+                value="oui"
+                role="switch"
+                id="status"
+              />
+              <label class="form-check-label" for="status">Confirmé ?</label>
+              <div class="valid-feedback">BIEN</div>
+            </div>
           </div>
 
-          <div class="mb-2">
+          <div class="">
             <!-- <label for="comment">Commentaire</label> -->
             <textarea
               class="form-control"

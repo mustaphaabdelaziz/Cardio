@@ -11,7 +11,6 @@
 <div
   class="modal fade"
   id="edit-<%= patient.id %>"
-  
   data-bs-keyboard="false"
   tabindex="-1"
   aria-labelledby="staticBackdropLabel"
@@ -38,133 +37,142 @@
           class="needs-validation"
           novalidate
         >
-        <div class="form-floating  mb-3">
-          <input
-          id="patientLastName"
-          name="patient[lastname]"
-          type="text"
-           class="form-control"
-           style="text-transform: capitalize"
-          required
-          value="<%= patient.lastname%>"
-          />
-          <label for="patientLastName" class="form-label">Nom</label>
-          <div class="valid-feedback">BIEN</div>
-        </div>
-          <div class="form-floating  mb-3">
+          <div class="form-floating mb-3">
             <input
-            id="patientFirstName"
-            name="patient[firstname]"
-            style="text-transform: capitalize"
-            type="text"
-            class="form-control"
-            required
-            autofocus
-            value="<%= patient.firstname %>"
+              id="patientLastName"
+              name="patient[lastname]"
+              type="text"
+              class="form-control"
+              style="text-transform: capitalize"
+              required
+              value="<%= patient.lastname%>"
+            />
+            <label for="patientLastName" class="form-label">Nom</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <div class="form-floating mb-3">
+            <input
+              id="patientFirstName"
+              name="patient[firstname]"
+              style="text-transform: capitalize"
+              type="text"
+              class="form-control"
+              required
+              autofocus
+              value="<%= patient.firstname %>"
             />
             <label for="patientFirstName" class="form-label">Prénom</label>
             <div class="valid-feedback">BIEN</div>
           </div>
-          <div class="form-floating  mb-3">
+          <div class="form-floating mb-3">
             <input
-            id="father"
-            name="patient[father]"
-            type="text"
-            style="text-transform: capitalize"
-            class="form-control"
-            value="<%= patient.father%>"
+              id="father"
+              name="patient[father]"
+              type="text"
+              style="text-transform: capitalize"
+              class="form-control"
+              value="<%= patient.father%>"
             />
             <label for="father" class="form-label">Père</label>
             <div class="valid-feedback">BIEN</div>
           </div>
-          
 
-          <div class="form-floating  mb-3">
-            <input id="patientBirthDate" name="patient[birthdate]"
-           type="date" class="form-control" 
-            value="<%= moment(patient.birthdate).format("YYYY-MM-DD")%>" />
-            <label for="patientBirthDate" class="form-label">Date de Naissance</label>
-          </div>
-          <div class="form-floating  mb-3">
-            <select
-            id="patientGender"
-            name="patient[gender]"
-            class="form-select"
-            required
+          <div class="form-floating mb-3">
+            <input id="patientBirthDate" name="patient[birthdate]" type="date"
+            class="form-control" value="<%=
+            moment(patient.birthdate).format("YYYY-MM-DD")%>" />
+            <label for="patientBirthDate" class="form-label"
+              >Date de Naissance</label
             >
-            <option disabled value="">Genre</option>
-            <% if (patient.gender === 'Male'){%>
+          </div>
+          <div class="form-floating mb-3">
+            <select
+              id="patientGender"
+              name="patient[gender]"
+              class="form-select"
+              required
+            >
+              <option disabled value="">Genre</option>
+              <% if (patient.gender === 'Male'){%>
               <option class="option" value="Male" selected>Male</option>
               <option class="option" value="Female">Female</option>
               <% }else{ %>
-                <option class="option" value="Male">Male</option>
-                <option class="option" value="Female" selected>Female</option>
-                <% } %>
-              </select>
-              <label for="patientGender" class="form-label">Genre</label>
-              <div class="valid-feedback">BIEN</div>
+              <option class="option" value="Male">Male</option>
+              <option class="option" value="Female" selected>Female</option>
+              <% } %>
+            </select>
+            <label for="patientGender" class="form-label">Genre</label>
+            <div class="valid-feedback">BIEN</div>
           </div>
 
-          <div class="form-floating  mb-3">
+          <div class="form-floating mb-3">
             <input
-            type="text"
+              type="text"
               class="form-control"
               id="patientPhoneNumber"
               name="patient[phone]"
               required
               maxlength="10"
               value="<%= patient.phone %>"
-              />
-              <label for="patientPhoneNumber" class="form-label">Téléphone 1</label>
-              <div class="valid-feedback">BIEN</div>
+            />
+            <label for="patientPhoneNumber" class="form-label"
+              >Téléphone 1</label
+            >
+            <div class="valid-feedback">BIEN</div>
           </div>
-          <div class="form-floating  mb-3">
+          <div class="form-floating mb-3">
             <input
-            type="text"
+              type="text"
               class="form-control"
               id="patientPhoneNumber2"
-             
               name="patient[phone2]"
               maxlength="10"
               value="<%= patient.phone2 %>"
-              />
-              <label for="patientPhoneNumber2" class="form-label">Téléphone 2</label>
-              <div class="valid-feedback">BIEN</div>
+            />
+            <label for="patientPhoneNumber2" class="form-label"
+              >Téléphone 2</label
+            >
+            <div class="valid-feedback">BIEN</div>
           </div>
           <div class="form-floating mb-3">
             <select
               id="medeciref"
               name="patient[medecinref]"
               class="form-select"
-              
             >
               <option disabled value="" selected>Médecin Ref</option>
               <option class="option" value="/">/</option>
-              <% for(medecin of medecins ){ %>
-
-                <% if(patient.medecinref===medecin.lastname) {%> 
-              <option class="option" value="<%= medecin.lastname%>" selected>Dr. <%= medecin.lastname %></option>
-                <% } else { %>
-                  <option class="option" value="<%= medecin.lastname%>">Dr. <%= medecin.lastname %></option>
-                   <% } %>
-              <% } %>
+              <% for(medecin of medecins ){ %> <%
+              if(patient.medecinref===medecin.lastname) {%>
+              <option class="option" value="<%= medecin.lastname%>" selected>
+                Dr. <%= medecin.lastname %>
+              </option>
+              <% } else { %>
+              <option class="option" value="<%= medecin.lastname%>">
+                Dr. <%= medecin.lastname %>
+              </option>
+              <% }} %> 
             </select>
 
             <label for="medecinref" class="form-label">Médecin Ref</label>
             <div class="valid-feedback">BIEN</div>
           </div>
-
+          
           <div class="modal-footer mt-3">
             <button
-            type="button"
-            class="btn btn-outline-danger"
-            data-bs-dismiss="modal"
+              type="button"
+              class="btn btn-outline-danger"
+              data-bs-dismiss="modal"
             >
-            Annuler
-          </button>
-          <button type="submit" id="patient-register" class="btn btn-outline-warning">
-            Modifier 
-          </button>
+              Annuler
+            </button>
+            <button
+              type="submit"
+              id="patient-register"
+              class="btn btn-outline-warning"
+            >
+              Modifier
+            </button>
           </div>
         </form>
       </div>
