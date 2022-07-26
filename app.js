@@ -25,6 +25,7 @@ const { locals } = require("./config/local");
 const patientRoutes = require("./routes/patient");
 const staffRoutes = require("./routes/staff");
 const consultationRoutes = require("./routes/consultation");
+const medecinRoutes = require("./routes/medecin");
 const acteRoutes = require("./routes/acte");
 // const Patient = require("./model/patient")
 const ExpressError = require("./utils/ExpressError");
@@ -52,6 +53,7 @@ app.use("/patient", patientRoutes);
 app.use("/staffs", staffRoutes);
 app.use("/patient/:id/acte", consultationRoutes);
 app.use("/acte", acteRoutes);
+app.use("/medecin/:lastname", medecinRoutes);
 // ========================================================
 app.get("/", (req, res) => {
   res.render("home");

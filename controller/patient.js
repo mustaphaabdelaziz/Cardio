@@ -128,7 +128,7 @@ module.exports.updatePatient = async (req, res) => {
     phone2,
     status,
   } = req.body.patient;
-  
+
   if (phone2 === "") {
     phone2 = "/";
   }
@@ -136,7 +136,7 @@ module.exports.updatePatient = async (req, res) => {
     father = "/";
   }
   const state = status;
-  if(state === "oui"){
+  if (state === "oui") {
     await Patient.findByIdAndUpdate(
       id,
       {
@@ -154,7 +154,7 @@ module.exports.updatePatient = async (req, res) => {
       },
       { new: true }
     );
-  }else{
+  } else {
     await Patient.findByIdAndUpdate(
       id,
       {
@@ -168,12 +168,12 @@ module.exports.updatePatient = async (req, res) => {
         phone2,
         medecinref,
         gender,
-        status:"non",
+        status: "non",
       },
       { new: true }
     );
   }
-  
+
   req.flash("success", "Patient a été modifié avec succès");
   res.redirect("back");
 };
@@ -192,18 +192,126 @@ module.exports.generatepdf = async (req, res) => {
     pageSize: "A4",
     pageOrientation: "portrait",
     // [left, top, right, bottom]
-    pageMargins: [20, 55, 20, 80],
+    pageMargins: [20, 120, 20, 70],
     header: {
       image: "public/assets/en-tete.png",
       width: 590,
       height: 80,
-      margin: [0, 05, 0, 0],
+      margin: [0, 0, 0, 0],
+    },
+    footer: function (currentPage, pageCount) {
+      return {
+        margin: 10,
+        columns: [
+          {
+            fontSize: 12,
+            text: [
+              {
+                text:
+                  "----------------------------------------------------------------------------------------------------" +
+                  "\n",
+                margin: [0, 20],
+              },
+              {
+                text: currentPage.toString() + " of " + pageCount,
+              },
+            ],
+            alignment: "center",
+          },
+        ],
+      };
     },
     content: [
       // { image: "public/assets/en-tete.png"},
       {
         text: "Liste Des Patients",
         style: "header",
+      },
+      {
+        columns: [
+          { width: "*", text: "" },
+          {
+            width: "auto",
+            table: {
+              style: "table",
+              // headers are automatically repeated if the table spans over multiple pages
+              // you can declare how many rows should be treated as headers
+              headerRows: 1,
+              // widths:number of columns in the table here we have 8 columns
+              widths: [
+                "auto",
+                "auto",
+                "auto",
+                "auto",
+                "auto",
+                "auto",
+                "auto",
+                "auto",
+                "auto",
+              ],
+
+              body: [
+                [
+                  {
+                    text: "N°",
+                    style: "tableHeader",
+                  },
+                  {
+                    text: "Nom",
+                    style: "tableHeader",
+                  },
+                  {
+                    text: "Prénom",
+                    style: "tableHeader",
+                  },
+
+                  {
+                    text: "Père",
+                    style: "tableHeader",
+                  },
+
+                  {
+                    text: "Age",
+                    style: "tableHeader",
+                  },
+                  {
+                    text: "Tél 1",
+                    style: "tableHeader",
+                  },
+                  {
+                    text: "Tél 2",
+                    style: "tableHeader",
+                  },
+
+                  {
+                    text: "Dérnier Acte",
+                    style: "tableHeader",
+                  },
+                  {
+                    text: "Prochaine Acte",
+                    style: "tableHeader",
+                  },
+                ],
+
+                ...patients.map((patient, index) => {
+                  return [
+                    index + 1,
+                    patient.lastname,
+                    patient.firstname,
+                    patient.father,
+                    patient.age,
+                    patient.phone,
+                    patient.phone2,
+                    patient.lastacte.acte,
+                    patient.nextacte.acte,
+                  ];
+                }),
+              ],
+              alignment: "center",
+            },
+          },
+          { width: "*", text: "" },
+        ],
       },
     ],
     // Define styles
@@ -212,14 +320,14 @@ module.exports.generatepdf = async (req, res) => {
         fontSize: 25,
         bold: true,
         alignment: "center",
-        margin: [0, 80, 0, 20],
+        margin: [0, 10, 0, 20],
         color: "#061e30",
       },
       subheader: {
         fontSize: 12,
         alignment: "center",
         // [left, top, right, bottom]
-        margin: [30, 05, 30, 10],
+        margin: [30, 5, 30, 10],
         color: "#4caf82",
       },
       tableHeader: {
@@ -246,95 +354,6 @@ module.exports.generatepdf = async (req, res) => {
       },
     },
   };
-  let table = {
-    // headers are automatically repeated if the table spans over multiple pages
-    // you can declare how many rows should be treated as headers
-    headerRows: 1,
-    // widths:number of columns in the table here we have 8 columns
-    widths: [
-      "auto",
-      "auto",
-      "auto",
-      "auto",
-      "auto",
-      "auto",
-      "auto",
-      "auto",
-      "auto",
-    ],
-
-    body: [
-      [
-        {
-          text: "N°",
-          style: "tableHeader",
-          // rowSpan: 3,
-        },
-        {
-          text: "Nom",
-          style: "tableHeader",
-          // rowSpan: 3,
-        },
-        {
-          text: "Prénom",
-          style: "tableHeader",
-          // rowSpan: 3,
-        },
-
-        {
-          text: "Father",
-          style: "tableHeader",
-          // rowSpan: 3,
-        },
-
-        {
-          text: "Age",
-          style: "tableHeader",
-          // rowSpan: 3,
-        },
-        {
-          text: "Tél 1",
-          style: "tableHeader",
-          // rowSpan: 3,
-        },
-        {
-          text: "Tél 2",
-          style: "tableHeader",
-          // rowSpan: 3,
-        },
-
-        {
-          text: "Dérnier Acte",
-          style: "tableHeader",
-          // rowSpan: 3,
-        },
-        {
-          text: "Prochaine Acte",
-          style: "tableHeader",
-          // rowSpan: 3,
-        },
-      ],
-      // now data and values
-      ...patients.map((patient, index) => {
-        return [
-          index + 1,
-          patient.lastname,
-          patient.firstname,
-          patient.father,
-          patient.age,
-          patient.phone,
-          patient.phone2,
-          patient.lastacte.acte,
-          patient.nextacte.acte,
-        ];
-      }),
-    ],
-  };
-
-  listTableDocs["content"].push({
-    table: table,
-    style: "table",
-  });
 
   pdfDoc = pdfmake.createPdfKitDocument(listTableDocs, {});
   await pdfDoc.pipe(fs.createWriteStream("liste Patients.pdf"));
@@ -446,6 +465,64 @@ module.exports.generatePatientpdf = async (req, res) => {
           },
         ],
       },
+
+      {
+        columns: [
+          // { width: "*", text: "" },
+          {
+            width: "*",
+            table: {
+              // headers are automatically repeated if the table spans over multiple pages
+              // you can declare how many rows should be treated as headers
+              headerRows: 1,
+              // widths:number of columns in the table here we have 8 columns
+              widths: ["*", "*", "*", "*", "*"],
+
+              body: [
+                [
+                  {
+                    text: "N°",
+                    style: "tableHeader",
+                    // rowSpan: 3,
+                  },
+                  {
+                    text: "Acte",
+                    style: "tableHeader",
+                    // rowSpan: 3,
+                  },
+                  {
+                    text: "Medecin",
+                    style: "tableHeader",
+                    // rowSpan: 3,
+                  },
+
+                  {
+                    text: "Technicien",
+                    style: "tableHeader",
+                    // rowSpan: 3,
+                  },
+                  {
+                    text: "Date Acte",
+                    style: "tableHeader",
+                    // rowSpan: 3,
+                  },
+                ],
+                // now data and values
+                ...patient.consultation.map((acte, index) => {
+                  return [
+                    index + 1,
+                    acte.acte,
+                    `Dr. ${acte.medecin}`,
+                    acte.technicien,
+                    moment(acte.date).format("DD/MM/YYYY"),
+                  ];
+                }),
+              ],
+            },
+          },
+          // { width: "*", text: "" },
+        ],
+      },
     ],
     // Define styles
     styles: {
@@ -540,10 +617,10 @@ module.exports.generatePatientpdf = async (req, res) => {
     ],
   };
 
-  listTableDocs["content"].push({
-    table: table,
-    style: "table",
-  });
+  // listTableDocs["content"].push({
+  //   table: table,
+  //   style: "table",
+  // });
 
   pdfDoc = pdfmake.createPdfKitDocument(listTableDocs, {});
   await pdfDoc.pipe(fs.createWriteStream("patient.pdf"));

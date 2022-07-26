@@ -61,12 +61,15 @@
         >
         <div class="valid-feedback">BIEN</div>
       </div>
-      <a
+      <button class="btn btn-outline-secondary py-3 px-2" onclick="printPDF()">
+        Imprimer <i class="bi bi-printer-fill py-3 px-2"></i>
+      </button>
+      <!-- <a
         class="btn btn-outline-secondary py-3 px-2"
         href="/patient/generatepdf"
         target="_blank"
         >Imprimer <i class="bi bi-printer-fill py-3 px-2"></i>
-      </a>
+      </a> -->
       <%- include("./newModal")%>
     </div>
   </div>
@@ -86,17 +89,17 @@
   >
     <thead class="table-success">
       <tr>
-        <th  scope="col">N°</th>
-        <th  scope="col">Nom</th>
-        <th  scope="col">Prénom</th>
-        <th  scope="col">Père</th>
-        <th  scope="col">Age</th>
-        <th  scope="col">Tél 1</th>
-        <th  scope="col">Tél 2</th>
-        <th  scope="col">Dérniere acte</th>
-        <th  scope="col">Prochaine acte</th>
-        <th  id="hide" scope="col">Ajouter Acte</th>
-        <th  id="hide" scope="col">Action</th>
+        <th scope="col">N°</th>
+        <th scope="col">Nom</th>
+        <th scope="col">Prénom</th>
+        <th scope="col">Père</th>
+        <th scope="col">Age</th>
+        <th scope="col">Tél 1</th>
+        <th scope="col">Tél 2</th>
+        <th scope="col">Dérniere acte</th>
+        <th scope="col">Prochaine acte</th>
+        <th id="hide" scope="col">Ajouter Acte</th>
+        <th id="hide" scope="col">Action</th>
       </tr>
     </thead>
     <tbody id="tablebody">
@@ -159,7 +162,7 @@
         >
           <%=patient.nextacte.acte%>
         </td>
-       
+
         <th><%- include("./consultation/new")%></th>
         <th>
           <div class="d-flex justify-content-center align-items-center">
@@ -171,3 +174,6 @@
     </tbody>
   </table>
 </div>
+<script>
+  let patients = <%- JSON.stringify(patients) %>;
+</script>
