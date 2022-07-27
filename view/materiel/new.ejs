@@ -1,0 +1,84 @@
+<button
+  id="item2"
+  type="button"
+  class="btn btn-outline-success"
+  data-bs-toggle="modal"
+  data-bs-target="#newmateriel"
+>
+  <i class="bi bi-person-plus-fill me-2"></i>Ajouter
+</button>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="newmateriel"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Ajouter Materiel</h5>
+
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+
+      <div class="modal-body">
+        <form
+          class="row g-3 needs-validation"
+          action="/materiels"
+          id="personal"
+          method="POST"
+          autocomplete="off"
+          novalidate
+        >
+          <div class="form-floating">
+            <input
+              id="materielcode"
+              name="materiel[code]"
+              type="text"
+              class="form-control"
+              style="text-transform: capitalize"
+              autofocus
+              required
+            />
+            <label for="materielcode" class="form-label">REF</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+
+          <div class="form-floating">
+            <input
+              id="materieldesignation"
+              name="materiel[designation]"
+              style="text-transform: capitalize"
+              type="text"
+              class="form-control"
+            />
+            <label for="materielName" class="form-label">Désignation</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+
+                             
+
+          <div class="modal-footer mt-4">
+            <button
+              type="button"
+              class="btn btn-outline-danger"
+              data-bs-dismiss="modal"
+            >
+              Annuler
+            </button>
+            <button class="btn btn-outline-success">Ajouter</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

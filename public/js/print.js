@@ -16,14 +16,13 @@ var styles = {
   },
   tableHeader: {
     bold: true,
-    fontSize: 13,
     alignment: "center",
     color: "#061e30",
     fillOpacity: 0.1,
     fillColor: ["stripe45d", "#1e4620"],
   },
   table: {
-    fontSize: 11,
+    fontSize: 8,
     alignment: "center",
     // [left, top, right, bottom]
     margin: [0, 10, 0, 10],
@@ -37,37 +36,85 @@ var styles = {
     color: "#0074c1",
   },
 };
-function printMedecinList() {
-  let ps = filterPatient(12, selected.value).map((patient, index) => [
-    ...patient.consultation.map((cons) => {
-      return [
-        index + 1,
-        patient.lastname,
-        patient.firstname,
-        patient.father,
-        patient.age,
-        patient.phone,
-        patient.phone2,
-        cons.acte,
-        moment(cons.date).format("DD/MM/YYYY"),
-        cons.status,
-      ];
-    }),
-  ]);
-  console.log(ps);
-  let list=[]
-  for (p of ps) {
-    list = [...list, ...p];
-    console.log(list);
+
+function printActeList(acte) {
+  var start = document.getElementById("start").value || moment();
+  var end = document.getElementById("end").value || moment();
+  let list = [];
+  let i = 1;
+  for (const patient of patients) {
+    for (let j = 0; j < patient.consultation.length; j++) {
+      if (selected.value === "all") {
+        if (
+          moment(
+            moment(patient.consultation[j].date).format("DD/MM/YYYY"),
+            "DD/MM/YYYY"
+          ).isBetween(start, end, "day", "[]")
+        )
+          list.push([
+            i,
+            patient.fullname,
+            patient.father,
+            moment(patient.birthdate).format("DD/MM/YYYY"),
+            patient.phone,
+            patient.consultation[j].medecin,
+            moment(patient.consultation[j].date).format("DD/MM/YYYY"),
+            patient.consultation[j].status,
+          ]);
+      } else {
+        switch (selected.value) {
+          case "above":
+            if (
+              parseInt(patient.age) >= parseInt(12) &&
+              moment(
+                moment(patient.consultation[j].date).format("DD/MM/YYYY"),
+                "DD/MM/YYYY"
+              ).isBetween(start, end, "day", "[]")
+            )
+              list.push([
+                i,
+                patient.fullname,
+                patient.father,
+                moment(patient.birthdate).format("DD/MM/YYYY"),
+                patient.phone,
+                patient.consultation[j].medecin,
+                moment(patient.consultation[j].date).format("DD/MM/YYYY"),
+                patient.consultation[j].status,
+              ]);
+            break;
+
+          case "below":
+            if (
+              parseInt(patient.age) <= parseInt(12) &&
+              moment(
+                moment(patient.consultation[j].date).format("DD/MM/YYYY"),
+                "DD/MM/YYYY"
+              ).isBetween(start, end, "day", "[]")
+            )
+              list.push([
+                i,
+                patient.fullname,
+                patient.father,
+                moment(patient.birthdate).format("DD/MM/YYYY"),
+                patient.phone,
+                patient.consultation[j].medecin,
+                moment(patient.consultation[j].date).format("DD/MM/YYYY"),
+                patient.consultation[j].status,
+              ]);
+            break;
+        }
+      }
+      i++;
+    }
   }
-  console.log(list);  
+
   this.getBase64ImageFromURL("../assets/en-tete.png")
     .then((url) => {
       let docDefinition = {
         pageSize: "A4",
         pageOrientation: "portrait",
         // [left, top, right, bottom]
-        pageMargins: [10, 120, 10, 70],
+        pageMargins: [10, 100, 10, 70],
 
         header: {
           image: url,
@@ -98,86 +145,296 @@ function printMedecinList() {
           };
         },
         content: [
-          // { image: "public/assets/en-tete.png"},
           {
-            text: "Liste Des Patients",
-            style: "header",
-          },
-          {
-            columns: [
-              { width: "*", text: "" },
+            stack: [
               {
-                width: "auto",
-                table: {
-                  style: "table",
-                  // headers are automatically repeated if the table spans over multiple pages
-                  // you can declare how many rows should be treated as headers
-                  headerRows: 1,
-                  // widths:number of columns in the table here we have 8 columns
-                  widths: [
-                    "auto",
-                    "auto",
-                    "auto",
-                    "auto",
-                    "auto",
-                    "auto",
-                    "auto",
-                    "auto",
-                    "auto",
-                    "auto",
-                  ],
-
-                  body: [
-                    [
-                      {
-                        text: "N°",
-                        style: "tableHeader",
-                      },
-                      {
-                        text: "Nom",
-                        style: "tableHeader",
-                      },
-                      {
-                        text: "Prénom",
-                        style: "tableHeader",
-                      },
-
-                      {
-                        text: "Père",
-                        style: "tableHeader",
-                      },
-
-                      {
-                        text: "Age",
-                        style: "tableHeader",
-                      },
-                      {
-                        text: "Tél 1",
-                        style: "tableHeader",
-                      },
-                      {
-                        text: "Tél 2",
-                        style: "tableHeader",
-                      },
-
-                      {
-                        text: "Acte",
-                        style: "tableHeader",
-                      },
-                      {
-                        text: "Date Acte",
-                        style: "tableHeader",
-                      },
-                      {
-                        text: "Confirmé",
-                        style: "tableHeader",
-                      },
-                    ],
-                  ],
-                  alignment: "center",
-                },
+                text: `Liste .${acte}`,
+                style: "header",
               },
-              { width: "*", text: "" },
+              {
+                text: `Date: ${moment().format("DD/MM/YYYY")}`,
+                alignment: "left",
+                bold: true,
+                fontSize: 13,
+                color: "#061e30",
+                decoration: "underline",
+                margin: [40, 0, 0, 30],
+              },
+              {
+                columns: [
+                  { width: "*", text: "" },
+                  {
+                    width: "auto",
+                    table: {
+                      // style: "table",
+                      // headers are automatically repeated if the table spans over multiple pages
+                      // you can declare how many rows should be treated as headers
+                      headerRows: 1,
+                      // widths:number of columns in the table here we have 8 columns
+                      widths: [
+                        "auto",
+                        "auto",
+                        "auto",
+                        "auto",
+                        "auto",
+                        "auto",
+                        "auto",
+                        "auto",
+                      ],
+
+                      body: [
+                        [
+                          {
+                            text: "N°",
+                            style: "tableHeader",
+                          },
+                          {
+                            text: "Nom",
+                            style: "tableHeader",
+                          },
+
+                          {
+                            text: "Père",
+                            style: "tableHeader",
+                          },
+
+                          {
+                            text: "Date Naissance",
+                            style: "tableHeader",
+                          },
+                          {
+                            text: "Téléphone",
+                            style: "tableHeader",
+                          },
+
+                          {
+                            text: "Medecin",
+                            style: "tableHeader",
+                          },
+                          {
+                            text: "Date Acte",
+                            style: "tableHeader",
+                          },
+                          {
+                            text: "Confirmé",
+                            style: "tableHeader",
+                          },
+                        ],
+                        ...list,
+                      ],
+                      alignment: "center",
+                    },
+                  },
+                  { width: "*", text: "" },
+                ],
+              },
+            ],
+          },
+        ],
+
+        // Define styles
+        styles,
+      };
+      pdfMake.createPdf(docDefinition).open();
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+
+
+
+function printMedecinList(medecin) {
+  var start = document.getElementById("start").value || moment();
+  var end = document.getElementById("end").value || moment();
+  let list = [];
+  let i = 1;
+  for (const patient of patients) {
+    for (let j = 0; j < patient.consultation.length; j++) {
+      if (selected.value === "all") {
+        if (
+          moment(
+            moment(patient.consultation[j].date).format("DD/MM/YYYY"),
+            "DD/MM/YYYY"
+          ).isBetween(start, end, "day", "[]")
+        )
+          list.push([
+            i,
+            patient.fullname,
+            patient.father,
+            moment(patient.birthdate).format("DD/MM/YYYY"),
+            patient.phone,
+            patient.consultation[j].acte,
+            moment(patient.consultation[j].date).format("DD/MM/YYYY"),
+            patient.consultation[j].status,
+          ]);
+      } else {
+        switch (selected.value) {
+          case "above":
+            if (
+              parseInt(patient.age) >= parseInt(12) &&
+              moment(
+                moment(patient.consultation[j].date).format("DD/MM/YYYY"),
+                "DD/MM/YYYY"
+              ).isBetween(start, end, "day", "[]")
+            )
+              list.push([
+                i,
+                patient.fullname,
+                patient.father,
+                moment(patient.birthdate).format("DD/MM/YYYY"),
+                patient.phone,
+                patient.consultation[j].acte,
+                moment(patient.consultation[j].date).format("DD/MM/YYYY"),
+                patient.consultation[j].status,
+              ]);
+            break;
+
+          case "below":
+            if (
+              parseInt(patient.age) <= parseInt(12) &&
+              moment(
+                moment(patient.consultation[j].date).format("DD/MM/YYYY"),
+                "DD/MM/YYYY"
+              ).isBetween(start, end, "day", "[]")
+            )
+              list.push([
+                i,
+                patient.fullname,
+                patient.father,
+                moment(patient.birthdate).format("DD/MM/YYYY"),
+                patient.phone,
+                patient.consultation[j].acte,
+                moment(patient.consultation[j].date).format("DD/MM/YYYY"),
+                patient.consultation[j].status,
+              ]);
+            break;
+        }
+      }
+      i++;
+    }
+  }
+
+  this.getBase64ImageFromURL("../assets/en-tete.png")
+    .then((url) => {
+      let docDefinition = {
+        pageSize: "A4",
+        pageOrientation: "portrait",
+        // [left, top, right, bottom]
+        pageMargins: [10, 100, 10, 70],
+
+        header: {
+          image: url,
+          width: 595,
+          height: 80,
+          margin: [0, 0, 0, 0],
+        },
+        footer: function (currentPage, pageCount) {
+          return {
+            margin: 10,
+            columns: [
+              {
+                fontSize: 12,
+                text: [
+                  {
+                    text:
+                      "----------------------------------------------------------------------------------------------------" +
+                      "\n",
+                    margin: [0, 20],
+                  },
+                  {
+                    text: currentPage.toString() + " of " + pageCount,
+                  },
+                ],
+                alignment: "center",
+              },
+            ],
+          };
+        },
+        content: [
+          {
+            stack: [
+              {
+                text: `Liste Dr.${medecin}`,
+                style: "header",
+              },
+              {
+                text: `Date: ${moment().format("DD/MM/YYYY")}`,
+                alignment: "left",
+                bold: true,
+                fontSize: 13,
+                color: "#061e30",
+                decoration: "underline",
+                margin: [40, 0, 0, 30],
+              },
+              {
+                columns: [
+                  { width: "*", text: "" },
+                  {
+                    width: "auto",
+                    table: {
+                      // style: "table",
+                      // headers are automatically repeated if the table spans over multiple pages
+                      // you can declare how many rows should be treated as headers
+                      headerRows: 1,
+                      // widths:number of columns in the table here we have 8 columns
+                      widths: [
+                        "auto",
+                        "auto",
+                        "auto",
+                        "auto",
+                        "auto",
+                        "auto",
+                        "auto",
+                        "auto",
+                      ],
+
+                      body: [
+                        [
+                          {
+                            text: "N°",
+                            style: "tableHeader",
+                          },
+                          {
+                            text: "Nom",
+                            style: "tableHeader",
+                          },
+
+                          {
+                            text: "Père",
+                            style: "tableHeader",
+                          },
+
+                          {
+                            text: "Date Naissance",
+                            style: "tableHeader",
+                          },
+                          {
+                            text: "Téléphone",
+                            style: "tableHeader",
+                          },
+
+                          {
+                            text: "Acte",
+                            style: "tableHeader",
+                          },
+                          {
+                            text: "Date Acte",
+                            style: "tableHeader",
+                          },
+                          {
+                            text: "Confirmé",
+                            style: "tableHeader",
+                          },
+                        ],
+                        ...list,
+                      ],
+                      alignment: "center",
+                    },
+                  },
+                  { width: "*", text: "" },
+                ],
+              },
             ],
           },
         ],
@@ -253,17 +510,7 @@ function printPDF() {
                   // you can declare how many rows should be treated as headers
                   headerRows: 1,
                   // widths:number of columns in the table here we have 8 columns
-                  widths: [
-                    "auto",
-                    "auto",
-                    "auto",
-                    "auto",
-                    "auto",
-                    "auto",
-                    "auto",
-                    "auto",
-                    "auto",
-                  ],
+                  widths: ["auto", "auto", "auto", "auto", "auto", "auto"],
 
                   body: [
                     [
@@ -275,10 +522,6 @@ function printPDF() {
                         text: "Nom",
                         style: "tableHeader",
                       },
-                      {
-                        text: "Prénom",
-                        style: "tableHeader",
-                      },
 
                       {
                         text: "Père",
@@ -286,7 +529,7 @@ function printPDF() {
                       },
 
                       {
-                        text: "Age",
+                        text: "Date",
                         style: "tableHeader",
                       },
                       {
@@ -297,29 +540,17 @@ function printPDF() {
                         text: "Tél 2",
                         style: "tableHeader",
                       },
-
-                      {
-                        text: "Dérnier Acte",
-                        style: "tableHeader",
-                      },
-                      {
-                        text: "Prochaine Acte",
-                        style: "tableHeader",
-                      },
                     ],
 
                     ...filterPatient(12, selected.value).map(
                       (patient, index) => {
                         return [
                           index + 1,
-                          patient.lastname,
-                          patient.firstname,
+                          patient.fullname,
                           patient.father,
                           patient.age,
                           patient.phone,
                           patient.phone2,
-                          patient.lastacte.acte,
-                          patient.nextacte.acte,
                         ];
                       }
                     ),

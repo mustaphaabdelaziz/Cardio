@@ -1,0 +1,123 @@
+<button
+  type="button"
+  class="me-3 btn btn-outline-warning px-2 py-1"
+  data-bs-toggle="modal"
+  data-bs-target="#edit-<%= article.id %>"
+>
+  <i class="bi bi-pencil-fill"></i>
+</button>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="edit-<%= article.id %>"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Modifier Article</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          required
+        ></button>
+      </div>
+
+      <div class="modal-body">
+        <form
+          class="row g-3 needs-validation"
+          action="/materiel/<%= materiel.id %>/article/<%= article.id %>?_method=PUT"
+          id="personal"
+          method="POST"
+          novalidate
+        >
+        <div class="form-floating mb-3">
+            <input
+              class="form-control"
+              type="date"
+              id="dateachat"
+              name="article[dateachat]"
+              placeholder="date de l'achat"
+              value="<%=moment(article.dateachat).format("YYYY-MM-DD")%>"
+              required
+              autofocus
+            />
+            <label for="dateachat" class="form-labelfs-6">Date d'achat</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+  
+  
+          <div class="form-floating mb-3">
+            <input
+              id="articlecode"
+              name="article[articleref]"
+              type="text"
+              class="form-control"
+              style="text-transform: capitalize"
+              value="<%= article.ref%>"
+              autofocus
+              required
+            />
+            <label for="articlelcode" class="form-label">REF</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+  
+            <div class="form-floating mb-3">
+              <input
+                id="articledesignation"
+                name="article[articledesignation]"
+                type="text"
+                class="form-control"
+                style="text-transform: capitalize"
+                value="<%= article.designation%>"
+                autofocus
+                required
+              />
+              <label for="articledesignation" class="form-label">Désignation</label>
+              <div class="valid-feedback">BIEN</div>
+  
+          </div>
+  
+          <div class="form-floating mb-3">
+            <input
+              id="articlequantite"
+              name="article[quantite]"
+              type="text"
+              class="form-control"
+              style="text-transform: capitalize"
+              value="<%= article.quantite %>"
+              autofocus
+              required
+            />
+            <label for="articlequantite" class="form-label">Quantité</label>
+            <div class="valid-feedback">BIEN</div>
+  
+        </div>
+  
+          <div class="modal-footer mt-3">
+            <button
+              type="button"
+              class="btn btn-outline-danger"
+              data-bs-dismiss="modal"
+            >
+              Annuler
+            </button>
+            <button
+              type="submit"
+              id="article-edit"
+              class="btn btn-outline-warning"
+            >
+              Modifier
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -11,7 +11,7 @@
               name="age"
               class="form-select"
               required
-              onchange="filter(12)"
+              onchange="filter(12, 2, 6)"
             >
               <!-- <option selected disabled >Age</option> -->
               <option class="option" value="all" selected> Tous </option>
@@ -23,20 +23,17 @@
             <div class="valid-feedback">BIEN</div>
           </div>
           <div  class="form-floating col-3 me-2">
-            <input class="form-control" type="date" id="start" name="start" onkeydown="filter(12)">
+            <input class="form-control" type="date" id="start" name="start" onkeydown="filter(12, 2, 6)">
             <label id="hide" for="start" class="form-label">De:</label>
 
           </div>
           <div class="form-floating col-3">
-            <input class="form-control" onkeydown="filter(12)" type="date" id="end" name="end">
+            <input class="form-control" onkeydown="filter(12, 2, 6)" type="date" id="end" name="end">
             <label id="hide" for="end" class="form-label">A:</label>
           </div>
-          <a
-          class="btn btn-outline-secondary py-3 px-2 ms-2"
-          href="/acte/<%= acte %>/generatepdf"
-          target="_blank"
-          >Imprimer <i class="bi bi-printer-fill py-3 px-2"></i>
-        </a>
+          <button class="btn btn-outline-secondary py-3 px-2 ms-2" onclick="printActeList('<%=acte%>')">
+            Imprimer <i class="bi bi-printer-fill py-3 px-2"></i>
+          </button>
         </div>
       </div>
       <form class="d-flex mt-2">
@@ -104,3 +101,6 @@
       </table>
     </div>
   </div>
+  <script>
+    let patients = <%- JSON.stringify(patients) %>;
+  </script>

@@ -76,7 +76,7 @@
               name="consultation[acte]"
               class="form-select"
               required
-              onchange="selectActe(this)"
+              onchange="selectActe(this, '<%= patient.id %>')"
             >
               <option selected disabled>Acte</option>
               <option class="option" value="Consultation">Consultation</option>
@@ -87,7 +87,7 @@
             <label for="acte" class="form-label">Acte</label>
             <div class="valid-feedback">BIEN</div>
           </div>
-          <div class="form-floating mb-3" id="technicien-div" style="display:none;">
+          <div class="form-floating mb-3" id="technicien-div-<%=patient.id%>" style="display:none;">
             <select
               id="technicien"
               name="consultation[technicien]"

@@ -22,6 +22,8 @@ const DBConnection = require("./database/connection");
 const { sessionConfig } = require("./config/sessionConfig");
 // the local file contain all the local variable
 const { locals } = require("./config/local");
+const materielRoutes = require("./routes/materiel");
+const articleRoutes = require("./routes/article");
 const patientRoutes = require("./routes/patient");
 const staffRoutes = require("./routes/staff");
 const consultationRoutes = require("./routes/consultation");
@@ -51,8 +53,10 @@ app.use(cors());
 // ================= App Routes =======================
 app.use("/patient", patientRoutes);
 app.use("/staffs", staffRoutes);
-app.use("/patient/:id/acte", consultationRoutes);
+app.use("/materiels", materielRoutes);
 app.use("/acte", acteRoutes);
+app.use("/patient/:id/acte", consultationRoutes);
+app.use("/materiel/:id/article", articleRoutes);
 app.use("/medecin/:lastname", medecinRoutes);
 // ========================================================
 app.get("/", (req, res) => {

@@ -2,7 +2,8 @@ var table = document.getElementById("patientTable");
 var tr = table.getElementsByTagName("tr");
 var txtValue;
 
-function filter(age) {
+function filter(age,ageColumn,dateColumn) {
+  
   var selected = document.getElementById("age").value;
   var start =
     document.getElementById("start").value ||
@@ -15,8 +16,8 @@ function filter(age) {
   var tddate, tdage, ageValue, dateValue;
 
   for (i = 0; i < tr.length; i++) {
-    tdage = tr[i].getElementsByTagName("td")[2];
-    tddate = tr[i].getElementsByTagName("td")[6];
+    tdage = tr[i].getElementsByTagName("td")[ageColumn];//[2]
+    tddate = tr[i].getElementsByTagName("td")[dateColumn];//[6]
     if (tdage && tddate) {
       ageValue = parseInt(tdage.textContent);
       dateValue = tddate.innerText;

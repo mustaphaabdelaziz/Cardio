@@ -1,6 +1,6 @@
-function selectActe(acte) {
+function selectActe(acte,id) {
 
-  let technicien = document.getElementById("technicien-div");
+  let technicien = document.getElementById("technicien-div-"+id);
   if (acte.value === "KT") {
     technicien.style.display = "";
   } else {
