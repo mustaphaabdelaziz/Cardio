@@ -14,32 +14,26 @@
                             <%=materiel.designation %>
 
                         </h2>
-                        
+
                         <div class="ms-2">
-                            
+
                             <%- include("./new")%>
                             <%- include("../edit")%>
                             <%- include("../delete")%>
-                            <a class="btn btn-outline-secondary  px-2 py-1" href=<%=`/materiel/generatepdf/${materiel.id}`%>
-                                target="_blank"><i class="bi bi-printer-fill  px-1 py-1"></i>
+                            <a class="btn btn-outline-secondary  px-2 py-1"
+                                href=<%=`/materiel/generatepdf/${materiel.id}`%> target="_blank"><i
+                                    class="bi bi-printer-fill  px-1 py-1"></i>
                             </a>
                         </div>
                     </div>
                     <div class="col-2 mt-2">
                         <p>REF:</p>
-                       
                         <p>Quantité globale:</p>
-                        </div>
+                    </div>
                     <div class="col-2 mt-2">
-                        <p>
-                            <%=materiel.code %>
-                        </p>
-                       
-                        <p>
-                         Coming Soon !
+                        <p><%=materiel.code %></p>
+                        <p><%=materiel.qteglobal %></p>
 
-                        </p>
-                        
                     </div>
                 </div>
             </div>
@@ -60,9 +54,9 @@
                 <th scope="col">N°</th>
                 <th scope="col">REF</th>
                 <th scope="col">Désignation</th>
-               <th scope="col">Quantité</th>
+                <th scope="col">Quantité</th>
                 <th scope="col">Date d'achat</th>
-                 <th id="hide" scope="col">Action</th>
+                <th id="hide" scope="col">Action</th>
             </tr>
         </thead>
         <tbody id="tablebody">
@@ -75,24 +69,24 @@
                 </th>
                 <td class="data">
                     <%= article.ref %>
-                    </td>
-                    <td class="data">
-                        <%= article.designation%>
-                        </td>
-                                  
+                </td>
+                <td class="data">
+                    <%= article.designation%>
+                </td>
+
                 <td class="data">
                     <%=article.quantite %>
                 </td>
                 <td class="data">
                     <%=moment(article.dateachat).format("DD/MM/YYYY")%>
                 </td>
-              <th>
-               
-                <%- include("./edit")%>
-                <%- include("./delete")%>
+                <th>
 
-              </th>
-                           
+                    <%- include("./edit")%>
+                    <%- include("./delete")%>
+
+                </th>
+
             </tr>
             <% }%>
         </tbody>
