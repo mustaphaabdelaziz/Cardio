@@ -17,7 +17,7 @@ const Patient = require("../model/patient");
 
 module.exports.listepatient = async (req, res) => {
   const medecins = await Staff.find({ fonction: "Medecin" });
-  const techniciens = await Staff.find({ fonction: "technicien" });
+  const techniciens = await Staff.find({ fonction: "technicien cathlab" });
   // res.send(medecins)
   const patients = await Patient.find({});
   res.render("patient/index", { patients, moment, medecins, techniciens });

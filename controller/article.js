@@ -16,7 +16,7 @@ module.exports.showarticle = async (req, res) => {
 };
 
 module.exports.addArticle = async (req, res) => {
-  let { dateachat, quantite,articleref,articledesignation } = req.body.article;
+  let { serie,lot,marque,ddp, dateachat, quantite,fournisseur,bc,bl,fc } = req.body.article;
   const { id } = req.params;
 
   const materiel = await Materiel.findByIdAndUpdate(
@@ -24,10 +24,17 @@ module.exports.addArticle = async (req, res) => {
     {
       $push: {
         article: {
-          quantite,
+          serie,
+          lot,
+          marque,
+          ddp,
           dateachat,
-          ref: articleref,
-          designation: articledesignation,
+          quantite,
+          fournisseur,
+          bc,
+          bl,
+          fc,
+          
         },
       },
     },
@@ -37,7 +44,7 @@ module.exports.addArticle = async (req, res) => {
   const redirectUrl = `back`;
   req.flash("success", "Article a été ajouté avec succès");
   res.redirect(redirectUrl);
-  // res.redirect("/materiel")
+ 
 };
 module.exports.deleteMaterielArticle = async (req, res) => {
   const { id, idarticle } = req.params;
@@ -53,10 +60,9 @@ module.exports.deleteMaterielArticle = async (req, res) => {
 module.exports.updateMaterielArticle = async (req, res) => {
   const { id, idarticle } = req.params;
 
-  const { dateachat, quantite,articleref,articledesignation } =
+  const {serie,lot,marque, ddp,dateachat, quantite,fournisseur,bc,bl,fc } =
     req.body.article;
-  console.log(dateachat, quantite,articleref,articledesignation);
-  console.log(id, idarticle);
+  
   let materiel;
 
  
@@ -67,10 +73,17 @@ module.exports.updateMaterielArticle = async (req, res) => {
       },
       {
         $set: {
+          "article.$.serie": serie,
+          "article.$.lot": lot,
+          "article.$.marque": marque,
           "article.$.dateachat": dateachat,
+          "article.$.ddp": ddp,
           "article.$.quantite": quantite,
-          "article.$.ref": articleref,
-          "article.$.designation": articledesignation,
+          "article.$.fournisseur": fournisseur,
+          "article.$.bc": bc,
+          "article.$.bl": bl,
+          "article.$.fc": fc,
+        
           
         },
       }

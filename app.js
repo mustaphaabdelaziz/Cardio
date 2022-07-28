@@ -51,13 +51,13 @@ app.use(cors());
 // =========================================================
 
 // ================= App Routes =======================
+app.use("/acte", acteRoutes);
+app.use("/materiels", materielRoutes);
 app.use("/patient", patientRoutes);
 app.use("/staffs", staffRoutes);
-app.use("/materiels", materielRoutes);
-app.use("/acte", acteRoutes);
-app.use("/patient/:id/acte", consultationRoutes);
 app.use("/materiel/:id/article", articleRoutes);
 app.use("/medecin/:lastname", medecinRoutes);
+app.use("/patient/:id/acte", consultationRoutes);
 // ========================================================
 app.get("/", (req, res) => {
   res.render("home");

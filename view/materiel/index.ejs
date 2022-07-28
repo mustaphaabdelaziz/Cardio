@@ -34,7 +34,8 @@
         <th  scope="col">N°</th>
         <th  scope="col">REF</th>
         <th  scope="col">Désignation</th>
-        <th  scope="col">Quantité Globale</th>
+        <th  scope="col">Qte Globale</th>
+        <th  scope="col">Qte Consommé</th>
         <th  id="hide" scope="col">Action</th>
       </tr>
     </thead>
@@ -66,6 +67,13 @@
         onclick="window.location='/materiels/<%=materiel.id%>'"
         >
         <%=materiel.qteglobal %>
+          
+        </td>
+        <td
+        class="clickable"
+        onclick="window.location='/materiels/<%=materiel.id%>'"
+        >
+      coming soon!
           
         </td>
           

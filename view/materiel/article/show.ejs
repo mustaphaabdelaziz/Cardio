@@ -29,11 +29,12 @@
                     <div class="col-2 mt-2">
                         <p>REF:</p>
                         <p>Quantité globale:</p>
+                        <p>Quantité Consommé:</p>
                     </div>
                     <div class="col-2 mt-2">
                         <p><%=materiel.code %></p>
                         <p><%=materiel.qteglobal %></p>
-
+                        <p>coming soon!</p>
                     </div>
                 </div>
             </div>
@@ -52,10 +53,17 @@
         <thead class="table-success">
             <tr>
                 <th scope="col">N°</th>
-                <th scope="col">REF</th>
-                <th scope="col">Désignation</th>
-                <th scope="col">Quantité</th>
+                <th scope="col">N° Serie</th>
+                <th scope="col">N° Lot</th>
+                <th scope="col">Marque</th>
+                <th scope="col">Qte</th>
+                <th scope="col">Qte consommé</th>
+                <th scope="col">DDP</th>
                 <th scope="col">Date d'achat</th>
+                <th scope="col">Fournisseur</th>
+                <th scope="col">BC</th>
+                <th scope="col">BL</th>
+                <th scope="col">FC</th>
                 <th id="hide" scope="col">Action</th>
             </tr>
         </thead>
@@ -68,23 +76,47 @@
                     <% i=i+1; %>
                 </th>
                 <td class="data">
-                    <%= article.ref %>
+                    <%= article.serie %>
                 </td>
                 <td class="data">
-                    <%= article.designation%>
+                    <%= article.lot%>
+                </td>
+                <td class="data">
+                    <%= article.marque %>
                 </td>
 
                 <td class="data">
                     <%=article.quantite %>
                 </td>
                 <td class="data">
-                    <%=moment(article.dateachat).format("DD/MM/YYYY")%>
+                  Coming soon!
                 </td>
-                <th>
+                <td class="data">
+                    <%=moment(article.ddp).format("DD/MM/YYYY")%>
+                </td>
+                <td class="data">
+                    <%=moment(article.dateachat).format("DD/MM/YYYY")%>
 
+                </td>
+                <td class="data">
+                    <%=article.fournisseur %>
+                </td>
+                <td class="data">
+                    <%=article.bc %>
+                </td>
+                <td class="data">
+                    <%=article.bl %>
+                </td>
+                <td class="data">
+                    <%=article.fc %>
+                </td>
+               
+                <th>
                     <%- include("./edit")%>
+                  
                     <%- include("./delete")%>
 
+                    
                 </th>
 
             </tr>

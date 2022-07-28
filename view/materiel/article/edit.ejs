@@ -1,6 +1,6 @@
 <button
   type="button"
-  class="me-3 btn btn-outline-warning px-2 py-1"
+  class="me-2 btn btn-outline-warning px-2 py-1"
   data-bs-toggle="modal"
   data-bs-target="#edit-<%= article.id %>"
 >
@@ -37,69 +37,127 @@
           method="POST"
           novalidate
         >
-        <div class="form-floating mb-3">
+          <div class="form-floating mb-3 col-md-3">
             <input
-              class="form-control"
-              type="date"
-              id="dateachat"
-              name="article[dateachat]"
-              placeholder="date de l'achat"
-              value="<%=moment(article.dateachat).format("YYYY-MM-DD")%>"
-              required
-              autofocus
-            />
-            <label for="dateachat" class="form-labelfs-6">Date d'achat</label>
-            <div class="valid-feedback">BIEN</div>
-          </div>
-  
-  
-          <div class="form-floating mb-3">
-            <input
-              id="articlecode"
-              name="article[articleref]"
+              id="articleserie"
+              name="article[serie]"
               type="text"
               class="form-control"
               style="text-transform: capitalize"
-              value="<%= article.ref%>"
+              value="<%= article.serie %>"
               autofocus
               required
             />
-            <label for="articlelcode" class="form-label">REF</label>
+            <label for="articlelserie" class="form-label">N° Série</label>
             <div class="valid-feedback">BIEN</div>
           </div>
-  
-            <div class="form-floating mb-3">
-              <input
-                id="articledesignation"
-                name="article[articledesignation]"
-                type="text"
-                class="form-control"
-                style="text-transform: capitalize"
-                value="<%= article.designation%>"
-                autofocus
-                required
-              />
-              <label for="articledesignation" class="form-label">Désignation</label>
-              <div class="valid-feedback">BIEN</div>
-  
+          <div class="form-floating mb-3 col-md-3">
+            <input
+              id="articlelot"
+              name="article[lot]"
+              type="text"
+              class="form-control"
+              style="text-transform: capitalize"
+              autocomplete="off"
+              value="<%= article.lot %>"
+              required
+            />
+            <label for="articlelserie" class="form-label">N° Lot</label>
+            <div class="valid-feedback">BIEN</div>
           </div>
-  
-          <div class="form-floating mb-3">
+
+          <div class="form-floating mb-3 col-md-3">
+            <input
+              id="articlemarque"
+              name="article[marque]"
+              type="text"
+              class="form-control"
+              style="text-transform: capitalize"
+              value="<%= article.marque %>"
+              required
+            />
+            <label for="articlemarque" class="form-label">Marque</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+
+          <div class="form-floating mb-3 col-md-3">
             <input
               id="articlequantite"
               name="article[quantite]"
-              type="text"
+              type="number"
               class="form-control"
               style="text-transform: capitalize"
+              autocomplete="off"
               value="<%= article.quantite %>"
-              autofocus
               required
             />
             <label for="articlequantite" class="form-label">Quantité</label>
             <div class="valid-feedback">BIEN</div>
-  
-        </div>
-  
+          </div>
+       
+          <div class="form-floating mb-3 col-md-6">
+            <input class="form-control" type="date" id="ddp"
+            name="article[ddp]" placeholder="DDP"
+            value="<%=moment(article.ddp).format("YYYY-MM-DD")%>" />
+            <label for="ddp" class="form-labelfs-6">DDP</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <div class="form-floating mb-3 col-md-6">
+            <input class="form-control" type="date" id="dateachat"
+            name="article[dateachat]" placeholder="date de l'achat"
+            value="<%=moment(article.dateachat).format("YYYY-MM-DD")%>" />
+            <label for="dateachat" class="form-labelfs-6">Date d'achat</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <div class="form-floating mb-3 col-md-12">
+            <input
+              id="articlefrournisseur"
+              name="article[fournisseur]"
+              type="text"
+              class="form-control"
+              style="text-transform: capitalize"
+              value="<%= article.fournisseur %>"
+            />
+            <label for="articlelfrournisseur" class="form-label"
+              >Frournisseur</label
+            >
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <div class="form-floating mb-3 col-md-4">
+            <input
+              id="articlebc"
+              name="article[bc]"
+              type="number"
+              class="form-control"
+              value="<%= article.bc %>"
+            />
+            <label for="articlebc" class="form-label">BC</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <div class="form-floating mb-3 col-md-4">
+            <input
+              id="articlebl"
+              name="article[bl]"
+              type="number"
+              class="form-control"
+              value="<%= article.bc %>"
+            />
+            <label for="articlebl" class="form-label">BL</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+
+          <div class="form-floating mb-3 col-md-4">
+            <input
+              id="articlefc"
+              name="article[fc]"
+              type="number"
+              class="form-control"
+              value="<%= article.fc %>"
+            />
+            <label for="articlefc" class="form-label">FC</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+
           <div class="modal-footer mt-3">
             <button
               type="button"

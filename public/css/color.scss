@@ -1,16 +1,68 @@
-$lightCoral: #f6665c;
-$mediumTurquoise: #00bcd4;
+$lightCoral: #e2564c;
+$mediumTurquoise: #0fa2b6;
+$greenSea: #5da49c;
+$crystalBlue: #afd9ea;
+.bg-greenSea {
+  background-color: $greenSea;
+}
+.bg-crystalBlue {
+  background-color: $crystalBlue;
+}
 .bg-lightCoral {
   background-color: $lightCoral;
+}
+.bg-mediumTurquoise {
+  background-color: $mediumTurquoise;
+}
+.text-crystalBlue {
+  color: $crystalBlue;
+}
+.text-greenSea {
+  color: $greenSea;
 }
 .text-lightCoral {
   color: $lightCoral;
 }
-
-.bg-mediumTurquoise {
-  background-color: $mediumTurquoise;
-}
-
 .text-mediumTurquoise {
   color: $mediumTurquoise;
+}
+.btn-greenSea {
+  color: #fff;
+  background-color: $greenSea;
+  border-color: $greenSea;
+}
+.btn-greenSea:hover {
+  color: #fff;
+  background-color: $greenSea;
+  opacity: 0.8;
+}
+.btn-crystalBlue {
+  color: #fff;
+  background-color: $crystalBlue;
+  border-color: $crystalBlue;
+}
+.btn-crystalBlue:hover {
+  color: #fff;
+  background-color: $crystalBlue;
+  opacity: 0.8;
+}
+.btn-mediumTurquoise {
+  color: #fff;
+  background-color: $mediumTurquoise;
+  border-color: $mediumTurquoise;
+}
+.btn-mediumTurquoise:hover {
+  color: #fff;
+  background-color: $mediumTurquoise;
+  opacity: 0.8;
+}
+.btn-lightCoral {
+  color: #fff;
+  background-color: $lightCoral;
+  border-color: $lightCoral;
+}
+.btn-lightCoral:hover {
+  color: #fff;
+  background-color: $lightCoral;
+  opacity: 0.8;
 }

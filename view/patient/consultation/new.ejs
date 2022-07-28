@@ -1,6 +1,6 @@
 <button
   type="button"
-  class="btn me-2 btn-outline-success px-2 py-1"
+  class="btn me-2 btn-outline-success bg-gradient px-2 py-1"
   data-bs-toggle="modal"
   data-bs-target="#acte-<%= patient.id %>"
 >
@@ -19,7 +19,7 @@
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Ajouter Acte</h5>
+        <h5 class="modal-title" id="addacte-<%= patient.id %>">Ajouter Acte</h5>
 
         <button
           type="button"
@@ -89,7 +89,7 @@
           </div>
           <div class="form-floating mb-3" id="technicien-div-<%=patient.id%>" style="display:none;">
             <select
-              id="technicien"
+              id="technicien-<%=patient.id%>"
               name="consultation[technicien]"
               class="form-select"
             >
@@ -137,12 +137,12 @@
           <div class="modal-footer mt-4">
             <button
               type="button"
-              class="btn btn-outline-danger"
+              class="btn btn-outline-danger bg-gradient"
               data-bs-dismiss="modal"
             >
               Annuler
             </button>
-            <button class="btn btn-outline-success">Ajouter</button>
+            <button class="btn btn-outline-success bg-gradient">Ajouter</button>
           </div>
         </form>
       </div>

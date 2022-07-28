@@ -16,7 +16,7 @@
   aria-labelledby="staticBackdropLabel"
   aria-hidden="true"
 >
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="staticBackdropLabel">Ajouter Article</h5>
@@ -33,73 +33,156 @@
         <form
           action="/materiel/<%=materiel.id%>/article"
           method="POST"
-          class="needs-validation"
+          class=" row needs-validation"
           novalidate
         >
-        <div class="form-floating mb-3">
-          <input
-            class="form-control"
-            type="date"
-            id="dateachat"
-            name="article[dateachat]"
-            placeholder="date de l'achat"
-            required
-            autofocus
-          />
-          <label for="dateachat" class="form-labelfs-6">Date d'achat</label>
-          <div class="valid-feedback">BIEN</div>
-        </div>
+      
 
-
-        <div class="form-floating mb-3">
+        <div class="form-floating mb-3 col-md-3">
           <input
-            id="articlecode"
-            name="article[articleref]"
+            id="articleserie"
+            name="article[serie]"
             type="text"
             class="form-control"
             style="text-transform: capitalize"
             autofocus
             required
           />
-          <label for="articlelcode" class="form-label">REF</label>
+          <label for="articlelserie" class="form-label">N° Série</label>
+          <div class="valid-feedback">BIEN</div>
+      
+        </div>
+        <div class="form-floating mb-3 col-md-3">
+          <input
+            id="articlelot"
+            name="article[lot]"
+            type="text"
+            class="form-control"
+            style="text-transform: capitalize"
+            autocomplete="off"
+            
+            required
+          />
+          <label for="articlelserie" class="form-label">N° Lot</label>
           <div class="valid-feedback">BIEN</div>
         </div>
 
-          <div class="form-floating mb-3">
-            <input
-              id="articledesignation"
-              name="article[articledesignation]"
-              type="text"
-              class="form-control"
-              style="text-transform: capitalize"
-              autofocus
-              required
-            />
-            <label for="articledesignation" class="form-label">Désignation</label>
-            <div class="valid-feedback">BIEN</div>
-
+        <div class="form-floating mb-3 col-md-3">
+          <input
+            id="articlemarque"
+            name="article[marque]"
+            type="text"
+            class="form-control"
+            style="text-transform: capitalize"
+          
+            required
+          />
+          <label for="articlemarque" class="form-label">Marque</label>
+          <div class="valid-feedback">BIEN</div>
+          
         </div>
-
-        <div class="form-floating mb-3">
+        <div class="form-floating mb-3 col-md-3">
           <input
             id="articlequantite"
             name="article[quantite]"
-            type="text"
+            type="number"
             class="form-control"
-            style="text-transform: capitalize"
-            autofocus
+            
+            autocomplete="off"
+            
             required
           />
           <label for="articlequantite" class="form-label">Quantité</label>
           <div class="valid-feedback">BIEN</div>
 
       </div>
+        <div class="form-floating mb-3 col-md-6">
+          <input
+            class="form-control"
+            type="date"
+            id="ddp"
+            name="article[ddp]"
+            placeholder="DDP"
+                  
+          />
+          <label for="ddp" class="form-label fs-6">DDP</label>
+          <div class="valid-feedback">BIEN</div>
+        </div>
+        <div class="form-floating mb-3 col-6">
+          <input
+            class="form-control"
+            type="date"
+            id="dateachat"
+            name="article[dateachat]"
+            placeholder="date de l'achat"
+                  
+          />
+          <label for="dateachat" class="form-label fs-6">Date d'achat</label>
+          <div class="valid-feedback">BIEN</div>
+        </div>
 
+       
+      <div class="form-floating mb-3 col-12">
+        <input
+          id="articlefournisseur"
+          name="article[fournisseur]"
+          type="text"
+          class="form-control"
+          style="text-transform: capitalize"
          
+        />
+        <label for="articlelfournisseur" class="form-label">Fournisseur</label>
+        <div class="valid-feedback">BIEN</div>
+      </div>
+     
+      
+      
 
-                      
+          <div class="form-floating mb-3 col-4">
+            <input
+              id="articlebc"
+              name="article[bc]"
+              type="number"
+              class="form-control"
+             
+              
+             
+            />
+            <label for="articlebc" class="form-label">BC</label>
+            <div class="valid-feedback">BIEN</div>
 
-          
+        </div>
+        <div class="form-floating mb-3 col-md-4">
+          <input
+            id="articlebl"
+            name="article[bl]"
+            type="number"
+            class="form-control"
+           
+            
+           
+          />
+          <label for="articlebl" class="form-label">BL</label>
+          <div class="valid-feedback">BIEN</div>
+
+      </div>
+
+      <div class="form-floating mb-3 col-md-4">
+        <input
+          id="articlefc"
+          name="article[fc]"
+          type="number"
+          class="form-control"
+        
+         
+         
+        />
+        <label for="articlefc" class="form-label">FC</label>
+        <div class="valid-feedback">BIEN</div>
+
+    </div>
+     
+        
 
           <div class="modal-footer mt-4">
             <button

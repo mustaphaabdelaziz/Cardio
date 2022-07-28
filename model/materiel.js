@@ -14,10 +14,16 @@ const Materiel = new Schema(
 
     article: [
       {
-        dateachat: Date,
-        quantite: Number,
-        ref: String,
-        designation: String,
+        serie: String,
+          lot: String,
+          marque: String,
+          ddp: String,
+          dateachat: String,
+          quantite: Number,
+          fournisseur: String,
+          bc: Number,
+          bl: Number,
+          fc: Number,
       },
     ],
   },

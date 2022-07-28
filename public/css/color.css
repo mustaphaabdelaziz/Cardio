@@ -1,16 +1,80 @@
-.bg-lightCoral {
-  background-color: #f6665c;
+.bg-greenSea {
+  background-color: #5da49c;
 }
 
-.text-lightCoral {
-  color: #f6665c;
+.bg-crystalBlue {
+  background-color: #afd9ea;
+}
+
+.bg-lightCoral {
+  background-color: #e2564c;
 }
 
 .bg-mediumTurquoise {
-  background-color: #00bcd4;
+  background-color: #0fa2b6;
+}
+
+.text-crystalBlue {
+  color: #afd9ea;
+}
+
+.text-greenSea {
+  color: #5da49c;
+}
+
+.text-lightCoral {
+  color: #e2564c;
 }
 
 .text-mediumTurquoise {
-  color: #00bcd4;
+  color: #0fa2b6;
+}
+
+.btn-greenSea {
+  color: #fff;
+  background-color: #5da49c;
+  border-color: #5da49c;
+}
+
+.btn-greenSea:hover {
+  color: #fff;
+  background-color: #5da49c;
+  opacity: 0.8;
+}
+
+.btn-crystalBlue {
+  color: #fff;
+  background-color: #afd9ea;
+  border-color: #afd9ea;
+}
+
+.btn-crystalBlue:hover {
+  color: #fff;
+  background-color: #afd9ea;
+  opacity: 0.8;
+}
+
+.btn-mediumTurquoise {
+  color: #fff;
+  background-color: #0fa2b6;
+  border-color: #0fa2b6;
+}
+
+.btn-mediumTurquoise:hover {
+  color: #fff;
+  background-color: #0fa2b6;
+  opacity: 0.8;
+}
+
+.btn-lightCoral {
+  color: #fff;
+  background-color: #e2564c;
+  border-color: #e2564c;
+}
+
+.btn-lightCoral:hover {
+  color: #fff;
+  background-color: #e2564c;
+  opacity: 0.8;
 }
 /*# sourceMappingURL=color.css.map */
