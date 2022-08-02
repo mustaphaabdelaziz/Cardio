@@ -1,6 +1,7 @@
 const moment = require("moment");
 const Bc = require("../model/bc");
 const Patient = require("../model/patient");
+const Materiel = require("../model/materiel");
 
 module.exports.showbcpatient = async (req, res) => {
   const { id } = req.params;
@@ -13,8 +14,9 @@ module.exports.showbc = async (req, res) => {
   const { id, idbc } = req.params;
   const patient = await Patient.findById(id);
   const bc = await Bc.findById(idbc);
+  const materials = await Materiel.find({});
 
-  res.render("kt/bc/show", { bc, patient, moment });
+  res.render("kt/bc/show", { bc, patient, moment,materials });
 };
 
 module.exports.addBc = async (req, res) => {
@@ -27,6 +29,29 @@ module.exports.addBc = async (req, res) => {
   req.flash("success", "Bc a été ajouté avec succès");
   res.redirect(redirectUrl);
 };
+module.exports.addArticleToBC = async (req, res) => {
+  let { designation, qte } = req.body.articles;
+  const { id, idbc } = req.params;
+  console.log(designation, qte);
+
+  const bc = await Bc.findByIdAndUpdate(
+    idbc,
+    {
+      $push: {
+        articles: {
+          designation,
+          qte,
+        },
+      },
+    },
+    { new: true }
+  );
+
+  const redirectUrl = `back`;
+  req.flash("success", "Bc a été ajouté avec succès");
+  res.redirect(redirectUrl);
+};
+
 module.exports.deleteKtBc = async (req, res) => {
   const { id, idbc } = req.params;
   const kt = await Kt.findByIdAndUpdate(

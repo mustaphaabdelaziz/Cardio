@@ -4,14 +4,15 @@ const {
   // showcform,
   addBc,
   showbc,
-  showbcpatient
+  showbcpatient,
+  addArticleToBC,
   // deleteMaterielBc,
   // updateMaterielBc,
 } = require("../controller/bc");
 const catchAsync = require("../utils/catchAsync");
 router.route("/").get(catchAsync(showbcpatient)).post(catchAsync(addBc));
 
-router.route("/:idbc").get(catchAsync(showbc))
+router.route("/:idbc").get(catchAsync(showbc)).post(catchAsync(addArticleToBC));
 
 // patient/:idp/bc/:idbc
 

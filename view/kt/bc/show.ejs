@@ -13,6 +13,9 @@
                         <h2>
                             <%=patient.fullname %>
                         </h2>
+                        <div class="ms-2 mt-1">
+                            <%- include("./article/new") %> 
+                        </div>
                     </div>
                     <div class="col-2 mt-2">
                         <p>Age:</p>
@@ -48,18 +51,23 @@
         <tbody id="tablebody">
            <% var i = 1 %>
            <% for(article of bc.articles) {%>
+            <tr>
             <th class="clickable" onclick="window.location='/kt/bc/<%=patient.id%>/<%=bc.id%>'">
                 <%= i++ %>
             </th> 
-            <th class="clickable" onclick="window.location='/kt/bc/<%=patient.id%>/<%=bc.id%>'">
+            <td class="clickable" onclick="window.location='/kt/bc/<%=patient.id%>/<%=bc.id%>'">
                 <%= article.designation %>                
-            </th> 
-            <th class="clickable" onclick="window.location='/kt/bc/<%=patient.id%>/<%=bc.id%>'">
+            </td> 
+            <td class="clickable" onclick="window.location='/kt/bc/<%=patient.id%>/<%=bc.id%>'">
                 <%= article.qte %>                
-            </th> 
-            <td class="clickable" onclick="window.location='/kt/bc/<%=patient.id%>/<%=bc.id%>'"><%= moment(bc.date).format("DD/MM/YYYY")%> </td>
-            <td>EDIT & Delete</td>
+            </td> 
+            <td>
+                <%- include("./article/edit") %> 
+                <%- include("./article/delete") %> 
+            </td>
+        </tr>
             <% } %> 
+
         </tbody>
     </table>
 </div>

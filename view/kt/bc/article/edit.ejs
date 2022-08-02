@@ -1,0 +1,91 @@
+<button
+  type="button"
+  class="btn me-2 btn-outline-warning px-2 py-1"
+  data-bs-toggle="modal"
+  data-bs-target="#edit-<%= bc.id %>"
+>
+  <i class="bi bi-pencil-fill"></i>
+</button>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="edit-<%= bc.id %>"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Modifier Matériel</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          required
+        ></button>
+      </div>
+
+      <div class="modal-body">
+        <form
+          action="/bcs/<%= bc.id %>/?_method=PUT"
+          id="personal"
+          method="POST"
+          class="needs-validation"
+          novalidate
+        >
+          <div class="form-floating mb-3">
+            <input
+              id="bccode"
+              name="bc[code]"
+              type="text"
+              class="form-control"
+              style="text-transform: capitalize"
+              required
+              autofocus
+              value="<%= bc.code%>"
+            />
+            <label for="bccode" class="form-label">Code</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <div class="form-floating mb-3">
+            <input
+              id="bcdesignation"
+              name="bc[designation]"
+              style="text-transform: capitalize"
+              type="text"
+              class="form-control"
+              required
+              
+              value="<%= bc.designation %>"
+            />
+            <label for="bcdesignation" class="form-label">Désignation</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+        
+             
+               
+         <div class="modal-footer mt-3">
+            <button
+              type="button"
+              class="btn btn-outline-danger"
+              data-bs-dismiss="modal"
+            >
+              Annuler
+            </button>
+            <button
+              type="submit"
+              id="bc-register"
+              class="btn btn-outline-warning"
+            >
+              Modifier
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
