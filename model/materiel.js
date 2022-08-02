@@ -11,14 +11,14 @@ const Materiel = new Schema(
   {
     code: String,
     designation: String,
-
     article: [
       {
+        etat: String,
         serie: String,
           lot: String,
           marque: String,
-          ddp: String,
-          dateachat: String,
+          ddp: Date,
+          dateachat: Date,
           quantite: Number,
           fournisseur: String,
           bc: Number,

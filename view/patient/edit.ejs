@@ -106,6 +106,29 @@
           </div>
 
           <div class="form-floating mb-3">
+            <select
+              id="patientCity"
+              name="patient[wilaya]"
+              class="form-select"
+              required
+            >
+              <option disabled value="" selected>Wilaya</option>
+              <% for(city of states ){ %> <% if(patient.wilaya===city.name) {%>
+              <option class="option" value="<%= patient.wilaya%>" selected>
+                <%= city.id + " - " + city.name %>
+              </option>
+              <% } else { %>
+              <option class="option" value="<%= city.name%>">
+                <%= city.id + " - " + city.name %>
+              </option>
+              <% }} %>
+            </select>
+
+            <label for="patientCity" class="form-label">Wilaya</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+
+          <div class="form-floating mb-3">
             <input
               type="text"
               class="form-control"
@@ -151,13 +174,13 @@
               <option class="option" value="<%= medecin.lastname%>">
                 Dr. <%= medecin.lastname %>
               </option>
-              <% }} %> 
+              <% }} %>
             </select>
 
             <label for="medecinref" class="form-label">Médecin Ref</label>
             <div class="valid-feedback">BIEN</div>
           </div>
-          
+
           <div class="modal-footer mt-3">
             <button
               type="button"

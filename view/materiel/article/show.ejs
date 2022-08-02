@@ -64,6 +64,7 @@
                 <th scope="col">BC</th>
                 <th scope="col">BL</th>
                 <th scope="col">FC</th>
+                <th scope="col">Etat</th>
                 <th id="hide" scope="col">Action</th>
             </tr>
         </thead>
@@ -110,8 +111,14 @@
                 <td class="data">
                     <%=article.fc %>
                 </td>
-               
-                <th>
+                <% if (article.etat==="Reçu"){%>
+                    <th class="p-3"><span class="rounded-pill badge bg-success bg-gradient">Reçu</span></th>
+                    <%}else if(article.etat==="Commandé"){%>
+                    <th class="p-3"><span class="rounded-pill badge bg-warning bg-gradient">Commandé</span></th>
+                    <%}else{%>
+                        <th class="p-3"><span class="rounded-pill badge bg-lightCoral bg-gradient">Retour</span></th>
+                
+                <%}%>        <th>
                     <%- include("./edit")%>
                   
                     <%- include("./delete")%>

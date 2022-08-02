@@ -37,6 +37,33 @@
           method="POST"
           novalidate
         >
+        <div class="form-floating mb-3">
+          <select
+            id="etat"
+            name="article[etat]"
+            class="form-select"
+            required
+          >
+            
+            <% if (article.etat === 'Reçu'){%>
+            <option class="option" value="Reçu" selected>Reçu</option>
+            <option class="option" value="Commandé">Commandé</option>
+            <option class="option" value="Retour">Retour</option>
+            <% }else if (article.etat === 'Commandé'){ %>
+              <option class="option" value="Reçu" >Reçu</option>
+              <option class="option" value="Commandé" selected>Commandé</option>
+              <option class="option" value="Retour">Retour</option>
+              <% } else { %>
+                <option class="option" value="Reçu" >Reçu</option>
+                <option class="option" value="Commandé" >Commandé</option>
+                <option class="option" value="Retour" selected>Retour</option>
+            
+            <% } %>
+          </select>
+          <label for="etat" class="form-label">Etat</label>
+          <div class="valid-feedback">BIEN</div>
+        </div>
+
           <div class="form-floating mb-3 col-md-3">
             <input
               id="articleserie"
@@ -46,7 +73,7 @@
               style="text-transform: capitalize"
               value="<%= article.serie %>"
               autofocus
-              required
+              
             />
             <label for="articlelserie" class="form-label">N° Série</label>
             <div class="valid-feedback">BIEN</div>
@@ -60,7 +87,7 @@
               style="text-transform: capitalize"
               autocomplete="off"
               value="<%= article.lot %>"
-              required
+              
             />
             <label for="articlelserie" class="form-label">N° Lot</label>
             <div class="valid-feedback">BIEN</div>
@@ -74,7 +101,7 @@
               class="form-control"
               style="text-transform: capitalize"
               value="<%= article.marque %>"
-              required
+              
             />
             <label for="articlemarque" class="form-label">Marque</label>
             <div class="valid-feedback">BIEN</div>

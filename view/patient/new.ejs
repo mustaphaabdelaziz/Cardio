@@ -118,6 +118,24 @@
               <label for="patientGender" class="form-label">Genre</label>
               <div class="valid-feedback">BIEN</div>
             </div>
+            <div class="form-floating col-md-6">
+              <select
+              id="patientCity"
+              name="patient[wilaya]"
+              class="form-select"
+              required
+              >
+              <option selected disabled value="">Wilaya</option>
+              <% for (city of states) { %>
+                <option class="option" value="<%= city.name %>">
+                  <%= city.id + " - " + city.name %>
+                </option>
+                
+                <%} %>
+              </select>
+              <label for="patientCity" class="form-label">Wilaya</label>
+              <div class="valid-feedback">BIEN</div>
+            </div>
 
             <div class="form-floating col-md-6">
               <select

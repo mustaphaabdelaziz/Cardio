@@ -23,11 +23,14 @@ const Patient = new Schema(
       default: "/",
     },
     gender: String,
+    wilaya: {
+      type: String,
+      default: "/",
+    },
     medecinref: {
       type: String,
       default: "/",
     },
- 
 
     consultation: [
       {
@@ -42,7 +45,7 @@ const Patient = new Schema(
           type: String,
           default: "Pas de commentaire",
         },
-        status:{
+        status: {
           type: String,
           default: "non",
         },

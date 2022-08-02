@@ -2,12 +2,12 @@ var table = document.getElementById("patientTable");
 var tr = table.getElementsByTagName("tr");
 var txtValue;
 
-function filter(age,ageColumn,dateColumn) {
-  
+function filter(age, ageColumn, dateColumn) {
   var selected = document.getElementById("age").value;
+  console.log("selected: " + selected);
   var start =
     document.getElementById("start").value ||
-    moment("01/01/1800", "DD/MM/YYYY").format("YYYY-MM-DD");
+    moment("01/01/1800", "DD/MM/YYYY");
 
   var end =
     document.getElementById("end").value ||
@@ -16,8 +16,8 @@ function filter(age,ageColumn,dateColumn) {
   var tddate, tdage, ageValue, dateValue;
 
   for (i = 0; i < tr.length; i++) {
-    tdage = tr[i].getElementsByTagName("td")[ageColumn];//[2]
-    tddate = tr[i].getElementsByTagName("td")[dateColumn];//[6]
+    tdage = tr[i].getElementsByTagName("td")[ageColumn]; //[2]
+    tddate = tr[i].getElementsByTagName("td")[dateColumn]; //[6]
     if (tdage && tddate) {
       ageValue = parseInt(tdage.textContent);
       dateValue = tddate.innerText;

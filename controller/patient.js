@@ -12,7 +12,7 @@ var fonts = {
 
 const moment = require("moment");
 const Staff = require("../model/staff");
-
+const Country = require("../model/country");
 const Patient = require("../model/patient");
 
 module.exports.listepatient = async (req, res) => {
@@ -20,11 +20,21 @@ module.exports.listepatient = async (req, res) => {
   const techniciens = await Staff.find({ fonction: "technicien cathlab" });
   // res.send(medecins)
   const patients = await Patient.find({});
-  res.render("patient/index", { patients, moment, medecins, techniciens });
+  const algeria = await Country.find({});
+  const states = algeria[0].states;
+  res.render("patient/index", {
+    patients,
+    moment,
+    medecins,
+    techniciens,
+    states,
+  });
 };
 module.exports.creationform = async (req, res) => {
   const medecins = await Staff.find({ fonction: "Medecin" });
-  res.render("patient/new", { medecins });
+  const algeria = await Country.find({});
+  const states = algeria[0].states;
+  res.render("patient/new", { medecins, states });
 };
 module.exports.showpatient = async (req, res) => {
   // get the patient id from the patients table
@@ -33,8 +43,16 @@ module.exports.showpatient = async (req, res) => {
   const techniciens = await Staff.find({ fonction: "technicien cathlab" });
   // find the patient in the database
   const patient = await Patient.findById(id);
+  const algeria = await Country.find({});
+  const states = algeria[0].states;
   // send it to the client
-  res.render("patient/show", { patient, moment, medecins, techniciens });
+  res.render("patient/show", {
+    patient,
+    moment,
+    medecins,
+    techniciens,
+    states,
+  });
   // res.send(patient)
 };
 
@@ -49,6 +67,7 @@ module.exports.createpatient = async (req, res) => {
     phone,
     phone2,
     status,
+    wilaya,
   } = req.body.patient;
 
   if (phone2 === "") {
@@ -70,6 +89,7 @@ module.exports.createpatient = async (req, res) => {
     medecinref,
     gender,
     status,
+    wilaya,
   });
   await patient.save();
   req.flash("success", "Patient ajouté avec succès");
@@ -86,6 +106,7 @@ module.exports.createandreturn = async (req, res) => {
     phone,
     phone2,
     status,
+    wilaya,
   } = req.body.patient;
 
   if (phone2 === "") {
@@ -106,6 +127,7 @@ module.exports.createandreturn = async (req, res) => {
     phone2,
     medecinref,
     gender,
+    wilaya,
   });
   await patient.save();
   req.flash("success", "Patient ajouté avec succès");
@@ -127,6 +149,7 @@ module.exports.updatePatient = async (req, res) => {
     phone,
     phone2,
     status,
+    wilaya,
   } = req.body.patient;
 
   if (phone2 === "") {
@@ -151,6 +174,7 @@ module.exports.updatePatient = async (req, res) => {
         medecinref,
         gender,
         status,
+        wilaya,
       },
       { new: true }
     );
@@ -169,6 +193,7 @@ module.exports.updatePatient = async (req, res) => {
         medecinref,
         gender,
         status: "non",
+        wilaya,
       },
       { new: true }
     );

@@ -1,0 +1,87 @@
+<% layout('layouts/boilerplate')%>
+
+<div class="container mt-4">
+  <div class="col m-auto bg-light rounded-5 p-2">
+    <h3 class=" text-center text-success">Liste des Patients KT</h3>
+    <div class="d-flex mb-2 ">
+        
+      <a
+        class="btn btn-outline-secondary  ms-2"
+        href="/KT/generatepdf"
+        target="_blank"
+        >Imprimer <i class="bi bi-printer-fill py-3 px-2"></i>
+      </a>
+      
+      
+    </div>
+  </div>
+  <form class="d-flex mt-2">
+    <input
+      id="search"
+      class="form-control mb-2"
+      type="search"
+      placeholder="Search"
+      aria-label="Search"
+    />
+  </form>
+
+  <table
+    class="table table-striped table-hover table-borderless text-center sortable"
+    id="patientTable"
+  >
+    <thead class="table-success">
+      <tr>
+        <th  scope="col">N°</th>
+        <th  scope="col">Nom</th>
+        <th  scope="col">Prénom</th>
+        <th  scope="col">Age</th>
+        <th  scope="col">Téléphone</th>
+        <th  id="hide" scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody id="tablebody">
+      <% var i=1 %> <% for (patient of patients){%>
+
+      <tr>
+        <th
+          class="clickable"
+          onclick="window.location='/kt/bc/<%=patient.id%>'"
+          scope="row"
+        >
+          <%= i%><% i=i+1; %>
+        </th>
+        <td
+          class="clickable"
+          onclick="window.location='/kt/bc/<%=patient.id%>'"
+        >
+          <%= patient.lastname %>
+        </td>
+        <td
+        class="clickable"
+        onclick="window.location='/kt/bc/<%=patient.id%>'"
+      >
+        <%= patient.firstname %>
+      </td>
+        <td
+          class="clickable"
+          onclick="window.location='/kt/bc/<%=patient.id%>'"
+        >
+          <%=patient.age %>
+        </td>
+        <td
+        class="clickable"
+        onclick="window.location='/kt/bc/<%=patient.id%>'"
+        >
+        <%=patient.phone %>
+          
+        </td>
+       
+        <th>
+          <%- include("./bc/new")%>
+                      
+        </th>
+      </tr>
+      <% }%>
+    </tbody>
+  </table>
+</div>

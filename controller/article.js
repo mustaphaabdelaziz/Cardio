@@ -16,7 +16,7 @@ module.exports.showarticle = async (req, res) => {
 };
 
 module.exports.addArticle = async (req, res) => {
-  let { serie,lot,marque,ddp, dateachat, quantite,fournisseur,bc,bl,fc } = req.body.article;
+  let { etat,serie,lot,marque,ddp, dateachat, quantite,fournisseur,bc,bl,fc } = req.body.article;
   const { id } = req.params;
 
   const materiel = await Materiel.findByIdAndUpdate(
@@ -24,6 +24,7 @@ module.exports.addArticle = async (req, res) => {
     {
       $push: {
         article: {
+          etat,
           serie,
           lot,
           marque,
@@ -60,7 +61,7 @@ module.exports.deleteMaterielArticle = async (req, res) => {
 module.exports.updateMaterielArticle = async (req, res) => {
   const { id, idarticle } = req.params;
 
-  const {serie,lot,marque, ddp,dateachat, quantite,fournisseur,bc,bl,fc } =
+  const {etat,serie,lot,marque, ddp,dateachat, quantite,fournisseur,bc,bl,fc } =
     req.body.article;
   
   let materiel;
@@ -73,6 +74,7 @@ module.exports.updateMaterielArticle = async (req, res) => {
       },
       {
         $set: {
+          "article.$.etat": etat,
           "article.$.serie": serie,
           "article.$.lot": lot,
           "article.$.marque": marque,

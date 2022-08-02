@@ -61,7 +61,10 @@
         >
         <div class="valid-feedback">BIEN</div>
       </div>
-      <button class="btn btn-outline-secondary bg-gradient py-3 px-2" onclick="printPDF()">
+      <button
+        class="btn btn-outline-secondary bg-gradient py-3 px-2"
+        onclick="printPDF()"
+      >
         Imprimer <i class="bi bi-printer-fill py-3 px-2"></i>
       </button>
       <%- include("./newModal")%>
@@ -85,9 +88,9 @@
       <tr>
         <th scope="col">N°</th>
         <th scope="col">Nom</th>
-        <th scope="col">Prénom</th>
         <th scope="col">Père</th>
         <th scope="col">Age</th>
+        <th scope="col">Wilaya</th>
         <th scope="col">Tél 1</th>
         <th scope="col">Tél 2</th>
         <th scope="col">Dérniere acte</th>
@@ -111,14 +114,9 @@
           class="clickable"
           onclick="window.location='/patient/<%=patient.id%>'"
         >
-          <%= patient.lastname %>
+          <%= patient.fullname %>
         </td>
-        <td
-          class="clickable"
-          onclick="window.location='/patient/<%=patient.id%>'"
-        >
-          <%=patient.firstname %>
-        </td>
+
         <td
           class="clickable"
           onclick="window.location='/patient/<%=patient.id%>'"
@@ -130,6 +128,12 @@
           onclick="window.location='/patient/<%=patient.id%>'"
         >
           <%=patient.age%>
+        </td>
+        <td
+          class="clickable"
+          onclick="window.location='/patient/<%=patient.id%>'"
+        >
+          <%=patient.wilaya %>
         </td>
 
         <td

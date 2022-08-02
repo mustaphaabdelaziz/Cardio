@@ -19,7 +19,7 @@
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Ajouter Article</h5>
+        <h5 class="modal-title" id="staticBackdropLabel">Ajouter au <%=materiel.designation%>  <%=materiel.code%></h5>
 
         <button
           type="button"
@@ -36,7 +36,20 @@
           class=" row needs-validation"
           novalidate
         >
-      
+        <div class="form-floating mb-3 col-md-12 ">
+          <select
+            id="etat"
+            name="article[etat]"
+            class="form-select"
+          >
+            <option class="option" value="Reçu" selected>Reçu</option>
+            <option class="option" value="Commandé">Commandé</option>
+            <option class="option" value="Retour">Retour</option>
+           
+          </select>
+          <label for="etat" class="form-label">Etat</label>
+          <div class="valid-feedback">BIEN</div>
+        </div>
 
         <div class="form-floating mb-3 col-md-3">
           <input
@@ -46,7 +59,7 @@
             class="form-control"
             style="text-transform: capitalize"
             autofocus
-            required
+            
           />
           <label for="articlelserie" class="form-label">N° Série</label>
           <div class="valid-feedback">BIEN</div>
@@ -61,7 +74,7 @@
             style="text-transform: capitalize"
             autocomplete="off"
             
-            required
+           
           />
           <label for="articlelserie" class="form-label">N° Lot</label>
           <div class="valid-feedback">BIEN</div>
@@ -75,7 +88,6 @@
             class="form-control"
             style="text-transform: capitalize"
           
-            required
           />
           <label for="articlemarque" class="form-label">Marque</label>
           <div class="valid-feedback">BIEN</div>

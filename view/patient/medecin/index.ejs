@@ -23,12 +23,12 @@
             <div class="valid-feedback">BIEN</div>
           </div>
           <div  class="form-floating col-3 me-2">
-            <input class="form-control" type="date" id="start" name="start" onkeydown="filter(12, 3, 7)">
+            <input class="form-control" type="date" id="start" name="start" onkeypress="filter(12, 3, 7)">
             <label id="hide" for="start" class="form-label">De:</label>
 
           </div>
           <div class="form-floating col-3">
-            <input class="form-control" onkeydown="filter(12, 3, 7)" type="date" id="end" name="end">
+            <input class="form-control" onkeypress="filter(12, 3, 7)" type="date" id="end" name="end">
             <label id="hide" for="end" class="form-label">A:</label>
           </div>
           <button class="btn btn-outline-secondary py-3 px-2 ms-2" onclick="printMedecinList('<%=medecin%>')">
