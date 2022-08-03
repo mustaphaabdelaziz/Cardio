@@ -6,8 +6,8 @@ const {
   showarticle,
   deleteMaterielArticle,
   updateMaterielArticle,
-} = require("../controller/article");
-const catchAsync = require("../utils/catchAsync");
+} = require("../../controller/materiel/article");
+const catchAsync = require("../../utils/catchAsync");
 router.route("/").post(catchAsync(addArticle));
 router.route("/new").get(catchAsync(showcform));
 router

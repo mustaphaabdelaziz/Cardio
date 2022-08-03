@@ -10,21 +10,24 @@
 
                 <div class="d-flex">
                     <div class="col d-flex m-auto">
-                        <h2>
-                            <%=patient.fullname %>
-                        </h2>
+                        <h4>
+                            Bon de commandes: 
+                            <span class="text-decoration-underline">
+                                <%=bc.id %>
+                            </span>
+                        </h4>
                         <div class="ms-2 mt-1">
                             <%- include("./article/new") %> 
                         </div>
                     </div>
                     <div class="col-2 mt-2">
-                        <p>Age:</p>
-                        <p>Tél:</p>
+                        <p>Date Creation:</p>
+                        <p>Patient:</p>
                         
                     </div>
                     <div class="col-2 mt-2">
-                        <p><%=patient.age %></p>
-                        <p><%=patient.phone %></p>
+                        <p><%=moment(bc.date).format("DD/MM/YYYY") %></p>
+                        <p><%=patient.fullname %></p>
                     </div>
                 </div>
             </div>

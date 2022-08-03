@@ -16,7 +16,9 @@
   aria-labelledby="staticBackdropLabel"
   aria-hidden="true"
 >
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+  <div
+    class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg"
+  >
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="staticBackdropLabel">Modifier Patient</h5>
@@ -34,10 +36,10 @@
           action="/patient/<%= patient.id %>/?_method=PUT"
           id="personal"
           method="POST"
-          class="needs-validation"
+          class="row needs-validation"
           novalidate
         >
-          <div class="form-floating mb-3">
+          <div class="form-floating col-md-6 mb-3">
             <input
               id="patientLastName"
               name="patient[lastname]"
@@ -50,7 +52,7 @@
             <label for="patientLastName" class="form-label">Nom</label>
             <div class="valid-feedback">BIEN</div>
           </div>
-          <div class="form-floating mb-3">
+          <div class="form-floating col-md-6 mb-3">
             <input
               id="patientFirstName"
               name="patient[firstname]"
@@ -64,7 +66,7 @@
             <label for="patientFirstName" class="form-label">Prénom</label>
             <div class="valid-feedback">BIEN</div>
           </div>
-          <div class="form-floating mb-3">
+          <div class="form-floating col-md-6 mb-3">
             <input
               id="father"
               name="patient[father]"
@@ -77,7 +79,7 @@
             <div class="valid-feedback">BIEN</div>
           </div>
 
-          <div class="form-floating mb-3">
+          <div class="form-floating col-md-6 mb-3">
             <input id="patientBirthDate" name="patient[birthdate]" type="date"
             class="form-control" value="<%=
             moment(patient.birthdate).format("YYYY-MM-DD")%>" />
@@ -85,7 +87,7 @@
               >Date de Naissance</label
             >
           </div>
-          <div class="form-floating mb-3">
+          <div class="form-floating col-md-6 mb-3">
             <select
               id="patientGender"
               name="patient[gender]"
@@ -105,30 +107,41 @@
             <div class="valid-feedback">BIEN</div>
           </div>
 
-          <div class="form-floating mb-3">
-            <select
-              id="patientCity"
-              name="patient[wilaya]"
+          <div class="form-floating col-md-6">
+            <input
               class="form-select"
+              id="wilaya"
+              name="patient[wilaya]"
+              list="cities"
+              placeholder="Wilaya"
+              onchange="makeSubmenu(this.value,'<%=patient.id%>')"
+              value="<%= patient.wilaya %>"
               required
-            >
-              <option disabled value="" selected>Wilaya</option>
-              <% for(city of states ){ %> <% if(patient.wilaya===city.name) {%>
-              <option class="option" value="<%= patient.wilaya%>" selected>
+            />
+            <datalist id="cities">
+              <option class="option" value="">Ville</option>
+              <% for (city of states) { %>
+              <option class="option" value="<%= city.name %>">
                 <%= city.id + " - " + city.name %>
               </option>
-              <% } else { %>
-              <option class="option" value="<%= city.name%>">
-                <%= city.id + " - " + city.name %>
-              </option>
-              <% }} %>
-            </select>
-
-            <label for="patientCity" class="form-label">Wilaya</label>
+              <%} %>
+            </datalist>
+            <label for="wilaya" class="form-label">Wilaya</label>
             <div class="valid-feedback">BIEN</div>
           </div>
 
-          <div class="form-floating mb-3">
+          <div class="form-floating col-md-6 col mb-3">
+            <select id="city-<%=patient.id%>" name="patient[city]" class="form-select">
+              <option class="option" value="" disabled selected>Ville</option>
+              <option class="option" value="<%= patient.city %>" selected>
+                <%= patient.city %>
+              </option>
+            </select>
+            <label for="city" class="form-label">Ville</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+
+          <div class="form-floating col-md-6 mb-3">
             <input
               type="text"
               class="form-control"
@@ -143,7 +156,7 @@
             >
             <div class="valid-feedback">BIEN</div>
           </div>
-          <div class="form-floating mb-3">
+          <div class="form-floating col-md-6 mb-3">
             <input
               type="text"
               class="form-control"
@@ -157,7 +170,7 @@
             >
             <div class="valid-feedback">BIEN</div>
           </div>
-          <div class="form-floating mb-3">
+          <div class="form-floating col-md-6 mb-3">
             <select
               id="medeciref"
               name="patient[medecinref]"

@@ -1,74 +1,31 @@
 const moment = require("moment");
-const fs = require("fs");
 const Pdfmake = require("pdfmake");
-const Materiel = require("../model/materiel");
-// Define font files
-var fonts = {
-  Roboto: {
-    normal: "fonts/roboto/Roboto-Regular.ttf",
-    bold: "fonts/roboto/Roboto-Medium.ttf",
-    italics: "fonts/roboto/Roboto-Italic.ttf",
-    bolditalics: "fonts/roboto/Roboto-MediumItalic.ttf",
-  },
-};
+const Bc = require("../../model/materiel/bc");
+const Patient = require("../../model/patient");
 
-module.exports.listeMateriel = async (req, res) => {
-  const materiels = await Materiel.find({});
-  res.render("materiel/index", { materiels });
-};
-module.exports.creationform = (req, res) => {
-  res.render("materiel/index");
-};
-module.exports.showMateriel = async (req, res) => {
-  // get the materiel id from the materiels table
-  const { id } = req.params;
-  // find the materiel in the database
-  const materiel = await Materiel.findById(id);
-  // send it to the client
-  res.render("materiel/article/show", { materiel, moment });
-  // res.send(materiel)
-};
-
-module.exports.createMateriel = async (req, res) => {
-  const { code, designation } =
-    req.body.materiel;
-  let code1 = code.trim();
-  if (code1 === "") {
-    code1 = "/";
-  }
-    const materiel = new Materiel({
-    code: code1,
-    designation: designation.charAt(0).toUpperCase() + designation.slice(1).toLowerCase(),
-    
+module.exports.listeKT = async (req, res) => {
+  const acte = "KT";
+  const patients = await Patient.find({
+    "consultation.acte": { $regex: new RegExp("^" + acte + "$", "i") },
   });
-  await materiel.save();
-  req.flash("success", "Materiel a été ajouté avec succès");
-  res.redirect("/materiels");
+  res.render("materiel/kt/index", { patients });
 };
-module.exports.showEditForm = async (req, res) => {
-  res.render("materiels/edit");
-};
-module.exports.updateMateriel = async (req, res) => {
-  const { id } = req.params;
-  const { code, designation } =
-    req.body.materiel;
- 
-  
-    await Materiel.findByIdAndUpdate(id,
-      { code: code, designation: designation },
-      { new: true });
-  
 
-  req.flash("success", "Materiel a été modifié avec succès");
-  res.redirect(`back`);
-};
-module.exports.deleteMateriel = async (req, res) => {
-  const { id } = req.params;
- 
-  await Materiel.findByIdAndDelete(id);
-  req.flash("success", "Materiel a été supprimé");
-  res.redirect("/materiels");
-};
+// module.exports.showbc = async (req, res) => {
+
+// // get the kt id from the kts table
+// const {idbc} = req.params;
+// // // find the kt in the database
+// // const patient = await Patient.findById(id);
+// const bcs = await Bc.find({idbc});
+
+//  res.send(bcs);
+
+// // // send it to the client
+
+// //res.render("kt/bc/show", {bcs, patient });
+// };
+
 module.exports.generatepdf = async (req, res) => {
   const materiels = await Materiel.find({});
   let pdfmake = new Pdfmake(fonts);

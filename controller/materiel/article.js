@@ -1,5 +1,5 @@
 const moment = require("moment");
-const Materiel = require("../model/materiel");
+const Materiel = require("../../model/materiel/materiel");
 
 module.exports.showcform = async (req, res) => {
   res.send("materiel/new");
@@ -16,7 +16,19 @@ module.exports.showarticle = async (req, res) => {
 };
 
 module.exports.addArticle = async (req, res) => {
-  let { etat,serie,lot,marque,ddp, dateachat, quantite,fournisseur,bc,bl,fc } = req.body.article;
+  let {
+    etat,
+    serie,
+    lot,
+    marque,
+    ddp,
+    dateachat,
+    quantite,
+    fournisseur,
+    bc,
+    bl,
+    fc,
+  } = req.body.article;
   const { id } = req.params;
 
   const materiel = await Materiel.findByIdAndUpdate(
@@ -35,7 +47,6 @@ module.exports.addArticle = async (req, res) => {
           bc,
           bl,
           fc,
-          
         },
       },
     },
@@ -45,7 +56,6 @@ module.exports.addArticle = async (req, res) => {
   const redirectUrl = `back`;
   req.flash("success", "Article a été ajouté avec succès");
   res.redirect(redirectUrl);
- 
 };
 module.exports.deleteMaterielArticle = async (req, res) => {
   const { id, idarticle } = req.params;
@@ -61,36 +71,44 @@ module.exports.deleteMaterielArticle = async (req, res) => {
 module.exports.updateMaterielArticle = async (req, res) => {
   const { id, idarticle } = req.params;
 
-  const {etat,serie,lot,marque, ddp,dateachat, quantite,fournisseur,bc,bl,fc } =
-    req.body.article;
-  
+  const {
+    etat,
+    serie,
+    lot,
+    marque,
+    ddp,
+    dateachat,
+    quantite,
+    fournisseur,
+    bc,
+    bl,
+    fc,
+  } = req.body.article;
+
   let materiel;
 
- 
-    materiel = await Materiel.updateOne(
-      {
-        id,
-        "article._id": idarticle,
+  materiel = await Materiel.updateOne(
+    {
+      id,
+      "article._id": idarticle,
+    },
+    {
+      $set: {
+        "article.$.etat": etat,
+        "article.$.serie": serie,
+        "article.$.lot": lot,
+        "article.$.marque": marque,
+        "article.$.dateachat": dateachat,
+        "article.$.ddp": ddp,
+        "article.$.quantite": quantite,
+        "article.$.fournisseur": fournisseur,
+        "article.$.bc": bc,
+        "article.$.bl": bl,
+        "article.$.fc": fc,
       },
-      {
-        $set: {
-          "article.$.etat": etat,
-          "article.$.serie": serie,
-          "article.$.lot": lot,
-          "article.$.marque": marque,
-          "article.$.dateachat": dateachat,
-          "article.$.ddp": ddp,
-          "article.$.quantite": quantite,
-          "article.$.fournisseur": fournisseur,
-          "article.$.bc": bc,
-          "article.$.bl": bl,
-          "article.$.fc": fc,
-        
-          
-        },
-      }
-    );
-  
+    }
+  );
+
   // res.send(materiel);
   req.flash("success", "Article à été modifé avec succès");
   res.redirect(`/materiels/${id}`);

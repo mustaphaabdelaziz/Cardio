@@ -27,6 +27,10 @@ const Patient = new Schema(
       type: String,
       default: "/",
     },
+    city: {
+      type: String,
+      default: "/",
+    },
     medecinref: {
       type: String,
       default: "/",

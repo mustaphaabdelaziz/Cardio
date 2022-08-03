@@ -8,8 +8,8 @@ const {
   addArticleToBC,
   // deleteMaterielBc,
   // updateMaterielBc,
-} = require("../controller/bc");
-const catchAsync = require("../utils/catchAsync");
+} = require("../../controller/materiel/bc");
+const catchAsync = require("../../utils/catchAsync");
 router.route("/").get(catchAsync(showbcpatient)).post(catchAsync(addBc));
 
 router.route("/:idbc").get(catchAsync(showbc)).post(catchAsync(addArticleToBC));

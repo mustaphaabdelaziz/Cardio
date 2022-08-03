@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const catchAsync = require("../utils/catchAsync");
+const catchAsync = require("../../utils/catchAsync");
 const {
   creationform,
   listeMateriel,
@@ -9,14 +9,14 @@ const {
   deleteMateriel,
   updateMateriel,
   generatepdf,
-} = require("../controller/materiel");
+} = require("../../controller/materiel/materiel");
 router.route("/generatepdf").get(catchAsync(generatepdf));
 router.route("/new").get(creationform);
 router.route("/").get(listeMateriel).post(createMateriel);
- router
-   .route("/:id")
-   .get(showMateriel)
-   .put(catchAsync(updateMateriel))
-    .delete(catchAsync(deleteMateriel));
+router
+  .route("/:id")
+  .get(showMateriel)
+  .put(catchAsync(updateMateriel))
+  .delete(catchAsync(deleteMateriel));
 
 module.exports = router;

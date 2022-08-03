@@ -89,7 +89,6 @@
             </label>
             <div class="valid-feedback">BIEN</div>
           </div>
-         
 
           <div class="form-floating col-md-6">
             <input
@@ -100,7 +99,9 @@
               required
               maxlength="10"
             />
-            <label for="patientPhoneNumber" class="form-label">Téléphone 1</label>
+            <label for="patientPhoneNumber" class="form-label"
+              >Téléphone 1</label
+            >
             <div class="valid-feedback">BIEN</div>
           </div>
           <div class="form-floating col-md-6">
@@ -131,23 +132,34 @@
             <div class="valid-feedback">BIEN</div>
           </div>
           <div class="form-floating col-md-6">
-            <select
-            id="patientCity"
-            name="patient[wilaya]"
-            class="form-select"
-            required
-            >
-            <option selected disabled value="">Wilaya</option>
-            <% for (city of states) { %>
+            <input
+              class="form-select"
+              id="wilaya"
+              name="patient[wilaya]"
+              list="cities"
+              placeholder="Wilaya"
+              onchange="makeSubmenu(this.value, '')"
+              required
+            />
+            <datalist id="cities">
+              <option class="option" value="">Ville</option>
+              <% for (city of states) { %>
               <option class="option" value="<%= city.name %>">
                 <%= city.id + " - " + city.name %>
               </option>
               <%} %>
-            </select>
-            <label for="patientCity" class="form-label">Wilaya</label>
+            </datalist>
+            <label for="wilaya" class="form-label">Wilaya</label>
             <div class="valid-feedback">BIEN</div>
           </div>
 
+          <div class="form-floating col-md-6">
+            <select id="city" name="patient[city]" class="form-select">
+              <option class="option" value="" disabled selected>Ville</option>
+            </select>
+            <label for="city" class="form-label">Ville</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
           <div class="form-floating col-md-6">
             <select
               id="medecinref"
@@ -167,7 +179,7 @@
             <label for="medecinref" class="form-label">Medecin Ref</label>
             <div class="valid-feedback">BIEN</div>
           </div>
-         
+
           <div class="modal-footer mt-4">
             <button
               type="button"

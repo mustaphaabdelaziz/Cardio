@@ -35,6 +35,7 @@
           method="POST"
           class="needs-validation"
           novalidate
+          autocomplete="off"
         >
           <div class="form-floating mb-3">
             <input
@@ -43,6 +44,7 @@
               name="articles[designation]"
               list="materials"
               placeholder="Désignation"
+              required
             />
             <datalist id="materials">
               <% for (material of materials) { %>

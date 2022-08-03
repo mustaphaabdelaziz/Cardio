@@ -22,10 +22,10 @@ const DBConnection = require("./database/connection");
 const { sessionConfig } = require("./config/sessionConfig");
 // the local file contain all the local variable
 const { locals } = require("./config/local");
-const materielRoutes = require("./routes/materiel");
-const patientKTRoutes = require("./routes/kt");
-const bcktRoutes = require("./routes/bc");
-const articleRoutes = require("./routes/article");
+const materielRoutes = require("./routes/materiel/materiel");
+const patientKTRoutes = require("./routes/materiel/kt");
+const bcktRoutes = require("./routes/materiel/bc");
+const articleRoutes = require("./routes/materiel/article");
 const patientRoutes = require("./routes/patient");
 const staffRoutes = require("./routes/staff");
 const consultationRoutes = require("./routes/consultation");

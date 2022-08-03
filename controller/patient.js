@@ -150,6 +150,7 @@ module.exports.updatePatient = async (req, res) => {
     phone2,
     status,
     wilaya,
+    city,
   } = req.body.patient;
 
   if (phone2 === "") {
@@ -175,6 +176,7 @@ module.exports.updatePatient = async (req, res) => {
         gender,
         status,
         wilaya,
+        city,
       },
       { new: true }
     );
@@ -194,6 +196,7 @@ module.exports.updatePatient = async (req, res) => {
         gender,
         status: "non",
         wilaya,
+        city,
       },
       { new: true }
     );

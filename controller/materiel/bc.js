@@ -1,14 +1,14 @@
 const moment = require("moment");
-const Bc = require("../model/bc");
-const Patient = require("../model/patient");
-const Materiel = require("../model/materiel");
+const Bc = require("../../model/materiel/bc");
+const Patient = require("../../model/patient");
+const Materiel = require("../../model/materiel/materiel");
 
 module.exports.showbcpatient = async (req, res) => {
   const { id } = req.params;
   const patient = await Patient.findById(id);
   const bcs = await Bc.find({ patient: id });
   // res.send(bcs);
-  res.render("kt/bc/index", { bcs, patient, moment });
+  res.render("materiel/kt/bc/index", { bcs, patient, moment });
 };
 module.exports.showbc = async (req, res) => {
   const { id, idbc } = req.params;
@@ -16,7 +16,7 @@ module.exports.showbc = async (req, res) => {
   const bc = await Bc.findById(idbc);
   const materials = await Materiel.find({});
 
-  res.render("kt/bc/show", { bc, patient, moment,materials });
+  res.render("materiel/kt/bc/show", { bc, patient, moment, materials });
 };
 
 module.exports.addBc = async (req, res) => {
@@ -54,7 +54,7 @@ module.exports.addArticleToBC = async (req, res) => {
 
 module.exports.deleteKtBc = async (req, res) => {
   const { id, idbc } = req.params;
-  const kt = await Kt.findByIdAndUpdate(
+  const kt = await Bc.findByIdAndUpdate(
     id,
     { $pull: { bc: { _id: idbc } } },
     { new: true }
@@ -80,9 +80,7 @@ module.exports.updateKtBc = async (req, res) => {
     fc,
   } = req.body.bc;
 
-  let kt;
-
-  kt = await Kt.updateOne(
+  let kt = await Bc.updateOne(
     {
       id,
       "bc._id": idbc,
