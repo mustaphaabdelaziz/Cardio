@@ -48,6 +48,7 @@
               style="text-transform: capitalize"
               required
               value="<%= patient.lastname%>"
+              autofocus
             />
             <label for="patientLastName" class="form-label">Nom</label>
             <div class="valid-feedback">BIEN</div>
@@ -60,7 +61,6 @@
               type="text"
               class="form-control"
               required
-              autofocus
               value="<%= patient.firstname %>"
             />
             <label for="patientFirstName" class="form-label">Prénom</label>
@@ -116,7 +116,6 @@
               placeholder="Wilaya"
               onchange="makeSubmenu(this.value,'<%=patient.id%>')"
               value="<%= patient.wilaya %>"
-              required
             />
             <datalist id="cities">
               <option class="option" value="">Ville</option>
@@ -131,7 +130,11 @@
           </div>
 
           <div class="form-floating col-md-6 col mb-3">
-            <select id="city-<%=patient.id%>" name="patient[city]" class="form-select">
+            <select
+              id="city-<%=patient.id%>"
+              name="patient[city]"
+              class="form-select"
+            >
               <option class="option" value="" disabled selected>Ville</option>
               <option class="option" value="<%= patient.city %>" selected>
                 <%= patient.city %>
@@ -176,10 +179,10 @@
               name="patient[medecinref]"
               class="form-select"
             >
-              <option disabled value="" selected>Médecin Ref</option>
+              <option value ="" disabled selected>Médecin Ref</option>
               <option class="option" value="/">/</option>
-              <% for(medecin of medecins ){ %> <%
-              if(patient.medecinref===medecin.lastname) {%>
+              <% for(medecin of medecins ){ %> 
+              <% if(patient.medecinref===medecin.lastname) {%>
               <option class="option" value="<%= medecin.lastname%>" selected>
                 Dr. <%= medecin.lastname %>
               </option>
@@ -215,3 +218,8 @@
     </div>
   </div>
 </div>
+<script>
+  $("#edit-<%= patient.id %>").on("shown.bs.modal", function () {
+    $(this).find("[autofocus]").focus();
+  });
+</script>

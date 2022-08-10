@@ -1,26 +1,27 @@
 <button
-  id="item2"
   type="button"
-  class="btn btn-outline-success"
+  class="btn me-2 btn-outline-success px-2 py-1"
   data-bs-toggle="modal"
-  data-bs-target="#newmateriel"
+  data-bs-target="#detail-<%= article.id %>"
 >
-  <i class="bi bi-person-plus-fill me-2"></i>Ajouter
+  <i class="bi bi-plus-lg"></i>
 </button>
 
 <!-- Modal -->
 <div
   class="modal fade"
-  id="newmateriel"
+  id="detail-<%= article.id %>"
   data-bs-keyboard="false"
   tabindex="-1"
   aria-labelledby="staticBackdropLabel"
   aria-hidden="true"
 >
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+  <div class="modal-dialog modal-dialog-centered ">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Ajouter Materiel</h5>
+        <h5 class="modal-title" id="staticBackdropLabel">
+          Ajouter au <%=materiel.designation%> <%=article.marque%>
+        </h5>
 
         <button
           type="button"
@@ -32,35 +33,33 @@
 
       <div class="modal-body">
         <form
-          class="row g-3 needs-validation"
-          action="/materiels"
-          id="personal"
+          action="/materiel/<%=materiel.id%>/articles/<%=article.id%>"
           method="POST"
-          autocomplete="off"
+          class="row needs-validation"
           novalidate
         >
-          <div class="form-floating">
+          <div class="form-floating mb-3 col-12">
             <input
-              id="materielcode"
-              name="materiel[code]"
+              id="articleserie"
+              name="detail[serie]"
               type="text"
               class="form-control"
+              style="text-transform: capitalize"
               autofocus
-              required
             />
-            <label for="materielcode" class="form-label">REF</label>
+            <label for="articlelserie" class="form-label">N° Série</label>
             <div class="valid-feedback">BIEN</div>
           </div>
 
-          <div class="form-floating">
+          <div class="form-floating mb-3 col-12">
             <input
-              id="materieldesignation"
-              name="materiel[designation]"
-              style="text-transform: capitalize"
-              type="text"
               class="form-control"
+              type="date"
+              id="ddp"
+              name="detail[ddp]"
+              placeholder="DDP"
             />
-            <label for="materielName" class="form-label">Désignation</label>
+            <label for="ddp" class="form-label fs-6">DDP</label>
             <div class="valid-feedback">BIEN</div>
           </div>
 
@@ -80,7 +79,7 @@
   </div>
 </div>
 <script>
-  $("#newmateriel").on("shown.bs.modal", function () {
+  $("#article-<%= materiel.id %>").on("shown.bs.modal", function () {
     $(this).find("[autofocus]").focus();
   });
 </script>

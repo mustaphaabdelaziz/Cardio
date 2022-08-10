@@ -59,16 +59,13 @@
               type="text"
               class="form-control"
               required
-              
               value="<%= bc.designation %>"
             />
             <label for="bcdesignation" class="form-label">Désignation</label>
             <div class="valid-feedback">BIEN</div>
           </div>
-        
-             
-               
-         <div class="modal-footer mt-3">
+
+          <div class="modal-footer mt-3">
             <button
               type="button"
               class="btn btn-outline-danger"
@@ -89,3 +86,8 @@
     </div>
   </div>
 </div>
+<script>
+  $("#edit-<%= bc.id %>").on("shown.bs.modal", function () {
+    $(this).find("[autofocus]").focus();
+  });
+</script>

@@ -34,7 +34,7 @@
                 name="patient[lastname]"
                 type="text"
                 class="form-control"
-                style="text-transform: lowercase"
+                style="text-transform: capitalize"
                 required
                 autofocus
               />
@@ -47,7 +47,7 @@
                 name="patient[firstname]"
                 type="text"
                 class="form-control"
-                style="text-transform: lowercase"
+                style="text-transform: capitalize"
                 required
               />
               <label for="patientFirstName" class="form-label">Prénom</label>
@@ -59,7 +59,7 @@
                 name="patient[father]"
                 type="text"
                 class="form-control"
-                style="text-transform: lowercase"
+                style="text-transform: capitalize"
               />
               <label for="father" class="form-label">Père</label>
               <div class="valid-feedback">BIEN</div>
@@ -126,7 +126,7 @@
                 list="cities"
                 placeholder="Wilaya"
                 onchange="makeSubmenu(this.value, '')"
-                required
+              
               />
               <datalist id="cities">
                 <option class="option" value="">Ville</option>

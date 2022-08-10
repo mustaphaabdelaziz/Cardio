@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const moment = require("moment");
 
 const opts = {
   toJSON: {
@@ -14,16 +13,20 @@ const Materiel = new Schema(
     article: [
       {
         etat: String,
-        serie: String,
-          lot: String,
-          marque: String,
-          ddp: Date,
-          dateachat: Date,
-          quantite: Number,
-          fournisseur: String,
-          bc: Number,
-          bl: Number,
-          fc: Number,
+        lot: String,
+        marque: String,
+        fournisseur: String,
+        dateachat: Date,
+        bc: Number,
+        bl: Number,
+        fc: Number,
+        quantite: Number,
+        detail: [
+          {
+            serie: String,
+            ddp: Date,
+          },
+        ],
       },
     ],
   },
@@ -31,8 +34,14 @@ const Materiel = new Schema(
 );
 
 Materiel.virtual("qteglobal").get(function () {
-  return this.article.reduce((quantity, art) => quantity + art.quantite,0);
+  return this.article.reduce((quantity, art) => {
+    if (art.etat === "Reçu") {
+      return quantity + art.quantite;
+    } else if (art.etat === "Retour") {
+      return quantity - art.quantite;
+    } else return quantity;
+  }, 0);
 });
 
 module.exports = mongoose.model("Materiel", Materiel);
-//# sourceMappingURL=materiel.js.map
+

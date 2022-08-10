@@ -43,9 +43,12 @@
         <tbody id="tablebody">
            <% var i = 1 %>
            <% for(bc of bcs) {%>
-            <th class="clickable" onclick="window.location='/kt/bc/<%=patient.id%>/<%=bc.id%>'"><%= i++ %></th> 
-            <td class="clickable" onclick="window.location='/kt/bc/<%=patient.id%>/<%=bc.id%>'"><%= moment(bc.date).format("DD/MM/YYYY")%> </td>
-            <td>EDIT & Delete</td>
+            <tr>
+                <th class="clickable" onclick="window.location='/kt/bc/<%=patient.id%>/<%=bc.id%>'"><%= i++ %></th> 
+                <td class="clickable" onclick="window.location='/kt/bc/<%=patient.id%>/<%=bc.id%>'"><%= moment(bc.date).format("DD/MM/YYYY")%> </td>
+                <td> <%- include("./article/new") %> </td>
+            </tr>
+                
             <% } %> 
         </tbody>
     </table>

@@ -1,0 +1,137 @@
+<button
+  type="button"
+  class="me-3 btn btn-outline-warning px-2 py-1"
+  data-bs-toggle="modal"
+  data-bs-target="#edit-<%= fournisseur.id %>"
+>
+  <i class="bi bi-pencil-fill"></i>
+</button>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="edit-<%= fournisseur.id %>"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Modifier Fournisseur</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          required
+        ></button>
+      </div>
+
+      <div class="modal-body">
+        <form
+          class="row g-3 needs-validation"
+          action="/fournisseur/<%= fournisseur.id %>/?_method=PUT"
+          id="personal"
+          method="POST"
+          novalidate
+        >
+          <div class="form-floating">
+            <input
+              id="name"
+              name="fournisseur[name]"
+              type="text"
+              class="form-control"
+              style="text-transform: capitalize"
+              autofocus
+              required
+              value="<%= fournisseur.name %>"
+            />
+            <label for="name" class="form-label">Nom</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <div class="form-floating col-md-6">
+            <input
+              class="form-select"
+              id="wilaya"
+              name="fournisseur[wilaya]"
+              list="cities"
+              placeholder="Wilaya"
+              onchange="makeSubmenu(this.value,'<%=fournisseur.id%>')"
+              value="<%= fournisseur.wilaya %>"
+            />
+            <datalist id="cities">
+              <option class="option" value="">Ville</option>
+              <% for (city of states) { %>
+              <option class="option" value="<%= city.name %>">
+                <%= city.id + " - " + city.name %>
+              </option>
+              <%} %>
+            </datalist>
+            <label for="wilaya" class="form-label">Wilaya</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+
+          <div class="form-floating">
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              name="fournisseur[email]"
+              style="text-transform: lowercase"
+              value="<%= fournisseur.email %>"
+            />
+            <label for="email" class="form-label">Email</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <div class="form-floating">
+            <input
+              type="text"
+              class="form-control"
+              id="phone1"
+              name="fournisseur[phone1]"
+              maxlength="10"
+              value="<%=fournisseur.phone1%>"
+            />
+            <label for="phone1" class="form-label">Télephone 1</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <div class="form-floating">
+            <input
+              type="text"
+              class="form-control"
+              id="phone2"
+              name="fournisseur[phone2]"
+              maxlength="10"
+              value="<%=fournisseur.phone2%>"
+            />
+            <label for="phone2" class="form-label">Télephone 2</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <div class="modal-footer mt-3">
+            <button
+              type="button"
+              class="btn btn-outline-danger"
+              data-bs-dismiss="modal"
+            >
+              Annuler
+            </button>
+            <button
+              type="submit"
+              id="fournisseur-edit"
+              class="btn btn-outline-warning"
+            >
+              Modifier
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $("#edit-<%= fournisseur.id %>").on("shown.bs.modal", function () {
+    $(this).find("[autofocus]").focus();
+  });
+</script>

@@ -7,8 +7,9 @@ module.exports.showbcpatient = async (req, res) => {
   const { id } = req.params;
   const patient = await Patient.findById(id);
   const bcs = await Bc.find({ patient: id });
+    const materials = await Materiel.find({});
   // res.send(bcs);
-  res.render("materiel/kt/bc/index", { bcs, patient, moment });
+  res.render("materiel/kt/bc/index", { bcs, patient, moment,materials });
 };
 module.exports.showbc = async (req, res) => {
   const { id, idbc } = req.params;

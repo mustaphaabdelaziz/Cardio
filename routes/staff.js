@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const catchAsync = require("../utils/catchAsync");
 const {
-  creationform,
   listeStaff,
   createStaff,
   showStaff,
@@ -11,7 +10,6 @@ const {
   generatepdf,
 } = require("../controller/staff");
 router.route("/generatepdf").get(catchAsync(generatepdf));
-router.route("/new").get(creationform);
 router.route("/").get(listeStaff).post(createStaff);
 router
   .route("/:id")

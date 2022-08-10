@@ -1,7 +1,4 @@
-// const Event = require("../models/event/event");
-// const Product = require("../models/company/product");
-// const Discussion = require("../models/event/discussion");
-// const Coment = require("../models/event/coment");
+const {patientSchema} = require("../schemas")
 
 const ExpressError = require("../utils/ExpressError");
 // ALL MIDDLEWARE GOES HERE

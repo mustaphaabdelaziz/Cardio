@@ -181,3 +181,8 @@
     </div>
   </div>
 </div>
+<script>
+  $("#editCons-<%=consultation.id %>").on("shown.bs.modal", function () {
+    $(this).find("[autofocus]").focus();
+  });
+</script>

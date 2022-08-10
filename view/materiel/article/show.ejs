@@ -53,12 +53,10 @@
         <thead class="table-success">
             <tr>
                 <th scope="col">N°</th>
-                <th scope="col">N° Serie</th>
                 <th scope="col">N° Lot</th>
                 <th scope="col">Marque</th>
                 <th scope="col">Qte</th>
                 <th scope="col">Qte consommé</th>
-                <th scope="col">DDP</th>
                 <th scope="col">Date d'achat</th>
                 <th scope="col">Fournisseur</th>
                 <th scope="col">BC</th>
@@ -72,43 +70,39 @@
             <% var i=1 %>
             <% for (article of materiel.article){%>
             <tr>
-                <th scope="row">
+                <th scope="row" class="clickable" onclick="window.location='/materiel/<%=materiel.id%>/articles/<%=article.id%>'">
                     <%= i%>
                     <% i=i+1; %>
                 </th>
-                <td class="data">
-                    <%= article.serie %>
-                </td>
-                <td class="data">
+                
+                <td class="data clickable" onclick="window.location='/materiel/<%=materiel.id%>/articles/<%=article.id%>'">
                     <%= article.lot%>
                 </td>
-                <td class="data">
+                <td class="data clickable" onclick="window.location='/materiel/<%=materiel.id%>/articles/<%=article.id%>'">
                     <%= article.marque %>
                 </td>
 
-                <td class="data">
+                <td class="data clickable" onclick="window.location='/materiel/<%=materiel.id%>/articles/<%=article.id%>'">
                     <%=article.quantite %>
                 </td>
-                <td class="data">
+                <td class="data clickable" onclick="window.location='/materiel/<%=materiel.id%>/articles/<%=article.id%>'">
                   Coming soon!
                 </td>
-                <td class="data">
-                    <%=moment(article.ddp).format("DD/MM/YYYY")%>
-                </td>
-                <td class="data">
+                
+                <td class="data clickable" onclick="window.location='/materiel/<%=materiel.id%>/articles/<%=article.id%>'">
                     <%=moment(article.dateachat).format("DD/MM/YYYY")%>
 
                 </td>
-                <td class="data">
+                <td class="data clickable" onclick="window.location='/materiel/<%=materiel.id%>/articles/<%=article.id%>'">
                     <%=article.fournisseur %>
                 </td>
-                <td class="data">
+                <td class="data clickable" onclick="window.location='/materiel/<%=materiel.id%>/articles/<%=article.id%>'">
                     <%=article.bc %>
                 </td>
-                <td class="data">
+                <td class="data clickable" onclick="window.location='/materiel/<%=materiel.id%>/articles/<%=article.id%>'">
                     <%=article.bl %>
                 </td>
-                <td class="data">
+                <td class="data clickable" onclick="window.location='/materiel/<%=materiel.id%>/articles/<%=article.id%>'">
                     <%=article.fc %>
                 </td>
                 <% if (article.etat==="Reçu"){%>
@@ -119,8 +113,9 @@
                         <th class="p-3"><span class="rounded-pill badge bg-lightCoral bg-gradient">Retour</span></th>
                 
                 <%}%>        <th>
+                    <%- include("./detail/new",{article})%>
                     <%- include("./edit")%>
-                  
+                    
                     <%- include("./delete")%>
 
                     

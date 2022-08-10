@@ -1,7 +1,8 @@
 const moment = require("moment");
 const fs = require("fs");
 const Pdfmake = require("pdfmake");
-const Materiel = require("../../model/materiel/materiel");
+const Fournisseur = require("../../model/materiel/fournisseur");
+const Country = require("../../model/country");
 // Define font files
 var fonts = {
   Roboto: {
@@ -12,63 +13,92 @@ var fonts = {
   },
 };
 
-module.exports.listeMateriel = async (req, res) => {
-  const materiels = await Materiel.find({});
+module.exports.listeFournisseur = async (req, res) => {
+  const fournisseurs = await Fournisseur.find({});
+  const algeria = await Country.find({});
+  const states = algeria[0].states;
+  res.render("fournisseur/index", { fournisseurs, moment, states });
+};
 
-  res.render("materiel/index", { materiels });
-};
-module.exports.creationform = (req, res) => {
-  res.render("materiel/index");
-};
-module.exports.showMateriel = async (req, res) => {
-  // get the materiel id from the materiels table
+module.exports.showFournisseur = async (req, res) => {
+  // get the fournisseur id from the fournisseurs table
   const { id } = req.params;
-  // find the materiel in the database
-  const materiel = await Materiel.findById(id);
+  // find the fournisseur in the database
+  const fournisseur = await Fournisseur.findById(id);
   // send it to the client
-  res.render("materiel/article/show", { materiel, moment });
+  res.render("fournisseur/show", { fournisseur, moment });
+  // res.send(fournisseur)
 };
 
-module.exports.createMateriel = async (req, res) => {
-  const { code, designation } = req.body.materiel;
-  let code1 = code.trim();
-  if (code1 === "") {
-    code1 = "/";
+module.exports.createFournisseur = async (req, res) => {
+  const { name, wilaya, phone1, phone2, email } = req.body.fournisseur;
+  let ph1 = phone1.trim();
+  let ph2 = phone2.trim();
+  let mail = email.trim();
+  if (ph1 === "") {
+    ph1 = "/";
   }
-  const materiel = new Materiel({
-    code: code1,
-    designation:
-      designation.charAt(0).toUpperCase() + designation.slice(1).toLowerCase(),
-  });
-  await materiel.save();
-  req.flash("success", "Materiel a été ajouté avec succès");
-  res.redirect("/materiels");
-};
-module.exports.showEditForm = async (req, res) => {
-  res.render("materiels/edit");
-};
-module.exports.updateMateriel = async (req, res) => {
-  const { id } = req.params;
-  const { code, designation } = req.body.materiel;
+  if (ph2 === "") {
+    ph2 = "/";
+  }
+  if (mail === "") {
+    mail = "/";
+  }
 
-  await Materiel.findByIdAndUpdate(
+  const fournisseur = new Fournisseur({
+    name: name.charAt(0).toUpperCase() + name.slice(1).toLowerCase(),
+    wilaya,
+    phone1: phone1,
+    phone2: phone2,
+    email: mail,
+  });
+  await fournisseur.save();
+
+  req.flash("success", "Fournisseur ajouté avec succès");
+  res.redirect("/fournisseur");
+};
+
+module.exports.updateFournisseur = async (req, res) => {
+  const { id } = req.params;
+  const { name, wilaya, phone1, phone2, email } = req.body.fournisseur;
+
+  let ph1 = phone1.trim();
+  let ph2 = phone2.trim();
+  let mail = email.trim();
+  if (ph1 === "") {
+    ph1 = "/";
+  }
+  if (ph2 === "") {
+    ph2 = "/";
+  }
+  if (mail === "") {
+    mail = "/";
+  }
+
+  await Fournisseur.findByIdAndUpdate(
     id,
-    { code: code, designation: designation },
+    {
+      name: name.charAt(0).toUpperCase() + name.slice(1).toLowerCase(),
+      wilaya,
+      phone1: phone1,
+      phone2: phone2,
+      email: mail,
+    },
     { new: true }
   );
 
-  req.flash("success", "Materiel a été modifié avec succès");
-  res.redirect(`back`);
+  req.flash("success", "Fournisseur a été modifié avec succès");
+  res.redirect("/fournisseur");
 };
-module.exports.deleteMateriel = async (req, res) => {
+module.exports.deleteFournisseur = async (req, res) => {
   const { id } = req.params;
 
-  await Materiel.findByIdAndDelete(id);
-  req.flash("success", "Materiel a été supprimé");
-  res.redirect("/materiels");
+  await Fournisseur.findByIdAndDelete(id);
+  req.flash("success", "Fournisseur a été supprimé");
+  res.redirect("/fournisseur");
 };
 module.exports.generatepdf = async (req, res) => {
-  const materiels = await Materiel.find({});
+  const fournisseurs = await Fournisseur.find({});
   let pdfmake = new Pdfmake(fonts);
   let listTableDocs = {
     pageSize: "A4",
@@ -84,7 +114,7 @@ module.exports.generatepdf = async (req, res) => {
     content: [
       // { image: "public/assets/en-tete.png"},
       {
-        text: "Liste Des Personnels",
+        text: "Liste Des Fournisseurs",
         style: "header",
       },
     ],
@@ -131,8 +161,8 @@ module.exports.generatepdf = async (req, res) => {
     // headers are automatically repeated if the table spans over multiple pages
     // you can declare how many rows should be treated as headers
     headerRows: 1,
-    // widths:number of columns in the table here we have 8 columns
-    widths: ["*", "*", "*", "*", "*", "*", "*"],
+    // widths:number of columns in the table here we have 6 columns
+    widths: ["auto", "*", "auto", "auto", "auto", "*"],
 
     body: [
       [
@@ -146,24 +176,20 @@ module.exports.generatepdf = async (req, res) => {
           style: "tableHeader",
           // rowSpan: 3,
         },
+
         {
-          text: "Prénom",
+          text: "Wilaya",
           style: "tableHeader",
           // rowSpan: 3,
         },
 
         {
-          text: "Type",
+          text: "Téléphone 1",
           style: "tableHeader",
           // rowSpan: 3,
         },
         {
-          text: "Fonction",
-          style: "tableHeader",
-          // rowSpan: 3,
-        },
-        {
-          text: "Téléphone",
+          text: "Téléphone 2",
           style: "tableHeader",
           // rowSpan: 3,
         },
@@ -174,15 +200,14 @@ module.exports.generatepdf = async (req, res) => {
         },
       ],
       // now data and values
-      ...materiels.map((materiel, index) => {
+      ...fournisseurs.map((fournisseur, index) => {
         return [
           index + 1,
-          materiel.lastname,
-          materiel.firstname,
-          materiel.externe,
-          materiel.fonction,
-          materiel.phone,
-          materiel.email,
+          fournisseur.name,
+          fournisseur.wilaya,
+          fournisseur.phone1,
+          fournisseur.phone2,
+          fournisseur.email,
         ];
       }),
     ],
@@ -194,8 +219,7 @@ module.exports.generatepdf = async (req, res) => {
   });
 
   pdfDoc = pdfmake.createPdfKitDocument(listTableDocs, {});
-  await pdfDoc.pipe(fs.createWriteStream("liste Personnels.pdf"));
-  // pdfDoc.createPdf(listTableDocs).open({}, win);
+  await pdfDoc.pipe(fs.createWriteStream("liste fournisseurs.pdf"));
   pdfDoc.end();
   pdfDoc.pipe(res);
 };

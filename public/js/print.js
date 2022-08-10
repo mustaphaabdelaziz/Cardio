@@ -242,11 +242,18 @@ function printActeList(acte) {
     });
 }
 
-
-
 function printMedecinList(medecin) {
-  var start = document.getElementById("start").value || moment();
-  var end = document.getElementById("end").value || moment();
+  var start =
+    document.getElementById("start").value || moment().format("DD/MM/YYYY");
+  var end =
+    document.getElementById("end").value || moment().format("DD/MM/YYYY");
+
+  var period = moment(start).isSame(end, "day")
+    ? `${moment(start).format("DD/MM/YYYY")}`
+    : `${moment(start,"DD/MM/YYYY").format("DD/MM/YYYY")} à ${moment(end).format(
+        "DD/MM/YYYY"
+      )}`;
+
   let list = [];
   let i = 1;
   for (const patient of patients) {
@@ -359,7 +366,7 @@ function printMedecinList(medecin) {
                 style: "header",
               },
               {
-                text: `Date: ${moment().format("DD/MM/YYYY")}`,
+                text: `Date: ${period}`,
                 alignment: "left",
                 bold: true,
                 fontSize: 13,

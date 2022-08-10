@@ -3,7 +3,7 @@
   type="button"
   class="btn btn-outline-success"
   data-bs-toggle="modal"
-  data-bs-target="#newstaff"
+  data-bs-target="#newfournisseur"
 >
   <i class="bi bi-person-plus-fill me-2"></i>Ajouter
 </button>
@@ -11,7 +11,7 @@
 <!-- Modal -->
 <div
   class="modal fade"
-  id="newstaff"
+  id="newfournisseur"
   data-bs-keyboard="false"
   tabindex="-1"
   aria-labelledby="staticBackdropLabel"
@@ -20,7 +20,7 @@
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Ajouter Personnel</h5>
+        <h5 class="modal-title" id="staticBackdropLabel">Ajouter Fournisseur</h5>
 
         <button
           type="button"
@@ -33,7 +33,7 @@
       <div class="modal-body">
         <form
           class="row g-3 needs-validation"
-          action="/staffs"
+          action="/fournisseur"
           id="personal"
           method="POST"
           autocomplete="off"
@@ -41,83 +41,69 @@
         >
           <div class="form-floating">
             <input
-              id="staffLastName"
-              name="staff[lastname]"
+              id="name"
+              name="fournisseur[name]"
               type="text"
               class="form-control"
               style="text-transform: capitalize"
               autofocus
               required
             />
-            <label for="staffLastName" class="form-label">Nom</label>
+            <label for="name" class="form-label">Nom</label>
             <div class="valid-feedback">BIEN</div>
           </div>
-
           <div class="form-floating">
             <input
-              id="staffFirstName"
-              name="staff[firstname]"
-              style="text-transform: capitalize"
-              type="text"
-              class="form-control"
-            />
-            <label for="staffFirstName" class="form-label">Prénom</label>
-            <div class="valid-feedback">BIEN</div>
-          </div>
-          <div class="form-floating">
-            <select
-              id="staffFonction"
-              name="staff[fonction]"
               class="form-select"
-              required
-            >
-              <option selected disabled value="">Fonction</option>
-              <option class="option" value="Medecin">Médecin</option>
-              <option class="option" value="technicien cathlab">
-                Technicien cathlab
+              id="wilaya"
+              name="fournisseur[wilaya]"
+              list="cities"
+              placeholder="Wilaya"
+              onchange="makeSubmenu(this.value, '')"
+            />
+            <datalist id="cities">
+              <option class="option" value="">Ville</option>
+              <% for (city of states) { %>
+              <option class="option" value="<%= city.name %>">
+                <%= city.id + " - " + city.name %>
               </option>
-              <option class="option" value="assitant(e) Medicale">
-                Assitant(e) Medical(e)
-              </option>
-            </select>
-            <label for="staffFonction" class="form-label">Fonction</label>
+              <%} %>
+            </datalist>
+            <label for="wilaya" class="form-label">Wilaya</label>
             <div class="valid-feedback">BIEN</div>
-          </div>
-          <div class="form-floating">
-            <div class="form-check form-switch ms-2">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                name="staff[externe]"
-                value="externe"
-                role="switch"
-                id="externe"
-              />
-              <label class="form-check-label" for="externe">Externe</label>
-              <div class="valid-feedback">BIEN</div>
-            </div>
           </div>
 
           <div class="form-floating">
             <input
               type="email"
               class="form-control"
-              id="stafemail"
-              name="staff[email]"
+              id="email"
+              name="fournisseur[email]"
               style="text-transform: lowercase"
             />
-            <label for="staffemail" class="form-label">Email</label>
+            <label for="email" class="form-label">Email</label>
             <div class="valid-feedback">BIEN</div>
           </div>
           <div class="form-floating">
             <input
               type="text"
               class="form-control"
-              id="staffPhone"
-              name="staff[phone]"
+              id="phone1"
+              name="fournisseur[phone1]"
               maxlength="10"
             />
-            <label for="staffPhone" class="form-label">Télephone</label>
+            <label for="phone1" class="form-label">Télephone 1</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <div class="form-floating">
+            <input
+              type="text"
+              class="form-control"
+              id="phone2"
+              name="fournisseur[phone2]"
+              maxlength="10"
+            />
+            <label for="phone2" class="form-label">Télephone 2</label>
             <div class="valid-feedback">BIEN</div>
           </div>
 
@@ -137,7 +123,7 @@
   </div>
 </div>
 <script>
-  $("#newstaff").on("shown.bs.modal", function () {
+  $("#newfournisseur").on("shown.bs.modal", function () {
     $(this).find("[autofocus]").focus();
   });
 </script>

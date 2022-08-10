@@ -41,6 +41,7 @@
             id="etat"
             name="article[etat]"
             class="form-select"
+            autofocus
           >
             <option class="option" value="Reçu" selected>Reçu</option>
             <option class="option" value="Commandé">Commandé</option>
@@ -51,21 +52,8 @@
           <div class="valid-feedback">BIEN</div>
         </div>
 
-        <div class="form-floating mb-3 col-md-3">
-          <input
-            id="articleserie"
-            name="article[serie]"
-            type="text"
-            class="form-control"
-            style="text-transform: capitalize"
-            autofocus
-            
-          />
-          <label for="articlelserie" class="form-label">N° Série</label>
-          <div class="valid-feedback">BIEN</div>
-      
-        </div>
-        <div class="form-floating mb-3 col-md-3">
+        
+        <div class="form-floating mb-3 col-md-4">
           <input
             id="articlelot"
             name="article[lot]"
@@ -80,7 +68,7 @@
           <div class="valid-feedback">BIEN</div>
         </div>
 
-        <div class="form-floating mb-3 col-md-3">
+        <div class="form-floating mb-3 col-md-4">
           <input
             id="articlemarque"
             name="article[marque]"
@@ -93,7 +81,7 @@
           <div class="valid-feedback">BIEN</div>
           
         </div>
-        <div class="form-floating mb-3 col-md-3">
+        <div class="form-floating mb-3 col-md-4">
           <input
             id="articlequantite"
             name="article[quantite]"
@@ -108,18 +96,7 @@
           <div class="valid-feedback">BIEN</div>
 
       </div>
-        <div class="form-floating mb-3 col-md-6">
-          <input
-            class="form-control"
-            type="date"
-            id="ddp"
-            name="article[ddp]"
-            placeholder="DDP"
-                  
-          />
-          <label for="ddp" class="form-label fs-6">DDP</label>
-          <div class="valid-feedback">BIEN</div>
-        </div>
+        
         <div class="form-floating mb-3 col-6">
           <input
             class="form-control"
@@ -134,7 +111,7 @@
         </div>
 
        
-      <div class="form-floating mb-3 col-12">
+      <div class="form-floating mb-3 col-6">
         <input
           id="articlefournisseur"
           name="article[fournisseur]"
@@ -211,3 +188,8 @@
     </div>
   </div>
 </div>
+<script>
+  $('#article-<%= materiel.id %>').on('shown.bs.modal', function() {
+      $(this).find('[autofocus]').focus();
+});
+</script>

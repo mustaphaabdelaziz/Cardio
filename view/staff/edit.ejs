@@ -46,6 +46,7 @@
               style="text-transform: capitalize"
               value="<%= staff.lastname %>"
               required
+              autofocus
             />
             <label for="staffLastName" class="form-label">Nom</label>
             <div class="valid-feedback">BIEN</div>
@@ -58,8 +59,6 @@
               class="form-control"
               style="text-transform: capitalize"
               value="<%= staff.firstname %>"
-              required
-              autofocus
             />
             <label for="staffFirstName" class="form-label">Prénom</label>
             <div class="valid-feedback">BIEN</div>
@@ -76,7 +75,9 @@
               <option selected disabled value="">Fonction</option>
               <% if (staff.fonction === 'Medecin'){%>
               <option class="option" value="Medecin" selected>Medecin</option>
-              <option class="option" value="technicien cathlab">Technicien cathlab</option>
+              <option class="option" value="technicien cathlab">
+                Technicien cathlab
+              </option>
               <option class="option" value="assitant(e) Medicale">
                 Assitant(e) Medical(e)
               </option>
@@ -90,7 +91,9 @@
               </option>
               <% }else { %>
               <option class="option" value="Medecin">Medecin</option>
-              <option class="option" value="technicien cathlab">Technicien cathlab</option>
+              <option class="option" value="technicien cathlab">
+                Technicien cathlab
+              </option>
               <option class="option" value="assitant(e) Medicale" selected>
                 Assitant(e) Medical(e)
               </option>
@@ -171,3 +174,8 @@
     </div>
   </div>
 </div>
+<script>
+  $("#edit-<%= staff.id %>").on("shown.bs.modal", function () {
+    $(this).find("[autofocus]").focus();
+  });
+</script>

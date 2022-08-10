@@ -1,0 +1,73 @@
+<% layout('layouts/boilerplate')%>
+
+
+<div class="container mt-3">
+
+    <div class="col m-auto">
+        <div class="container-fluid">
+
+            <div class=" mb-4 bg-light rounded-5 p-4">
+
+                <div class="d-flex">
+                    <div class="col d-flex m-auto">
+                        <h3>
+                            <%= materiel.designation %> <%= articles[0].marque %>
+                        </h3>
+
+                        <div class="ms-2">     
+                            <%- include("./new",{article:articles[0]}) %>      
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <form class="d-flex">
+        <input id="search" class="form-control mb-2" type="search" placeholder="Search" aria-label="Search" />
+
+    </form>
+    <table class="table table-striped table-hover table-borderless text-center sortable">
+        <thead class="table-success">
+            <tr>
+                <th scope="col">N°</th>
+                <th scope="col">N° Serie</th>
+             
+                <th scope="col">DDP</th>
+              
+                <th id="hide" scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody id="tablebody">
+            <% var i=1 %>
+            <% for(article of materiel.article) { %> 
+            <% for (detail of article.detail){%>
+            <tr>
+                <th scope="row">
+                    <%= i%>
+                    <% i=i+1; %>
+                </th>
+                <td class="data">
+                    <%= detail.serie %>
+                </td>
+                
+                <td class="data">
+                    <%= moment(detail.ddp).format('DD/MM/YYYY') %> 
+                </td>
+                <th>
+                    <%- include("./edit")%>
+                    <%- include("./delete")%>
+
+                </th>
+
+            </tr>
+            <% }}%>
+        </tbody>
+    </table>
+</div>
+</div>

@@ -139,7 +139,7 @@
               list="cities"
               placeholder="Wilaya"
               onchange="makeSubmenu(this.value, '')"
-              required
+              
             />
             <datalist id="cities">
               <option class="option" value="">Ville</option>
@@ -195,3 +195,8 @@
     </div>
   </div>
 </div>
+<script>
+  $('#newPatient').on('shown.bs.modal', function() {
+      $(this).find('[autofocus]').focus();
+});
+</script>

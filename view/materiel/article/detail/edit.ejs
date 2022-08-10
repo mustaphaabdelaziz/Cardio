@@ -1,8 +1,8 @@
 <button
   type="button"
-  class="btn me-2 btn-outline-warning px-2 py-1"
+  class="me-2 btn btn-outline-warning px-2 py-1"
   data-bs-toggle="modal"
-  data-bs-target="#edit-<%= materiel.id %>"
+  data-bs-target="#edit-<%= detail.id %>"
 >
   <i class="bi bi-pencil-fill"></i>
 </button>
@@ -10,7 +10,7 @@
 <!-- Modal -->
 <div
   class="modal fade"
-  id="edit-<%= materiel.id %>"
+  id="edit-<%= detail.id %>"
   data-bs-keyboard="false"
   tabindex="-1"
   aria-labelledby="staticBackdropLabel"
@@ -19,7 +19,7 @@
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Modifier Matériel</h5>
+        <h5 class="modal-title" id="staticBackdropLabel">Modifier N° <%=detail.serie %></h5>
         <button
           type="button"
           class="btn-close"
@@ -31,44 +31,42 @@
 
       <div class="modal-body">
         <form
-          action="/materiels/<%= materiel.id %>/?_method=PUT"
+          class="row g-3 needs-validation"
+          action="/materiel/<%=materiel.id%>/articles/<%=article.id%>/<%=detail.id%>?_method=PUT"
           id="personal"
           method="POST"
-          class="needs-validation"
           novalidate
         >
-          <div class="form-floating mb-3">
-            <input
-              id="materielcode"
-              name="materiel[code]"
-              type="text"
-              class="form-control"
-              style="text-transform: capitalize"
-              required
-              autofocus
-              value="<%= materiel.code%>"
-            />
-            <label for="materielcode" class="form-label">Code</label>
-            <div class="valid-feedback">BIEN</div>
-          </div>
-          <div class="form-floating mb-3">
-            <input
-              id="materieldesignation"
-              name="materiel[designation]"
-              style="text-transform: capitalize"
-              type="text"
-              class="form-control"
-              required
-              
-              value="<%= materiel.designation %>"
-            />
-            <label for="materieldesignation" class="form-label">Désignation</label>
-            <div class="valid-feedback">BIEN</div>
-          </div>
         
-             
-               
-         <div class="modal-footer mt-3">
+          <div class="form-floating mb-3 col-12">
+            <input
+              id="articleserie"
+              name="detail[serie]"
+              type="text"
+              class="form-control"
+              style="text-transform: capitalize"
+              value="<%= detail.serie %>"
+              autofocus
+            />
+            <label for="articlelserie" class="form-label">N° Série</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+         
+          <div class="form-floating mb-3 col-12">
+            <input
+              id="articleddp"
+              name="detail[ddp]"
+              type="date"
+              class="form-control"
+              placeholder="DDP"
+              value="<%= moment(detail.ddp).format("YYYY-MM-DD")%>"
+            />
+            <label for="articlelserie" class="form-label fs-6">DDP</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+         
+
+          <div class="modal-footer mt-3">
             <button
               type="button"
               class="btn btn-outline-danger"
@@ -78,7 +76,7 @@
             </button>
             <button
               type="submit"
-              id="materiel-register"
+              id="article-edit"
               class="btn btn-outline-warning"
             >
               Modifier
@@ -90,7 +88,7 @@
   </div>
 </div>
 <script>
-  $('#edit-<%= materiel.id %>').on('shown.bs.modal', function() {
-      $(this).find('[autofocus]').focus();
-});
+  $("#edit-<%= detail.id %>").on("shown.bs.modal", function () {
+    $(this).find("[autofocus]").focus();
+  });
 </script>

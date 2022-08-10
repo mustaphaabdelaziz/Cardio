@@ -16,7 +16,7 @@
   aria-labelledby="staticBackdropLabel"
   aria-hidden="true"
 >
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="staticBackdropLabel">Modifier Article</h5>
@@ -37,48 +37,29 @@
           method="POST"
           novalidate
         >
-        <div class="form-floating mb-3">
-          <select
-            id="etat"
-            name="article[etat]"
-            class="form-select"
-            required
-          >
-            
-            <% if (article.etat === 'Reçu'){%>
-            <option class="option" value="Reçu" selected>Reçu</option>
-            <option class="option" value="Commandé">Commandé</option>
-            <option class="option" value="Retour">Retour</option>
-            <% }else if (article.etat === 'Commandé'){ %>
-              <option class="option" value="Reçu" >Reçu</option>
+          <div class="form-floating mb-3">
+            <select id="etat" name="article[etat]" class="form-select" required autofocus>
+              <% if (article.etat === 'Reçu'){%>
+              <option class="option" value="Reçu" selected>Reçu</option>
+              <option class="option" value="Commandé">Commandé</option>
+              <option class="option" value="Retour">Retour</option>
+              <% }else if (article.etat === 'Commandé'){ %>
+              <option class="option" value="Reçu">Reçu</option>
               <option class="option" value="Commandé" selected>Commandé</option>
               <option class="option" value="Retour">Retour</option>
               <% } else { %>
-                <option class="option" value="Reçu" >Reçu</option>
-                <option class="option" value="Commandé" >Commandé</option>
-                <option class="option" value="Retour" selected>Retour</option>
-            
-            <% } %>
-          </select>
-          <label for="etat" class="form-label">Etat</label>
-          <div class="valid-feedback">BIEN</div>
-        </div>
+              <option class="option" value="Reçu">Reçu</option>
+              <option class="option" value="Commandé">Commandé</option>
+              <option class="option" value="Retour" selected>Retour</option>
 
-          <div class="form-floating mb-3 col-md-3">
-            <input
-              id="articleserie"
-              name="article[serie]"
-              type="text"
-              class="form-control"
-              style="text-transform: capitalize"
-              value="<%= article.serie %>"
-              autofocus
-              
-            />
-            <label for="articlelserie" class="form-label">N° Série</label>
+              <% } %>
+            </select>
+            <label for="etat" class="form-label">Etat</label>
             <div class="valid-feedback">BIEN</div>
           </div>
-          <div class="form-floating mb-3 col-md-3">
+
+       
+          <div class="form-floating mb-3 col-md-4">
             <input
               id="articlelot"
               name="article[lot]"
@@ -87,13 +68,12 @@
               style="text-transform: capitalize"
               autocomplete="off"
               value="<%= article.lot %>"
-              
             />
             <label for="articlelserie" class="form-label">N° Lot</label>
             <div class="valid-feedback">BIEN</div>
           </div>
 
-          <div class="form-floating mb-3 col-md-3">
+          <div class="form-floating mb-3 col-md-4">
             <input
               id="articlemarque"
               name="article[marque]"
@@ -101,13 +81,12 @@
               class="form-control"
               style="text-transform: capitalize"
               value="<%= article.marque %>"
-              
             />
             <label for="articlemarque" class="form-label">Marque</label>
             <div class="valid-feedback">BIEN</div>
           </div>
 
-          <div class="form-floating mb-3 col-md-3">
+          <div class="form-floating mb-3 col-md-4">
             <input
               id="articlequantite"
               name="article[quantite]"
@@ -121,14 +100,8 @@
             <label for="articlequantite" class="form-label">Quantité</label>
             <div class="valid-feedback">BIEN</div>
           </div>
-       
-          <div class="form-floating mb-3 col-md-6">
-            <input class="form-control" type="date" id="ddp"
-            name="article[ddp]" placeholder="DDP"
-            value="<%=moment(article.ddp).format("YYYY-MM-DD")%>" />
-            <label for="ddp" class="form-labelfs-6">DDP</label>
-            <div class="valid-feedback">BIEN</div>
-          </div>
+
+          
           <div class="form-floating mb-3 col-md-6">
             <input class="form-control" type="date" id="dateachat"
             name="article[dateachat]" placeholder="date de l'achat"
@@ -136,7 +109,7 @@
             <label for="dateachat" class="form-labelfs-6">Date d'achat</label>
             <div class="valid-feedback">BIEN</div>
           </div>
-          <div class="form-floating mb-3 col-md-12">
+          <div class="form-floating mb-3 col-md-6">
             <input
               id="articlefrournisseur"
               name="article[fournisseur]"
@@ -206,3 +179,8 @@
     </div>
   </div>
 </div>
+<script>
+  $("#edit-<%= article.id %>").on("shown.bs.modal", function () {
+    $(this).find("[autofocus]").focus();
+  });
+</script>

@@ -22,9 +22,11 @@
     "express-mongo-sanitize": "^2.2.0",
     "express-session": "^1.17.3",
     "html-pdf": "^3.0.1",
+    "joi": "^17.6.0",
     "method-override": "^3.0.0",
     "moment": "^2.29.4",
     "mongoose": "^6.5.0",
+    "node-windows": "^1.0.0-beta.7",
     "nodemon": "^2.0.19",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
@@ -35,6 +37,7 @@
     "pdfkit-table": "^0.1.99",
     "pdfmake": "^0.2.5",
     "phantom": "^6.3.0",
+    "sanitize-html": "^2.7.1",
     "underscore": "^1.13.4"
   }
 }
