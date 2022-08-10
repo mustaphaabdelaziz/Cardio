@@ -41,17 +41,23 @@ module.exports.addDetail = async (req, res) => {
   req.flash("success", "Les détails ont été ajouté avec succès");
   res.redirect(redirectUrl);
 };
-module.exports.deletedetail = (req, res) => {
+module.exports.deletedetail = async (req, res) => {
   const { id, idarticle, iddetail } = req.params;
   console.log("id detail: ", iddetail);
   console.log("id article: ", idarticle);
-  const materiel = Materiel.findOneAndUpdate(
-    { _id: id, "article._id": idarticle, "article.detail._id": iddetail },
-    { $pull: { "article.$.detail": { _id: iddetail } } },
-
-    { new: true }
+  await Materiel.findOneAndUpdate(
+    {
+      id,
+      "article._id": idarticle,
+    },
+    {
+      $pull: {
+        "article.$[].detail": {
+          _id: iddetail,
+        },
+      },
+    }
   );
-  // res.send(materiel)
   req.flash("success", "detail à été supprimé avec succès");
   res.redirect(`/materiel/${id}/articles/${idarticle}`);
 };

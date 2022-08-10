@@ -1,5 +1,6 @@
 const moment = require("moment");
 const Materiel = require("../../model/materiel/materiel");
+const Fournisseur = require("../../model/materiel/fournisseur");
 
 module.exports.showcform = async (req, res) => {
   res.send("materiel/new");
@@ -11,8 +12,9 @@ module.exports.showarticle = async (req, res) => {
   // find the materiel in the database
 
   const materiel = await Materiel.findById(id);
+  const fournisseurs = await Fournisseur.find({});
   // send it to the client
-  res.render("materiel/article/show", { materiel });
+  res.render("materiel/article/show", { materiel, fournisseurs });
 };
 
 module.exports.addArticle = async (req, res) => {

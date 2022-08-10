@@ -19,7 +19,9 @@
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Modifier Fournisseur</h5>
+        <h5 class="modal-title" id="staticBackdropLabel">
+          Modifier Fournisseur
+        </h5>
         <button
           type="button"
           class="btn-close"
@@ -51,13 +53,12 @@
             <label for="name" class="form-label">Nom</label>
             <div class="valid-feedback">BIEN</div>
           </div>
-          <div class="form-floating col-md-6">
+          <div class="form-floating">
             <input
-              class="form-select"
+              class="form-control"
               id="wilaya"
               name="fournisseur[wilaya]"
               list="cities"
-              placeholder="Wilaya"
               onchange="makeSubmenu(this.value,'<%=fournisseur.id%>')"
               value="<%= fournisseur.wilaya %>"
             />

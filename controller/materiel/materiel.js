@@ -2,6 +2,7 @@ const moment = require("moment");
 const fs = require("fs");
 const Pdfmake = require("pdfmake");
 const Materiel = require("../../model/materiel/materiel");
+const Fournisseur = require("../../model/materiel/fournisseur");
 // Define font files
 var fonts = {
   Roboto: {
@@ -14,8 +15,8 @@ var fonts = {
 
 module.exports.listeMateriel = async (req, res) => {
   const materiels = await Materiel.find({});
-
-  res.render("materiel/index", { materiels });
+  const fournisseurs = await Fournisseur.find({});
+  res.render("materiel/index", { materiels, fournisseurs });
 };
 module.exports.creationform = (req, res) => {
   res.render("materiel/index");
@@ -25,8 +26,9 @@ module.exports.showMateriel = async (req, res) => {
   const { id } = req.params;
   // find the materiel in the database
   const materiel = await Materiel.findById(id);
+  const fournisseurs = await Fournisseur.find({});
   // send it to the client
-  res.render("materiel/article/show", { materiel, moment });
+  res.render("materiel/article/show", { materiel, moment, fournisseurs });
 };
 
 module.exports.createMateriel = async (req, res) => {

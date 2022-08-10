@@ -19,7 +19,9 @@
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Ajouter au <%=materiel.designation%>  <%=materiel.code%></h5>
+        <h5 class="modal-title" id="staticBackdropLabel">
+          Ajouter au <%=materiel.designation%> <%=materiel.code%>
+        </h5>
 
         <button
           type="button"
@@ -33,99 +35,91 @@
         <form
           action="/materiel/<%=materiel.id%>/article"
           method="POST"
-          class=" row needs-validation"
+          class="row needs-validation"
           novalidate
         >
-        <div class="form-floating mb-3 col-md-12 ">
-          <select
-            id="etat"
-            name="article[etat]"
-            class="form-select"
-            autofocus
-          >
-            <option class="option" value="Reçu" selected>Reçu</option>
-            <option class="option" value="Commandé">Commandé</option>
-            <option class="option" value="Retour">Retour</option>
-           
-          </select>
-          <label for="etat" class="form-label">Etat</label>
-          <div class="valid-feedback">BIEN</div>
-        </div>
+          <div class="form-floating mb-3 col-md-12">
+            <select
+              id="etat"
+              name="article[etat]"
+              class="form-select"
+              autofocus
+            >
+              <option class="option" value="Reçu" selected>Reçu</option>
+              <option class="option" value="Commandé">Commandé</option>
+              <option class="option" value="Retour">Retour</option>
+            </select>
+            <label for="etat" class="form-label">Etat</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
 
-        
-        <div class="form-floating mb-3 col-md-4">
-          <input
-            id="articlelot"
-            name="article[lot]"
-            type="text"
-            class="form-control"
-            style="text-transform: capitalize"
-            autocomplete="off"
-            
-           
-          />
-          <label for="articlelserie" class="form-label">N° Lot</label>
-          <div class="valid-feedback">BIEN</div>
-        </div>
+          <div class="form-floating mb-3 col-md-4">
+            <input
+              id="articlelot"
+              name="article[lot]"
+              type="text"
+              class="form-control"
+              style="text-transform: capitalize"
+              autocomplete="off"
+            />
+            <label for="articlelserie" class="form-label">N° Lot</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
 
-        <div class="form-floating mb-3 col-md-4">
-          <input
-            id="articlemarque"
-            name="article[marque]"
-            type="text"
-            class="form-control"
-            style="text-transform: capitalize"
-          
-          />
-          <label for="articlemarque" class="form-label">Marque</label>
-          <div class="valid-feedback">BIEN</div>
-          
-        </div>
-        <div class="form-floating mb-3 col-md-4">
-          <input
-            id="articlequantite"
-            name="article[quantite]"
-            type="number"
-            class="form-control"
-            
-            autocomplete="off"
-            
-            required
-          />
-          <label for="articlequantite" class="form-label">Quantité</label>
-          <div class="valid-feedback">BIEN</div>
+          <div class="form-floating mb-3 col-md-4">
+            <input
+              id="articlemarque"
+              name="article[marque]"
+              type="text"
+              class="form-control"
+              style="text-transform: capitalize"
+            />
+            <label for="articlemarque" class="form-label">Marque</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <div class="form-floating mb-3 col-md-4">
+            <input
+              id="articlequantite"
+              name="article[quantite]"
+              type="number"
+              class="form-control"
+              autocomplete="off"
+              required
+            />
+            <label for="articlequantite" class="form-label">Quantité</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
 
-      </div>
-        
-        <div class="form-floating mb-3 col-6">
-          <input
-            class="form-control"
-            type="date"
-            id="dateachat"
-            name="article[dateachat]"
-            placeholder="date de l'achat"
-                  
-          />
-          <label for="dateachat" class="form-label fs-6">Date d'achat</label>
-          <div class="valid-feedback">BIEN</div>
-        </div>
+          <div class="form-floating mb-3 col-6">
+            <input
+              class="form-control"
+              type="date"
+              id="dateachat"
+              name="article[dateachat]"
+              placeholder="date de l'achat"
+            />
+            <label for="dateachat" class="form-label fs-6">Date d'achat</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
 
-       
-      <div class="form-floating mb-3 col-6">
-        <input
-          id="articlefournisseur"
-          name="article[fournisseur]"
-          type="text"
-          class="form-control"
-          style="text-transform: capitalize"
-         
-        />
-        <label for="articlelfournisseur" class="form-label">Fournisseur</label>
-        <div class="valid-feedback">BIEN</div>
-      </div>
-     
-      
-      
+          <div class="form-floating mb-3 col-6">
+            <input
+              class="form-control"
+              id="fournisseur"
+              name="article[fournisseur]"
+              list="fournisseurs"
+              required
+            />
+            <datalist id="fournisseurs">
+              <% for (fournisseur of fournisseurs) { %>
+              <option class="option" value="<%= fournisseur.name %>">
+                <%= fournisseur.name %>
+              </option>
+              <%} %>
+            </datalist>
+            <label for="fournisseur" class="form-labelfs-6">Fournisseur</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
 
           <div class="form-floating mb-3 col-4">
             <input
@@ -133,45 +127,31 @@
               name="article[bc]"
               type="number"
               class="form-control"
-             
-              
-             
             />
             <label for="articlebc" class="form-label">BC</label>
             <div class="valid-feedback">BIEN</div>
+          </div>
+          <div class="form-floating mb-3 col-md-4">
+            <input
+              id="articlebl"
+              name="article[bl]"
+              type="number"
+              class="form-control"
+            />
+            <label for="articlebl" class="form-label">BL</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
 
-        </div>
-        <div class="form-floating mb-3 col-md-4">
-          <input
-            id="articlebl"
-            name="article[bl]"
-            type="number"
-            class="form-control"
-           
-            
-           
-          />
-          <label for="articlebl" class="form-label">BL</label>
-          <div class="valid-feedback">BIEN</div>
-
-      </div>
-
-      <div class="form-floating mb-3 col-md-4">
-        <input
-          id="articlefc"
-          name="article[fc]"
-          type="number"
-          class="form-control"
-        
-         
-         
-        />
-        <label for="articlefc" class="form-label">FC</label>
-        <div class="valid-feedback">BIEN</div>
-
-    </div>
-     
-        
+          <div class="form-floating mb-3 col-md-4">
+            <input
+              id="articlefc"
+              name="article[fc]"
+              type="number"
+              class="form-control"
+            />
+            <label for="articlefc" class="form-label">FC</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
 
           <div class="modal-footer mt-4">
             <button
@@ -189,7 +169,7 @@
   </div>
 </div>
 <script>
-  $('#article-<%= materiel.id %>').on('shown.bs.modal', function() {
-      $(this).find('[autofocus]').focus();
-});
+  $("#article-<%= materiel.id %>").on("shown.bs.modal", function () {
+    $(this).find("[autofocus]").focus();
+  });
 </script>
