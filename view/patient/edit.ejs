@@ -81,8 +81,9 @@
 
           <div class="form-floating col-md-6 mb-3">
             <input id="patientBirthDate" name="patient[birthdate]" type="date"
-            class="form-control" value="<%=
-            moment(patient.birthdate).format("YYYY-MM-DD")%>" />
+            class="form-control"max="<%= moment().format('YYYY-MM-DD')%>"
+            min="<%= moment("01/01/1900").format('YYYY-MM-DD')%>" value="<%=
+            moment(patient.birthdate).format('YYYY-MM-DD')%>"/>
             <label for="patientBirthDate" class="form-label"
               >Date de Naissance</label
             >
@@ -95,7 +96,7 @@
               required
             >
               <option disabled value="">Genre</option>
-              <% if (patient.gender === 'Male'){%>
+              <% if (patient.gender==='Male' ){%>
               <option class="option" value="Male" selected>Male</option>
               <option class="option" value="Female">Female</option>
               <% }else{ %>
@@ -179,10 +180,10 @@
               name="patient[medecinref]"
               class="form-select"
             >
-              <option value ="" disabled selected>Médecin Ref</option>
+              <option value="" disabled selected>Médecin Ref</option>
               <option class="option" value="/">/</option>
-              <% for(medecin of medecins ){ %> 
-              <% if(patient.medecinref===medecin.lastname) {%>
+              <% for(medecin of medecins ){ %> <%
+              if(patient.medecinref===medecin.lastname) {%>
               <option class="option" value="<%= medecin.lastname%>" selected>
                 Dr. <%= medecin.lastname %>
               </option>

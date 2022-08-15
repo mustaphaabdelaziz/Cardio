@@ -3,38 +3,9 @@ const Bc = require("../../model/materiel/bc");
 const Patient = require("../../model/patient");
 const Materiel = require("../../model/materiel/materiel");
 
-module.exports.showbcpatient = async (req, res) => {
-  const { id } = req.params;
-  const patient = await Patient.findById(id);
-  const bcs = await Bc.find({ patient: id });
-  const materials = await Materiel.find({});
-  // res.send(bcs);
-  res.render("materiel/kt/bc/index", { bcs, patient, moment, materials });
-};
-module.exports.showbc = async (req, res) => {
-  const { id, idbc } = req.params;
-  const patient = await Patient.findById(id);
-  const bc = await Bc.findById(idbc);
-  const materials = await Materiel.find({});
-
-  res.render("materiel/kt/bc/show", { bc, patient, moment, materials });
-};
-
-module.exports.addBc = async (req, res) => {
-  let { date } = req.body.bc;
-  const { id } = req.params;
-
-  const bc = new Bc({ date, patient: id });
-  await bc.save();
-  const redirectUrl = `back`;
-  req.flash("success", "Bc a été ajouté avec succès");
-  res.redirect(redirectUrl);
-};
 module.exports.addArticleBC = async (req, res) => {
   let { designation, marque, serialN } = req.body.articles;
-
   const { id, idbc } = req.params;
-
   const bc = await Bc.findByIdAndUpdate(
     idbc,
     {
@@ -75,13 +46,48 @@ module.exports.addArticleBC = async (req, res) => {
   );
 };
 
-module.exports.deletePatientBc = async (req, res) => {
-  const { id, idbc } = req.params;
-  await Bc.findByIdAndDelete(idbc);
-  req.flash("success", "Bc à été supprimé avec succès");
-  res.redirect(`/kt/bc/${id}`);
+module.exports.deleteArticleBc = async (req, res) => {
+  const { serie, marque } = req.query;
+  const { id, idbc, idart } = req.params;
+  const bc = await Bc.findByIdAndUpdate(
+    idbc,
+    {
+      $pull: {
+        articles: {
+          _id: idart,
+        },
+      },
+    },
+    { new: true }
+  );
+  Materiel.findOneAndUpdate(
+    {
+      article: {
+        $elemMatch: {
+          "detail.serie": serie,
+          "article.marque": marque,
+        },
+      },
+    },
+    {
+      $set: {
+        "article.$[outer].detail.$[inner].taken": false,
+      },
+    },
+    { arrayFilters: [{ "inner.serie": serie }, { "outer.marque": marque }] },
+    (err, result) => {
+      if (err) {
+        console.log("Error updating detail: " + err);
+        // res.send(result);
+      } else {
+        const redirectUrl = `back`;
+        req.flash("success", "Bc a été ajouté avec succès");
+        res.redirect(redirectUrl);
+      }
+    }
+  );
 };
-module.exports.updatePatientBc = async (req, res) => {
+module.exports.updateArticleBc = async (req, res) => {
   const { id, idbc } = req.params;
   const { date } = req.body.bc;
   await Bc.findByIdAndUpdate(idbc, {

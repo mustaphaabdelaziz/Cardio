@@ -30,8 +30,10 @@
       </div>
 
       <div class="modal-body">
+        <!-- /kt/bc/:id/:idbc/articles/ -->
         <form
-          action="/kt/bc/<%=patient.id%>/<%=bc.id %>"
+        
+          action="/kt/bc/<%=patient.id%>/<%=bc.id %>/articles"
           method="POST"
           class="needs-validation"
           novalidate
@@ -43,12 +45,13 @@
               id="designation"
               name="articles[designation]"
               list="materials"
-             
+              onchange="MaterielArticles(this.value,'')"
               required
             />
             <datalist id="materials">
               <% for (material of materials) { %>
-              <option class="option" value="<%= material.code %>">
+
+              <option class="option" value="<%= material.designation %>">
                 <%= material.designation %>
               </option>
               <%} %>
@@ -58,18 +61,27 @@
           </div>
 
           <div class="form-floating mb-3">
-            <input
-              class="form-control"
-              type="number"
-              id="qte"
-              name="articles[qte]"
-              placeholder="Quantité"
-              required
-            />
-            <label for="qte" class="form-labelfs-6">Quantité</label>
+            <select
+              id="article"
+              name="articles[marque]"
+              class="form-select"
+              onchange="ArticleDetails(this.value,'')"
+            >
+              <option class="option" value="" disabled selected>Article</option>
+            </select>
+            <label for="article" class="form-label">Article</label>
             <div class="valid-feedback">BIEN</div>
           </div>
 
+          <div class="form-floating mb-3">
+            <select id="serialN" name="articles[serialN]" class="form-select">
+              <option class="option" value="" disabled selected>
+                N° Série
+              </option>
+            </select>
+            <label for="serialN" class="form-label">N° Série</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
           <div class="modal-footer mt-4">
             <button
               type="button"
@@ -86,7 +98,10 @@
   </div>
 </div>
 <script>
-  $('#bc-<%= bc.id %>').on('shown.bs.modal', function() {
-      $(this).find('[autofocus]').focus();
-});
+  $("#bc-<%= bc.id %>").on("shown.bs.modal", function () {
+    $(this).find("[autofocus]").focus();
+  });
+</script>
+<script>
+  let materials = <%- JSON.stringify(materials) %>;
 </script>

@@ -34,7 +34,7 @@
                     <div class="col-2 mt-2">
                         <p><%=materiel.code %></p>
                         <p><%=materiel.qteglobal %></p>
-                        <p>coming soon!</p>
+                        <p><%=materiel.consumedQuantity%></p>
                     </div>
                 </div>
             </div>
@@ -83,10 +83,13 @@
                 </td>
 
                 <td class="data clickable" onclick="window.location='/materiel/<%=materiel.id%>/articles/<%=article.id%>'">
-                    <%=article.quantite %>
+                    <%=article.detail.length %>
                 </td>
                 <td class="data clickable" onclick="window.location='/materiel/<%=materiel.id%>/articles/<%=article.id%>'">
-                  Coming soon!
+                    <%= article.detail.reduce((quantity,detail) => {
+                        if (detail.taken) return quantity + detail.quantite;
+                          else return quantity;
+                    },0) %>
                 </td>
                 
                 <td class="data clickable" onclick="window.location='/materiel/<%=materiel.id%>/articles/<%=article.id%>'">
@@ -108,7 +111,7 @@
                 <% if (article.etat==="Reçu"){%>
                     <th class="p-3"><span class="rounded-pill badge bg-success bg-gradient">Reçu</span></th>
                     <%}else if(article.etat==="Commandé"){%>
-                    <th class="p-3"><span class="rounded-pill badge bg-warning bg-gradient">Commandé</span></th>
+                    <th class="p-3"><span class="rounded-pill badge bg-warning bg-gradient bg-gradient">Commandé</span></th>
                     <%}else{%>
                         <th class="p-3"><span class="rounded-pill badge bg-lightCoral bg-gradient">Retour</span></th>
                 

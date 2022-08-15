@@ -34,7 +34,7 @@ module.exports.creationform = async (req, res) => {
   const medecins = await Staff.find({ fonction: "Medecin" });
   const algeria = await Country.find({});
   const states = algeria[0].states;
-  res.render("patient/new", { medecins, states });
+  res.render("patient/new", { medecins, states, moment });
 };
 module.exports.showpatient = async (req, res) => {
   // get the patient id from the patients table

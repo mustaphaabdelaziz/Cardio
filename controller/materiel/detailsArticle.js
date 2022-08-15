@@ -43,8 +43,7 @@ module.exports.addDetail = async (req, res) => {
 };
 module.exports.deletedetail = async (req, res) => {
   const { id, idarticle, iddetail } = req.params;
-  console.log("id detail: ", iddetail);
-  console.log("id article: ", idarticle);
+  
   await Materiel.findOneAndUpdate(
     {
       id,

@@ -1,0 +1,72 @@
+<button
+  type="button"
+  class="btn btn-outline-warning bg-gradient px-2 py-1"
+  data-bs-toggle="modal"
+  data-bs-target="#edit-<%= bc.id %>"
+>
+  <i class="bi bi-pencil-fill"></i>
+</button>
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="edit-<%= bc.id %>"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editbc-<%= bc.id %>">
+          Modifier BC <%= bc.id %>
+        </h5>
+
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+
+      <div class="modal-body">
+        <form
+          action="/kt/bc/<%=patient.id%>/<%= bc.id %>?_method=PUT"
+          method="POST"
+          class="needs-validation"
+          novalidate
+        >
+          <div class="form-floating mb-3">
+            <input class="form-control" type="date" id="datebc" name="bc[date]"
+            placeholder="date de BC" required autofocus value="<%=
+            moment(bc.date).format("YYYY-MM-DD") %>" />
+            <label for="datebc" class="form-labelfs-6">Date de BC</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <div class="modal-footer mt-3">
+            <button
+              type="button"
+              class="btn btn-outline-danger bg-gradient"
+              data-bs-dismiss="modal"
+            >
+              Annuler
+            </button>
+            <button
+              type="submit"
+              id="materiel-register"
+              class="btn btn-outline-warning bg-gradient"
+            >
+              Modifier
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $("#edit-<%= bc.id %>").on("shown.bs.modal", function () {
+    $(this).find("[autofocus]").focus();
+  });
+</script>

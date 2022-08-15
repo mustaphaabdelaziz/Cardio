@@ -65,12 +65,9 @@
               <div class="valid-feedback">BIEN</div>
             </div>
             <div class="form-floating col-md-6">
-              <input
-                id="patientBirthDate"
-                name="patient[birthdate]"
-                type="date"
-                class="form-control"
-              />
+              <input id="patientBirthDate" name="patient[birthdate]" type="date"
+              class="form-control" max="<%=moment().format('YYYY-MM-DD')%>"
+              min="<%= moment("01/01/1900").format('YYYY-MM-DD')%>" />
               <label for="patientBirthDate" class="form-label"
                 >Date de Naissance
               </label>
@@ -126,7 +123,6 @@
                 list="cities"
                 placeholder="Wilaya"
                 onchange="makeSubmenu(this.value, '')"
-              
               />
               <datalist id="cities">
                 <option class="option" value="">Ville</option>

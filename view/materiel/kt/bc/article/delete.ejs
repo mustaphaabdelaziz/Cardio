@@ -1,9 +1,9 @@
 <button
   id="item2"
   type="button"
-  class="btn btn-outline-danger px-2 py-1 me-2"
+  class="btn btn-outline-danger bg-gradient px-2 py-1 me-2"
   data-bs-toggle="modal"
-  data-bs-target="#dbc-<%= bc.id %>"
+  data-bs-target="#dartbc-<%= article.id %>"
 >
   <i class="bi bi-trash-fill"></i>
 </button>
@@ -11,7 +11,7 @@
 <!-- Modal -->
 <div
   class="modal fade"
-  id="dbc-<%= bc.id %>"
+  id="dartbc-<%= article.id %>"
   data-bs-keyboard="false"
   tabindex="-1"
   aria-labelledby="staticBackdropLabel"
@@ -21,7 +21,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="staticBackdropLabel">
-          Suppression de <%=bc.fullname %>
+          Suppression de <%=article.marque+article.serie+"" %>
         </h5>
 
         <button
@@ -46,7 +46,7 @@
         <form
           class=""
           id="delete-form"
-          action="/bcs/<%=bc.id %>/?_method=DELETE"
+          action="/kt/bc/<%=patient.id %>/<%=bc.id %>/articles/<%=article.id%>?serie=<%=article.serie%>&marque=<%=article.marque %>&_method=DELETE"
           method="POST"
         >
           <div class="modal-footer mt-4">
@@ -57,7 +57,7 @@
             >
               Annuler
             </button>
-            <button class="btn btn-outline-danger">Supprimer</button>
+            <button class="btn btn-outline-danger bg-gradient">Supprimer</button>
           </div>
         </form>
       </div>

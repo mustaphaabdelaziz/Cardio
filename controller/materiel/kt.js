@@ -8,7 +8,7 @@ module.exports.listeKT = async (req, res) => {
   const patients = await Patient.find({
     "consultation.acte": { $regex: new RegExp("^" + acte + "$", "i") },
   });
-  res.render("materiel/kt/index", { patients });
+  res.render("materiel/kt/index", { patients, moment });
 };
 
 // module.exports.showbc = async (req, res) => {

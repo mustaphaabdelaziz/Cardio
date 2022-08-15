@@ -46,7 +46,9 @@
         <thead class="table-success">
             <tr>
                 <th scope="col">N°</th>
-                <th scope="col">Article</th>
+                <th scope="col">designation</th>
+                <th scope="col">marque</th>
+                <th scope="col">Numéro série</th>
                 <th scope="col">Quantité</th>
                 <th id="hide" scope="col">Action</th>
             </tr>
@@ -55,17 +57,22 @@
            <% var i = 1 %>
            <% for(article of bc.articles) {%>
             <tr>
-            <th class="clickable" onclick="window.location='/kt/bc/<%=patient.id%>/<%=bc.id%>'">
+            <th>
                 <%= i++ %>
             </th> 
-            <td class="clickable" onclick="window.location='/kt/bc/<%=patient.id%>/<%=bc.id%>'">
+            <td>
                 <%= article.designation %>                
             </td> 
-            <td class="clickable" onclick="window.location='/kt/bc/<%=patient.id%>/<%=bc.id%>'">
-                <%= article.qte %>                
+            <td>
+                <%= article.marque %>                
             </td> 
             <td>
-                <%- include("./article/edit") %> 
+                <%= article.serie%>                
+            </td> 
+            <td>
+                <%= article.quantite %>                
+            </td> 
+            <td>
                 <%- include("./article/delete") %> 
             </td>
         </tr>

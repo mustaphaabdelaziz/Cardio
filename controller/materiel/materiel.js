@@ -16,6 +16,7 @@ var fonts = {
 module.exports.listeMateriel = async (req, res) => {
   const materiels = await Materiel.find({});
   const fournisseurs = await Fournisseur.find({});
+  // res.send(materiels);
   res.render("materiel/index", { materiels, fournisseurs });
 };
 module.exports.creationform = (req, res) => {

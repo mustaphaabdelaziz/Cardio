@@ -13,11 +13,17 @@ const Bc = new Schema(
       type: Schema.Types.ObjectId,
       ref: "Patient",
     },
-    articles: [{
-      designation:String,
-      qte: Number,
-      
-    }],
+    articles: [
+      {
+        designation: String,
+        marque: String,
+        serie: String,
+        quantite: {
+          type: Number,
+          default: 1,
+        },
+      },
+    ],
   },
   opts
 );

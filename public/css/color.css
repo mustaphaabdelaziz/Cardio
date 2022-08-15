@@ -1,3 +1,7 @@
+.bg-pistachio {
+  background-color: #DCF4E4;
+}
+
 .bg-greenSea {
   background-color: #5da49c;
 }
@@ -12,6 +16,18 @@
 
 .bg-mediumTurquoise {
   background-color: #0fa2b6;
+}
+
+.bg-antiqueSteel {
+  background-color: #E8E9E9;
+}
+
+.text-antiqueSteel {
+  color: #E8E9E9;
+}
+
+.text-pistachio {
+  color: #DCF4E4;
 }
 
 .text-crystalBlue {
@@ -75,6 +91,30 @@
 .btn-lightCoral:hover {
   color: #fff;
   background-color: #e2564c;
+  opacity: 0.8;
+}
+
+.btn-pistachio {
+  color: #fff;
+  background-color: #DCF4E4;
+  border-color: #DCF4E4;
+}
+
+.btn-pistachio:hover {
+  color: #fff;
+  background-color: #DCF4E4;
+  opacity: 0.8;
+}
+
+.btn-antiqueSteel {
+  color: #fff;
+  background-color: #E8E9E9;
+  border-color: #E8E9E9;
+}
+
+.btn-antiqueSteel:hover {
+  color: #fff;
+  background-color: #E8E9E9;
   opacity: 0.8;
 }
 /*# sourceMappingURL=color.css.map */

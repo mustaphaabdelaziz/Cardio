@@ -37,8 +37,8 @@
             <tr>
                 <th scope="col">N°</th>
                 <th scope="col">N° Serie</th>
-             
                 <th scope="col">DDP</th>
+                <th scope="col">etat</th>
               
                 <th id="hide" scope="col">Action</th>
             </tr>
@@ -59,6 +59,20 @@
                 <td class="data">
                     <%= moment(detail.ddp).format('DD/MM/YYYY') %> 
                 </td>
+                
+                    <% if(!detail.taken){ %>
+                        <th class="p-3"> 
+                            <span  class="rounded-pill badge bg-success bg-gradient">
+                                Disponoible
+                            </span>
+                        </th>
+                    <%}else{%>
+                        <th class="p-3">
+                            <span class="rounded-pill badge bg-lightCoral bg-gradient">
+                                Consommé
+                            </span>
+                        </th>   
+                    <%}%>
                 <th>
                     <%- include("./edit")%>
                     <%- include("./delete")%>

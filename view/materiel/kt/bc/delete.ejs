@@ -1,0 +1,66 @@
+<button
+  id="item2"
+  type="button"
+  class="btn btn-outline-danger bg-gradient px-2 py-1"
+  data-bs-toggle="modal"
+  data-bs-target="#dbc-<%= bc.id %>"
+>
+  <i class="bi bi-trash-fill"></i>
+</button>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="dbc-<%= bc.id %>"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">
+          Suppression de <%=bc.id %>
+        </h5>
+
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="d-flex justify-content-start align-items-center">
+          <img
+            class=""
+            height="30"
+            width="30"
+            src="/assets/close.png"
+            alt="close"
+          />
+          <p class="mt-3 ms-2">Vous êtes sûr?</p>
+        </div>
+        <form
+          class=""
+          id="delete-form"
+          action="/kt/bc/<%=patient.id %>/<%=bc.id%>/?_method=DELETE"
+          method="POST"
+        >
+          <div class="modal-footer mt-4">
+            <button
+              type="button"
+              class="btn btn-outline-secondary"
+              data-bs-dismiss="modal"
+            >
+              Annuler
+            </button>
+            <button class="btn btn-outline-danger bg-gradient">Supprimer</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

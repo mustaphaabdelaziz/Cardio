@@ -1,6 +1,6 @@
 <button
   type="button"
-  class="btn me-2 btn-outline-success bg-gradient px-2 py-1"
+  class="btn ms-2 btn-outline-success bg-gradient px-2 py-1"
   data-bs-toggle="modal"
   data-bs-target="#bc-<%= patient.id %>"
 >
@@ -45,6 +45,8 @@
               placeholder="date de BC"
               required
               autofocus
+              value="<%=
+            moment().format('YYYY-MM-DD') %>"
             />
             <label for="datebc" class="form-labelfs-6">Date de BC</label>
             <div class="valid-feedback">BIEN</div>
@@ -66,7 +68,7 @@
   </div>
 </div>
 <script>
-  $('#bc-<%= patient.id %>').on('shown.bs.modal', function() {
-      $(this).find('[autofocus]').focus();
-});
+  $("#bc-<%= patient.id %>").on("shown.bs.modal", function () {
+    $(this).find("[autofocus]").focus();
+  });
 </script>

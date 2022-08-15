@@ -1,6 +1,6 @@
 <button
   type="button"
-  class="btn me-2 btn-outline-warning px-2 py-1"
+  class="btn me-2 btn-outline-warning bg-gradient px-2 py-1"
   data-bs-toggle="modal"
   data-bs-target="#edit-<%= bc.id %>"
 >
@@ -31,7 +31,7 @@
 
       <div class="modal-body">
         <form
-          action="/bcs/<%= bc.id %>/?_method=PUT"
+          action="/kt/bc/<%= bc.id %>/<%=article.id%>?_method=PUT"
           id="personal"
           method="POST"
           class="needs-validation"
@@ -39,36 +39,40 @@
         >
           <div class="form-floating mb-3">
             <input
-              id="bccode"
-              name="bc[code]"
-              type="text"
               class="form-control"
-              style="text-transform: capitalize"
+              id="designation"
+              name="articles[designation]"
+              list="materials"
+              value="<%= article.designation %> "
               required
-              autofocus
-              value="<%= bc.code%>"
             />
-            <label for="bccode" class="form-label">Code</label>
+            <datalist id="materials">
+              <% for (material of materials) { %>
+              <option class="option" value="<%= material.code %>">
+                <%= material.designation %>
+              </option>
+              <%} %>
+            </datalist>
+            <label for="designation" class="form-labelfs-6">Désignation</label>
             <div class="valid-feedback">BIEN</div>
           </div>
           <div class="form-floating mb-3">
             <input
-              id="bcdesignation"
-              name="bc[designation]"
-              style="text-transform: capitalize"
-              type="text"
               class="form-control"
+              type="number"
+              id="qte"
+              name="articles[qte]"
+              placeholder="Quantité"
               required
-              value="<%= bc.designation %>"
             />
-            <label for="bcdesignation" class="form-label">Désignation</label>
+            <label for="qte" class="form-labelfs-6">Quantité</label>
             <div class="valid-feedback">BIEN</div>
           </div>
 
           <div class="modal-footer mt-3">
             <button
               type="button"
-              class="btn btn-outline-danger"
+              class="btn btn-outline-danger bg-gradient"
               data-bs-dismiss="modal"
             >
               Annuler
@@ -76,7 +80,7 @@
             <button
               type="submit"
               id="bc-register"
-              class="btn btn-outline-warning"
+              class="btn btn-outline-warning bg-gradient"
             >
               Modifier
             </button>

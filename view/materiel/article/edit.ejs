@@ -1,6 +1,6 @@
 <button
   type="button"
-  class="me-2 btn btn-outline-warning px-2 py-1"
+  class="me-2 btn btn-outline-warning bg-gradient px-2 py-1"
   data-bs-toggle="modal"
   data-bs-target="#edit-<%= article.id %>"
 >
@@ -16,7 +16,9 @@
   aria-labelledby="staticBackdropLabel"
   aria-hidden="true"
 >
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+  <div
+    class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg"
+  >
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="staticBackdropLabel">Modifier Article</h5>
@@ -36,9 +38,16 @@
           id="personal"
           method="POST"
           novalidate
+          autocomplete="off"
         >
           <div class="form-floating mb-3">
-            <select id="etat" name="article[etat]" class="form-select" required autofocus>
+            <select
+              id="etat"
+              name="article[etat]"
+              class="form-select"
+              required
+              autofocus
+            >
               <% if (article.etat === 'Reçu'){%>
               <option class="option" value="Reçu" selected>Reçu</option>
               <option class="option" value="Commandé">Commandé</option>
@@ -58,7 +67,6 @@
             <div class="valid-feedback">BIEN</div>
           </div>
 
-       
           <div class="form-floating mb-3 col-md-4">
             <input
               id="articlelot"
@@ -101,7 +109,6 @@
             <div class="valid-feedback">BIEN</div>
           </div>
 
-          
           <div class="form-floating mb-3 col-md-6">
             <input class="form-control" type="date" id="dateachat"
             name="article[dateachat]" placeholder="date de l'achat"
@@ -109,18 +116,22 @@
             <label for="dateachat" class="form-labelfs-6">Date d'achat</label>
             <div class="valid-feedback">BIEN</div>
           </div>
-          <div class="form-floating mb-3 col-md-6">
+          <div class="form-floating mb-3 col-6">
             <input
-              id="articlefrournisseur"
-              name="article[fournisseur]"
-              type="text"
               class="form-control"
-              style="text-transform: capitalize"
+              id="fournisseur"
+              name="article[fournisseur]"
+              list="fournisseurs"
               value="<%= article.fournisseur %>"
             />
-            <label for="articlelfrournisseur" class="form-label"
-              >Frournisseur</label
-            >
+            <datalist id="fournisseurs">
+              <% for (fournisseur of fournisseurs) { %>
+              <option class="option" value="<%= fournisseur.name %>">
+                <%= fournisseur.name %>
+              </option>
+              <%} %>
+            </datalist>
+            <label for="fournisseur" class="form-labelfs-6">Fournisseur</label>
             <div class="valid-feedback">BIEN</div>
           </div>
           <div class="form-floating mb-3 col-md-4">
@@ -161,7 +172,7 @@
           <div class="modal-footer mt-3">
             <button
               type="button"
-              class="btn btn-outline-danger"
+              class="btn btn-outline-danger bg-gradient"
               data-bs-dismiss="modal"
             >
               Annuler
@@ -169,7 +180,7 @@
             <button
               type="submit"
               id="article-edit"
-              class="btn btn-outline-warning"
+              class="btn btn-outline-warning bg-gradient"
             >
               Modifier
             </button>
