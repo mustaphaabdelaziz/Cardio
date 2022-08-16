@@ -79,98 +79,99 @@
       aria-label="Search"
     />
   </form>
+  <div class="table-responsive">
+    <table
+      class="table table-striped table-hover table-borderless text-center sortable"
+      id="patientTable"
+    >
+      <thead class="table-success">
+        <tr>
+          <th scope="col">N°</th>
+          <th scope="col">Nom</th>
+          <th scope="col">Père</th>
+          <th scope="col">Age</th>
+          <th scope="col">Wilaya</th>
+          <th scope="col">Tél 1</th>
+          <th scope="col">Tél 2</th>
+          <th scope="col">Dérniere acte</th>
+          <th scope="col">Prochaine acte</th>
+          <th id="hide" scope="col">Ajouter Acte</th>
+          <th id="hide" scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody id="tablebody">
+        <% var i=1 %> <% for (patient of patients){%>
 
-  <table
-    class="table table-striped table-hover table-borderless text-center sortable"
-    id="patientTable"
-  >
-    <thead class="table-success">
-      <tr>
-        <th scope="col">N°</th>
-        <th scope="col">Nom</th>
-        <th scope="col">Père</th>
-        <th scope="col">Age</th>
-        <th scope="col">Wilaya</th>
-        <th scope="col">Tél 1</th>
-        <th scope="col">Tél 2</th>
-        <th scope="col">Dérniere acte</th>
-        <th scope="col">Prochaine acte</th>
-        <th id="hide" scope="col">Ajouter Acte</th>
-        <th id="hide" scope="col">Action</th>
-      </tr>
-    </thead>
-    <tbody id="tablebody">
-      <% var i=1 %> <% for (patient of patients){%>
+        <tr>
+          <th
+            class="clickable"
+            onclick="window.location='/patient/<%=patient.id%>'"
+            scope="row"
+          >
+            <%= i%><% i=i+1; %>
+          </th>
+          <td
+            class="clickable"
+            onclick="window.location='/patient/<%=patient.id%>'"
+          >
+            <%= patient.fullname %>
+          </td>
 
-      <tr>
-        <th
-          class="clickable"
-          onclick="window.location='/patient/<%=patient.id%>'"
-          scope="row"
-        >
-          <%= i%><% i=i+1; %>
-        </th>
-        <td
-          class="clickable"
-          onclick="window.location='/patient/<%=patient.id%>'"
-        >
-          <%= patient.fullname %>
-        </td>
+          <td
+            class="clickable"
+            onclick="window.location='/patient/<%=patient.id%>'"
+          >
+            <%=patient.father %>
+          </td>
+          <td
+            class="clickable"
+            onclick="window.location='/patient/<%=patient.id%>'"
+          >
+            <%=patient.age%>
+          </td>
+          <td
+            class="clickable"
+            onclick="window.location='/patient/<%=patient.id%>'"
+          >
+            <%=patient.wilaya %>
+          </td>
 
-        <td
-          class="clickable"
-          onclick="window.location='/patient/<%=patient.id%>'"
-        >
-          <%=patient.father %>
-        </td>
-        <td
-          class="clickable"
-          onclick="window.location='/patient/<%=patient.id%>'"
-        >
-          <%=patient.age%>
-        </td>
-        <td
-          class="clickable"
-          onclick="window.location='/patient/<%=patient.id%>'"
-        >
-          <%=patient.wilaya %>
-        </td>
+          <td
+            class="clickable"
+            onclick="window.location='/patient/<%=patient.id%>'"
+          >
+            <%=patient.phone%>
+          </td>
+          <td
+            class="clickable"
+            onclick="window.location='/patient/<%=patient.id%>'"
+          >
+            <%=patient.phone2%>
+          </td>
+          <td
+            class="clickable"
+            onclick="window.location='/patient/<%=patient.id%>'"
+          >
+            <%=patient.lastacte.acte%>
+          </td>
+          <td
+            class="clickable"
+            onclick="window.location='/patient/<%=patient.id%>'"
+          >
+            <%=patient.nextacte.acte%>
+          </td>
 
-        <td
-          class="clickable"
-          onclick="window.location='/patient/<%=patient.id%>'"
-        >
-          <%=patient.phone%>
-        </td>
-        <td
-          class="clickable"
-          onclick="window.location='/patient/<%=patient.id%>'"
-        >
-          <%=patient.phone2%>
-        </td>
-        <td
-          class="clickable"
-          onclick="window.location='/patient/<%=patient.id%>'"
-        >
-          <%=patient.lastacte.acte%>
-        </td>
-        <td
-          class="clickable"
-          onclick="window.location='/patient/<%=patient.id%>'"
-        >
-          <%=patient.nextacte.acte%>
-        </td>
-
-        <th><%- include("./consultation/new")%></th>
-        <th>
-          <div class="d-flex justify-content-center align-items-center">
-            <%- include("./edit")%> <%- include("./delete")%>
-          </div>
-        </th>
-      </tr>
-      <% }%>
-    </tbody>
-  </table>
+          <th><%- include("./consultation/new")%></th>
+          <th>
+            <div class="d-flex justify-content-center align-items-center">
+              <%- include("./edit")%> <%- include("./delete")%>
+            </div>
+          </th>
+        </tr>
+        <% }%>
+      </tbody>
+    </table>
+  </div>
 </div>
 <script>
   let patients = <%- JSON.stringify(patients) %>;

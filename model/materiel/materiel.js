@@ -9,7 +9,7 @@ const Schema = mongoose.Schema;
 const Materiel = new Schema(
   {
     code: String,
-    designation: { type: String },
+    designation: { type: String, unique: true, trim: true, required: true },
     article: [
       {
         etat: String,
@@ -20,7 +20,6 @@ const Materiel = new Schema(
         bc: Number,
         bl: Number,
         fc: Number,
-
         detail: [
           {
             serie: String,

@@ -2,12 +2,13 @@
 const express = require("express");
 const router = express.Router({ mergeParams: true });
 const {
+  showBc,
   addArticleBC,
   updateArticleBc,
   deleteArticleBc,
 } = require("../../controller/materiel/bcArticle");
 const catchAsync = require("../../utils/catchAsync");
-router.route("/").post(catchAsync(addArticleBC));
+router.route("/").get(catchAsync(showBc)).post(catchAsync(addArticleBC));
 router
   .route("/:idart")
   .put(catchAsync(updateArticleBc))

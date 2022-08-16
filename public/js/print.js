@@ -1,7 +1,7 @@
 var selected = document.getElementById("age");
 var styles = {
   header: {
-    fontSize: 25,
+    fontSize: 22,
     bold: true,
     alignment: "center",
     margin: [0, 10, 0, 20],
@@ -22,10 +22,10 @@ var styles = {
     fillColor: ["stripe45d", "#1e4620"],
   },
   table: {
-    fontSize: 8,
+    fontSize: 10,
     alignment: "center",
     // [left, top, right, bottom]
-    margin: [0, 10, 0, 10],
+    // margin: [0, 10, 0, 10],
     color: "#061e30",
   },
   text: {
@@ -250,9 +250,9 @@ function printMedecinList(medecin) {
 
   var period = moment(start).isSame(end, "day")
     ? `${moment(start).format("DD/MM/YYYY")}`
-    : `${moment(start,"DD/MM/YYYY").format("DD/MM/YYYY")} à ${moment(end).format(
-        "DD/MM/YYYY"
-      )}`;
+    : `${moment(start, "DD/MM/YYYY").format("DD/MM/YYYY")} à ${moment(
+        end
+      ).format("DD/MM/YYYY")}`;
 
   let list = [];
   let i = 1;
@@ -600,6 +600,329 @@ function filterPatient(age, base) {
     }
   }
 }
+function printBC() {
+  this.getBase64ImageFromURL("http://localhost:8000/assets/en-tete.png")
+    .then((url) => {
+      let docDefinition = {
+        pageSize: "A4",
+        pageOrientation: "portrait",
+        // [left, top, right, bottom]
+        pageMargins: [10, 120, 10, 70],
+
+        header: {
+          image: url,
+          width: 595,
+          height: 80,
+          margin: [0, 0, 0, 0],
+        },
+        footer: function (currentPage, pageCount) {
+          return {
+            margin: 10,
+            columns: [
+              {
+                fontSize: 12,
+                text: [
+                  {
+                    text:
+                      "----------------------------------------------------------------------------------------------------" +
+                      "\n",
+                    margin: [0, 20],
+                  },
+                  {
+                    text: currentPage.toString() + " of " + pageCount,
+                  },
+                ],
+                alignment: "center",
+              },
+            ],
+          };
+        },
+        content: [
+          {
+            columns: [
+              {
+                alignment: "left",
+                // star-sized columns fill the remaining space
+                // if there's more than one star-column, available width is divided equally
+                width: "*",
+                fontSize: 13,
+                columns: [
+                  {
+                    // auto-sized columns have their widths based on their content
+                    width: "*",
+                    text: "",
+                    alignment: "right",
+                    margin: [200, 0, 10, 0],
+                  },
+                  {
+                    width: "auto",
+                    stack: ["Patient:", "Date:"],
+                    margin: [200, 0, 10, 0],
+                    color: "#061e30",
+                    bold: true,
+                    alignment: "right",
+                  },
+                  {
+                    margin: [10, 0, 0, 0],
+                    alignment: "left",
+                    width: "*",
+
+                    stack: [
+                      `${patient.fullname}`,
+                      `${moment(bc.date).format("DD/MM/YYYY")}`,
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            text: "Bon De Commande",
+            style: "header",
+          },
+          {
+            columns: [
+              { width: "*", text: "" },
+              {
+                width: "auto",
+                table: {
+                  style: "table",
+                  // headers are automatically repeated if the table spans over multiple pages
+                  // you can declare how many rows should be treated as headers
+                  headerRows: 1,
+                  // widths:number of columns in the table here we have 8 columns
+                  widths: ["*", "*", "*", "*"],
+
+                  body: [
+                    [
+                      {
+                        text: "N°",
+                        style: "tableHeader",
+                      },
+                      {
+                        text: "Désignation",
+                        style: "tableHeader",
+                      },
+
+                      {
+                        text: "Marque",
+                        style: "tableHeader",
+                      },
+
+                      {
+                        text: "Numéro série",
+                        style: "tableHeader",
+                      },
+                    ],
+
+                    ...bc.articles.map((article, index) => {
+                      return [
+                        index + 1,
+                        article.designation,
+                        article.marque,
+                        article.serie,
+                      ];
+                    }),
+                  ],
+                  alignment: "center",
+                },
+              },
+              { width: "*", text: "" },
+            ],
+          },
+        ],
+
+        // Define styles
+        styles,
+      };
+      pdfMake.createPdf(docDefinition).open();
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+function printArticle() {
+  this.getBase64ImageFromURL("http://localhost:8000/assets/en-tete.png")
+    .then((url) => {
+      let docDefinition = {
+        pageSize: "A4",
+        pageOrientation: "portrait",
+        // [left, top, right, bottom]
+        pageMargins: [10, 120, 10, 70],
+
+        header: {
+          image: url,
+          width: 595,
+          height: 80,
+          margin: [0, 0, 0, 0],
+        },
+        footer: function (currentPage, pageCount) {
+          return {
+            margin: 10,
+            columns: [
+              {
+                fontSize: 12,
+                text: [
+                  {
+                    text:
+                      "----------------------------------------------------------------------------------------------------" +
+                      "\n",
+                    margin: [0, 20],
+                  },
+                  {
+                    text: currentPage.toString() + " of " + pageCount,
+                  },
+                ],
+                alignment: "center",
+              },
+            ],
+          };
+        },
+        content: [
+          {
+            columns: [
+              {
+                alignment: "left",
+                // star-sized columns fill the remaining space
+                // if there's more than one star-column, available width is divided equally
+                width: "*",
+                fontSize: 13,
+                columns: [
+                  {
+                    // auto-sized columns have their widths based on their content
+                    width: "*",
+                    text: `Désignation: ${materiel.designation}`,
+                    alignment: "left",
+                    decoration:"underline",
+                    margin: [50, 0, 10, 0],
+                  },
+                  {
+                    width: "auto",
+                    stack: ["REF:", "Quantité globale:", "Quantité Consommé:"],
+                    margin: [100, 0, 0, 0],
+                    color: "#061e30",
+                    bold: true,
+                    alignment: "right",
+                  },
+                  {
+                    margin: [10, 0, 10, 0],
+                    alignment: "left",
+                    width: "auto",
+
+                    stack: [
+                      `${materiel.code}`,
+                      `${materiel.qteglobal}`,
+                      `${materiel.consumedQuantity}`,
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            text: "Liste des Articles",
+            style: "header",
+          },
+          {
+            columns: [
+              { width: "*", text: "" },
+              {
+                width: "auto",
+                table: {
+                  style: "table",
+                  // headers are automatically repeated if the table spans over multiple pages
+                  // you can declare how many rows should be treated as headers
+                  headerRows: 1,
+                  // widths:number of columns in the table here we have 8 columns
+                  widths: [
+                    "auto",
+                    "auto",
+                    "auto",
+                    "auto",
+                    "auto",
+                    "auto",
+                    "auto",
+                    "auto",
+                  ],
+
+                  body: [
+                    [
+                      {
+                        text: "N°",
+                        style: "tableHeader",
+                      },
+                      {
+                        text: "Marque",
+                        style: "tableHeader",
+                      },
+
+                      {
+                        text: "Qte",
+                        style: "tableHeader",
+                      },
+                      {
+                        text: "Qte Consommé",
+                        style: "tableHeader",
+                      },
+
+                      {
+                        text: "N° Lot",
+                        style: "tableHeader",
+                      },
+                      {
+                        text: "Date d'achat",
+                        style: "tableHeader",
+                      },
+                      {
+                        text: "Fournisseur",
+                        style: "tableHeader",
+                      },
+
+                      {
+                        text: "Etat",
+                        style: "tableHeader",
+                      },
+                    ],
+
+                    ...materiel.article.map((article, index) => {
+                      return [
+                        { text: index + 1, style: "table" },
+                        { text: article.marque, style: "table" },
+                        { text: article.detail.length, style: "table" },
+                        {
+                          text: article.detail.reduce((quantity, detail) => {
+                            if (detail.taken) return quantity + detail.quantite;
+                            else return quantity;
+                          }, 0),
+                          style: "table",
+                        },
+                        { text: article.lot, style: "table" },
+                        {
+                          text: moment(article.dateachat).format("DD/MM/YYYY"),
+                          style: "table",
+                        },
+                        { text: article.fournisseur, style: "table" },
+                        { text: article.etat, style: "table" },
+                      ];
+                    }),
+                  ],
+                },
+              },
+              { width: "*", text: "" },
+            ],
+          },
+        ],
+
+        // Define styles
+        styles,
+      };
+      pdfMake.createPdf(docDefinition).open();
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+
 function getBase64ImageFromURL(url) {
   return new Promise((resolve, reject) => {
     var img = new Image();

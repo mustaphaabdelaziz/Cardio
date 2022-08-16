@@ -76,63 +76,64 @@
         <input id="search" class="form-control mb-2" type="search" placeholder="Search" aria-label="Search" />
 
     </form>
-    <table class="table table-striped table-hover table-borderless text-center sortable">
-        <thead class="table-success">
-            <tr>
-                <th scope="col">N°</th>
-                <th scope="col">Acte</th>
-                <th scope="col">Medecin</th>
-                <th scope="col">Technicien</th>
-                <th scope="col">Date acte</th>
-                <th id="hide" scope="col">Commentaire</th>
-                <th id="hide" scope="col">Confirmé</th>
-                <th id="hide" scope="col">Action</th>
-            </tr>
-        </thead>
-        <tbody id="tablebody">
-            <% var i=1 %>
-            <% for (consultation of patient.sortedConsultation){%>
-            <tr>
-                <th scope="row">
-                    <%= i%>
-                    <% i=i+1; %>
-                </th>
-                <td class="data">
-                    <%= consultation.acte%>
-                </td>
-                <td class="data">
-                    Dr. <%=consultation.medecin %>
-                </td>
-                <td class="data">
-                    <%= consultation.technicien %>
-                </td>
-                <td class="data">
-                    <%=moment(consultation.date).format("DD/MM/YYYY")%>
-                </td>
+    <div class="table-responsive">
+        <table class="table table-striped table-hover table-borderless text-center sortable">
+            <thead class="table-success">
+                <tr>
+                    <th scope="col">N°</th>
+                    <th scope="col">Acte</th>
+                    <th scope="col">Medecin</th>
+                    <th scope="col">Technicien</th>
+                    <th scope="col">Date acte</th>
+                    <th id="hide" scope="col">Commentaire</th>
+                    <th id="hide" scope="col">Confirmé</th>
+                    <th id="hide" scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody id="tablebody">
+                <% var i=1 %>
+                <% for (consultation of patient.sortedConsultation){%>
+                <tr>
+                    <th scope="row">
+                        <%= i%>
+                        <% i=i+1; %>
+                    </th>
+                    <td class="data">
+                        <%= consultation.acte%>
+                    </td>
+                    <td class="data">
+                        Dr. <%=consultation.medecin %>
+                    </td>
+                    <td class="data">
+                        <%= consultation.technicien %>
+                    </td>
+                    <td class="data">
+                        <%=moment(consultation.date).format("DD/MM/YYYY")%>
+                    </td>
 
-                <td class="text-center data">
-                    <%-include("./commentViewer")%>
-                </td>
-                <% if (consultation.status==="oui"){%>
-                    <th class="p-3"><span class="rounded-pill badge bg-success bg-gradient">OUI</span></th>
-                    <%}else{%>
-                    <th class="p-3"><span class="rounded-pill badge bg-lightCoral bg-gradient">NON</span></th>
-                    <%}%>
-                <th>
-                    <div class="d-flex justify-content-center align-items-center">
-                        <%- include("./consultation/edit")%>
-                        <%- include("./consultation/delete")%>
-                        <!-- <form class="" id="delete-form" action="/patient/<%=patient.id %>/acte/<%=consultation.id %>?_method=DELETE" method="POST">
-                        <button class="btn btn-outline-danger px-2 py-1" type="submit">
-                          <i class="bi bi-trash-fill"></i>
-                        </button>
-                      </form> -->
-                    </div>
-                </th>
+                    <td class="text-center data">
+                        <%-include("./commentViewer")%>
+                    </td>
+                    <% if (consultation.status==="oui"){%>
+                        <th class="p-3"><span class="rounded-pill badge bg-success bg-gradient">OUI</span></th>
+                        <%}else{%>
+                        <th class="p-3"><span class="rounded-pill badge bg-lightCoral bg-gradient">NON</span></th>
+                        <%}%>
+                    <th>
+                        <div class="d-flex justify-content-center align-items-center">
+                            <%- include("./consultation/edit")%>
+                            <%- include("./consultation/delete")%>
+                            <!-- <form class="" id="delete-form" action="/patient/<%=patient.id %>/acte/<%=consultation.id %>?_method=DELETE" method="POST">
+                            <button class="btn btn-outline-danger px-2 py-1" type="submit">
+                            <i class="bi bi-trash-fill"></i>
+                            </button>
+                        </form> -->
+                        </div>
+                    </th>
 
-            </tr>
-            <% }%>
-        </tbody>
-    </table>
-</div>
+                </tr>
+                <% }%>
+            </tbody>
+        </table>
+    </div>
 </div>

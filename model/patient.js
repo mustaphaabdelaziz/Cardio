@@ -10,16 +10,21 @@ const Schema = mongoose.Schema;
 
 const Patient = new Schema(
   {
-    firstname: String,
-    lastname: String,
+    firstname: { type: String, trim: true, required: true },
+    lastname: { type: String, trim: true, required: true },
     father: {
       type: String,
+      trim: true,
       default: "/",
     },
     birthdate: Date,
-    phone: String,
+    phone: {
+      type: String,
+      trim: true,
+    },
     phone2: {
       type: String,
+      trim: true,
       default: "/",
     },
     gender: String,
@@ -47,6 +52,7 @@ const Patient = new Schema(
         acte: String,
         comment: {
           type: String,
+          trim: true,
           default: "Pas de commentaire",
         },
         status: {

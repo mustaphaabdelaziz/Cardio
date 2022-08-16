@@ -3,6 +3,19 @@ const Bc = require("../../model/materiel/bc");
 const Patient = require("../../model/patient");
 const Materiel = require("../../model/materiel/materiel");
 
+module.exports.showBc = async (req, res) => {
+  const { id, idbc } = req.params;
+  const patient = await Patient.findById(id);
+  const bc = await Bc.findById(idbc);
+  const materials = await Materiel.find({});
+
+  res.render("materiel/kt/bc/article/index", {
+    bc,
+    patient,
+    moment,
+    materials,
+  });
+};
 module.exports.addArticleBC = async (req, res) => {
   let { designation, marque, serialN } = req.body.articles;
   const { id, idbc } = req.params;
@@ -23,16 +36,17 @@ module.exports.addArticleBC = async (req, res) => {
     {
       article: {
         $elemMatch: {
+          marque: marque,
           "detail.serie": serialN,
         },
       },
     },
     {
       $set: {
-        "article.$[].detail.$[inner].taken": true,
+        "article.$[outer].detail.$[inner].taken": true,
       },
     },
-    { arrayFilters: [{ "inner.serie": serialN }] },
+    { arrayFilters: [{ "inner.serie": serialN }, { "outer.marque": marque }] },
     (err, result) => {
       if (err) {
         console.log("Error updating detail: " + err);
@@ -64,8 +78,8 @@ module.exports.deleteArticleBc = async (req, res) => {
     {
       article: {
         $elemMatch: {
+          marque: marque,
           "detail.serie": serie,
-          "article.marque": marque,
         },
       },
     },

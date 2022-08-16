@@ -435,13 +435,6 @@ module.exports.generatePatientpdf = async (req, res) => {
           },
         ],
       },
-      // {
-      //   text: `${patient.fullname.toUpperCase()}`,
-      //   color: "#061e30",
-      //   margin: [30, 0, 0, 10],
-      //   fontSize: 22,
-      //   alignment: "center",
-      // },
       {
         color: "#061e30",
         margin: [30, 20, 0, 10],

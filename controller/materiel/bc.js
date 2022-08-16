@@ -11,15 +11,6 @@ module.exports.showbcpatient = async (req, res) => {
   // res.send(bcs);
   res.render("materiel/kt/bc/index", { bcs, patient, moment, materials });
 };
-module.exports.showbc = async (req, res) => {
-  const { id, idbc } = req.params;
-  const patient = await Patient.findById(id);
-  const bc = await Bc.findById(idbc);
-  const materials = await Materiel.find({});
-
-  res.render("materiel/kt/bc/show", { bc, patient, moment, materials });
-};
-
 module.exports.addBc = async (req, res) => {
   let { date } = req.body.bc;
   const { id } = req.params;
@@ -30,53 +21,44 @@ module.exports.addBc = async (req, res) => {
   req.flash("success", "Bc a été ajouté avec succès");
   res.redirect(redirectUrl);
 };
-module.exports.addArticleBC = async (req, res) => {
-  let { designation, marque, serialN } = req.body.articles;
-
-  const { id, idbc } = req.params;
-
-  const bc = await Bc.findByIdAndUpdate(
-    idbc,
-    {
-      $push: {
-        articles: {
-          designation,
-          marque,
-          serie: serialN,
-        },
-      },
-    },
-    { new: true }
-  );
-  Materiel.findOneAndUpdate(
-    {
-      article: {
-        $elemMatch: {
-          "detail.serie": serialN,
-        },
-      },
-    },
-    {
-      $set: {
-        "article.$[].detail.$[inner].taken": true,
-      },
-    },
-    { arrayFilters: [{ "inner.serie": serialN }] },
-    (err, result) => {
-      if (err) {
-        console.log("Error updating detail: " + err);
-        // res.send(result);
-      } else {
-        const redirectUrl = `back`;
-        req.flash("success", "Bc a été ajouté avec succès");
-        res.redirect(redirectUrl);
-      }
-    }
-  );
-};
 
 module.exports.deletePatientBc = async (req, res) => {
   const { id, idbc } = req.params;
+  // get all the articles of the bc
+  const articles = await Bc.findById(idbc, { articles: 1 });
+  /* for each article in the bc 
+  set the taken property to false in the articles table */
+  articles.articles.forEach((article) => {
+    Materiel.findOneAndUpdate(
+      {
+        article: {
+          $elemMatch: {
+            marque: article.marque,
+            "detail.serie": article.serie,
+          },
+        },
+      },
+      {
+        $set: {
+          "article.$[outer].detail.$[inner].taken": false,
+        },
+      },
+      {
+        arrayFilters: [
+          { "inner.serie": article.serie },
+          { "outer.marque": article.marque },
+        ],
+      },
+      (err, result) => {
+        if (err) {
+          console.log("Error updating detail: " + err);
+          // res.send(result);
+        } else {
+          console.log("Detail updated");
+        }
+      }
+    );
+  });
   await Bc.findByIdAndDelete(idbc);
   req.flash("success", "Bc à été supprimé avec succès");
   res.redirect(`/kt/bc/${id}`);

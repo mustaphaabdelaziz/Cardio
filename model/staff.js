@@ -7,14 +7,14 @@ const opts = {
 const Schema = mongoose.Schema;
 const Staff = new Schema(
   {
-    firstname: String,
-    lastname: String,
+    firstname: { type: String, trim: true },
+    lastname: { type: String, trim: true, required: true },
     externe: {
       type: String,
       default: "interne",
     },
     fonction: String,
-    phone: String,
+    phone: { type: String, trim: true },
     email: String,
   },
   opts
