@@ -12,7 +12,6 @@ const {
   logout,
   updateUser,
   deleteUser,
-  follow,
 } = require("../controller/user");
 router.route("/register").post(catchAsync(register));
 router

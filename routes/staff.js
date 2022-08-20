@@ -10,12 +10,15 @@ const {
   updateStaff,
   generatepdf,
 } = require("../controller/staff");
-router.route("/generatepdf").get(isLoggedIn,catchAsync(generatepdf));
-router.route("/").get(listeStaff).post(isLoggedIn,createStaff);
+router.route("/generatepdf").get(isLoggedIn, catchAsync(generatepdf));
+router
+  .route("/")
+  .get(catchAsync(listeStaff))
+  .post(isLoggedIn, catchAsync(createStaff));
 router
   .route("/:id")
-  .get(isLoggedIn,showStaff)
-  .delete(catchAsync(isLoggedIn,deleteStaff))
-  .put(catchAsync(isLoggedIn,updateStaff));
+  .get(isLoggedIn, catchAsync(showStaff))
+  .delete(isLoggedIn, catchAsync(deleteStaff))
+  .put(isLoggedIn, catchAsync(updateStaff));
 
 module.exports = router;

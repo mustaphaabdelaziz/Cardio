@@ -18,12 +18,15 @@ router.route("/generatepdf").get(isLoggedIn, catchAsync(generatepdf));
 router
   .route("/generatepdf/:id")
   .get(isLoggedIn, catchAsync(generatePatientpdf));
-router.route("/new").get(isLoggedIn, creationform);
-router.route("/").get(isLoggedIn, listepatient).post(isLoggedIn, createpatient);
-router.route("/patient/new").post(isLoggedIn, createandreturn);
+router.route("/new").get(isLoggedIn, catchAsync(creationform));
+router
+  .route("/")
+  .get(isLoggedIn, catchAsync(listepatient))
+  .post(isLoggedIn, catchAsync(createpatient));
+router.route("/patient/new").post(isLoggedIn, catchAsync(createandreturn));
 router
   .route("/:id")
-  .get(isLoggedIn, showpatient)
-  .delete(catchAsync(isLoggedIn, deletePatient))
-  .put(catchAsync(isLoggedIn, updatePatient));
+  .get(isLoggedIn, catchAsync(showpatient))
+  .delete(isLoggedIn, catchAsync(deletePatient))
+  .put(isLoggedIn, catchAsync(updatePatient));
 module.exports = router;

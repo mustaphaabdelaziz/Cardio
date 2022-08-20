@@ -17,6 +17,13 @@ const User = new Schema(
       lowercase: true,
       trim: true,
     },
+    privileges: [
+      {
+        type: String,
+        trim: true,
+        lowercase: true,
+      },
+    ],
   },
   opts
 );

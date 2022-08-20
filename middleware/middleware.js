@@ -1,4 +1,4 @@
-const {patientSchema} = require("../schemas")
+const { patientSchema } = require("../schemas");
 
 const ExpressError = require("../utils/ExpressError");
 // ALL MIDDLEWARE GOES HERE
@@ -11,11 +11,20 @@ module.exports.isLoggedIn = (req, res, next) => {
   }
   next();
 };
+module.exports.isAdmin = async (req, res, next) => {
+  if (req.user.privileges.includes("admin")) {
+    req.flash("success", "Admin is logged in !");
+  } else {
+    req.flash("error", "You do not have permission to do that!");
+    return res.redirect(`/patient`);
+  }
+  next();
+};
 // module.exports.isAuthor = async (req, res, next) => {
 //   const { id } = req.params;
 //   const event = await Event.findById(id);
 //   if (!event.author._id.equals(req.user._id)) {
-//     
+//
 //     req.flash("error", "You do not have permission to do that!");
 //     return res.redirect(`/events/${id}`);
 //   }

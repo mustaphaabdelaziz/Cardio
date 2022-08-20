@@ -1,6 +1,11 @@
 const fs = require("fs");
 const Pdfmake = require("pdfmake");
 // Define font files
+const moment = require("moment");
+const Staff = require("../model/staff");
+const Country = require("../model/country");
+const Patient = require("../model/patient");
+
 var fonts = {
   Roboto: {
     normal: "fonts/roboto/Roboto-Regular.ttf",
@@ -9,11 +14,6 @@ var fonts = {
     bolditalics: "fonts/roboto/Roboto-MediumItalic.ttf",
   },
 };
-
-const moment = require("moment");
-const Staff = require("../model/staff");
-const Country = require("../model/country");
-const Patient = require("../model/patient");
 
 module.exports.listepatient = async (req, res) => {
   const medecins = await Staff.find({ fonction: "Medecin" });
@@ -90,6 +90,9 @@ module.exports.createpatient = async (req, res) => {
     gender,
     status,
     wilaya,
+    createdBy: {
+      user: req.user._id,
+    },
   });
   await patient.save();
   req.flash("success", "Patient ajouté avec succès");
@@ -128,6 +131,9 @@ module.exports.createandreturn = async (req, res) => {
     medecinref,
     gender,
     wilaya,
+    createdBy: {
+      user: req.user._id,
+    },
   });
   await patient.save();
   req.flash("success", "Patient ajouté avec succès");
@@ -177,6 +183,11 @@ module.exports.updatePatient = async (req, res) => {
         status,
         wilaya,
         city,
+        $push: {
+          updatedBy: {
+            user: req.user._id,
+          },
+        },
       },
       { new: true }
     );

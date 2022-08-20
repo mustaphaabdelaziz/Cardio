@@ -61,6 +61,28 @@ const Patient = new Schema(
         },
       },
     ],
+    createdBy: {
+      user: {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+      },
+      date: {
+        type: Date,
+        default: Date.now,
+      },
+    },
+    updatedBy: [
+      {
+        user: {
+          type: Schema.Types.ObjectId,
+          ref: "User",
+        },
+        date: {
+          type: Date,
+          default: Date.now,
+        },
+      },
+    ],
   },
   opts
 );
