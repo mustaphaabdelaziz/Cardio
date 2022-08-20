@@ -1,0 +1,169 @@
+<% layout('layouts/boilerplate')%>
+<div class="container">
+  <div class="card my-5">
+    <div class="row">
+      <div class="col-12">
+        <div class="d-flex flex-column align-items-center my-5">
+          <a href="/">
+            <img src="/assets/logo.png" alt="" height="100px" />
+          </a>
+        </div>
+      </div>
+      <div class="col-12">
+        <ul class="nav nav-tabs" role="tablist">
+          <li class="nav-item">
+            <button
+              id="userLoginTab"
+              data-bs-target="#userLoginForm"
+              data-bs-toggle="tab"
+              role="tab"
+              class="nav-link active"
+              aria-controls="userLoginForm"
+              aria-selected="true"
+            >
+              Login <i class="bi bi-box-arrow-in-right"></i>
+            </button>
+          </li>
+          <li class="nav-item">
+            <button
+              id="userRegisterTab"
+              data-bs-target="#userRegisterForm"
+              data-bs-toggle="tab"
+              role="tab"
+              class="nav-link"
+              aria-controls="userRegisterForm"
+              aria-selected="false"
+            >
+              Register <i class="bi bi-person-plus-fill"></i>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+      <div class="tab-content">
+        <div
+          aria-labelledby="userLoginTab"
+          role="tabpanel"
+          class="px-5 my-5 tab-pane fade active show"
+          id="userLoginForm"
+        >
+          <h3 class="my-5 text-center text-primary">Login</h3>
+          <form
+            action="/user/login"
+            method="POST"
+            class="needs-validation"
+            novalidate
+          >
+            <div class="mb-3">
+              <label for="userLoginEmail" class="form-label">Email </label>
+              <input
+                type="email"
+                class="form-control"
+                name="username"
+                id="userLoginEmail"
+                placeholder="name@example.com"
+                style="text-transform: lowercase"
+                required
+              />
+              <div class="valid-feedback">BIEN</div>
+            </div>
+            <div class="mb-3 ">
+              <label for="userLoginPassword" class="form-label">Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="userLoginPassword"
+                name="password"
+                placeholder="Password"
+                required
+              />
+              <div class="valid-feedback">BIEN</div>
+            </div>
+            <div class="mb-3 text-center">
+              <button type="submit" id="user-submit" class="btn btn-primary">
+                Login<i class="bi bi-box-arrow-in-right"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+        <!-- ============================= Register =============================================== -->
+        <div
+          aria-labelledby="userRegisterTab"
+          role="tabpanel"
+          class="px-5 my-5 tab-pane fade"
+          id="userRegisterForm"
+        >
+          <h3 class="my-5 text-center text-primary">Register</h3>
+          <form
+            class="row g-3 needs-validation"
+            action="/user/register"
+            id="personal"
+            method="POST"
+            novalidate
+          >
+            <div class="col-md-6">
+              <label for="userLastName" class="form-label"
+                >Nom Utilisateur</label
+              >
+              <input
+                id="userLastName"
+                name="user[username]"
+                type="text"
+                placeholder="Nom Utilisateur"
+                class="form-control"
+                required
+              />
+              <div class="valid-feedback">BIEN</div>
+            </div>
+
+            <div class="col-md-6">
+              <label for="userEmail" class="form-label">Email %></label>
+              <input
+                id="userEmail"
+                placeholder="name@example.com"
+                name="user[email]"
+                type="email"
+                class="form-control"
+                required
+              />
+              <div class="valid-feedback">BIEN</div>
+            </div>
+            <div class="col-md-6">
+              <label for="userPassword" class="form-label">Mot de pass</label>
+              <input
+                id="userPassword"
+                placeholder="Mot de pass"
+                type="password"
+                class="form-control"
+                name="user[password]"
+                required
+              />
+              <div class="valid-feedback">BIEN</div>
+            </div>
+            <div class="col-md-6">
+              <label for="confirmedPassword" class="form-label"
+                >Confirmé Mot de pass</label
+              >
+              <input
+                id="confirmedPassword"
+                placeholder="Confirmé Mot de pass"
+                type="password"
+                class="form-control"
+                name="user[confirmedPassword]"
+                required
+              />
+              <div class="valid-feedback">BIEN</div>
+            </div>
+
+            <div class="mb-3 text-center">
+              <button type="submit" id="user-register" class="btn btn-primary">
+                Register <i class="bi bi-person-plus-fill"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -4,6 +4,8 @@ const opts = {
     virtuals: true,
   },
 };
+//  This strategy integrates Mongoose with the passport-local strategy.
+const passportLocalMongoose = require("passport-local-mongoose");
 const Schema = mongoose.Schema;
 const Staff = new Schema(
   {
@@ -29,6 +31,9 @@ Staff.virtual("typestuff").get(function () {
   } else {
     return this.fonction + " interne";
   }
+});
+Staff.plugin(passportLocalMongoose, {
+  usernameField: "email",
 });
 
 module.exports = mongoose.model("Staff", Staff);

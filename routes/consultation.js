@@ -8,13 +8,14 @@ const {
   updatePatientActe,
 } = require("../controller/consultation");
 const catchAsync = require("../utils/catchAsync");
-router.route("/").post(catchAsync(addActe));
-router.route("/new").get(catchAsync(showcform));
+const { isLoggedIn } = require("../middleware/middleware");
+router.route("/").post(isLoggedIn,catchAsync(addActe));
+router.route("/new").get(isLoggedIn,catchAsync(showcform));
 router
   .route("/:idacte")
-  .get(catchAsync(showc))
-  .delete(catchAsync(deletePatientActe))
-  .put(catchAsync(updatePatientActe));
+  .get(isLoggedIn,catchAsync(showc))
+  .delete(isLoggedIn,catchAsync(deletePatientActe))
+  .put(isLoggedIn,catchAsync(updatePatientActe));
 
 // patient/:idp/acte/:idacte
 

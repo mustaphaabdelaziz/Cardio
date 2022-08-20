@@ -10,8 +10,14 @@ const methodOverride = require("method-override");
 const session = require("express-session");
 // flash is a middleware that can be used to flash messages to the user.
 const flash = require("connect-flash");
-// const passport = require("passport");
-// const LocalStrategy = require("passport-local");
+/*  Passport is the authentication library .
+Passport is Express-compatible authentication middleware for Node.js */
+const passport = require("passport");
+// Passport uses the concept of strategies to authenticate requests
+// passport-local is an authentication strategy.
+const LocalStrategy = require("passport-local");
+// <<connect-mongo>> MongoDB session store for Connect and Express written in Typescript.
+const MongoDBStore = require("connect-mongo");
 const mongoSanitize = require("express-mongo-sanitize");
 const cookieParser = require("cookie-parser");
 // Connect/Express middleware that can be used to enable CORS
@@ -31,9 +37,11 @@ const patientRoutes = require("./routes/patient");
 const staffRoutes = require("./routes/staff");
 const consultationRoutes = require("./routes/consultation");
 const medecinRoutes = require("./routes/medecin");
+const userRoutes = require("./routes/user");
 const acteRoutes = require("./routes/acte");
 const ExpressError = require("./utils/ExpressError");
 const { errorPage } = require("./middleware/middleware");
+const User = require("./model/user");
 // ==================== App Configuration =================
 app.set("trust proxy", true);
 app.engine("ejs", ejsMate);
@@ -49,6 +57,22 @@ app.use(mongoSanitize({ replaceWith: "_" }));
 app.use(session(sessionConfig));
 // flash is not working
 app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use("user", new LocalStrategy(User.authenticate()));
+
+// serialization refers to how to store user's
+// authentication user data will be stored in the session
+passport.serializeUser((user, done) => {
+  passport.serializeUser(User.serializeUser());
+  done(null, user);
+});
+
+// deserialization refers to how remove user's authentication data
+passport.deserializeUser((user, done) => {
+  passport.deserializeUser(User.deserializeUser());
+  done(null, user);
+});
 app.use(locals);
 app.use(cors());
 // =========================================================
@@ -60,6 +84,7 @@ app.use("/materiels", materielRoutes);
 app.use("/kt", patientKTRoutes);
 app.use("/patient", patientRoutes);
 app.use("/staffs", staffRoutes);
+app.use("/user", userRoutes);
 app.use("/kt/bc/:id", bcktRoutes);
 app.use("/kt/bc/:id/:idbc/articles", bcArticleRoutes);
 app.use("/materiel/:id/article", articleRoutes);

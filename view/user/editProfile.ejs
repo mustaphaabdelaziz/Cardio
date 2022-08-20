@@ -1,0 +1,100 @@
+<% layout('layouts/boilerplate')%>
+<div class="form-signin  col-md-6 offset-md-3 mt-3 mb-5">
+  <h1 class="card-title mb-4 text-center">Profile</h1>
+  <form action="/user/<%= user._id%>?_method=PUT" method="POST" class="needs-validation row" enctype="multipart/form-data" novalidate>
+    <div class="form-floating mb-3 col-md-6">
+      <input class="form-control" type="text" id="firstn=ame" name="user[firstname]" placeholder="FirstName" value="<%=user.firstname%>" required>
+      <label for="floatingInput" class="form-label fs-6">First Name</label>
+      <div class="valid-feedback">looks good</div>
+    </div>
+    <div class="form-floating mb-3 col-md-6">
+      <input class="form-control" type="text" id="lastname" name="user[lastname]" placeholder="Lastname" value="<%=user.lastname%>" required>
+      <label for="floatingInput" class="form-label fs-6">Last Name</label>
+      <div class="valid-feedback">looks good</div>
+    </div>
+    <div class="form-floating mb-3 col-md-6">
+      <input class="form-control" type="date" id="birthday" name="user[birthday]" placeholder="Date of Birth" value="<%=user.birthday%>" required>
+      <label for="floatingInput" class="form-label fs-6">Birth Date</label>
+      <div class="valid-feedback">looks good</div>
+    </div>
+    <div class="col-md-6 mb-3">
+      <select class="form-select" name="user[gender]" required>
+        <option selected disabled value="">Gender</option>
+        <% if(user.gender==="Male" ) { %>
+        <option value="Male" selected>Male</option>
+        <option value="Female">Female</option>
+        <% } else { %>
+        <option value="Male">Female</option>
+        <option value="Female" selected>Female</option>
+        <% } %>
+      </select>
+      <div class="invalid-feedback">
+        Please select Your Gender
+      </div>
+    </div>
+
+    <div class="form-floating mb-3 col-md-6">
+      <input class="form-control" type="email" id="email" name="user[email]" placeholder="Email" value="<%=user.email%>" required>
+      <label for="floatingInput" class="form-label fs-6">Email</label>
+      <div class="valid-feedback">looks good</div>
+    </div>
+    <div class="form-floating mb-3 col-md-6">
+      <input class="form-control" type="password" id="password" name="user[password]" placeholder="Password" required>
+      <label for="floatingInput" class="form-label fs-6">Password</label>
+      <div class="valid-feedback">looks good</div>
+    </div>
+    <div class="form-floating mb-3 col-md-12">
+      <input class="form-control" type="text" id="phone" name="user[phone]" placeholder="Phone Number" value="<%=user.phone%>" required>
+      <label for="floatingInput" class="form-label fs-6">Phone</label>
+      <div class="valid-feedback">looks good</div>
+    </div>
+
+    <div class="form-floating mb-3 col-md-12">
+      <input class="form-control" type="text" id="job" name="user[job]" placeholder="Job Title" value="<%=user.job%>" required>
+      <label for="floatingInput" class="form-label fs-6">Job</label>
+      <div class="valid-feedback">looks good</div>
+    </div>
+
+    <div class="input-group mb-3 col-md-12">
+      <input type="file" class="form-control" id="picture" name="picture" multiple>
+      <label class="input-group-text" for="picture">Upload another Picture</label>
+    </div>
+    <div class="col-md-8">
+      <span>Are you an Organizer ?</span>
+    </div>
+    <% if (user.privileges.includes('organizer')) {%>
+    <div class="col-md-2">
+      <input class="form-check-input" type="radio" name="user[privileges]" id="organizer" value="organizer" checked>
+      <label class="form-check-label" for="organizer">Yes</label>
+    </div>
+    <div class="mb-3 col-md-2">
+      <input class="form-check-input" type="radio" name="user[privileges]" id="user" value="user">
+      <label class="form-check-label" for="user">No</label>
+    </div>
+    <% }else {%>
+    <div class="col-md-2">
+      <input class="form-check-input" type="radio" name="user[privileges]" id="organizer" value="organizer">
+      <label class="form-check-label" for="organizer">Yes</label>
+    </div>
+    <div class="mb-3 col-md-2">
+      <input class="form-check-input" type="radio" name="user[privileges]" id="user" value="user" checked>
+      <label class="form-check-label" for="user">No</label>
+    </div>
+    <% } %>
+
+
+    <!-- <div class="form-floating mb-3"> -->
+    <label for="floatingInput" class="form-label fs-6">
+      <h3>biography:</h3>
+    </label>
+    <textarea class="form-control" type="text" id="about" name="user[about]" rows="10" required><%= user.about %></textarea>
+    <div class="valid-feedback">looks good</div>
+    <!-- </div> -->
+    <!-- Fetch the Skills to display them -->
+    <!-- <h3>Skills:</h3> -->
+    <h3>Social Media:</h3>
+    <%- include("./socialMedia") %> 
+    <div class="mb-3">
+      <button class="w-100 btn btn-lg btn-outline-success">Update</button>
+    </div>
+  </form>

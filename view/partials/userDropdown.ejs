@@ -1,0 +1,39 @@
+<% if (currentUser){ %>
+<a
+  class="nav-link dropdown-toggle"
+  href="#"
+  id="navbarDarkDropdownMenuLink"
+  role="button"
+  data-bs-toggle="dropdown"
+  aria-expanded="false"
+>
+  <i class="bi bi-person-circle"></i>
+  <span> <%= currentUser.username %> </span>
+</a>
+<% } else { %>
+<a
+  class="nav-link dropdown-toggle"
+  href="#"
+  id="navbarDarkDropdownMenuLink"
+  role="button"
+  data-bs-toggle="dropdown"
+  aria-expanded="false"
+>
+  <i class="bi bi-person-circle"></i>
+</a>
+<% } %>
+<ul
+  class="dropdown-menu bg-antiqueSteel"
+  aria-labelledby="navbarDarkDropdownMenuLink"
+>
+  <% if (!currentUser) {%>
+  <li><a class="dropdown-item" href="/user/login">Login</a></li>
+  <li>
+    <a class="dropdown-item" href="/user/register">Register</a>
+  </li>
+  <% } else { %>
+  <li>
+    <a class="dropdown-item" href="/user/logout">Logout</a>
+  </li>
+  <% } %>
+</ul>

@@ -1,14 +1,14 @@
 <% layout('layouts/boilerplate')%>
 
-<div class="container mt-3">
+<div class="container-fluid mt-3">
   <div class="col m-auto">
     <div class="container-fluid">
       <div class="mb-4 bg-light rounded-5 px-2">
         <div class="d-flex">
           <div class="col d-flex m-auto">
             <h4>
-              Bon de commandes:
-              <span class="text-decoration-underline"> <%=bc.id %> </span>
+              Besoin de materiel pour:
+              <span class="text-decoration-underline"> <%=patient.fullname %> </span>
             </h4>
             <div class="ms-2 mt-1">
               <%- include("./new") %>

@@ -1,0 +1,158 @@
+<% layout('layouts/boilerplate')%>
+<div class="container">
+  <div class="card my-5">
+    <div class="row">
+      <div class="col-12">
+        <div class="d-flex flex-column align-items-center my-5">
+          <a href="/">
+            <img src="/assets/logo.png" alt="" height="100px">
+          </a>
+        </div>
+      </div>
+      <div class="col-12">
+        <ul class="nav nav-tabs" role="tablist">
+          <li class="nav-item">
+            <button id="userLoginTab" data-bs-target="#userRegistratiobForm" data-bs-toggle="tab" role="tab" class="nav-link active" aria-controls="userRegistratiobForm" aria-selected="true">
+              <%= t('personal') %>
+            </button>
+          </li>
+          <li class="nav-item">
+            <button id="companyLoginTab" data-bs-target="#companyLoginForm" data-bs-toggle="tab" role="tab" class="nav-link" aria-controls="companyLoginForm" aria-selected="false">
+              <%= t('company') %>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+      <div class="tab-content">
+        <div aria-labelledby="userLoginTab" role="tabpanel" class="px-5 my-5 tab-pane fade active show" id="userRegistratiobForm">
+          <h3 class="my-5 text-center text-primary"><%= t('register') %> <%= t('personal') %></h3>
+          <form class="row g-3" action="/user/register" id="personal" method="POST" class="needs-validation" enctype="multipart/form-data" novalidate>
+            <div class="col-md-6">
+              <label for="userFirstName" class="form-label"><%= t('firstname') %></label>
+              <input id="userFirstName" name="user[firstname]" placeholder="<%= t('firstname') %>" type="text" class="form-control" required>
+            </div>
+            <div class="col-md-6">
+              <label for="userLastName" class="form-label"><%= t('lastname') %></label>
+              <input id="userLastName" name="user[lastname]" type="text" placeholder="<%= t('lastname') %>" class="form-control" required>
+            </div>
+
+            <div class="col-md-6">
+              <label for="userBirthDate" class="form-label"><%= t('birthdate') %> </label>
+              <input id="userBirthDate" name="user[birthday]" placeholder="<%= t('birthdate') %>" type="date" class="form-control" required>
+            </div>
+            <div class="col-md-6">
+              <label for="userGender" class="form-label"><%= t('gender') %></label>
+              <select id="userGender" name="user[gender]" class="form-select" required>
+                <option selected disabled><%= t('gender') %></option>
+                <option class="option" value="Male"><%= t('male') %></option>
+                <option class="option" value="Female"><%= t('female') %></option>
+                <option class="option" value="Organisation">Organisation</option>
+              </select>
+            </div>
+
+            <div class="col-md-6">
+              <label for="userCountry" class="form-label"><%= t('country') %></label>
+              <select id="userCountry" name="user[country]" class="form-select" required>
+                <option selected disabled value=""><%= t('select') %></optiony>
+                  <% for (country of countries) {%>
+                <option value="<%= country.name %>"><%= country.name %> </option>
+                <%} %>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label for="userCity" class="form-label"><%= t('city') %></label>
+              <input id="userCity" name="user[city]" placeholder="<%= t('city') %>" class="form-control" type="text" required>
+            </div>
+
+            <div class="col-md-6">
+              <label for="userEmail" class="form-label"><%= t('email') %></label>
+              <input id="userEmail" placeholder="name@example.com" name="user[email]" type="email" class="form-control" required>
+            </div>
+            <div class="col-md-6">
+              <label for="userPassword" class="form-label"><%= t('password') %></label>
+              <input id="userPassword" placeholder="<%= t('password') %>" type="password" class="form-control" name="user[password]" required>
+            </div>
+
+            <div class="col-md-6">
+              <label for="userPhoneNumber" class="form-label"><%= t('phone') %></label>
+              <input type="text" class="form-control" id="userPhoneNumber" placeholder="<%= t('phone') %>" name="user[phone]" required>
+            </div>
+            <div class="col-md-6">
+              <label for="userJobTitle" class="form-label"><%= t('job') %></label>
+              <input type="text" class="form-control" name="user[job]" id="inputAddress2" placeholder="<%= t('job') %>" required>
+            </div>
+
+            <div class="col-md-12">
+              <label for="userProfilePicture" class="form-label"><%= t('profile') %> <%= t('picture') %></label>
+              <input id="userProfilePicture" class="form-control" type="file" name="picture" required>
+            </div>
+
+            <div class="col-md-12">
+              <label class="form-label"><%= t('are_you_organizer') %></label>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="user[privileges]" value="organizer" id="organizerTrueCheck">
+                <label class="form-check-label" for="organizerTrueCheck">
+                  <%= t('yes') %>
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="user[privileges]" value="user" id="organizerFalseCheck" checked>
+                <label class="form-check-label" for="organizerFalseCheck">
+                  <%= t('no') %>
+                </label>
+              </div>
+            </div>
+
+            <div class="col-12 d-grid">
+              <input type="submit" id="companySign" class="btn btn-primary" value="<%= t('register') %>" />
+            </div>
+          </form>
+        </div>
+
+        <div aria-labelledby="companyLoginTab" role="tabpanel" class="px-5 my-5 tab-pane fade" id="companyLoginForm">
+          <h3 class="my-5 text-center text-primary"><%= t('register') %> <%= t('company') %></h3>
+          <form class="row g-3" action="/company/register" method="POST" id="company" enctype="multipart/form-data">
+            <div class="col-md-6">
+              <label for="companyName" class="form-label"><%= t('company_name') %></label>
+              <input type="text" class="form-control" id="companyName" name="user[name]" placeholder="<%= t('company_name') %>" required>
+            </div>
+            <div class="col-md-6">
+              <label for="companySector" class="form-label"><%= t('sector') %></label>
+              <input type="text" class="form-control" id="companySector" name="user[sector]" placeholder="<%= t('select') %>" required>
+            </div>
+
+            <div class="col-md-6">
+              <label for="companyEmail" class="form-label"><%= t('email') %></label>
+              <input type="email" class="form-control" id="companyEmail" name="user[email]" placeholder="name@example.com" required>
+            </div>
+            <div class="col-md-6">
+              <label for="companyPhoneNumber" class="form-label"><%= t('phone') %></label>
+              <input type="text" class="form-control" id="companyPhoneNumber" placeholder="<%= t('phone') %>" name="user[phone]" required>
+            </div>
+
+            <div class="col-md-12">
+              <label for="companyPassword" class="form-label"><%= t('password') %></label>
+              <input type="password" class="form-control" id="companyPassword" placeholder="<%= t('password') %>" name="user[password]" required>
+            </div>
+
+            <div class="col-md-12">
+              <label for="companyLogo" class="form-label"><%= t('logo') %></label>
+              <input id="companyLogo" class="form-control" type="file" name="logo" required>
+            </div>
+
+            <div class="col-md-12">
+              <label for="aboutComany" class="form-label"><%= t('about') %></label>
+              <textarea placeholder="<%= t('about') %>" name="user[about]" class="form-control" id="aboutComany" rows="3"></textarea>
+            </div>
+            <div class="col-12 d-grid">
+              <input type="submit" class="btn btn-primary" value="<%= t('register') %>" />
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

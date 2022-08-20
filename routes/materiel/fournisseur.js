@@ -8,12 +8,16 @@ const {
   updateFournisseur,
   generatepdf,
 } = require("../../controller/materiel/fournisseur");
-router.route("/generatepdf").get(catchAsync(generatepdf));
+const { isLoggedIn } = require("../../middleware/middleware");
+router.route("/generatepdf").get(isLoggedIn, catchAsync(generatepdf));
 
-router.route("/").get(listeFournisseur).post(catchAsync(createFournisseur));
+router
+  .route("/")
+  .get(isLoggedIn, catchAsync(listeFournisseur))
+  .post(isLoggedIn, catchAsync(createFournisseur));
 router
   .route("/:id")
-  .delete(catchAsync(deleteFournisseur))
-  .put(catchAsync(updateFournisseur));
+  .delete(isLoggedIn, catchAsync(deleteFournisseur))
+  .put(isLoggedIn, catchAsync(updateFournisseur));
 
 module.exports = router;

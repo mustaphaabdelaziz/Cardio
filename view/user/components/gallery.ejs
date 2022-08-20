@@ -1,0 +1,9 @@
+ <div id="gallery" class="navigation-tabs">
+  <div class="row">
+   <% for (img of user.pictures) { %>
+   <div class="col-md-4">
+    <img class="border shadow" src="<%= img.url %> " />
+   </div>
+   <% } %>
+  </div>
+ </div>

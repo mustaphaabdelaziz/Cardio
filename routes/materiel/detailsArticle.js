@@ -4,14 +4,18 @@ const {
   addDetail,
   showdetail,
   updatedetail,
-  deletedetail
+  deletedetail,
 } = require("../../controller/materiel/detailsArticle");
 const catchAsync = require("../../utils/catchAsync");
-router.route("/").get(catchAsync(showdetail)).post(catchAsync(addDetail));
+const { isLoggedIn } = require("../../middleware/middleware");
 router
-.route("/:iddetail")
-.delete(deletedetail)
-.put(updatedetail);
+  .route("/")
+  .get(isLoggedIn, catchAsync(showdetail))
+  .post(isLoggedIn, catchAsync(addDetail));
+router
+  .route("/:iddetail")
+  .delete(isLoggedIn, catchAsync(deletedetail))
+  .put(isLoggedIn, catchAsync(updatedetail));
 // patient/:idp/acte/:idacte
 
 module.exports = router;

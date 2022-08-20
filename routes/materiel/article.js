@@ -8,13 +8,14 @@ const {
   updateMaterielArticle,
 } = require("../../controller/materiel/article");
 const catchAsync = require("../../utils/catchAsync");
-router.route("/").post(catchAsync(addArticle));
-router.route("/new").get(catchAsync(showcform));
+const { isLoggedIn } = require("../../middleware/middleware");
+router.route("/").post(isLoggedIn,catchAsync(addArticle));
+router.route("/new").get(isLoggedIn,catchAsync(showcform));
 router
   .route("/:idarticle")
-  .get(catchAsync(showarticle))
-  .delete(catchAsync(deleteMaterielArticle))
-  .put(catchAsync(updateMaterielArticle));
+  .get(isLoggedIn,catchAsync(showarticle))
+  .delete(isLoggedIn,catchAsync(deleteMaterielArticle))
+  .put(isLoggedIn,catchAsync(updateMaterielArticle));
 
 // patient/:idp/acte/:idacte
 

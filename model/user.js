@@ -10,9 +10,13 @@ const Schema = mongoose.Schema;
 
 const User = new Schema(
   {
-    firstname: String,
-    lastname: String,
-    badgenumber: Number,
+    username: {
+      type: String,
+      required: true,
+      unique: true,
+      lowercase: true,
+      trim: true,
+    },
   },
   opts
 );
@@ -22,6 +26,6 @@ User.virtual("fullname").get(function () {
 });
 
 User.plugin(passportLocalMongoose, {
-  usernameField: "username",
+  usernameField: "email",
 });
 module.exports = mongoose.model("User", User);

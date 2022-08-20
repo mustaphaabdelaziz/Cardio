@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const catchAsync = require("../utils/catchAsync");
+const { isLoggedIn } = require("../middleware/middleware");
 const {
   creationform,
   listepatient,
@@ -10,17 +11,19 @@ const {
   updatePatient,
   generatepdf,
   createandreturn,
-  generatePatientpdf
+  generatePatientpdf,
 } = require("../controller/patient");
 
-router.route("/generatepdf").get(catchAsync(generatepdf));
-router.route("/generatepdf/:id").get(catchAsync(generatePatientpdf));
-router.route("/new").get(creationform)
-router.route("/").get(listepatient).post(createpatient);
-router.route("/patient/new").post(createandreturn)
+router.route("/generatepdf").get(isLoggedIn, catchAsync(generatepdf));
+router
+  .route("/generatepdf/:id")
+  .get(isLoggedIn, catchAsync(generatePatientpdf));
+router.route("/new").get(isLoggedIn, creationform);
+router.route("/").get(isLoggedIn, listepatient).post(isLoggedIn, createpatient);
+router.route("/patient/new").post(isLoggedIn, createandreturn);
 router
   .route("/:id")
-  .get(showpatient)
-  .delete(catchAsync(deletePatient))
-  .put(catchAsync(updatePatient));
+  .get(isLoggedIn, showpatient)
+  .delete(catchAsync(isLoggedIn, deletePatient))
+  .put(catchAsync(isLoggedIn, updatePatient));
 module.exports = router;

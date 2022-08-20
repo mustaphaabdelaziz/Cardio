@@ -2,7 +2,7 @@
   class="navbar navbar-expand-lg sticky-top navbar-light bg-antiqueSteel shadow-sm m-0 p-0"
 >
   <div class="container-fluid">
-    <a class="navbar-brand fw-bold text-light" href="/">
+    <a class="navbar-brand fw-bold" href="/">
       <img
         id="assest"
         src="/assets/logo.png"
@@ -110,7 +110,10 @@
             aria-expanded="false"
             >Personel
           </a>
-          <ul class="dropdown-menu  bg-antiqueSteel" aria-labelledby="navbarDropdown">
+          <ul
+            class="dropdown-menu bg-antiqueSteel"
+            aria-labelledby="navbarDropdown"
+          >
             <li>
               <a class="dropdown-item" href="/staffs">Liste des Personels</a>
             </li>
@@ -126,7 +129,10 @@
             aria-expanded="false"
             >Materiels KT</a
           >
-          <ul class="dropdown-menu  bg-antiqueSteel" aria-labelledby="navbarDropdown">
+          <ul
+            class="dropdown-menu bg-antiqueSteel"
+            aria-labelledby="navbarDropdown"
+          >
             <li>
               <a class="dropdown-item" href="/materiels">Matériels entrants</a>
               <a class="dropdown-item" href="/KT">Matériels sortants</a>
@@ -134,6 +140,7 @@
             </li>
           </ul>
         </li>
+        <li class="dropdown nav-item"><%-include("./userDropdown") %></li>
       </ul>
     </div>
   </div>

@@ -1,0 +1,45 @@
+<div id="orgEvent" class="navigation-tabs">
+  <div class="container">
+    <h2><%= t('organized_events') %></h2>
+    <div class="row mt-2">
+      <% for (let event of events){%>
+       
+      <!-- moment('2010-10-20').isAfter('2010-10-19'); -->
+      <div class="col-lg-4 col-sm-12 col-md-6 col-12 my-5 text-center">
+        <div id="eventCards" class="card">
+          <div class="card-image event-card-wrapper">
+            <div class="overlay"></div>
+            <img height="250px" src="<%=event.pictures[0].url%>" class="card-img-top">
+          </div>
+          <div class="card-body">
+            <h6 class="card-title align-self-center">
+              <a href="/events/<%=event._id %>" class="text-<%= event.category.color %> text-decoration-none">
+                <%= event.title %>
+              </a>
+            </h6>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+
+            <div class="mb-2 text-primary text-center">
+              <span>
+                <i class="bi bi-calendar-event-fill"></i>
+                <span><%= moment(event.period.start).format('l') %></span>
+              </span>
+            </div>
+
+            <div class="my-3">
+              <a href="/user/<%=event.author.id %>/profile" class="link-dark text-decoration-none d-flex align-items-center justify-content-center mb-3">
+                <img class="avatar me-1" src="<%= event.author.pictures[0].url %>" alt="user" />
+                <span><%= event.author.firstname +" "+event.author.lastname %></span>
+              </a>
+            </div>
+
+            <a href="#" class="badge rounded-pill tag-<%= event.category.color %>  text-decoration-none align-self-center">
+              <%= event.category.name %>
+            </a>
+          </div>
+        </div>
+      </div>
+      <% } %>
+    </div>
+  </div>
+</div>

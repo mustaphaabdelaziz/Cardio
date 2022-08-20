@@ -8,11 +8,12 @@ const {
   deleteArticleBc,
 } = require("../../controller/materiel/bcArticle");
 const catchAsync = require("../../utils/catchAsync");
-router.route("/").get(catchAsync(showBc)).post(catchAsync(addArticleBC));
+const { isLoggedIn } = require("../../middleware/middleware");
+router.route("/").get(isLoggedIn,catchAsync(showBc)).post(isLoggedIn,catchAsync(addArticleBC));
 router
   .route("/:idart")
-  .put(catchAsync(updateArticleBc))
-  .delete(catchAsync(deleteArticleBc));
+  .put(isLoggedIn,catchAsync(updateArticleBc))
+  .delete(isLoggedIn,catchAsync(deleteArticleBc));
 
 // patient/:idp/bc/:idbc
 

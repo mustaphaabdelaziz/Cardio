@@ -11,14 +11,18 @@ const {
   deletePatientBc,
 } = require("../../controller/materiel/bc");
 const catchAsync = require("../../utils/catchAsync");
-router.route("/").get(catchAsync(showbcpatient)).post(catchAsync(addBc));
+const { isLoggedIn } = require("../../middleware/middleware");
+router
+  .route("/")
+  .get(isLoggedIn, catchAsync(showbcpatient))
+  .post(isLoggedIn, catchAsync(addBc));
 // /kt/bc/:idpatient/:idbc
 router
   .route("/:idbc")
-  .get(catchAsync(showbc))
-  .post(catchAsync(addArticleBC))
-  .put(catchAsync(updatePatientBc))
-  .delete(catchAsync(deletePatientBc));
+  .get(isLoggedIn, catchAsync(showbc))
+  .post(isLoggedIn, catchAsync(addArticleBC))
+  .put(isLoggedIn, catchAsync(updatePatientBc))
+  .delete(isLoggedIn, catchAsync(deletePatientBc));
 
 // patient/:idp/bc/:idbc
 
