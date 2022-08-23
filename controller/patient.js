@@ -18,8 +18,7 @@ var fonts = {
 module.exports.listepatient = async (req, res) => {
   const medecins = await Staff.find({ fonction: "Medecin" });
   const techniciens = await Staff.find({ fonction: "technicien cathlab" });
-  // res.send(medecins)
-  const patients = await Patient.find({});
+  const patients = await Patient.find({ activated: true });
   const algeria = await Country.find({});
   const states = algeria[0].states;
   res.render("patient/index", {
@@ -108,7 +107,6 @@ module.exports.createandreturn = async (req, res) => {
     medecinref,
     phone,
     phone2,
-    status,
     wilaya,
   } = req.body.patient;
 
@@ -154,7 +152,6 @@ module.exports.updatePatient = async (req, res) => {
     medecinref,
     phone,
     phone2,
-    status,
     wilaya,
     city,
   } = req.body.patient;
@@ -165,61 +162,37 @@ module.exports.updatePatient = async (req, res) => {
   if (father === "") {
     father = "/";
   }
-  const state = status;
-  if (state === "oui") {
-    await Patient.findByIdAndUpdate(
-      id,
-      {
-        firstname:
-          firstname.charAt(0).toUpperCase() + firstname.slice(1).toLowerCase(),
-        lastname:
-          lastname.charAt(0).toUpperCase() + lastname.slice(1).toLowerCase(),
-        father: father.charAt(0).toUpperCase() + father.slice(1).toLowerCase(),
-        birthdate,
-        phone,
-        phone2,
-        medecinref,
-        gender,
-        status,
-        wilaya,
-        city,
-        $push: {
-          updatedBy: {
-            user: req.user._id,
-          },
+  await Patient.findByIdAndUpdate(
+    id,
+    {
+      firstname:
+        firstname.charAt(0).toUpperCase() + firstname.slice(1).toLowerCase(),
+      lastname:
+        lastname.charAt(0).toUpperCase() + lastname.slice(1).toLowerCase(),
+      father: father.charAt(0).toUpperCase() + father.slice(1).toLowerCase(),
+      birthdate,
+      phone,
+      phone2,
+      medecinref,
+      gender,
+      wilaya,
+      city,
+      $push: {
+        updatedBy: {
+          user: req.user._id,
         },
       },
-      { new: true }
-    );
-  } else {
-    await Patient.findByIdAndUpdate(
-      id,
-      {
-        firstname:
-          firstname.charAt(0).toUpperCase() + firstname.slice(1).toLowerCase(),
-        lastname:
-          lastname.charAt(0).toUpperCase() + lastname.slice(1).toLowerCase(),
-        father: father.charAt(0).toUpperCase() + father.slice(1).toLowerCase(),
-        birthdate,
-        phone,
-        phone2,
-        medecinref,
-        gender,
-        status: "non",
-        wilaya,
-        city,
-      },
-      { new: true }
-    );
-  }
-
+    },
+    { new: true }
+  );
   req.flash("success", "Patient a été modifié avec succès");
   res.redirect("back");
 };
 module.exports.deletePatient = async (req, res) => {
   const { id } = req.params;
-
-  await Patient.findByIdAndDelete(id);
+  // this make the patient inactive
+  await Patient.findByIdAndUpdate(id, { $set: { activated: false } });
+  // await Patient.findByIdAndDelete(id);
   req.flash("success", "Patient a été supprimé");
   res.redirect("/patient");
 };

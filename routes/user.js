@@ -3,9 +3,10 @@ const passport = require("passport");
 const router = express.Router();
 const catchAsync = require("../utils/catchAsync");
 
-const { isLoggedIn } = require("../middleware/middleware");
+const { isLoggedIn, isAdmin } = require("../middleware/middleware");
 const {
   login,
+  userList,
   register,
   showUserForm,
   showLoginForm,
@@ -13,6 +14,7 @@ const {
   updateUser,
   deleteUser,
 } = require("../controller/user");
+router.route("/").get(isLoggedIn, isAdmin, catchAsync(userList));
 router.route("/register").post(catchAsync(register));
 router
   .route("/login")
@@ -21,13 +23,14 @@ router
     passport.authenticate("user", {
       failureFlash: true,
       failureRedirect: "/user/login",
+      failureMessage: true,
     }),
     login
   );
-router.route("/logout").get(logout);
+router.route("/logout").get(isLoggedIn, logout);
 router
   .route("/:id")
-  .get(isLoggedIn,catchAsync(showUserForm))
-  .put(isLoggedIn,catchAsync(updateUser))
-  .delete(isLoggedIn,catchAsync(deleteUser));
+  .get(isLoggedIn, catchAsync(showUserForm))
+  .put(isLoggedIn, isAdmin, catchAsync(updateUser))
+  .delete(isLoggedIn, isAdmin, catchAsync(deleteUser));
 module.exports = router;

@@ -9,11 +9,14 @@ module.exports.isLoggedIn = (req, res, next) => {
     req.flash("error", "You must be signed in first!");
     return res.redirect("/user/login");
   }
+  // else if(!req.user.approved){
+  //   req.flash("error", "Contact the admin to activate your account");
+  //   return res.redirect("/user/login");
+  // }
   next();
 };
 module.exports.isAdmin = async (req, res, next) => {
   if (req.user.privileges.includes("admin")) {
-    req.flash("success", "Admin is logged in !");
   } else {
     req.flash("error", "You do not have permission to do that!");
     return res.redirect(`/patient`);

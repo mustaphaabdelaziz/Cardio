@@ -1,5 +1,5 @@
 <nav
-  class="navbar navbar-expand-lg sticky-top navbar-light bg-antiqueSteel shadow-sm m-0 p-0"
+  class="navbar navbar-expand-lg sticky-top navbar-light bg-antiqueSteel shadow-sm"
 >
   <div class="container-fluid">
     <a class="navbar-brand fw-bold" href="/">
@@ -100,24 +100,8 @@
           </ul>
         </li>
 
-        <li class="nav-item dropdown">
-          <a
-            class="nav-link dropdown-toggle"
-            href="#"
-            id="personel-list"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-            >Personel
-          </a>
-          <ul
-            class="dropdown-menu bg-antiqueSteel"
-            aria-labelledby="navbarDropdown"
-          >
-            <li>
-              <a class="dropdown-item" href="/staffs">Liste des Personels</a>
-            </li>
-          </ul>
+        <li class="nav-item">
+          <a class="nav-link" href="/staffs">Personels</a>
         </li>
         <li class="nav-item dropdown">
           <a
@@ -140,6 +124,15 @@
             </li>
           </ul>
         </li>
+        <% if(currentUser){ %> 
+        <% if(currentUser.privileges.includes('admin')) { %>  
+        <li class="nav-item">
+          <a class="nav-link" href="/user"
+            >Utilisateurs
+            <span class="badge bg-danger">4</span>
+          </a>
+        </li>
+        <% }} %>
         <li class="dropdown nav-item"><%-include("./userDropdown") %></li>
       </ul>
     </div>

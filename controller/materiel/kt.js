@@ -2,6 +2,7 @@ const moment = require("moment");
 const Pdfmake = require("pdfmake");
 const Bc = require("../../model/materiel/bc");
 const Patient = require("../../model/patient");
+const Materiel = require("../../model/materiel/materiel");
 
 module.exports.listeKT = async (req, res) => {
   const acte = "KT";

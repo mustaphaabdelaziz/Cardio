@@ -20,10 +20,12 @@ const User = new Schema(
     privileges: [
       {
         type: String,
-        trim: true,
-        lowercase: true,
       },
     ],
+    approved: {
+      type: Boolean,
+      default: false,
+    },
   },
   opts
 );

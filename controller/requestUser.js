@@ -3,23 +3,21 @@ const Country = require("../model/country");
 const moment = require("moment");
 
 // ===========================================================================
-module.exports.userList = async (req, res) => {
-  const users = await User.find({});
-  res.render("user/index", { users });
+module.exports.usersRequest = async (req, res) => {
+  const user = await User.find({ approved: false });
+  res.render("users/index", { user });
 };
 
 // ===============================================
-module.exports.showUserForm = async (req, res) => {
-  const user = await User.findById(req.params.id);
-  // console.log(user)
-  res.render("user/editProfile", { user });
-};
-
-// ===============================================
-module.exports.showLoginForm = async (req, res) => {
-  const algeria = await Country.find({});
-  const states = algeria[0].states;
-  res.render("user/login", { states });
+module.exports.approveUser = async (req, res) => {
+  const { id } = req.params;
+  const { privileges } = req.body;
+  await User.findByIdAndUpdate(
+    id,
+    { approved: true, privileges },
+    { new: true }
+  );
+  res.redirect("/user");
 };
 module.exports.register = async (req, res) => {
   try {
@@ -31,13 +29,11 @@ module.exports.register = async (req, res) => {
       privileges: ["user"],
     });
     const registeredUser = await User.register(user, password);
-    req.flash("success", "Contact the admin to ativate your account");
-    res.redirect("/user/login");
-    // req.login(registeredUser, (err) => {
-    //   if (err) return next(err);
-    //   req.flash("success", "Welcome to Cardio");
-    //   res.redirect("/");
-    // });
+    req.login(registeredUser, (err) => {
+      if (err) return next(err);
+      req.flash("success", "Welcome to Cardio");
+      res.redirect("/");
+    });
   } catch (e) {
     req.flash("error", e.message);
     res.redirect("register");
@@ -47,8 +43,15 @@ module.exports.register = async (req, res) => {
 // =============== Login ==============================
 module.exports.login = (req, res) => {
   req.flash("success", `Welcome Back ${req.user.fullname}`);
+
+  // console.log(res.locals);
   const redirectUrl = req.session.returnTo || "/patient";
   delete req.session.returnTo;
+
+  // console.log("is Authenticated: ", req.isAuthenticated());
+  // console.log(res.locals.currentUser);
+  // console.log(res.locals.user);
+  // console.log(req.user);
   res.redirect(redirectUrl);
 };
 // ======================= Logout ==============
@@ -60,21 +63,21 @@ module.exports.logout = (req, res) => {
   });
 };
 module.exports.updateUser = async (req, res) => {
-  const { username, email, approved } = req.body.user;
-  const { id } = req.params;
+  const { user, socialMedia } = req.body;
   //  const currentUser = req.user._id;
+  const newUser = new User({ ...user });
+  newUser.socialMedia = { ...socialMedia };
 
-  await User.findByIdAndUpdate(
-    { _id: id },
+  const updatedUser = await User.findByIdAndUpdate(
+    { _id: req.user._id },
     {
-      username,
-      email,
-      approved: approved === "on" ? true : false,
+      socialMedia: socialMedia,
+      ...user,
     },
     { new: true }
   );
-  res.redirect(`/user`);
-  // res.send(req.body.user);
+  res.redirect(`/user/${updatedUser._id}/profile`);
+  // res.send(updatedUser);
 };
 module.exports.deleteUser = async (req, res) => {
   const { userid } = req.params;

@@ -61,7 +61,12 @@ const Patient = new Schema(
         },
       },
     ],
+    activated: {
+      type: Boolean,
+      default: true,
+    },
     createdBy: {
+      _id: false,
       user: {
         type: Schema.Types.ObjectId,
         ref: "User",
@@ -73,6 +78,7 @@ const Patient = new Schema(
     },
     updatedBy: [
       {
+        _id: false,
         user: {
           type: Schema.Types.ObjectId,
           ref: "User",

@@ -38,6 +38,7 @@ const staffRoutes = require("./routes/staff");
 const consultationRoutes = require("./routes/consultation");
 const medecinRoutes = require("./routes/medecin");
 const userRoutes = require("./routes/user");
+const requestUserRoutes = require("./routes/requestUser");
 const acteRoutes = require("./routes/acte");
 const ExpressError = require("./utils/ExpressError");
 const { errorPage } = require("./middleware/middleware");
@@ -60,6 +61,30 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use("user", new LocalStrategy(User.authenticate()));
+// passport.use(
+//   "user",
+//   new LocalStrategy((username, password, done) => {
+//     User.findOne({ username: username }, function (err, user) {
+//       if (err) {
+//         return done(err);
+//       }
+//       if (!user) {
+//         console.log("User not found");
+//         return done(null, false);
+//       }
+//       if (!user.verifyPassword(password)) {
+//         console.log("Passwords do not match");
+//         return done(null, false);
+//       }
+//       // if (!user.approved) {
+//       //   console.log("User not approved");
+//       //   return done(null, false);
+//       // }
+//       console.log("credentials match");
+//       return done(null, user);
+//     });
+//   })
+// );
 
 // serialization refers to how to store user's
 // authentication user data will be stored in the session
@@ -85,6 +110,7 @@ app.use("/kt", patientKTRoutes);
 app.use("/patient", patientRoutes);
 app.use("/staffs", staffRoutes);
 app.use("/user", userRoutes);
+app.use("/user/request", requestUserRoutes);
 app.use("/kt/bc/:id", bcktRoutes);
 app.use("/kt/bc/:id/:idbc/articles", bcArticleRoutes);
 app.use("/materiel/:id/article", articleRoutes);
