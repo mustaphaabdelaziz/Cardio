@@ -18,12 +18,14 @@ function selectActe2(id, acte) {
 }
 function makeSubmenu(value, id) {
   let elementId;
+  console.log("value:", value);
+  console.log("id: ", id);
   if (id.length != "") elementId = "#city";
-  else elementId = "#city" + id;
+  else elementId = "#city"+id;
   let communes = states
     .filter((state) => state.name === value)
     .map((state) => state.communes);
-
+  console.log("elementId:", elementId);
   if (value.length == 0) {
     $(elementId)
       .empty()
@@ -32,7 +34,6 @@ function makeSubmenu(value, id) {
       );
   } else {
     for (const ville of communes[0]) {
-      console.log(ville);
       $(elementId).append(new Option(ville, ville));
     }
   }

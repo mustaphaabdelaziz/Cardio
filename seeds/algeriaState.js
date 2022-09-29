@@ -30,7 +30,7 @@ module.exports = {
         "Tamest",
         "Timekten",
         "Timiaouine",
-        "Timimoun",
+
         "Tinerkouk",
         "Tit",
         "Tsabit",
@@ -297,7 +297,7 @@ module.exports = {
         "Mekhadma",
         "Meziraa",
         "Mlili",
-        "Ouled djellal",
+
         "Ouled harkat",
         "Ouled rahma",
         "Ouled sassi",
@@ -427,9 +427,8 @@ module.exports = {
         "Foggaret ezzaouia",
         "Idles",
         "In ghar",
-        "In salah",
+
         "In amguel",
-        "In guezzam",
         "Tamanrasset",
         "Tin zaouatine",
         "Tazrouk",
@@ -1300,7 +1299,6 @@ module.exports = {
         "Taibet",
         "Nezla",
         "Tebesbest",
-        "Touggourt",
         "Zaouia el abidia",
       ],
     },
@@ -1369,7 +1367,7 @@ module.exports = {
       name: "ILLIZI",
       communes: [
         "Debbeb",
-        "Djanet",
+
         "Bordj omar driss",
         "Illizi",
         "Bordj el haouas",
@@ -1785,15 +1783,11 @@ module.exports = {
         "Berriane",
         "El atteuf",
         "El guerrara",
-        "El menia",
         "Ghardaia",
-        "Hassi fehal",
         "Mansoura",
-        "Hassi gara",
         "Metlilli",
         "Bounoura",
         "Zelfana",
-        "Sebseb",
       ],
     },
     {
@@ -1840,6 +1834,94 @@ module.exports = {
         "Yellel",
         "Zemmoura",
       ],
+    },
+    {
+      id: 49,
+      name: "El M'ghair",
+      ar_name: "المغير",
+      longitude: "33.947222",
+      latitude: "5.922222",
+      communes: [],
+    },
+    {
+      id: 50,
+      name: "El Menia",
+      ar_name: "المنيعة",
+      longitude: "30.579167",
+      latitude: "2.879167",
+      communes: [],
+    },
+    {
+      id: 51,
+
+      name: "Ouled Djellal",
+      ar_name: "أولاد جلال",
+      longitude: "34.433333",
+      latitude: "5.066667",
+      communes: [],
+    },
+    {
+      id: 52,
+
+      name: "Bordj Baji Mokhtar",
+      ar_name: "برج باجي مختار",
+      longitude: "21.327778",
+      latitude: "0.955556",
+      communes: [],
+    },
+    {
+      id: 53,
+
+      name: "Béni Abbès",
+      ar_name: "بني عباس",
+      longitude: "30.133333",
+      latitude: "-2.166667",
+      communes: [],
+    },
+    {
+      id: 54,
+
+      name: "Timimoun",
+      ar_name: "تيميمون",
+      longitude: "29.258333",
+      latitude: "0.230556",
+      communes: [],
+    },
+    {
+      id: 56,
+
+      name: "Touggourt",
+      ar_name: "تقرت",
+      longitude: "33.108333",
+      latitude: "6.063889",
+      communes: [],
+    },
+    {
+      id: 56,
+
+      name: "Djanet",
+      ar_name: "جانت",
+      longitude: "24.554167",
+      latitude: "9.484722",
+      communes: [],
+    },
+    {
+      id: 57,
+
+      name: "In Salah",
+      ar_name: "عين صالح",
+      longitude: "27.197222",
+      latitude: "2.483333",
+      communes: [],
+    },
+    {
+      id: 58,
+
+      name: "In Guezzam",
+      ar_name: "عين قزام",
+      longitude: "19.572222",
+      latitude: "5.769444",
+      communes: [],
     },
   ],
 };

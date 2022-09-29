@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+// const bcrypt = require("bcrypt");
+
 const opts = {
   toJSON: {
     virtuals: true,
@@ -36,5 +38,13 @@ User.virtual("fullname").get(function () {
 
 User.plugin(passportLocalMongoose, {
   usernameField: "email",
+  passwordField: "password",
 });
+// comparer function
+// User.methods.verifyPassword = async (password) => {
+//   const isMatch = await bcrypt.compare(password, this.password);
+//   return isMatch;
+// };
+
+module.exports =
 module.exports = mongoose.model("User", User);

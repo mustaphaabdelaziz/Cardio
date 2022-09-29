@@ -18,6 +18,12 @@ const Patient = new Schema(
       default: "/",
     },
     birthdate: Date,
+    poids: {
+      type: Number,
+    },
+    taille: {
+      type: Number,
+    },
     phone: {
       type: String,
       trim: true,

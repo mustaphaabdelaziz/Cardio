@@ -104,3 +104,4 @@ module.exports.updatePatientActe = async (req, res) => {
   req.flash("success", "Acte à été modifé avec succès");
   res.redirect(`/patient/${id}`);
 };
+

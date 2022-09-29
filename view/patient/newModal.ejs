@@ -38,7 +38,7 @@
           action="/patient"
           id="personal"
           method="POST"
-          autocomplete="off"
+          autocomplete="on"
           novalidate
         >
           <div class="form-floating col-md-6">
@@ -50,6 +50,7 @@
               style="text-transform: capitalize"
               required
               autofocus
+              autocomplete="on"
             />
             <label for="patientLastName" class="form-label">Nom</label>
             <div class="valid-feedback">BIEN</div>
@@ -62,6 +63,7 @@
               class="form-control"
               style="text-transform: capitalize"
               required
+              autocomplete="on"
             />
             <label for="patientFirstName" class="form-label">Prénom</label>
             <div class="valid-feedback">BIEN</div>
@@ -86,7 +88,26 @@
             </label>
             <div class="valid-feedback">BIEN</div>
           </div>
-
+          <div class="form-floating col-md-6">
+            <input
+              type="number"
+              class="form-control"
+              id="poids"
+              name="patient[poids]"
+            />
+            <label for="poids" class="form-label">Poids</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <div class="form-floating col-md-6">
+            <input
+              type="number"
+              class="form-control"
+              id="taille"
+              name="patient[taille]"
+            />
+            <label for="taille" class="form-label">Taille</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
           <div class="form-floating col-md-6">
             <input
               type="text"

@@ -793,7 +793,7 @@ function printArticle() {
                     width: "*",
                     text: `Désignation: ${materiel.designation}`,
                     alignment: "left",
-                    decoration:"underline",
+                    decoration: "underline",
                     margin: [50, 0, 10, 0],
                   },
                   {
@@ -947,4 +947,180 @@ function getBase64ImageFromURL(url) {
 
     img.src = url;
   });
+}
+
+function generatePatientActPDF() {
+  this.getBase64ImageFromURL("../assets/en-tete.png")
+    .then((url) => {
+      let docDefinition = {
+        pageSize: "A4",
+        pageOrientation: "portrait",
+        // [left, top, right, bottom]
+        pageMargins: [10, 90, 10, 70],
+
+        header: {
+          image: url,
+          width: 595,
+          height: 80,
+          margin: [0, 0, 0, 0],
+        },
+        content: [
+          {
+            stack: [
+              {
+                fontSize: 25,
+                alignment: "center",
+                // [left, top, right, bottom]
+                margin: [0, 0, 0, 10],
+                bold: true,
+                text: "Compte Rendu",
+                decoration: "underline",
+              },
+              {
+                columns: [
+                  {
+                    width: "*",
+                    alignment: "center",
+                    margin: [],
+                    stack: [
+                      {
+                        text: "Nom:" + "  Abdelaziz",
+                        alignment: "left",
+                        color: "#061e30",
+                        bold: true,
+                        // [left, top, right, bottom]
+                        margin: [10, 0, 0, 0],
+                      },
+                      {
+                        text: "Prenom:" + "  Mustapha",
+                        alignment: "left",
+                        color: "#061e30",
+                        bold: true,
+                        // [left, top, right, bottom]
+                        margin: [10, 10, 0, 0],
+                      },
+                      {
+                        text: "Père:" + "  Hocine",
+                        alignment: "left",
+                        color: "#061e30",
+                        bold: true,
+                        // [left, top, right, bottom]
+                        margin: [10, 10, 0, 0],
+                      },
+                    ],
+                  },
+                  {
+                    width: "*",
+                    stack: [
+                      {
+                        text: "Age:" + "  2 ans",
+                        alignment: "left",
+                        color: "#061e30",
+                        bold: true,
+                        // [left, top, right, bottom]
+                        margin: [20, 0, 0, 0],
+                      },
+                      {
+                        text: "Poids:" + "  13 kg",
+                        alignment: "left",
+                        color: "#061e30",
+                        bold: true,
+                        // [left, top, right, bottom]
+                        margin: [20, 10, 0, 0],
+                      },
+                      {
+                        text: "Taille:" + "  70 cm",
+                        alignment: "left",
+                        color: "#061e30",
+                        bold: true,
+                        // [left, top, right, bottom]
+                        margin: [20, 10, 0, 0],
+                      },
+                     
+                    ],
+                  },
+                  {
+                    width: "*",
+                    stack: [
+                      {
+                        text: "Tel:" + "  0783455532",
+                        alignment: "left",
+                        color: "#061e30",
+                        bold: true,
+                        // [left, top, right, bottom]
+                        margin: [20, 0, 0, 0],
+                      },
+                      {
+                        text: "Tel:" + "  0583455532",
+                        alignment: "left",
+                        color: "#061e30",
+                        bold: true,
+                        // [left, top, right, bottom]
+                        margin: [20, 10, 0, 0],
+                      },
+                      {
+                        text: "Adresse:" + "  Bounoura, Ghardaia",
+                        alignment: "left",
+                        color: "#061e30",
+                        bold: true,
+                        // [left, top, right, bottom]
+                        margin: [20, 10, 0, 0],
+                      },
+                    ],
+                  },
+                ],
+              },
+              {
+                text:"________________________________________________________________________________________________________",
+                alignment:"center",
+              },
+              {
+                text:"ATCD:",
+                alignment:"left",
+                fontSize:16,
+                //[left, top, right, bottom]
+                margin: [10, 5,0,80],
+                decoration:"underline",
+
+              },
+              {
+                text:"Diagnostique:",
+                alignment:"left",
+                fontSize:16,
+                //[left, top, right, bottom]
+                margin: [10, 5,0,200],
+                decoration:"underline",
+
+              },
+              {
+                text:"Conduit Médicale:",
+                alignment:"left",
+                fontSize:16,
+                //[left, top, right, bottom]
+                margin: [10, 5,0,150],
+                decoration:"underline",
+
+              },
+              {
+                text:"Medecin:",
+                alignment:"right",
+                fontSize:14,
+                //[left, top, right, bottom]
+                margin: [50, 5,10,0],
+                decoration:"underline",
+
+              },
+
+            ],
+          },
+        ],
+
+        // Define styles
+        styles,
+      };
+      pdfMake.createPdf(docDefinition).open();
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 }

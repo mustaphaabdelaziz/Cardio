@@ -89,6 +89,30 @@
             >
           </div>
           <div class="form-floating col-md-6 mb-3">
+            <input
+              type="number"
+              class="form-control"
+              id="poids"
+              name="patient[poids]"
+              maxlength="10"
+              value="<%= patient.poids %> "
+            />
+            <label for="poids" class="form-label">Poids</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <div class="form-floating col-md-6 mb-3">
+            <input
+              type="number"
+              class="form-control"
+              id="taille"
+              name="patient[taille]"
+              maxlength="10"
+              value="<%= patient.taille %> "
+            />
+            <label for="taille" class="form-label">Taille</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <div class="form-floating col-md-6 mb-3">
             <select
               id="patientGender"
               name="patient[gender]"
@@ -132,7 +156,7 @@
 
           <div class="form-floating col-md-6 col mb-3">
             <select
-              id="city-<%=patient.id%>"
+              id="city<%=patient.id%>"
               name="patient[city]"
               class="form-select"
             >
@@ -141,7 +165,7 @@
                 <%= patient.city %>
               </option>
             </select>
-            <label for="city" class="form-label">Ville</label>
+            <label for="city<%=patient.id%>" class="form-label">Ville</label>
             <div class="valid-feedback">BIEN</div>
           </div>
 

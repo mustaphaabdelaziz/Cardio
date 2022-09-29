@@ -33,7 +33,7 @@
         <form
           class="row g-3 needs-validation"
           action="/user/<%= user.id %>/?_method=PUT"
-          id="personal"
+          id="user"
           method="POST"
           novalidate
         >
@@ -49,6 +49,18 @@
               autofocus
             />
             <label for="username" class="form-label">Nom Utilisateur</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <div class="form-floating">
+            <input
+              type="text"
+              class="form-control"
+              style="text-transform: lowercase"
+              id="stafemail"
+              name="user[email]"
+              value="<%= user.email %>"
+            />
+            <label for="email" class="form-label">Email</label>
             <div class="valid-feedback">BIEN</div>
           </div>
           <div class="form-floating">
@@ -75,19 +87,47 @@
               <div class="valid-feedback">BIEN</div>
             </div>
           </div>
-
-          <div class="form-floating">
-            <input
-              type="text"
-              class="form-control"
-              style="text-transform: lowercase"
-              id="stafemail"
-              name="user[email]"
-              value="<%= user.email %>"
-            />
-            <label for="email" class="form-label">Email</label>
-            <div class="valid-feedback">BIEN</div>
+          <div class="row">
+            <div class="form-check form-check-inline col-md-4">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value="admin"
+                id="admin"
+              />
+              <label class="form-check-label" for="admin">Admin</label>
+            </div>
+            <div class="form-check form-check-inline col-md-4">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value="assistant"
+                id="assistant"
+              />
+              <label class="form-check-label" for="assistant">
+                Assistant(e)
+              </label>
+            </div>
+            <div class="form-check form-check-inline col-md-4">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value="medecin"
+                id="assistant"
+              />
+              <label class="form-check-label" for="medecin"> Medecin </label>
+            </div>
+            <div class="form-check form-check-inline col-md-4">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value="achteur"
+                id="achteur"
+              />
+              <label class="form-check-label" for="achteur"> Achteur </label>
+            </div>
           </div>
+
           <div class="modal-footer mt-3">
             <button
               type="button"

@@ -33,20 +33,15 @@ module.exports.register = async (req, res) => {
     const registeredUser = await User.register(user, password);
     req.flash("success", "Contact the admin to ativate your account");
     res.redirect("/user/login");
-    // req.login(registeredUser, (err) => {
-    //   if (err) return next(err);
-    //   req.flash("success", "Welcome to Cardio");
-    //   res.redirect("/");
-    // });
   } catch (e) {
     req.flash("error", e.message);
     res.redirect("register");
   }
 };
-
 // =============== Login ==============================
 module.exports.login = (req, res) => {
-  req.flash("success", `Welcome Back ${req.user.fullname}`);
+  console.log("username:", req.user.username);
+  req.flash("success", `Welcome Back ${req.user.username}`);
   const redirectUrl = req.session.returnTo || "/patient";
   delete req.session.returnTo;
   res.redirect(redirectUrl);

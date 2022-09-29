@@ -7,8 +7,12 @@ const countrySchema = new Schema({
   flag: String,
   states: [
     {
+      _id: false,
       id: Number,
       name: String,
+      ar_name: String,
+      longitude: String,
+      latitude: String,
       communes: [String],
     },
   ],
