@@ -19,7 +19,7 @@ module.exports.sessionConfig = {
     cookie: {
         httpOnly: true,
         // secure: true, when set to true current User doesn't work
-        expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
-        maxAge: 1000 * 60 * 60 * 24 * 7,
+        expires: Date.now() + 1000 * 60 * 60 * 24,
+        maxAge: 1000 * 60 * 60 * 24,
     },
 };

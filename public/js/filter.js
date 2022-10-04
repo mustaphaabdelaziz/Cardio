@@ -4,7 +4,6 @@ var txtValue;
 
 function filter(age, ageColumn, dateColumn) {
   var selected = document.getElementById("age").value;
-  console.log("selected: " + selected);
   var start =
     document.getElementById("start").value ||
     moment("01/01/1800", "DD/MM/YYYY");

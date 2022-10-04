@@ -45,6 +45,4 @@ User.plugin(passportLocalMongoose, {
 //   const isMatch = await bcrypt.compare(password, this.password);
 //   return isMatch;
 // };
-
-module.exports =
 module.exports = mongoose.model("User", User);

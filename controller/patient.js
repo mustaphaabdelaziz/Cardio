@@ -16,10 +16,21 @@ var fonts = {
 };
 
 module.exports.listepatient = async (req, res) => {
-  const medecins = await Staff.find({ fonction: "Medecin" });
-  const techniciens = await Staff.find({ fonction: "technicien cathlab" });
-  const patients = await Patient.find({ activated: true });
-  const algeria = await Country.find({});
+  console.time('blocking-await');
+  // const medecins = await Staff.find({ fonction: "Medecin" });
+  // const techniciens = await Staff.find({ fonction: "technicien cathlab" });
+  // const patients = await Patient.find({ activated: true });
+  // const algeria = await Country.find({});
+  
+  const [medecins, techniciens, patients, algeria] = await Promise.all([
+    Staff.find({ fonction: "Medecin" }),
+    Staff.find({ fonction: "technicien cathlab" }),
+    Patient.find({ activated: true }),
+    Country.find({}),
+  ]);
+  console.timeEnd('blocking-await');
+  // blocking-await: 101.135ms
+  // blocking-await: 141.458ms
   const states = algeria[0].states;
   res.render("patient/index", {
     patients,
@@ -29,6 +40,7 @@ module.exports.listepatient = async (req, res) => {
     states,
   });
 };
+
 module.exports.creationform = async (req, res) => {
   const medecins = await Staff.find({ fonction: "Medecin" });
   const algeria = await Country.find({});
@@ -116,7 +128,7 @@ module.exports.createandreturn = async (req, res) => {
     phone,
     phone2,
     wilaya,
-    city
+    city,
   } = req.body.patient;
 
   if (phone2 === "") {
@@ -186,7 +198,7 @@ module.exports.updatePatient = async (req, res) => {
       father: father.charAt(0).toUpperCase() + father.slice(1).toLowerCase(),
       birthdate,
       poids,
-    taille,
+      taille,
       phone,
       phone2,
       medecinref,

@@ -27,6 +27,4 @@ const Bc = new Schema(
   },
   opts
 );
-
 module.exports = mongoose.model("Bc", Bc);
-//# sourceMappingURL=materiel.js.map

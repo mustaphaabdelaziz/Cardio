@@ -43,6 +43,7 @@ const acteRoutes = require("./routes/acte");
 const ExpressError = require("./utils/ExpressError");
 const { errorPage } = require("./middleware/middleware");
 const User = require("./model/user");
+const compression = require('compression')
 // ==================== App Configuration =================
 app.set("trust proxy", true);
 app.engine("ejs", ejsMate);
@@ -64,14 +65,12 @@ app.use(passport.session());
 passport.use(
   "user",
   new LocalStrategy((username, password, done) => {
-    console.log("username: ", username);
-    console.log("password: ", password);
     User.findOne({ email: username }, function (err, user) {
       if (err) {
         return done(err);
       }
       if (!user) {
-        console.log("User not found");
+       
         return done(null, false);
       } else {
         if (user.approved) {
@@ -98,6 +97,7 @@ passport.deserializeUser((user, done) => {
 });
 app.use(locals);
 app.use(cors());
+app.use(compression());
 // =========================================================
 
 // ================= App Routes =======================

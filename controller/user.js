@@ -40,7 +40,6 @@ module.exports.register = async (req, res) => {
 };
 // =============== Login ==============================
 module.exports.login = (req, res) => {
-  console.log("username:", req.user.username);
   req.flash("success", `Welcome Back ${req.user.username}`);
   const redirectUrl = req.session.returnTo || "/patient";
   delete req.session.returnTo;

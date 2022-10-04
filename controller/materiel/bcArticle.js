@@ -49,7 +49,7 @@ module.exports.addArticleBC = async (req, res) => {
     { arrayFilters: [{ "inner.serie": serialN }, { "outer.marque": marque }] },
     (err, result) => {
       if (err) {
-        console.log("Error updating detail: " + err);
+        console.err("Error updating detail: " + err);
         // res.send(result);
       } else {
         const redirectUrl = `back`;

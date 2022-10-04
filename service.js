@@ -1,4 +1,3 @@
-
 const MongoClient = require("mongodb").MongoClient;
 const fs = require("fs");
 const dbName = "cardio";
@@ -7,7 +6,7 @@ const collections = ["staffs", "patients", "countries", "bcs", "materiels"];
 const dbUrl = process.env.LOCAL_DB_URL;
 
 for (let i = 0; i < collections.length; i++) {
-  const client = new MongoClient("mongodb://localhost:27017");
+  const client = new MongoClient("mongodb://localhost:16893");
   client.connect(function (err) {
     //assert.equal(null, err);
     console.log("Connected successfully to server");

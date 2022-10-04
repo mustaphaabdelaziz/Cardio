@@ -51,10 +51,10 @@ module.exports.deletePatientBc = async (req, res) => {
       },
       (err, result) => {
         if (err) {
-          console.log("Error updating detail: " + err);
+          console.err("Error updating detail: " + err);
           // res.send(result);
         } else {
-          console.log("Detail updated");
+          console.err("Detail updated");
         }
       }
     );
