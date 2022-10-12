@@ -45,6 +45,7 @@
               placeholder="date de l'acte"
               required
               autofocus
+              value="<%= moment().format("YYYY-MM-DD") %>"
             />
             <label for="dateacte" class="form-labelfs-6">Date de l'acte</label>
             <div class="valid-feedback">BIEN</div>
@@ -121,7 +122,6 @@
                 id="status"
               />
               <label class="form-check-label" for="status">Confirmé ?</label>
-              <div class="valid-feedback">BIEN</div>
             </div>
           </div>
 
@@ -131,7 +131,7 @@
               name="consultation[comment]"
               id="comment"
               rows="4"
-              placeholder="Diagnostique"
+              placeholder="Motif"
               style="text-transform: capitalize"
             ></textarea>
           </div>

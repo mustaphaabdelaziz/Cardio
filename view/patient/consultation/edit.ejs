@@ -31,17 +31,18 @@
       </div>
 
       <div class="modal-body">
-        <form 
-        action="/patient/<%= patient.id %>/acte/<%= consultation.id %>?_method=PUT" 
-        method="POST"
-        id="personal" 
-        class="needs-validation"
-        novalidate>
+        <form
+          action="/patient/<%= patient.id %>/acte/<%= consultation.id %>?_method=PUT"
+          method="POST"
+          id="personal"
+          class="needs-validation"
+          novalidate
+        >
           <div class="form-floating mb-3">
             <input class="form-control" type="date" id="dateacte"
             name="consultation[dateacte]" placeholder="date de l'acte" required
             autofocus
-            value="<%=moment(consultation.date).format("YYYY-MM-DD")%>"/>
+            value="<%=moment(consultation.date).format("YYYY-MM-DD")%>" />
             <label for="dateacte" class="form-labelfs-6">Date de l'acte</label>
             <div class="valid-feedback">BIEN</div>
           </div>
@@ -55,12 +56,15 @@
             >
               <option disabled value="" selected>Medecin</option>
               <% for(medecin of medecins ){ %>
-                <% if(consultation.medecin===medecin.lastname) {%> 
-              <option class="option" value="<%= medecin.lastname%>" selected>Dr. <%= medecin.lastname %></option>
-                <% } else { %>
-                  <option class="option" value="<%= medecin.lastname%>">Dr. <%= medecin.lastname %></option>
-                   <% } %>
-              <% } %>
+              <%if(consultation.medecin===medecin.lastname) {%>
+              <option class="option" value="<%= medecin.lastname%>" selected>
+                Dr. <%= medecin.lastname %>
+              </option>
+              <% } else { %>
+              <option class="option" value="<%= medecin.lastname%>">
+                Dr. <%= medecin.lastname %>
+              </option>
+              <% } %> <% } %>
             </select>
 
             <label for="medecin" class="form-label">Medecin</label>
@@ -97,31 +101,33 @@
             <label for="acte2" class="form-label">Acte</label>
             <div class="valid-feedback">BIEN</div>
           </div>
-          
-            <div class="form-floating mb-3" id="tech-<%=consultation.id%>">
+
+          <div class="form-floating mb-3" id="tech-<%=consultation.id%>">
             <select
               id="technicien"
               name="consultation[technicien]"
               class="form-select"
-              
             >
-              <option class="option" value="" disabled selected>Technicen</option>
+              <option class="option" value="" disabled selected>
+                Technicen
+              </option>
               <option class="option" value="/">/</option>
               <% for(technicien of techniciens ){ %>
-              
-                <% if(consultation.technicien===technicien.fullname) {%> 
-              <option class="option" value="<%= technicien.fullname%>" selected><%= technicien.fullname %></option>
-                <% } else { %>
-                  <option class="option" value="<%= technicien.fullname%>"><%= technicien.fullname %></option>
-                   <% } %>
-              <% } %>
+              <%if(consultation.technicien===technicien.fullname) {%>
+              <option class="option" value="<%= technicien.fullname%>" selected>
+                <%= technicien.fullname %>
+              </option>
+              <% } else { %>
+              <option class="option" value="<%= technicien.fullname%>">
+                <%= technicien.fullname %>
+              </option>
+              <% } } %>
             </select>
 
-            <label for=technicien" class="form-label">Technicien</label>
+            <label for="technicien" class="form-label">Technicien</label>
             <div class="valid-feedback">BIEN</div>
           </div>
-         
-          
+
           <div class="form-floating mb-2">
             <div class="d-flex align-item-start form-check form-switch ms-2">
               <% if (consultation.status === "oui"){%>
@@ -148,17 +154,18 @@
               <div class="valid-feedback">BIEN</div>
             </div>
           </div>
-          <div class="">
+          <div class=" ">
             <textarea
               class="form-control"
               name="consultation[comment]"
               id="editcomment"
               rows="4"
               style="text-transform: capitalize"
-              placeholder="Diagnostique"
-            ><%=consultation.comment%></textarea>
+              placeholder="Motif"
+            >
+<%=consultation.comment%></textarea
+            >
           </div>
-          
 
           <div class="modal-footer mt-3">
             <button
@@ -182,7 +189,7 @@
   </div>
 </div>
 <script>
-  $("#editCons-<%=consultation.id %>").on("shown.bs.modal", function () {
+  $(" #editCons-<%=consultation.id %>").on("shown.bs.modal", function () {
     $(this).find("[autofocus]").focus();
   });
 </script>

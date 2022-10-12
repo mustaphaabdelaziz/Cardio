@@ -18,13 +18,13 @@ function selectActe2(id, acte) {
 }
 function makeSubmenu(value, id) {
   let elementId;
- 
+
   if (id.length != "") elementId = "#city";
-  else elementId = "#city"+id;
+  else elementId = "#city" + id;
   let communes = states
     .filter((state) => state.name === value)
     .map((state) => state.communes);
-  
+
   if (value.length == 0) {
     $(elementId)
       .empty()
@@ -84,4 +84,30 @@ function ArticleDetails(value, id) {
   for (const detail of articles[0])
     if (!detail.taken)
       $(elementId).append(new Option(detail.serie, detail.serie));
+}
+function generateField(line) {
+  const type = $("#model-" + line).val();
+  for (const report of reports) {
+    if (report.type == type) {
+      $("#atcd-" + line).val(report.atcd);
+      $("#quality-" + line).val(report.quality);
+      $("#situs-" + line).val(report.indication.situs);
+      $("#aorte-" + line).val(report.indication.aorte);
+      $("#oreilletteGauche-" + line).val(report.indication.oreilletteGauche);
+      $("#sia-" + line).val(report.indication.sia);
+      $("#siv-" + line).val(report.indication.siv);
+      $("#valveAortique-" + line).val(report.indication.valveAortique);
+      $("#valveMitrale-" + line).val(report.indication.valveMitrale);
+      $("#motif-" + line).val(report.indication.ventriculeGauche.motif);
+      $("#ventGsiv-" + line).val(report.indication.ventriculeGauche.siv);
+      $("#dtd-" + line).val(report.indication.ventriculeGauche.dtd);
+      $("#fe-" + line).val(report.indication.ventriculeGauche.fe);
+      $("#cavitesDroites-" + line).val(report.indication.cavitesDroites);
+      $("#tricuspide-" + line).val(report.indication.tricuspide);
+      $("#arterePulmonaire-" + line).val(report.indication.arterePulmonaire);
+      $("#pericarde-" + line).val(report.indication.pericarde);
+      $("#conclusion-" + line).val(report.conclusion);
+      $("#conduiteMedicale-" + line).val(report.conduiteMedicale);
+    }
+  }
 }

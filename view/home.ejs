@@ -1,150 +1,88 @@
 <% layout('layouts/boilerplate')%>
-<main>
-  <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-indicators">
-      <button
-        type="button"
-        data-bs-target="#myCarousel"
-        data-bs-slide-to="0"
-        class="active"
-        aria-current="true"
-        aria-label="Slide 1"
-      ></button>
-      <button
-        type="button"
-        data-bs-target="#myCarousel"
-        data-bs-slide-to="1"
-        aria-label="Slide 2"
-      ></button>
-      <button
-        type="button"
-        data-bs-target="#myCarousel"
-        data-bs-slide-to="2"
-        aria-label="Slide 3"
-      ></button>
-    </div>
-    <div class="carousel-inner">
-      <div class="carousel-item active slide">
-        <img
-          class="bd-placeholder-img"
-          width="100%"
-          height="100%"
-          src="/assets/cardio1.jpg"
-          alt=""
-        />
+    <main>
+        <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active slide">
+                    <img class="bd-placeholder-img" width="100%" height="100%" src="/assets/cardio1.jpg" alt="" />
 
-        <div class="container">
-          <div class="carousel-caption text-start">
-            <h1 class="text-dark">Example headline.</h1>
-            <p class="text-dark">
-              Some representative placeholder content for the first slide of the
-              carousel.
-            </p>
-            <p><a class="btn btn-lg btn-primary" href="/patient">Patient</a></p>
-          </div>
-        </div>
-      </div>
-      <div class="carousel-item slide">
-        <img
-          class="bd-placeholder-img"
-          width="100%"
-          height="100%"
-          src="/assets/cardio2.jpg"
-          alt="cardio2"
-        />
+                    <div class="container">
+                        <div class="carousel-caption text-start">
+                            <h1 class="text-dark">Example headline.</h1>
+                            <p class="text-dark">
+                                Some representative placeholder content for the first slide of the carousel.
+                            </p>
+                            <p><a class="btn btn-lg btn-primary" href="/patient">Patient</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item slide">
+                    <img class="bd-placeholder-img" width="100%" height="100%" src="/assets/cardio2.jpg" alt="cardio2" />
 
-        <div class="container">
-          <div class="carousel-caption">
-            <h1 class="text-dark">Another example headline.</h1>
-            <p class="text-dark">
-              Some representative placeholder content for the second slide of
-              the carousel.
-            </p>
-            <p><a class="btn btn-lg btn-primary" href="#">Learn more</a></p>
-          </div>
-        </div>
-      </div>
-      <div class="carousel-item slide">
-        <img
-          class="bd-placeholder-img"
-          width="100%"
-          height="100%"
-          src="/assets/cardio3.png"
-          alt=""
-        />
+                    <div class="container">
+                        <div class="carousel-caption">
+                            <h1 class="text-dark">Another example headline.</h1>
+                            <p class="text-dark">
+                                Some representative placeholder content for the second slide of the carousel.
+                            </p>
+                            <p><a class="btn btn-lg btn-primary" href="#">Learn more</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item slide">
+                    <img class="bd-placeholder-img" width="100%" height="100%" src="/assets/cardio3.png" alt="" />
 
-        <div class="container">
-          <div class="carousel-caption text-end">
-            <h1>One more for good measure.</h1>
-            <p class="text-dark">
-              Some representative placeholder content for the third slide of
-              this carousel.
-            </p>
-            <p><a class="btn btn-lg btn-primary" href="#">Browse gallery</a></p>
-          </div>
-        </div>
-      </div>
-      <div class="carousel-item slide">
-        <img
-          class="bd-placeholder-img"
-          width="100%"
-          height="100%"
-          src="/assets/cardio4.jpg"
-          alt=""
-        />
+                    <div class="container">
+                        <div class="carousel-caption text-end">
+                            <h1>One more for good measure.</h1>
+                            <p class="text-dark">
+                                Some representative placeholder content for the third slide of this carousel.
+                            </p>
+                            <p><a class="btn btn-lg btn-primary" href="#">Browse gallery</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item slide">
+                    <img class="bd-placeholder-img" width="100%" height="100%" src="/assets/cardio4.jpg" alt="" />
 
-        <div class="container">
-          <div class="carousel-caption text-end">
-            <h1 class="text-dark">One more for good measure.</h1>
-            <p class="text-dark">
-              Some representative placeholder content for the third slide of
-              this carousel.
-            </p>
-            <p><a class="btn btn-lg btn-primary" href="#">Browse gallery</a></p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <button
-      class="carousel-control-prev"
-      type="button"
-      data-bs-target="#myCarousel"
-      data-bs-slide="prev"
-    >
+                    <div class="container">
+                        <div class="carousel-caption text-end">
+                            <h1 class="text-dark">One more for good measure.</h1>
+                            <p class="text-dark">
+                                Some representative placeholder content for the third slide of this carousel.
+                            </p>
+                            <p><a class="btn btn-lg btn-primary" href="#">Browse gallery</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Previous</span>
     </button>
-    <button
-      class="carousel-control-next"
-      type="button"
-      data-bs-target="#myCarousel"
-      data-bs-slide="next"
-    >
+            <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Next</span>
     </button>
-  </div>
+        </div>
 
-  <!-- Marketing messaging and featurettes
+        <!-- Marketing messaging and featurettes
     ================================================== -->
-  <!-- Wrap the rest of the page in another container to center all the content. -->
+        <!-- Wrap the rest of the page in another container to center all the content. -->
 
-  <div class="container marketing">
-    <!-- Three columns of text below the carousel -->
-    <div class="row">
-      <div class="col-lg-4" data-aos="fade-right"  data-aos-once="true">
-        <img
-          class="bd-placeholder-img rounded-circle shadow"
-          width="140"
-          height="140"
-          src="/assets/KT.png"
-          alt="KT"
-        />
-        <h2>KT</h2>
+        <div class="container marketing">
+            <!-- Three columns of text below the carousel -->
+            <div class="row">
+                <div class="col-lg-4" data-aos="fade-right" data-aos-once="true">
+                    <img class="bd-placeholder-img rounded-circle shadow" width="140" height="140" src="/assets/KT.png" alt="KT" />
+                    <h2>KT</h2>
 
-        <p>
-          <a class="btn btn-greenSea  bg-gradient shadow" href="/acte/KT"
-            >View details &raquo;</a
+                    <p>
+                        <a class="btn btn-greenSea  bg-gradient shadow" href="/acte/KT">View details &raquo;</a
           >
         </p>
       </div>
