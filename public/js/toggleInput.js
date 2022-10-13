@@ -18,24 +18,27 @@ function selectActe2(id, acte) {
 }
 function makeSubmenu(value, id) {
   let elementId;
+  // console.log("id.lengh", id.length);
 
-  if (id.length != "") elementId = "#city";
+  if (id.length == 0) elementId = "#city";
   else elementId = "#city" + id;
+  // console.log("id:", id);
+  // console.log("elementId:", elementId);
+  // console.log("value:", value);
   let communes = states
     .filter((state) => state.name === value)
     .map((state) => state.communes);
-
-  if (value.length == 0) {
-    $(elementId)
-      .empty()
-      .append(
-        "<option class='option' selected disabled value=''>Ville</option>"
-      );
-  } else {
-    for (const ville of communes[0]) {
-      $(elementId).append(new Option(ville, ville));
-    }
+  // if (value == "") {
+  // console.log("value is empty");
+  $(elementId)
+    .empty()
+    .append("<option class='option' selected disabled value=''>Ville</option>");
+  // } else {
+  // console.log("value is not empty");
+  for (const ville of communes[0]) {
+    $(elementId).append(new Option(ville, ville));
   }
+  // }
 }
 function MaterielArticles(value, id) {
   let elementId;

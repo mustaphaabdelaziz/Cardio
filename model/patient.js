@@ -128,6 +128,9 @@ const Patient = new Schema(
 Patient.virtual("fullname").get(function () {
   return this.lastname + " " + this.firstname;
 });
+Patient.virtual("address").get(function () {
+  return this.city + ", " + this.wilaya;
+});
 Patient.virtual("drlastname").get(function () {
   if (this.medecinref === "/") {
     return this.medecinref;

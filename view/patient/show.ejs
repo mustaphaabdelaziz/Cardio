@@ -96,7 +96,7 @@
                 <%-include("./consultation/comptRendu/deleteCompteRendu")%>
                 <button
                 class="btn btn-outline-secondary px-2 py-1 ms-2"
-                onclick="generatePatientActPDF()"
+                onclick="printCompteRendu('<%=consultation.id%>')"
               >
                 <i class="bi bi-printer-fill px-1 py-1"></i>
               </button>
@@ -132,4 +132,11 @@
 </div>
 <script>
   let reports = <%- JSON.stringify(reports) %>;
+</script>
+<script>
+  let patient = <%- JSON.stringify(patient) %>;
+</script>
+
+<script>
+  let states = <%- JSON.stringify(states) %>;
 </script>

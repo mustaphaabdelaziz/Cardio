@@ -49,15 +49,15 @@ module.exports.addActe = async (req, res) => {
   // res.redirect("/patient")
 };
 module.exports.deletePatientActe = async (req, res) => {
-  // const { id, idacte } = req.params;
-  // const patient = await Patient.findByIdAndUpdate(
-  //   id,
-  //   { $pull: { consultation: { _id: idacte } } },
-  //   { new: true }
-  // );
-  // req.flash("success", "Acte à été supprimé avec succès");
-  // res.redirect(`/patient/${id}`);
-  res.send("sent from acte")
+  const { id, idacte } = req.params;
+  const patient = await Patient.findByIdAndUpdate(
+    id,
+    { $pull: { consultation: { _id: idacte } } },
+    { new: true }
+  );
+  req.flash("success", "Acte à été supprimé avec succès");
+  res.redirect(`/patient/${id}`);
+  // res.send("sent from acte")
 };
 module.exports.updatePatientActe = async (req, res) => {
   const { id, idacte } = req.params;

@@ -94,10 +94,12 @@
               class="form-control"
               id="poids"
               name="patient[poids]"
-              maxlength="10"
-              value="<%= patient.poids %> "
+              maxlength="3"
+              min="1"
+              max="200"
+              value="<%= patient.poids %>"
             />
-            <label for="poids" class="form-label">Poids</label>
+            <label for="poids" class="form-label">Poids (KG)</label>
             <div class="valid-feedback">BIEN</div>
           </div>
           <div class="form-floating col-md-6 mb-3">
@@ -106,10 +108,12 @@
               class="form-control"
               id="taille"
               name="patient[taille]"
-              maxlength="10"
-              value="<%= patient.taille %> "
+              min="30"
+              max="200"
+              maxlength="3"
+              value="<%= patient.taille %>"
             />
-            <label for="taille" class="form-label">Taille</label>
+            <label for="taille" class="form-label">Taille (cm)</label>
             <div class="valid-feedback">BIEN</div>
           </div>
           <div class="form-floating col-md-6 mb-3">
@@ -132,14 +136,14 @@
             <div class="valid-feedback">BIEN</div>
           </div>
 
-          <div class="form-floating col-md-6">
+          <div class="form-floating col-md-6 mb-3">
             <input
               class="form-select"
               id="wilaya"
               name="patient[wilaya]"
               list="cities"
               placeholder="Wilaya"
-              onchange="makeSubmenu(this.value,'<%=patient.id%>')"
+              onchange="makeSubmenu(this.value,'<%= patient._id %>')"
               value="<%= patient.wilaya %>"
             />
             <datalist id="cities">
@@ -156,7 +160,7 @@
 
           <div class="form-floating col-md-6 col mb-3">
             <select
-              id="city<%=patient.id%>"
+              id="city<%=patient._id%>"
               name="patient[city]"
               class="form-select"
             >
@@ -206,8 +210,8 @@
             >
               <option value="" disabled selected>Médecin Ref</option>
               <option class="option" value="/">/</option>
-              <% for(medecin of medecins ){ %> 
-              <% if(patient.medecinref===medecin.lastname) {%>
+              <% for(medecin of medecins ){ %> <%
+              if(patient.medecinref===medecin.lastname) {%>
               <option class="option" value="<%= medecin.lastname%>" selected>
                 Dr. <%= medecin.lastname %>
               </option>

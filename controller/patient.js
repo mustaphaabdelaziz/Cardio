@@ -183,7 +183,7 @@ module.exports.updatePatient = async(req, res) => {
         wilaya,
         city,
     } = req.body.patient;
-
+    console.log(poids,taille)
     if (phone2 === "") {
         phone2 = "/";
     }
