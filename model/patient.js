@@ -24,6 +24,10 @@ const Patient = new Schema(
     taille: {
       type: Number,
     },
+    saturation: {
+      type: String,
+    },
+    
     phone: {
       type: String,
       trim: true,
@@ -130,6 +134,9 @@ Patient.virtual("fullname").get(function () {
 });
 Patient.virtual("address").get(function () {
   return this.city + ", " + this.wilaya;
+});
+Patient.virtual("saturationP").get(function () {
+  return this.saturation+" %";
 });
 Patient.virtual("drlastname").get(function () {
   if (this.medecinref === "/") {

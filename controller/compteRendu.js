@@ -1,11 +1,15 @@
 const moment = require("moment");
 const Patient = require("../model/patient");
+const Report = require("../model/compteRendu");
 module.exports.showComptRendu = async (req, res) => {
   const { id, idacte, idcomp } = req.params;
   const patient = await Patient.findById(idacte);
   res.send(patient);
 };
 module.exports.addCompteRendu = async (req, res) => {
+  // let {  } = req.body.model;
+  let { save ,title} = req.body;
+ 
   let {
     atcd,
     quality,
@@ -25,6 +29,35 @@ module.exports.addCompteRendu = async (req, res) => {
   } = req.body.compteRendu;
   let { motif, dtd, ventGsiv, fe } = req.body.ventriculeGauche;
   const { id, idacte } = req.params;
+  if (save == "on") {
+    const report = new Report({
+      type: title,
+      atcd,
+      quality,
+      indication: {
+        situs,
+        aorte,
+        valveAortique,
+        oreilletteGauche,
+        sia,
+        valveMitrale,
+        ventriculeGauche: {
+          motif,
+          dtd,
+          siv: ventGsiv,
+          fe,
+        },
+        siv,
+        cavitesDroites,
+        tricuspide,
+        arterePulmonaire,
+        pericarde,
+      },
+      conclusion,
+      conduiteMedicale,
+    });
+    await report.save();
+  }
   const patient = await Patient.findOneAndUpdate(
     { id, "consultation._id": idacte },
     {
@@ -63,7 +96,7 @@ module.exports.addCompteRendu = async (req, res) => {
   const redirectUrl = `back`;
   req.flash("success", "Acte ajouté avec succès");
   res.redirect(redirectUrl);
-  // res.redirect("/patient")
+  res.redirect("/patient");
 };
 
 module.exports.updateCompteRendu = async (req, res) => {

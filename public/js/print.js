@@ -108,7 +108,7 @@ function printActeList(acte) {
     }
   }
 
-  this.getBase64ImageFromURL("../assets/en-tete.png")
+  this.getBase64ImageFromURL("../assets/ENTETE.jpg")
     .then((url) => {
       let docDefinition = {
         pageSize: "A4",
@@ -322,7 +322,7 @@ function printMedecinList(medecin) {
     }
   }
 
-  this.getBase64ImageFromURL("../assets/en-tete.png")
+  this.getBase64ImageFromURL("../assets/ENTETE.jpg")
     .then((url) => {
       let docDefinition = {
         pageSize: "A4",
@@ -464,7 +464,7 @@ function printPDF() {
   //   document.getElementById("end").value ||
   //   moment("31/12/" + moment().add(2000, "year").year(), "DD/MM/YYYY");
 
-  this.getBase64ImageFromURL("../assets/en-tete.png")
+  this.getBase64ImageFromURL("../assets/ENTETE.jpg")
     .then((url) => {
       let docDefinition = {
         pageSize: "A4",
@@ -601,7 +601,8 @@ function filterPatient(age, base) {
   }
 }
 function printBC() {
-  this.getBase64ImageFromURL("http://localhost:8000/assets/en-tete.png")
+  // this.getBase64ImageFromURL("http://localhost:8000/assets/en-tete.png")
+  this.getBase64ImageFromURL("../assets/ENTETE.jpg")
     .then((url) => {
       let docDefinition = {
         pageSize: "A4",
@@ -742,7 +743,8 @@ function printBC() {
     });
 }
 function printArticle() {
-  this.getBase64ImageFromURL("http://localhost:8000/assets/en-tete.png")
+  // this.getBase64ImageFromURL("http://localhost:8000/assets/en-tete.png")
+  this.getBase64ImageFromURL("../assets/ENTETE.jpg")
     .then((url) => {
       let docDefinition = {
         pageSize: "A4",
@@ -954,18 +956,18 @@ function printCompteRendu(consultationID) {
     (acte) => acte._id == consultationID
   );
   console.log(consultation);
-  this.getBase64ImageFromURL("../assets/en-tete.png")
+  this.getBase64ImageFromURL("../assets/ENTETE.jpg")
     .then((url) => {
       let docDefinition = {
         pageSize: "A4",
         pageOrientation: "portrait",
         // [left, top, right, bottom]
-        pageMargins: [10, 90, 10, 70],
+        pageMargins: [10, 10, 10, 10],
 
         header: {
           image: url,
-          width: 595,
-          height: 80,
+          width: 570,
+          height: 90,
           margin: [0, 0, 0, 0],
         },
         content: [
@@ -975,7 +977,7 @@ function printCompteRendu(consultationID) {
                 fontSize: 20,
                 alignment: "center",
                 // [left, top, right, bottom]
-                margin: [0, 0, 0, 20],
+                margin: [0, 80, 0, 20],
                 bold: true,
                 text: "ECHOCARDIOGRAPHIE-DOPPLER TRANS-THORACIQUE",
                 decoration: "underline",
@@ -1092,14 +1094,14 @@ function printCompteRendu(consultationID) {
                       {
                         text: [
                           {
-                            text: `Tel 1:   `,
+                            text: `Saturation:   `,
                             alignment: "left",
                             color: "#061e30",
                             bold: true,
                             // [left, top, right, bottom]
                           },
                           {
-                            text: `${patient.phone}`,
+                            text: `${patient.saturationP}`,
                           },
                         ],
                         margin: [20, 0, 0, 0],
@@ -1107,14 +1109,14 @@ function printCompteRendu(consultationID) {
                       {
                         text: [
                           {
-                            text: `Tel 2:   `,
+                            text: `Tel:   `,
                             alignment: "left",
                             color: "#061e30",
                             bold: true,
                             // [left, top, right, bottom]
                           },
                           {
-                            text: `${patient.phone2}`,
+                            text: `${patient.phone}`,
                           },
                         ],
                         margin: [20, 10, 0, 0],

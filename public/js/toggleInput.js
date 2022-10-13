@@ -1,3 +1,4 @@
+
 function selectActe(acte, id) {
   let technicien = document.getElementById("technicien-div-" + id);
   if (acte.value === "KT") {
@@ -35,6 +36,7 @@ function makeSubmenu(value, id) {
     .append("<option class='option' selected disabled value=''>Ville</option>");
   // } else {
   // console.log("value is not empty");
+  console.log(communes);
   for (const ville of communes[0]) {
     $(elementId).append(new Option(ville, ville));
   }
