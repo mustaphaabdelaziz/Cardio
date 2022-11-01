@@ -28,6 +28,12 @@ const User = new Schema(
       type: Boolean,
       default: false,
     },
+    compterendu: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Report",
+      },
+    ],
   },
   opts
 );

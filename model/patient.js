@@ -20,14 +20,35 @@ const Patient = new Schema(
     birthdate: Date,
     poids: {
       type: Number,
+      default: "/",
     },
     taille: {
       type: Number,
+      default: "/",
     },
     saturation: {
       type: String,
+      default: "/",
+      trim: true,
     },
-    
+    ta: {
+      type: String,
+      default: "/",
+      trim: true,
+    },
+    blood: {
+      groupe: {
+        type: String,
+        default: "",
+        trim: true,
+      },
+      rhesus: {
+        type: String,
+        default: "",
+        trim: true,
+      },
+    },
+
     phone: {
       type: String,
       trim: true,
@@ -59,7 +80,21 @@ const Patient = new Schema(
           default: "/",
         },
         date: Date,
+        time: String,
         acte: String,
+        poids: {
+          type: Number,
+        },
+        taille: {
+          type: Number,
+        },
+        saturation: {
+          type: String,
+        },
+        ta: {
+          type: String,
+        },
+
         comment: {
           type: String,
           trim: true,
@@ -67,34 +102,111 @@ const Patient = new Schema(
         },
         compterendu: {
           isEmpty: Boolean,
-          atcd: String,
-          quality: String,
+          atcd: {
+            type: String,
+            trim: true,
+          },
+          quality: {
+            type: String,
+            trim: true,
+          },
           indication: {
             _id: false,
-            situs: String,
-            aorte: String,
-            valveAortique: String,
-            oreilletteGauche: String,
-            sia: String,
-            valveMitrale: String,
-            ventriculeGauche: {
-              motif: String,
-              dtd: String,
-              siv: String,
-              fe: String,
+            situs: {
+              type: String,
+              trim: true,
             },
-            siv: String,
-            cavitesDroites: String,
-            tricuspide: String,
-            arterePulmonaire: String,
-            pericarde: String,
+            aorte: {
+              type: String,
+              trim: true,
+            },
+            valveAortique: {
+              type: String,
+              trim: true,
+            },
+            oreilletteGauche: {
+              type: String,
+              trim: true,
+            },
+            sia: {
+              type: String,
+              trim: true,
+            },
+            valveMitrale: {
+              type: String,
+              trim: true,
+            },
+            ventriculeGauche: {
+              motif: {
+                type: String,
+                trim: true,
+              },
+              dtd: {
+                type: String,
+                trim: true,
+              },
+              siv: {
+                type: String,
+                trim: true,
+              },
+              fe: {
+                type: String,
+                trim: true,
+              },
+            },
+            siv: {
+              type: String,
+              trim: true,
+            },
+            cavitesDroites: {
+              type: String,
+              trim: true,
+            },
+            tricuspide: {
+              type: String,
+              trim: true,
+            },
+            arterePulmonaire: {
+              type: String,
+              trim: true,
+            },
+            pericarde: {
+              type: String,
+              trim: true,
+            },
           },
-          conclusion: String,
-          conduiteMedicale: String,
+          filter: {
+            type: String,
+            trim: true,
+          },
+          surveillanceperiod: Number,
+          period: {
+            type: String,
+            trim: true,
+          },
+          conclusion: {
+            type: String,
+            trim: true,
+          },
+          conduiteMedicale: {
+            type: String,
+            trim: true,
+          },
         },
         status: {
           type: String,
           default: "non",
+        },
+        createdBy: {
+          _id: false,
+          user: {
+            type: Schema.Types.ObjectId,
+            ref: "User",
+          },
+          date: {
+            type: Date,
+            default: Date.now,
+          },
         },
       },
     ],
@@ -136,7 +248,7 @@ Patient.virtual("address").get(function () {
   return this.city + ", " + this.wilaya;
 });
 Patient.virtual("saturationP").get(function () {
-  return this.saturation+" %";
+  return this.saturation + " %";
 });
 Patient.virtual("drlastname").get(function () {
   if (this.medecinref === "/") {
@@ -146,6 +258,12 @@ Patient.virtual("drlastname").get(function () {
   }
 });
 Patient.virtual("age").get(function () {
+  /*
+  age:{
+    value:Number
+    format:mois/année
+  }
+  */
   if (this.birthdate) {
     var now = moment();
     var bday = moment(this.birthdate);
@@ -156,6 +274,9 @@ Patient.virtual("age").get(function () {
   } else {
     return "/";
   }
+});
+Patient.virtual("groupage").get(function () {
+  return this.blood.groupe + this.blood.rhesus;
 });
 
 Patient.virtual("sortedConsultation").get(function () {

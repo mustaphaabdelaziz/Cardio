@@ -1,0 +1,140 @@
+<button
+  id="item2"
+  type="button"
+  class="btn btn-outline-success"
+  data-bs-toggle="modal"
+  data-bs-target="#newmedicament"
+>
+  <i class="bi bi-person-plus-fill me-2"></i>Ajouter
+</button>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="newmedicament"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Ajouter Médicament</h5>
+
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+
+      <div class="modal-body">
+        <form
+          class="row g-3 needs-validation"
+          action="/medicaments"
+          id="medicament"
+          method="POST"
+          autocomplete="off"
+          novalidate
+        >
+          <div class="form-floating">
+            <input
+              id="idcommercialname"
+              name="medicament[commercialname]"
+              type="text"
+              class="form-control"
+              style="text-transform: capitalize"
+              autofocus
+              required
+            />
+            <label for="idcommercialname" class="form-label">Nom Commercial</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+
+          <div class="form-floating">
+            <input
+              id="iddci"
+              name="medicament[dci]"
+              style="text-transform: capitalize"
+              type="text"
+              class="form-control"
+              required
+            />
+            <label for="iddci" class="form-label">DCI</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <div class="form-floating">
+            <input
+              id="iddosage"
+              name="medicament[dosage]"
+              style="text-transform: capitalize"
+              type="text"
+              class="form-control"
+              required
+            />
+            <label for="iddosage" class="form-label">Dosage</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+         
+          <div class="form-floating">
+            <select
+              id="idform"
+              name="medicament[form]"
+              class="form-select"
+              required
+            >
+              <option selected disabled value="">Form</option>
+              <option class="option" value="Bte">Bte</option>
+              <option class="option" value="Tube">Tube</option>
+              <option class="option" value="Flc">Flc</option>
+            </select>
+            <label for="idform" class="form-label">Form</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <div class="form-floating">
+            <input
+              id="idtherapeutique"
+              name="medicament[therapeutique]"
+              style="text-transform: capitalize"
+              type="text"
+              class="form-control"
+            />
+            <label for="idtherapeutique" class="form-label">C.Therapeutique</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <div class="form-floating">
+            <input
+              id="idlaboratoire"
+              name="medicament[laboratoire]"
+              type="text"
+              class="form-control"
+              style="text-transform: capitalize"
+              
+            />
+            <label for="idlaboratoire" class="form-label">Laboratoire</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+               
+        
+          <div class="modal-footer mt-4">
+            <button
+              type="button"
+              class="btn btn-outline-danger bg-gradient"
+              data-bs-dismiss="modal"
+            >
+              Annuler
+            </button>
+            <button class="btn btn-outline-success">Ajouter</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $("#newmedicament").on("shown.bs.modal", function () {
+    $(this).find("[autofocus]").focus();
+  });
+</script>

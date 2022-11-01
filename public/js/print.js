@@ -950,26 +950,574 @@ function getBase64ImageFromURL(url) {
     img.src = url;
   });
 }
+function getText(paramater, unite, title, stylingText, stylingBloc) {
+  return {
+    text: [
+      {
+        text: `${title}     `,
+        ...stylingText,
+      },
+      {
+        text: `${paramater} ${unite}`,
+      },
+    ],
+    // [left, top, right, bottom]
+    ...stylingBloc,
+  };
+}
 
-function printCompteRendu(consultationID) {
-  const consultation = patient.consultation.filter(
+function printCompteRendu(consultationID, patientID) {
+  let patient;
+  let consultation;
+  if (patientID != "non") {
+    patient = patients.filter((patient) => patient._id == patientID);
+    patient = patient[0];
+  } else {
+    patient = selectedPatient;
+  }
+  consultation = patient.consultation.filter(
     (acte) => acte._id == consultationID
   );
-  console.log(consultation);
-  this.getBase64ImageFromURL("../assets/ENTETE.jpg")
+  consultation = consultation[0];
+
+  this.getBase64ImageFromURL("../assets/ENTETE.PNG")
     .then((url) => {
-      let docDefinition = {
+      let definition = {
         pageSize: "A4",
         pageOrientation: "portrait",
         // [left, top, right, bottom]
-        pageMargins: [10, 10, 10, 10],
+        pageMargins: [1, 10, 10, 10],
 
         header: {
           image: url,
           width: 570,
           height: 90,
-          margin: [0, 0, 0, 0],
+          margin: [5, 0, 0, 0],
         },
+      };
+      let poids, taille, saturation, ta;
+      /*  compterendu[
+        atcd,quality,situs,aorte,valveAortique,oreilletteGauche,sia] 
+        */
+      let compterendu = {};
+      let compterenduTextValue = [];
+      let patientStyle = {
+        alignment: "left",
+        color: "#061e30",
+        bold: true,
+      };
+
+      let columns = [
+        {
+          width: "*",
+          alignment: "center",
+          margin: [],
+          stack: [
+            {
+              text: [
+                {
+                  text: `Nom:   `,
+                  alignment: "left",
+                  color: "#061e30",
+                  bold: true,
+                  // [left, top, right, bottom]
+                },
+                {
+                  text: ` ${patient.lastname}`,
+                },
+              ],
+              margin: [20, 0, 0, 0],
+            },
+            {
+              text: [
+                {
+                  text: `Prénom:   `,
+                  alignment: "left",
+                  color: "#061e30",
+                  bold: true,
+                  // [left, top, right, bottom]
+                },
+                {
+                  text: ` ${patient.firstname}`,
+                },
+              ],
+              margin: [20, 10, 0, 0],
+            },
+            {
+              text: [
+                {
+                  text: `Père:   `,
+                  alignment: "left",
+                  color: "#061e30",
+                  bold: true,
+                  // [left, top, right, bottom]
+                },
+                {
+                  text: ` ${patient.father}`,
+                },
+              ],
+              margin: [20, 10, 0, 0],
+            },
+          ],
+        },
+        {
+          width: "*",
+          stack: [
+            {
+              text: [
+                {
+                  text: `Age:   `,
+                  alignment: "left",
+                  color: "#061e30",
+                  bold: true,
+                  // [left, top, right, bottom]
+                },
+                {
+                  text: `${moment(patient.birthdate).format("DD/MM/YYYY")} (${
+                    patient.age
+                  })`,
+                },
+              ],
+              margin: [20, 0, 0, 0],
+            },
+            {
+              text: [
+                {
+                  text: `Tel:   `,
+                  alignment: "left",
+                  color: "#061e30",
+                  bold: true,
+                  // [left, top, right, bottom]
+                },
+                {
+                  text: `${patient.phone}`,
+                },
+              ],
+              margin: [20, 10, 0, 0],
+            },
+            {
+              text: [
+                {
+                  text: `Addresse:   `,
+                  alignment: "left",
+                  color: "#061e30",
+                  bold: true,
+                  // [left, top, right, bottom]
+                },
+                {
+                  text: `${patient.address}`,
+                },
+              ],
+              margin: [20, 10, 0, 0],
+            },
+          ],
+        },
+      ];
+      let stack = [];
+      if (consultation.poids) {
+        // [parameters,unite,title,stylingText,stylingBloc]
+        poids = getText(consultation.poids, "kg", "Poids:", patientStyle, {
+          margin: [20, 0, 0, 0],
+        });
+        stack.push(poids);
+      }
+      if (consultation.taille) {
+        // [parameters,unite,title,styling,margin]
+        taille = getText(consultation.taille, "cm", "Taille:", patientStyle, {
+          margin: [20, 10, 0, 0],
+        });
+        stack.push(taille);
+      }
+      if (consultation.saturation) {
+        // [parameters,unite,title,styling,margin]
+        saturation = getText(
+          consultation.saturation,
+          "%",
+          "Saturation:",
+          patientStyle,
+          {
+            margin: [20, 10, 0, 0],
+          }
+        );
+        stack.push(saturation);
+      }
+      if (consultation.ta) {
+        // [parameters,unite,title,styling,margin]
+        ta = getText(consultation.ta, "", "TA:", patientStyle, {
+          margin: [20, 10, 0, 0],
+        });
+        stack.push(ta);
+      }
+
+      columns.push({
+        width: "*",
+        stack: [...stack],
+      });
+      if (consultation.compterendu.atcd) {
+        // [parameters,unite,title,styling,margin]
+        compterendu.atcd = getText(
+          consultation.compterendu.atcd,
+          "",
+          "- ATCD:",
+          {
+            alignment: "left",
+            bold: true,
+          },
+          {
+            alignment: "left",
+            margin: [10, 15, 0, 0],
+          }
+        );
+        compterenduTextValue.push(compterendu.atcd);
+      }
+      if (consultation.compterendu.quality) {
+        // [parameters,unite,title,styling,margin]
+        compterendu.quality = getText(
+          consultation.compterendu.quality,
+          "",
+          "- Quality:",
+          { alignment: "left", bold: true },
+          {
+            alignment: "left",
+            margin: [10, 7, 0, 0],
+          }
+        );
+        compterenduTextValue.push(compterendu.quality);
+      }
+      compterenduTextValue.push({
+        text: `Indication:`,
+        fontSize: 16,
+        bold: true,
+        decoration: "underline",
+        //[left, top, right, bottom]
+        margin: [10, 20, 0, 0],
+      });
+      if (consultation.compterendu.indication.situs) {
+        // [parameters,unite,title,styling,margin]
+        compterendu.situe = getText(
+          consultation.compterendu.indication.situs,
+          "",
+          "- Situs:",
+          { alignment: "left", bold: true },
+          {
+            alignment: "left",
+            margin: [13, 7, 0, 0],
+          }
+        );
+        compterenduTextValue.push(compterendu.situe);
+      }
+      if (consultation.compterendu.indication.aorte) {
+        // [parameters,unite,title,styling,margin]
+        compterendu.aorte = getText(
+          consultation.compterendu.indication.aorte,
+          "",
+          "- Aorte:",
+          { alignment: "left", bold: true },
+          {
+            alignment: "left",
+            //[left, top, right, bottom]
+            margin: [13, 7, 0, 0],
+          }
+        );
+        compterenduTextValue.push(compterendu.aorte);
+      }
+      if (consultation.compterendu.indication.oreilletteGauche) {
+        // [parameters,unite,title,styling,margin]
+        compterendu.oreilletteGauche = getText(
+          consultation.compterendu.indication.oreilletteGauche,
+          "",
+          "- Oreillette Gauche:",
+          { alignment: "left", bold: true },
+          {
+            alignment: "left",
+            //[left, top, right, bottom]
+            margin: [13, 7, 0, 0],
+          }
+        );
+        compterenduTextValue.push(compterendu.oreilletteGauche);
+      }
+      if (consultation.compterendu.indication.sia) {
+        // [parameters,unite,title,styling,margin]
+
+        compterendu.sia = getText(
+          consultation.compterendu.indication.sia,
+          "",
+          "- SIA:",
+          { alignment: "left", bold: true },
+          {
+            alignment: "left",
+            //[left, top, right, bottom]
+            margin: [13, 7, 0, 0],
+          }
+        );
+        compterenduTextValue.push(compterendu.sia);
+      }
+      if (consultation.compterendu.indication.valveAortique) {
+        // [parameters,unite,title,styling,margin]
+        compterendu.valveAortique = getText(
+          consultation.compterendu.indication.valveAortique,
+          "",
+          "- Valve Aortique:",
+          { alignment: "left", bold: true },
+          {
+            alignment: "left",
+            //[left, top, right, bottom]
+            margin: [13, 7, 0, 0],
+          }
+        );
+        compterenduTextValue.push(compterendu.valveAortique);
+      }
+      if (consultation.compterendu.indication.valveMitrale) {
+        // [parameters,unite,title,styling,margin]
+        compterendu.valveMitrale = getText(
+          consultation.compterendu.indication.valveMitrale,
+          "",
+          "- Valve Mitrale:",
+          { alignment: "left", bold: true },
+          {
+            alignment: "left",
+            //[left, top, right, bottom]
+            margin: [13, 7, 0, 0],
+          }
+        );
+        compterenduTextValue.push(compterendu.valveMitrale);
+      }
+      if (consultation.compterendu.indication.ventriculeGauche.motif) {
+        // [parameters,unite,title,styling,margin]
+        let motif = getText(
+          consultation.compterendu.indication.ventriculeGauche.motif,
+          "",
+          "- Ventricule Gauche:",
+          { alignment: "left", bold: true },
+          {
+            alignment: "left",
+            //[left, top, right, bottom]
+            margin: [13, 7, 0, 0],
+          }
+        );
+        compterenduTextValue.push(motif);
+      }
+      // this is for DTD, SIV, FE
+      let ventriculeGauche = {
+        text: [],
+        alignment: "left",
+        margin: [100, 15, 0, 5],
+      };
+      if (consultation.compterendu.indication.ventriculeGauche.dtd) {
+        // [parameters,unite,title,styling,margin]
+        let dtd = getText(
+          consultation.compterendu.indication.ventriculeGauche.dtd,
+          "           ",
+          "DTD:",
+          { bold: true },
+          {}
+        );
+        ventriculeGauche.text.push(dtd);
+      }
+      if (consultation.compterendu.indication.ventriculeGauche.siv) {
+        // [parameters,unite,title,styling,margin]
+        let siv = getText(
+          consultation.compterendu.indication.ventriculeGauche.siv,
+          "           ",
+          "SIV:",
+          { bold: true },
+          {}
+        );
+        ventriculeGauche.text.push(siv);
+      }
+      if (consultation.compterendu.indication.ventriculeGauche.fe) {
+        // [parameters,unite,title,styling,margin]
+        let fe = getText(
+          consultation.compterendu.indication.ventriculeGauche.fe,
+          "           ",
+          "FE:",
+          { bold: true },
+          {}
+        );
+        ventriculeGauche.text.push(fe);
+      }
+      compterenduTextValue.push(ventriculeGauche);
+      if (consultation.compterendu.indication.siv) {
+        // [parameters,unite,title,styling,margin]
+        compterendu.siv = getText(
+          consultation.compterendu.indication.siv,
+          "",
+          "- SIV:",
+          { alignment: "left", bold: true },
+          {
+            alignment: "left",
+            //[left, top, right, bottom]
+            margin: [13, 7, 0, 0],
+          }
+        );
+        compterenduTextValue.push(compterendu.siv);
+      }
+      if (consultation.compterendu.indication.cavitesDroites) {
+        // [parameters,unite,title,styling,margin]
+        compterendu.cavitesDroites = getText(
+          consultation.compterendu.indication.cavitesDroites,
+          "",
+          "- Cavites Droites:",
+          { alignment: "left", bold: true },
+          {
+            alignment: "left",
+            //[left, top, right, bottom]
+            margin: [13, 7, 0, 0],
+          }
+        );
+        compterenduTextValue.push(compterendu.cavitesDroites);
+      }
+      if (consultation.compterendu.indication.tricuspide) {
+        // [parameters,unite,title,styling,margin]
+        compterendu.tricuspide = getText(
+          consultation.compterendu.indication.tricuspide,
+          "",
+          "- Tricuspide:",
+          { alignment: "left", bold: true },
+          {
+            alignment: "left",
+            //[left, top, right, bottom]
+            margin: [13, 7, 0, 0],
+          }
+        );
+        compterenduTextValue.push(compterendu.tricuspide);
+      }
+      if (consultation.compterendu.indication.arterePulmonaire) {
+        // [parameters,unite,title,styling,margin]
+        compterendu.arterePulmonaire = getText(
+          consultation.compterendu.indication.arterePulmonaire,
+          "",
+          "- Artere Pulmonaire:",
+          { alignment: "left", bold: true },
+          {
+            alignment: "left",
+            //[left, top, right, bottom]
+            margin: [13, 7, 0, 0],
+          }
+        );
+        compterenduTextValue.push(compterendu.arterePulmonaire);
+      }
+      if (consultation.compterendu.indication.pericarde) {
+        // [parameters,unite,title,styling,margin]
+        compterendu.pericarde = getText(
+          consultation.compterendu.indication.pericarde,
+          "",
+          "- Pericarde:",
+          { alignment: "left", bold: true },
+          {
+            alignment: "left",
+            //[left, top, right, bottom]
+            margin: [13, 7, 0, 0],
+          }
+        );
+        compterenduTextValue.push(compterendu.pericarde);
+      }
+      compterenduTextValue.push({
+        text: `Conclusion:`,
+        fontSize: 16,
+        bold: true,
+        decoration: "underline",
+        //[left, top, right, bottom]
+        margin: [10, 20, 0, 0],
+      });
+
+      if (consultation.compterendu.conclusion) {
+        // [parameters,unite,title,styling,margin]
+        compterendu.conclusion = getText(
+          consultation.compterendu.conclusion,
+          "",
+          "-",
+          {},
+          {
+            alignment: "left",
+            //[left, top, right, bottom]
+            margin: [13, 7, 0, 0],
+          }
+        );
+
+        compterenduTextValue.push(compterendu.conclusion);
+      }
+      compterenduTextValue.push({
+        text: `Conduite Medicale:`,
+        fontSize: 16,
+        bold: true,
+        decoration: "underline",
+        //[left, top, right, bottom]
+        margin: [10, 20, 0, 0],
+      });
+      if (
+        consultation.compterendu.conduiteMedicale &&
+        consultation.compterendu.filter
+      ) {
+        if (consultation.compterendu.filter == "Surveillance médical") {
+          // [parameters,unite,title,styling,margin]
+          compterendu.surveillanceperiod = getText(
+            consultation.compterendu.filter +
+              ", " +
+              consultation.compterendu.surveillanceperiod +
+              " " +
+              consultation.compterendu.period,
+            "",
+            "-",
+            {},
+            {
+              alignment: "left",
+              //[left, top, right, bottom]
+              margin: [13, 7, 0, 0],
+            }
+          );
+          compterenduTextValue.push(compterendu.surveillanceperiod);
+          compterendu.conduiteMedicale = getText(
+            consultation.compterendu.conduiteMedicale,
+            "",
+            "-",
+            {},
+            {
+              alignment: "left",
+              //[left, top, right, bottom]
+              margin: [13, 7, 0, 0],
+            }
+          );
+          compterenduTextValue.push(compterendu.conduiteMedicale);
+        } else {
+          compterendu.surveillanceperiod = getText(
+            consultation.compterendu.filter,
+            "",
+            "-",
+            {},
+            {
+              alignment: "left",
+              //[left, top, right, bottom]
+              margin: [13, 7, 0, 0],
+            }
+          );
+          compterenduTextValue.push(compterendu.surveillanceperiod);
+          // [parameters,unite,title,styling,margin]
+          compterendu.conduiteMedicale = getText(
+            consultation.compterendu.conduiteMedicale,
+            "",
+            "-",
+            {},
+            {
+              alignment: "left",
+              //[left, top, right, bottom]
+              margin: [13, 7, 0, 0],
+            }
+          );
+        }
+        compterenduTextValue.push(compterendu.conduiteMedicale);
+      }
+      compterenduTextValue.push({
+        text: "Confraterellement",
+        alignment: "right",
+        fontSize: 14,
+        //[left, top, right, bottom]
+        margin: [50, 20, 50, 0],
+        decoration: "underline",
+      });
+
+      let docDefinition = {
+        ...definition,
         content: [
           {
             stack: [
@@ -983,639 +1531,13 @@ function printCompteRendu(consultationID) {
                 decoration: "underline",
               },
               {
-                columns: [
-                  {
-                    width: "*",
-                    alignment: "center",
-                    margin: [],
-                    stack: [
-                      {
-                        text: [
-                          {
-                            text: `Nom:   `,
-                            alignment: "left",
-                            color: "#061e30",
-                            bold: true,
-                            // [left, top, right, bottom]
-                          },
-                          {
-                            text: ` ${patient.lastname}`,
-                          },
-                        ],
-                        margin: [20, 0, 0, 0],
-                      },
-                      {
-                        text: [
-                          {
-                            text: `Prénom:   `,
-                            alignment: "left",
-                            color: "#061e30",
-                            bold: true,
-                            // [left, top, right, bottom]
-                          },
-                          {
-                            text: ` ${patient.firstname}`,
-                          },
-                        ],
-                        margin: [20, 10, 0, 0],
-                      },
-                      {
-                        text: [
-                          {
-                            text: `Père:   `,
-                            alignment: "left",
-                            color: "#061e30",
-                            bold: true,
-                            // [left, top, right, bottom]
-                          },
-                          {
-                            text: ` ${patient.father}`,
-                          },
-                        ],
-                        margin: [20, 10, 0, 0],
-                      },
-                    ],
-                  },
-                  {
-                    width: "*",
-                    stack: [
-                      {
-                        text: [
-                          {
-                            text: `Age:   `,
-                            alignment: "left",
-                            color: "#061e30",
-                            bold: true,
-                            // [left, top, right, bottom]
-                          },
-                          {
-                            text: `${moment(patient.birthdate).format(
-                              "DD/MM/YYYY"
-                            )} (${patient.age})`,
-                          },
-                        ],
-                        margin: [20, 0, 0, 0],
-                      },
-                      {
-                        text: [
-                          {
-                            text: `Poids:   `,
-                            alignment: "left",
-                            color: "#061e30",
-                            bold: true,
-                            // [left, top, right, bottom]
-                          },
-                          {
-                            text: `${patient.poids} kg`,
-                          },
-                        ],
-                        margin: [20, 10, 0, 0],
-                      },
-                      {
-                        text: [
-                          {
-                            text: `Taille:   `,
-                            alignment: "left",
-                            color: "#061e30",
-                            bold: true,
-                            // [left, top, right, bottom]
-                          },
-                          {
-                            text: `${patient.taille} cm`,
-                          },
-                        ],
-                        margin: [20, 10, 0, 0],
-                      },
-                    ],
-                  },
-                  {
-                    width: "*",
-                    stack: [
-                      {
-                        text: [
-                          {
-                            text: `Saturation:   `,
-                            alignment: "left",
-                            color: "#061e30",
-                            bold: true,
-                            // [left, top, right, bottom]
-                          },
-                          {
-                            text: `${patient.saturationP}`,
-                          },
-                        ],
-                        margin: [20, 0, 0, 0],
-                      },
-                      {
-                        text: [
-                          {
-                            text: `Tel:   `,
-                            alignment: "left",
-                            color: "#061e30",
-                            bold: true,
-                            // [left, top, right, bottom]
-                          },
-                          {
-                            text: `${patient.phone}`,
-                          },
-                        ],
-                        margin: [20, 10, 0, 0],
-                      },
-                      {
-                        text: [
-                          {
-                            text: `Addresse:   `,
-                            alignment: "left",
-                            color: "#061e30",
-                            bold: true,
-                            // [left, top, right, bottom]
-                          },
-                          {
-                            text: `${patient.address}`,
-                          },
-                        ],
-                        margin: [20, 10, 0, 0],
-                      },
-                    ],
-                  },
-                ],
+                columns: [...columns],
               },
               {
                 text: "________________________________________________________________________________________________________",
                 alignment: "center",
               },
-              // ============================= ATCD ============================
-              {
-                text: [
-                  {
-                    text: `${
-                      consultation[0].compterendu.atcd === "" ? "" : "- ATCD: "
-                    }`,
-                    bold: true,
-                  },
-                  {
-                    text: `${
-                      consultation[0].compterendu.atcd === ""
-                        ? ""
-                        : consultation[0].compterendu.atcd
-                    }`,
-                  },
-                ],
-                alignment: "left",
-
-                //[left, top, right, bottom]
-                margin: [10, 15, 0, 0],
-              },
-              // ============================= Quality Technique ============================
-              {
-                text: [
-                  {
-                    text: `${
-                      consultation[0].compterendu.quality === ""
-                        ? ""
-                        : "- Quality Technique:"
-                    }`,
-                    bold: true,
-                  },
-                  {
-                    text: `- ${
-                      consultation[0].compterendu.quality === ""
-                        ? ""
-                        : consultation[0].compterendu.quality
-                    }`,
-                  },
-                ],
-
-                //[left, top, right, bottom]
-                margin: [10, 7, 0, 00],
-              },
-              // ============================= Indication ============================
-              {
-                text: `Indication:`,
-                fontSize: 16,
-                bold: true,
-                decoration: "underline",
-                //[left, top, right, bottom]
-                margin: [10, 20, 0, 0],
-              },
-              // ============================= Situs ============================
-              {
-                text: [
-                  {
-                    text: `${
-                      consultation[0].compterendu.indication.situs === ""
-                        ? ""
-                        : "- Situs:"
-                    }`,
-                    bold: true,
-                  },
-                  {
-                    text: `  ${
-                      consultation[0].compterendu.indication.situs === ""
-                        ? ""
-                        : consultation[0].compterendu.indication.situs
-                    }`,
-                  },
-                ],
-                alignment: "left",
-                //[left, top, right, bottom]
-                margin: [13, 7, 0, 0],
-              },
-              // ============================= Aorte ============================
-              {
-                text: [
-                  {
-                    text: `${
-                      consultation[0].compterendu.indication.aorte === ""
-                        ? ""
-                        : "- Aorte:"
-                    }`,
-                    bold: true,
-                  },
-                  {
-                    text: `  ${
-                      consultation[0].compterendu.indication.aorte === ""
-                        ? ""
-                        : consultation[0].compterendu.indication.aorte
-                    }`,
-                  },
-                ],
-                alignment: "left",
-                //[left, top, right, bottom]
-                margin: [13, 7, 0, 0],
-              },
-              // ============================= Valve Aortique ============================
-              {
-                text: [
-                  {
-                    text: `${
-                      consultation[0].compterendu.indication.valveAortique ===
-                      ""
-                        ? ""
-                        : "- Valve Aortique:"
-                    }`,
-                    bold: true,
-                  },
-                  {
-                    text: `  ${
-                      consultation[0].compterendu.indication.valveAortique ===
-                      ""
-                        ? ""
-                        : consultation[0].compterendu.indication.valveAortique
-                    }`,
-                  },
-                ],
-                alignment: "left",
-
-                //[left, top, right, bottom]
-                margin: [13, 7, 0, 0],
-              },
-              // ============================= Oreillette Gauche ============================
-              {
-                text: [
-                  {
-                    text: `${
-                      consultation[0].compterendu.indication
-                        .oreilletteGauche === ""
-                        ? ""
-                        : "- Oreillette Gauche:"
-                    }`,
-                    bold: true,
-                  },
-                  {
-                    text: `  ${
-                      consultation[0].compterendu.indication
-                        .oreilletteGauche === ""
-                        ? ""
-                        : consultation[0].compterendu.indication
-                            .oreilletteGauche
-                    }`,
-                  },
-                ],
-                alignment: "left",
-
-                //[left, top, right, bottom]
-                margin: [13, 7, 0, 0],
-              },
-              // ============================= Sia ============================
-              {
-                text: [
-                  {
-                    text: `${
-                      consultation[0].compterendu.indication.sia === ""
-                        ? ""
-                        : "- SIA:"
-                    }`,
-                    bold: true,
-                  },
-                  {
-                    text: `  ${
-                      consultation[0].compterendu.indication.sia === ""
-                        ? ""
-                        : consultation[0].compterendu.indication.sia
-                    }`,
-                  },
-                ],
-                alignment: "left",
-
-                //[left, top, right, bottom]
-                margin: [13, 7, 0, 0],
-              },
-              // ============================= Valve Mitrale ============================
-              {
-                text: [
-                  {
-                    text: `${
-                      consultation[0].compterendu.indication.valveMitrale === ""
-                        ? ""
-                        : "- Valve Mitrale:"
-                    }`,
-                    bold: true,
-                  },
-                  {
-                    text: `  ${
-                      consultation[0].compterendu.indication.valveMitrale === ""
-                        ? ""
-                        : consultation[0].compterendu.indication.valveMitrale
-                    }`,
-                  },
-                ],
-                alignment: "left",
-
-                //[left, top, right, bottom]
-                margin: [13, 7, 0, 0],
-              },
-              // ============================= Ventricule Gauche ============================
-              {
-                text: [
-                  {
-                    text: `${
-                      consultation[0].compterendu.indication.ventriculeGauche
-                        .motif === ""
-                        ? ""
-                        : "- Ventricule Gauche:"
-                    }`,
-                    bold: true,
-                  },
-                  {
-                    text: `  ${
-                      consultation[0].compterendu.indication.ventriculeGauche
-                        .motif === ""
-                        ? ""
-                        : consultation[0].compterendu.indication
-                            .ventriculeGauche.motif
-                    }`,
-                  },
-                ],
-                alignment: "left",
-
-                //[left, top, right, bottom]
-                margin: [13, 7, 0, 0],
-              },
-
-              // ============================= DTD, SIV, FE ============================
-              {
-                text: [
-                  {
-                    text: `${
-                      consultation[0].compterendu.indication.ventriculeGauche
-                        .dtd === ""
-                        ? ""
-                        : "DTD:"
-                    }`,
-                    bold: true,
-                  },
-                  {
-                    text: `  ${
-                      consultation[0].compterendu.indication.ventriculeGauche
-                        .dtd === ""
-                        ? ""
-                        : consultation[0].compterendu.indication
-                            .ventriculeGauche.dtd
-                    }            `,
-                    // margin: [90, 5, 0, 0],
-                  },
-                  // =============================
-                  {
-                    text: `${
-                      consultation[0].compterendu.indication.ventriculeGauche
-                        .siv === ""
-                        ? ""
-                        : "SIV:"
-                    }`,
-                    bold: true,
-                  },
-                  {
-                    text: `  ${
-                      consultation[0].compterendu.indication.ventriculeGauche
-                        .siv === ""
-                        ? ""
-                        : consultation[0].compterendu.indication
-                            .ventriculeGauche.siv
-                    }            `,
-                    // margin: [95, 5, 0, 0],
-                  },
-                  // =============================
-                  {
-                    text: `${
-                      consultation[0].compterendu.indication.ventriculeGauche
-                        .fe === ""
-                        ? ""
-                        : "FE:"
-                    }`,
-                    bold: true,
-                  },
-                  {
-                    text: `  ${
-                      consultation[0].compterendu.indication.ventriculeGauche
-                        .fe === ""
-                        ? ""
-                        : consultation[0].compterendu.indication
-                            .ventriculeGauche.fe
-                    }            `,
-                    // margin: [95, 5, 0, 0],
-                  },
-                ],
-                alignment: "left",
-
-                //[left, top, right, bottom]
-                margin: [100, 5, 0, 0],
-              },
-              // ============================= SIV ============================
-              {
-                text: [
-                  {
-                    text: `${
-                      consultation[0].compterendu.indication.siv === ""
-                        ? ""
-                        : "- Siv:"
-                    }`,
-                    bold: true,
-                  },
-                  {
-                    text: `  ${
-                      consultation[0].compterendu.indication.siv === ""
-                        ? ""
-                        : consultation[0].compterendu.indication.siv
-                    }`,
-                  },
-                ],
-                alignment: "left",
-
-                //[left, top, right, bottom]
-                margin: [13, 7, 0, 0],
-              },
-              // ============================= Cavites Droites ============================
-              {
-                text: [
-                  {
-                    text: `${
-                      consultation[0].compterendu.indication.cavitesDroites ===
-                      ""
-                        ? ""
-                        : "- Cavites Droites:"
-                    }`,
-                    bold: true,
-                  },
-                  {
-                    text: `  ${
-                      consultation[0].compterendu.indication.cavitesDroites ===
-                      ""
-                        ? ""
-                        : consultation[0].compterendu.indication.cavitesDroites
-                    }`,
-                  },
-                ],
-                alignment: "left",
-
-                //[left, top, right, bottom]
-                margin: [13, 7, 0, 0],
-              },
-              // ============================= Tricuspide ============================
-              {
-                text: [
-                  {
-                    text: `${
-                      consultation[0].compterendu.indication.tricuspide === ""
-                        ? ""
-                        : "- Tricuspide:"
-                    }`,
-                    bold: true,
-                  },
-                  {
-                    text: `  ${
-                      consultation[0].compterendu.indication.tricuspide === ""
-                        ? ""
-                        : consultation[0].compterendu.indication.tricuspide
-                    }`,
-                  },
-                ],
-                alignment: "left",
-
-                //[left, top, right, bottom]
-                margin: [13, 7, 0, 0],
-              },
-              // ============================= Artere Pulmonaire ============================
-              {
-                text: [
-                  {
-                    text: `${
-                      consultation[0].compterendu.indication
-                        .arterePulmonaire === ""
-                        ? ""
-                        : "- Artere Pulmonaire:"
-                    }`,
-                    bold: true,
-                  },
-                  {
-                    text: `  ${
-                      consultation[0].compterendu.indication
-                        .arterePulmonaire === ""
-                        ? ""
-                        : consultation[0].compterendu.indication
-                            .arterePulmonaire
-                    }`,
-                  },
-                ],
-                alignment: "left",
-
-                //[left, top, right, bottom]
-                margin: [13, 7, 0, 0],
-              },
-              // ============================= Pericarde ============================
-              {
-                text: [
-                  {
-                    text: `${
-                      consultation[0].compterendu.indication.pericarde === ""
-                        ? ""
-                        : "- Pericarde:"
-                    }`,
-                    bold: true,
-                  },
-                  {
-                    text: `  ${
-                      consultation[0].compterendu.indication.pericarde === ""
-                        ? ""
-                        : consultation[0].compterendu.indication.pericarde
-                    }`,
-                  },
-                ],
-                alignment: "left",
-
-                //[left, top, right, bottom]
-                margin: [13, 7, 0, 0],
-              },
-              // ============================= Conclusion ============================
-
-              {
-                text: `Conclusion:`,
-                fontSize: 16,
-                bold: true,
-                decoration: "underline",
-                //[left, top, right, bottom]
-                margin: [10, 20, 0, 0],
-              },
-              {
-                text: [
-                  {
-                    text: `${consultation[0].compterendu.conclusion}`,
-                  },
-                ],
-                alignment: "left",
-
-                //[left, top, right, bottom]
-                margin: [13, 7, 0, 0],
-              },
-              // ============================= Conduite Medicale ============================
-              {
-                text: `Conduite Medicale:`,
-                fontSize: 16,
-                bold: true,
-                decoration: "underline",
-                //[left, top, right, bottom]
-                margin: [10, 20, 0, 0],
-              },
-              {
-                text: [
-                  {
-                    text: `${consultation[0].compterendu.conduiteMedicale}`,
-                  },
-                ],
-                alignment: "left",
-
-                //[left, top, right, bottom]
-                margin: [13, 7, 0, 0],
-              },
-              // ============================= Confraterellement =============================
-              {
-                text: "Confraterellement",
-                alignment: "right",
-                fontSize: 14,
-                //[left, top, right, bottom]
-                margin: [50, 20, 50, 0],
-                decoration: "underline",
-              },
+              ...compterenduTextValue,
             ],
           },
         ],

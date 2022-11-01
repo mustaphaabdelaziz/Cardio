@@ -17,7 +17,7 @@ module.exports.showc = async (req, res) => {
 };
 
 module.exports.addActe = async (req, res) => {
-  let { dateacte, medecin, technicien, acte, comment, status } =
+  let { dateacte,time, medecin, technicien,poids,taille,saturation,ta, acte, comment, status } =
     req.body.consultation;
   const { id } = req.params;
   let tech, med;
@@ -31,7 +31,12 @@ module.exports.addActe = async (req, res) => {
           medecin: med,
           technicien: tech,
           date: dateacte,
+          time: time,
           acte: acte,
+          poids: poids,
+          taille: taille,
+          saturation: saturation,
+          ta: ta,
           comment: comment,
           status: status,
           compterendu: {
@@ -62,7 +67,7 @@ module.exports.deletePatientActe = async (req, res) => {
 module.exports.updatePatientActe = async (req, res) => {
   const { id, idacte } = req.params;
 
-  const { dateacte, acte, medecin, technicien, comment, status } =
+  const { dateacte,time, acte, medecin, technicien,poids, taille,saturation,ta, comment, status } =
     req.body.consultation;
   const state = status;
   let patient;
@@ -76,9 +81,14 @@ module.exports.updatePatientActe = async (req, res) => {
       {
         $set: {
           "consultation.$.date": dateacte,
+          "consultation.$.time": time,
           "consultation.$.acte": acte,
           "consultation.$.medecin": medecin,
           "consultation.$.technicien": technicien,
+          "consultation.$.poids": poids,
+          "consultation.$.taille": taille,
+          "consultation.$.saturation": saturation,
+          "consultation.$.ta": ta,
           "consultation.$.comment": comment,
           "consultation.$.status": state,
         },
@@ -93,9 +103,14 @@ module.exports.updatePatientActe = async (req, res) => {
       {
         $set: {
           "consultation.$.date": dateacte,
+          "consultation.$.time": time,
           "consultation.$.acte": acte,
           "consultation.$.medecin": medecin,
           "consultation.$.technicien": technicien,
+          "consultation.$.poids": poids,
+          "consultation.$.taille": taille,
+          "consultation.$.saturation": saturation,
+          "consultation.$.ta": ta,
           "consultation.$.comment": comment,
           "consultation.$.status": "non",
         },

@@ -39,8 +39,9 @@ module.exports.register = async (req, res) => {
   }
 };
 // =============== Login ==============================
-module.exports.login = (req, res) => {
+module.exports.login =  (req, res) => {
   req.flash("success", `Welcome Back ${req.user.username}`);
+
   const redirectUrl = req.session.returnTo || "/patient";
   delete req.session.returnTo;
   res.redirect(redirectUrl);
@@ -55,6 +56,7 @@ module.exports.logout = (req, res) => {
 };
 module.exports.updateUser = async (req, res) => {
   const { username, email, approved } = req.body.user;
+  const { privileges } = req.body;
   const { id } = req.params;
   //  const currentUser = req.user._id;
 
@@ -64,6 +66,7 @@ module.exports.updateUser = async (req, res) => {
       username,
       email,
       approved: approved === "on" ? true : false,
+      privileges,
     },
     { new: true }
   );
@@ -73,7 +76,6 @@ module.exports.updateUser = async (req, res) => {
 module.exports.deleteUser = async (req, res) => {
   const { userid } = req.params;
   await User.findByIdAndDelete(userid);
-  req.logout();
-  req.flash("success", "Goodbey");
-  res.redirect("/events");
+  req.flash("success", "Utilisateur a été supprimé");
+  res.redirect("/user");
 };

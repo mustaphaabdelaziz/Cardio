@@ -1,5 +1,6 @@
 
 function selectActe(acte, id) {
+  
   let technicien = document.getElementById("technicien-div-" + id);
   if (acte.value === "KT") {
     technicien.style.display = "";
@@ -7,16 +8,45 @@ function selectActe(acte, id) {
     technicien.style.display = "none";
   }
 }
-function selectActe2(id, acte) {
-  let technicien2 = document.getElementById("tech-" + id);
-  let select = document.getElementById(id).value;
+  function selectActe2(id, acte) {
+    let technicien2 = document.getElementById("tech-" + id);
+    let select = document.getElementById(id).value;
+  
+    if (acte === "KT" || select === "KT") {
+      technicien2.style.display = "";
+    } else {
+      technicien2.style.display = "none";
+    }
+  }
 
-  if (acte === "KT" || select === "KT") {
-    technicien2.style.display = "";
+function selectFilter2(filter, id) {
+  
+    let period = document.getElementById("surveillanceperiod-" + id);
+  let per = document.getElementById("period-" + id);
+
+  if (filter === "Surveillance médical") {
+    period.disabled ="";
+    per.disabled ="";
   } else {
-    technicien2.style.display = "none";
+    period.disabled ="disabled";
+    per.disabled ="disabled";
   }
 }
+
+function selectFilter(filter, id) {
+  
+  let period = document.getElementById("surveillanceperiod-" + id);
+  let per = document.getElementById("period-" + id);
+
+  if (filter.value === "Surveillance médical") {
+    period.disabled ="";
+    per.disabled ="";
+  } else {
+    period.disabled ="disabled";
+    per.disabled ="disabled";
+  }
+}
+
 function makeSubmenu(value, id) {
   let elementId;
   // console.log("id.lengh", id.length);

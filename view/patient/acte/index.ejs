@@ -2,6 +2,9 @@
 <div class="container-fluid mt-4">
   <div class="col m-auto bg-light rounded-5 p-2">
     <h2 class="mb-5 text-center text-success">Liste <%= acte %></h2>
+    <div class="row mb-4">
+      <span id="result" class="col-12 text-success"></span>
+    </div>
     <div class="d-flex mb-2 justify-content-center">
       <div class="form-floating col-3 me-2">
         <select
@@ -9,12 +12,12 @@
           name="age"
           class="form-select"
           required
-          onchange="filter(12, 2, 6)"
+          onchange="filter(4, 2, 6)"
         >
           <!-- <option selected disabled >Age</option> -->
           <option class="option" value="all" selected>Tous</option>
-          <option class="option" value="above">+12</option>
-          <option class="option" value="below">-12</option>
+          <option class="option" value="above">+4 ans</option>
+          <option class="option" value="below">-4 ans</option>
         </select>
 
         <label id="hide" for="acte" class="form-label">Age</label>
@@ -70,16 +73,20 @@
           <th scope="col">Age</th>
           <th scope="col">Téléphone</th>
           <th scope="col">Medecin</th>
+          <% if(acte == "KT"){ %> 
           <th scope="col">Technicien</th>
+          <% } %> 
           <th scope="col">Date acte</th>
-          <th scope="col">Commentaire</th>
+          <th scope="col">Motif</th>
+          <th scope="col">Compte Rendu</th>
           <th scope="col">Confirmé</th>
         </tr>
       </thead>
       <tbody id="tablebody">
-        <% var i=1 %> <% for (patient of patients){%>
+        <% var i=1 %>
+        <% for (patient of patients){%>
         <% for (consultation of patient.sortedConsultation){%>
-        <% if(consultation.acte.toLowerCase()===acte.toLowerCase()){%>
+        <% if(consultation.acte == acte){%>
         <tr>
           <th
             class="clickable"
@@ -92,13 +99,13 @@
             class="clickable"
             onclick="window.location='/patient/<%=patient.id%>'"
           >
-            <%= patient.lastname.toUpperCase()%>
+            <%= patient.lastname%>
           </td>
           <td
             class="clickable"
             onclick="window.location='/patient/<%=patient.id%>'"
           >
-            <%=patient.firstname.toUpperCase()%>
+            <%=patient.firstname%>
           </td>
           <td
             class="clickable"
@@ -116,14 +123,16 @@
             class="clickable"
             onclick="window.location='/patient/<%=patient.id%>'"
           >
-            Dr. <%=consultation.medecin.toUpperCase()%>
+            Dr. <%=consultation.medecin%>
           </td>
+          <% if(acte == "KT"){ %> 
           <td
             class="clickable"
             onclick="window.location='/patient/<%=patient.id%>'"
           >
-            <%=consultation.technicien.toUpperCase()%>
+            <%=consultation.technicien%>
           </td>
+          <% } %> 
           <td
             class="clickable"
             onclick="window.location='/patient/<%=patient.id%>'"
@@ -131,6 +140,17 @@
             <%=moment(consultation.date).format("DD/MM/YYYY")%>
           </td>
           <td class="text-center data"><%-include("../commentViewer")%></td>
+          <td>
+            <% if(!consultation.compterendu.isEmpty){%>
+            <button
+              class="btn btn-outline-secondary px-2 py-1 ms-2"
+              onclick="printCompteRendu('<%=consultation.id%>','<%=patient.id%>')"
+            >
+              <i class="bi bi-eye-fill px-1 py-1"></i>
+            </button>
+            <!-- delete comptrendu -->
+            <% }else{%> / <% } %>
+          </td>
           <% if (consultation.status==="oui"){%>
           <th class="p-3">
             <span class="rounded-pill badge bg-success">OUI</span>

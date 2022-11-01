@@ -29,7 +29,7 @@ router
   );
 router.route("/logout").get(isLoggedIn, logout);
 router
-  .route("/:id")
+  .route("/:userid")
   .get(isLoggedIn, catchAsync(showUserForm))
   .put(isLoggedIn, isAdmin, catchAsync(updateUser))
   .delete(isLoggedIn, isAdmin, catchAsync(deleteUser));

@@ -2,7 +2,7 @@
   type="button"
   class="btn me-2 btn-outline-warning bg-gradient px-2 py-1"
   data-bs-toggle="modal"
-  data-bs-target="#editcomptRendu-<%= consultation.id %>"
+  data-bs-target="#editcomptRendu-<%=i%>"
 >
   Modifier <i class="bi bi-clipboard2-pulse-fill"></i>
 </button>
@@ -10,7 +10,7 @@
 <!-- Modal -->
 <div
   class="modal fade"
-  id="editcomptRendu-<%= consultation.id %>"
+  id="editcomptRendu-<%=i%>"
   data-bs-keyboard="false"
   tabindex="-1"
   aria-labelledby="staticBackdropLabel"
@@ -20,7 +20,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="addcompt-<%= patient.id %>">
-          Ajouter Compte Rendu
+          Modifier Compte Rendu <%=moment(consultation.date).format("DD/MM/YYYY")%>
         </h5>
         <button
           type="button"
@@ -291,8 +291,65 @@
               rows="4"
               placeholder="Conclusion"
               style="text-transform: capitalize"
-            ><%= consultation.compterendu.conclusion %>
-          </textarea>
+            ><%= consultation.compterendu.conclusion %></textarea>
+          </div>
+          <div class="form-floating col-md-6">
+            <select
+              class="form-select"
+              id="filter-<%=i%>"
+              name="compteRendu[filter]"
+              onchange="selectFilter2(this.value,'<%=i%>')"
+               >
+               <option class="option" value="" disabled>Conduite Médicale</option>
+               <% for (conduitemedicale of conduitemedicales){ %> 
+                <% if (conduitemedicale == consultation.compterendu.filter){%> 
+              <option class="option" value="<%=conduitemedicale%>" selected><%=conduitemedicale%></option>
+              <% }else{ %> 
+                <option class="option" value="<%=conduitemedicale%>"><%=conduitemedicale%></option>
+              <% }} %>   
+             </select>
+            <label for="filter-<%=i%>" class="form-label">Conduite Médicale</label>
+            <div class="valid-feedback">Conduite Médicale</div>
+          </div>
+          <div class="form-floating col-md-3">
+            <input
+              class="form-control"
+              id="surveillanceperiod-<%=i%>"
+              name="compteRendu[surveillanceperiod]"
+              type="number"
+              value="<%= consultation.compterendu.surveillanceperiod %>"
+              
+            />
+
+            <label for="surveillanceperiod-<%=i%>" class="form-label"
+              >Surveillance periode</label
+            >
+            <div class="valid-feedback">BIEN</div>
+          </div>
+
+          <div class="form-floating col-md-3">
+            <select
+              class="form-select"
+              id="period-<%=i%>"
+              name="compteRendu[period]"
+             
+               >
+              
+               <% if ( consultation.compterendu.period == "Mois"){ %> 
+              <option class="option" value="Mois" selected>Mois</option>
+              <option class="option" value="An(s)">An(s)</option>
+            <% }else{ if( consultation.compterendu.period == "An(s)"){ %> 
+              <option class="option" value="Mois">Mois</option>
+              <option class="option" value="An(s)" selected>An(s)</option>
+              <% }else{ %> 
+                <option class="option" value="" selected disabled>Période</option>
+                <option class="option" value="Mois">Mois</option>
+                <option class="option" value="An(s)">An(s)</option>
+               
+                <% } }%> 
+            </select>
+            <label for="period-<%=i%>" class="form-label">Période</label>
+            <div class="valid-feedback">Période</div>
           </div>
           <div class="col-md-12">
             <textarea
@@ -300,7 +357,7 @@
               name="compteRendu[conduiteMedicale]"
               id="conduiteMedicale-<%=i%>"
               rows="4"
-              placeholder="conduite Médicale"
+              placeholder="Autres (conduite Médicale)"
               style="text-transform: capitalize"
             ><%= consultation.compterendu.conduiteMedicale %></textarea>
           </div>
@@ -326,3 +383,16 @@
     </div>
   </div>
 </div>
+<script >
+let period = document.getElementById("surveillanceperiod-" + '<%= i%>');
+  let per = document.getElementById("period-" + '<%= i%>');
+ 
+  if ('<%= consultation.compterendu.filter %>' === "Surveillance médical") {
+    period.disabled ="";
+    per.disabled ="";
+  } else {
+    period.disabled ="disabled";
+    per.disabled ="disabled";
+  }
+
+</script>

@@ -1,6 +1,7 @@
 const moment = require("moment");
 const Patient = require("../model/patient");
 const Report = require("../model/compteRendu");
+
 module.exports.showComptRendu = async (req, res) => {
   const { id, idacte, idcomp } = req.params;
   const patient = await Patient.findById(idacte);
@@ -8,8 +9,8 @@ module.exports.showComptRendu = async (req, res) => {
 };
 module.exports.addCompteRendu = async (req, res) => {
   // let {  } = req.body.model;
-  let { save ,title} = req.body;
- 
+  let { save, title } = req.body;
+
   let {
     atcd,
     quality,
@@ -25,8 +26,12 @@ module.exports.addCompteRendu = async (req, res) => {
     arterePulmonaire,
     pericarde,
     conclusion,
+    filter,
+    surveillanceperiod,
+    period,
     conduiteMedicale,
   } = req.body.compteRendu;
+  console.log("filter: ", filter);
   let { motif, dtd, ventGsiv, fe } = req.body.ventriculeGauche;
   const { id, idacte } = req.params;
   if (save == "on") {
@@ -54,6 +59,9 @@ module.exports.addCompteRendu = async (req, res) => {
         pericarde,
       },
       conclusion,
+      filter,
+      surveillanceperiod,
+      period,
       conduiteMedicale,
     });
     await report.save();
@@ -86,6 +94,9 @@ module.exports.addCompteRendu = async (req, res) => {
             pericarde,
           },
           conclusion,
+          filter,
+          surveillanceperiod,
+          period,
           conduiteMedicale,
         },
       },
@@ -117,6 +128,9 @@ module.exports.updateCompteRendu = async (req, res) => {
     arterePulmonaire,
     pericarde,
     conclusion,
+    filter,
+    surveillanceperiod,
+    period,
     conduiteMedicale,
   } = req.body.compteRendu;
   let { motif, dtd, ventGsiv, fe } = req.body.ventriculeGauche;
@@ -147,6 +161,9 @@ module.exports.updateCompteRendu = async (req, res) => {
             pericarde,
           },
           conclusion,
+          filter,
+          surveillanceperiod,
+          period,
           conduiteMedicale,
         },
       },
@@ -158,6 +175,7 @@ module.exports.updateCompteRendu = async (req, res) => {
   res.redirect(`/patient/${id}`);
 };
 module.exports.deleteCompteRendu = async (req, res) => {
+  // const {idPatient,idConsultation} = req.params;
   const { id, idacte } = req.params;
   const patient = await Patient.findOneAndUpdate(
     { id, "consultation._id": idacte },
@@ -167,5 +185,5 @@ module.exports.deleteCompteRendu = async (req, res) => {
 
   req.flash("success", "Compte Rendu à été supprimé avec succès");
   res.redirect(`/patient/${id}`);
-  // res.send("sent from compteRendu")
+  // res.send({ idPatient: id, idacte });
 };

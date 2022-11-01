@@ -2,6 +2,9 @@
 <div class="container-fluid mt-4">
   <div class="col m-auto bg-light rounded-5 p-2">
     <h2 class="mb-5 text-center text-success">Liste Dr.<%= medecin %></h2>
+    <div class="row mb-4">
+      <span id="result" class="col-12 text-success"></span>
+    </div>
     <div class="d-flex mb-2 justify-content-center">
       <div class="form-floating col-3 me-2">
         <select
@@ -9,12 +12,12 @@
           name="age"
           class="form-select"
           required
-          onchange="filter(12, 3, 7)"
+          onchange="filter(4, 3, 7)"
         >
           <!-- <option selected disabled >Age</option> -->
           <option class="option" value="all" selected>Tous</option>
-          <option class="option" value="above">+12</option>
-          <option class="option" value="below">-12</option>
+          <option class="option" value="above">+4 ans</option>
+          <option class="option" value="below">-4 ans</option>
         </select>
 
         <label id="hide" for="acte" class="form-label">Age</label>

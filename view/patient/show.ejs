@@ -1,7 +1,7 @@
 <% layout('layouts/boilerplate')%>
-<div class="container mt-3">
+<div class="container-fluid mt-3">
   <div class="col m-auto bg-light shadow-sm rounded-5 px-2">
-    <div class="container-fluid ">
+    <div class="container-fluid">
       <div class="mb-4">
         <div class="d-flex">
           <div class="col d-flex m-auto">
@@ -19,30 +19,65 @@
             </div>
           </div>
           <div class="col-2 mt-2">
-            <p>Age:</p>
-            <p>Genre:</p>
-            <p>Wilaya:</p>
-            <p>Ville:</p>
-            <p>Téléphone 1:</p>
-            <p>Téléphone 2:</p>
-            <p>Prochaine acte:</p>
-            <p>Date:</p>
-            <p>Medecin Ref:</p>
+            <p>
+              <span class="fw-bold">Age:</span> <span> <%=patient.age%></span>
+            </p>
+            <p>
+              <span class="fw-bold"> Genre:</span>
+              <span> <%=patient.gender%></span>
+            </p>
+            <p>
+              <span class="fw-bold">Wilaya:</span>
+              <span> <%= (!patient.wilaya)? "/":patient.wilaya %></span>
+            </p>
+            <p>
+              <span class="fw-bold">Ville:</span>
+              <span> <%= (!patient.city)? "/":patient.city %></span>
+            </p>
+            <p>
+              <span class="fw-bold">Téléphone 1:</span>
+              <span> <%=patient.phone%></span>
+            </p>
+            <p>
+              <span class="fw-bold">Téléphone 2:</span>
+              <span> <%=patient.phone2%></span>
+            </p>
+            <p>
+              <span class="fw-bold">Prochaine acte:</span>
+              <span> <%=patient.nextacte.acte%></span>
+            </p>
+            <% if (patient.nextacte.date!="Rien" ){%>
+            <p>
+              <span class="fw-bold">Date:</span>
+              <span
+                ><%=moment(patient.nextacte.date).format("DD/MM/YYYY")%></span
+              >
+            </p>
+            <% }else{ %>
+            <p><span class="fw-bold">Date:</span> /</p>
+            <% } %>
+            <p>
+              <span class="fw-bold">Medecin Ref:</span>
+              <span><%=patient.drlastname %></span>
+            </p>
           </div>
           <div class="col-2 mt-2">
-            <p><%=patient.age%></p>
-            <p><%=patient.gender%></p>
-            <p><%= (!patient.wilaya)? "/":patient.wilaya %></p>
-            <p><%= (!patient.city)? "/":patient.city %></p>
-            <p><%=patient.phone%></p>
-            <p><%=patient.phone2%></p>
-            <p><%=patient.nextacte.acte%></p>
-            <% if (patient.nextacte.date!="Rien" ){%>
-            <p><%=moment(patient.nextacte.date).format("DD/MM/YYYY")%></p>
-            <% }else{ %>
-            <p>/</p>
-            <% } %>
-            <p><%=patient.drlastname %></p>
+            <p>
+              <span class="fw-bold">Groupage:</span>
+              <span> <%=patient.groupage%></span>
+            </p>
+            <p>
+              <span class="fw-bold">Saturation:</span>
+              <span> <%=patient.saturationP%></span>
+            </p>
+            <p>
+              <span class="fw-bold">TA:</span>
+              <span> <%=patient.ta%></span>
+            </p>
+            <p>
+              <span class="fw-bold">Taille:</span>
+              <span> <%=patient.poids%> Kg</span>
+            </p>
           </div>
         </div>
       </div>
@@ -68,7 +103,7 @@
           <th scope="col">Acte</th>
           <th scope="col">Medecin</th>
           <th scope="col">Technicien</th>
-          <th scope="col">Date acte</th>
+          <th scope="col">Date/Heure acte</th>
           <th id="hide" scope="col">Remarque</th>
           <th id="hide" scope="col">Compte Rendu</th>
           <th id="hide" scope="col">Confirmé</th>
@@ -77,34 +112,31 @@
       </thead>
       <tbody id="tablebody">
         <% var i=1 %> 
-        <% for (consultation of patient.sortedConsultation){%>
+        <% for (consultation of patient.consultation){%>
         <tr>
           <th scope="row"><%= i%> <% i=i+1; %></th>
           <td class="data"><%= consultation.acte%></td>
           <td class="data">Dr. <%=consultation.medecin %></td>
           <td class="data"><%= consultation.technicien %></td>
           <td class="data">
-            <%=moment(consultation.date).format("DD/MM/YYYY")%>
+            <%=moment(consultation.date).format("DD/MM/YYYY")%> <%= consultation.time %>
           </td>
 
-          <td class="text-center data">
-            <%-include("./commentViewer")%>
-          </td>
-            <th>
-              <% if(!consultation.compterendu.isEmpty){%>
-                <%-include("./consultation/comptRendu/editCompteRendu",{i})%>
-                <%-include("./consultation/comptRendu/deleteCompteRendu")%>
-                <button
-                class="btn btn-outline-secondary px-2 py-1 ms-2"
-                onclick="printCompteRendu('<%=consultation.id%>')"
-              >
-                <i class="bi bi-printer-fill px-1 py-1"></i>
-              </button>
-                <!-- delete comptrendu -->
-                <% }else{%>
-                  <%-include("./consultation/comptRendu/addCompteRendu",{i})%>
-                <% } %> 
-            </th>
+          <td class="text-center data"><%-include("./commentViewer")%></td>
+          <th>
+            <% if(!consultation.compterendu.isEmpty ){%>
+            <%-include("./consultation/comptRendu/editCompteRendu",{i})%>
+            <%-include("./consultation/comptRendu/deleteCompteRendu",{i})%>
+            <button
+              class="btn btn-outline-secondary px-2 py-1 ms-2"
+              onclick="printCompteRendu('<%=consultation.id%>','non')"
+            >
+              <i class="bi bi-eye-fill px-1 py-1"></i>
+            </button>
+            <!-- delete comptrendu -->
+            <% }else{%>
+            <%-include("./consultation/comptRendu/addCompteRendu",{i})%> <% } %>
+          </th>
           <% if (consultation.status==="oui"){%>
           <th class="p-3">
             <span class="rounded-pill badge bg-success bg-gradient">OUI</span>
@@ -116,12 +148,11 @@
             </span>
           </th>
           <%}%>
-         
+
           <th>
             <div class="d-flex justify-content-center align-items-center">
-              <%- include("./consultation/edit")%>
+              <%- include("./consultation/edit")%> 
               <%- include("./consultation/delete")%>
-              
             </div>
           </th>
         </tr>
@@ -134,7 +165,7 @@
   let reports = <%- JSON.stringify(reports) %>;
 </script>
 <script>
-  let patient = <%- JSON.stringify(patient) %>;
+  let selectedPatient = <%- JSON.stringify(patient) %>;
 </script>
 
 <script>

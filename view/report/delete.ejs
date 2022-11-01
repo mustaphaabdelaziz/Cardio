@@ -1,0 +1,60 @@
+<button
+  id="item2"
+  type="button"
+  class="btn btn-outline-danger bg-gradient px-2 py-1"
+  data-bs-toggle="modal"
+  data-bs-target="#dacte-<%= consultation.compterendu.id %>"
+>
+  <i class="bi bi-trash-fill"></i>
+</button>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="dacte-<%= consultation.compterendu.id %>"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">
+          Suppression de Compte Rendu
+        </h5>
+
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+
+      <div class="modal-body">
+        <img height="20%" width="20%"" src="/assets/close.png" alt="close"><br />
+        <p class="mt-4">vous êtes sûr?</p>
+        <form
+          class=""
+          id="delete-form"
+          action="/patient/<%=patient.id %>/acte/<%=consultation.id %>/compterendu/?_method=DELETE"
+          method="POST"
+        >
+          <div class="modal-footer mt-4">
+            <button
+              type="button"
+              class="btn btn-outline-secondary bg-gradient"
+              data-bs-dismiss="modal"
+            >
+              Annuler
+            </button>
+            <button class="btn btn-outline-danger bg-gradient">
+              Supprimer
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -88,45 +88,28 @@
               >Date de Naissance</label
             >
           </div>
-          <div class="form-floating col-md-6 mb-3">
-            <input
-              type="number"
-              class="form-control"
-              id="poids"
-              name="patient[poids]"
-              maxlength="3"
-              min="1"
-              max="200"
-              value="<%= patient.poids %>"
-            />
-            <label for="poids" class="form-label">Poids (KG)</label>
+         
+          <div class="form-floating col-md-6  mb-3">
+            <select id="bloodGroup" name="blood[group]" class="form-select">
+              <option selected disabled value="">Groupe sanguin</option>
+              <option class="option" value="A">A</option>
+              <option class="option" value="B">B</option>
+              <option class="option" value="O">O</option>
+              <option class="option" value="AB">AB</option>
+            </select>
+            <label for="bloodGroup" class="form-label">Groupe sanguin</label>
             <div class="valid-feedback">BIEN</div>
           </div>
-          <div class="form-floating col-md-6 mb-3">
-            <input
-              type="number"
-              class="form-control"
-              id="taille"
-              name="patient[taille]"
-              min="30"
-              max="200"
-              maxlength="3"
-              value="<%= patient.taille %>"
-            />
-            <label for="taille" class="form-label">Taille (cm)</label>
+          <div class="form-floating col-md-6  mb-3">
+            <select id="rhesus" name="blood[rhesus]" class="form-select">
+              <option selected disabled value="">Rhésus</option>
+              <option class="option" value="A">+</option>
+              <option class="option" value="B">-</option>
+            </select>
+            <label for="rhesus" class="form-label">Rhésus</label>
             <div class="valid-feedback">BIEN</div>
           </div>
-          <div class="form-floating col-md-6">
-            <input
-              type="number"
-              class="form-control"
-              id="saturation"
-              name="patient[saturation]"
-              value="<%= patient.saturation %>"
-            />
-            <label for="saturation" class="form-label">Saturation %</label>
-            <div class="valid-feedback">BIEN</div>
-          </div>
+
           <div class="form-floating col-md-6 mb-3">
             <select
               id="patientGender"
@@ -192,6 +175,7 @@
               name="patient[phone]"
               required
               maxlength="10"
+              minlength="10"
               value="<%= patient.phone %>"
             />
             <label for="patientPhoneNumber" class="form-label"
@@ -206,6 +190,7 @@
               id="patientPhoneNumber2"
               name="patient[phone2]"
               maxlength="10"
+              minlength="10"
               value="<%= patient.phone2 %>"
             />
             <label for="patientPhoneNumber2" class="form-label"

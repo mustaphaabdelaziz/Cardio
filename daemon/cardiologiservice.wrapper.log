@@ -1,0 +1,98 @@
+2022-10-24 08:21:23 - Starting C:\Program Files\nodejs\node.exe  --harmony "F:\WEB APPS\Cardio\node_modules\node-windows\lib\wrapper.js" --file "F:\WEB APPS\Cardio\app.js" --scriptoptions= --log "CardiologiService wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2022-10-24 08:21:23 - Started 2188
+2022-10-24 16:39:52 - Stopping cardiologiservice.exe
+2022-10-24 16:39:52 - ProcessKill 2188
+2022-10-24 16:39:52 - Found child process: 980 Name: conhost.exe
+2022-10-24 16:39:52 - Found child process: 3020 Name: node.exe
+2022-10-24 16:39:52 - Stopping process 980
+2022-10-24 16:39:52 - Send SIGINT 980
+2022-10-24 16:39:52 - SIGINT to 980 failed - Killing as fallback
+2022-10-24 16:39:52 - Stopping process 3020
+2022-10-24 16:39:52 - Send SIGINT 3020
+2022-10-24 16:39:52 - SIGINT to 3020 failed - Killing as fallback
+2022-10-24 16:39:52 - Stopping process 2188
+2022-10-24 16:39:52 - Send SIGINT 2188
+2022-10-24 16:39:52 - SIGINT to 2188 failed - Killing as fallback
+2022-10-24 16:39:52 - Finished cardiologiservice.exe
+2022-10-27 08:23:41 - Starting C:\Program Files\nodejs\node.exe  --harmony "F:\WEB APPS\Cardio\node_modules\node-windows\lib\wrapper.js" --file "F:\WEB APPS\Cardio\app.js" --scriptoptions= --log "CardiologiService wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2022-10-27 08:23:41 - Started 4892
+2022-10-27 12:46:19 - Stopping cardiologiservice.exe
+2022-10-27 12:46:19 - ProcessKill 4892
+2022-10-27 12:46:20 - Found child process: 9376 Name: conhost.exe
+2022-10-27 12:46:20 - Found child process: 3680 Name: node.exe
+2022-10-27 12:46:20 - Stopping process 9376
+2022-10-27 12:46:20 - Send SIGINT 9376
+2022-10-27 12:46:20 - SIGINT to 9376 failed - Killing as fallback
+2022-10-27 12:46:20 - Stopping process 3680
+2022-10-27 12:46:20 - Send SIGINT 3680
+2022-10-27 12:46:20 - SIGINT to 3680 failed - Killing as fallback
+2022-10-27 12:46:20 - Stopping process 4892
+2022-10-27 12:46:20 - Send SIGINT 4892
+2022-10-27 12:46:20 - SIGINT to 4892 failed - Killing as fallback
+2022-10-27 12:46:20 - Finished cardiologiservice.exe
+2022-10-27 12:46:21 - Starting C:\Program Files\nodejs\node.exe  --harmony "F:\WEB APPS\Cardio\node_modules\node-windows\lib\wrapper.js" --file "F:\WEB APPS\Cardio\app.js" --scriptoptions= --log "CardiologiService wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2022-10-27 12:46:21 - Started 11728
+2022-10-27 12:48:33 - Stopping cardiologiservice.exe
+2022-10-27 12:48:33 - ProcessKill 11728
+2022-10-27 12:48:34 - Found child process: 5136 Name: conhost.exe
+2022-10-27 12:48:34 - Found child process: 9612 Name: node.exe
+2022-10-27 12:48:34 - Stopping process 5136
+2022-10-27 12:48:34 - Send SIGINT 5136
+2022-10-27 12:48:34 - SIGINT to 5136 failed - Killing as fallback
+2022-10-27 12:48:34 - Stopping process 9612
+2022-10-27 12:48:34 - Send SIGINT 9612
+2022-10-27 12:48:34 - SIGINT to 9612 failed - Killing as fallback
+2022-10-27 12:48:34 - Stopping process 11728
+2022-10-27 12:48:34 - Send SIGINT 11728
+2022-10-27 12:48:34 - SIGINT to 11728 failed - Killing as fallback
+2022-10-27 12:48:34 - Finished cardiologiservice.exe
+2022-10-27 12:48:35 - Starting C:\Program Files\nodejs\node.exe  --harmony "F:\WEB APPS\Cardio\node_modules\node-windows\lib\wrapper.js" --file "F:\WEB APPS\Cardio\app.js" --scriptoptions= --log "CardiologiService wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2022-10-27 12:48:35 - Started 12172
+2022-10-27 12:49:34 - Stopping cardiologiservice.exe
+2022-10-27 12:49:34 - ProcessKill 12172
+2022-10-27 12:49:35 - Found child process: 5544 Name: conhost.exe
+2022-10-27 12:49:35 - Found child process: 1356 Name: node.exe
+2022-10-27 12:49:35 - Stopping process 5544
+2022-10-27 12:49:35 - Send SIGINT 5544
+2022-10-27 12:49:35 - SIGINT to 5544 failed - Killing as fallback
+2022-10-27 12:49:35 - Stopping process 1356
+2022-10-27 12:49:35 - Send SIGINT 1356
+2022-10-27 12:49:35 - SIGINT to 1356 failed - Killing as fallback
+2022-10-27 12:49:35 - Stopping process 12172
+2022-10-27 12:49:35 - Send SIGINT 12172
+2022-10-27 12:49:35 - SIGINT to 12172 failed - Killing as fallback
+2022-10-27 12:49:35 - Finished cardiologiservice.exe
+2022-10-27 12:49:36 - Starting C:\Program Files\nodejs\node.exe  --harmony "F:\WEB APPS\Cardio\node_modules\node-windows\lib\wrapper.js" --file "F:\WEB APPS\Cardio\app.js" --scriptoptions= --log "CardiologiService wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2022-10-27 12:49:36 - Started 8860
+2022-10-27 12:49:49 - Stopping cardiologiservice.exe
+2022-10-27 12:49:49 - ProcessKill 8860
+2022-10-27 12:49:49 - Found child process: 11140 Name: conhost.exe
+2022-10-27 12:49:49 - Found child process: 8412 Name: node.exe
+2022-10-27 12:49:49 - Stopping process 11140
+2022-10-27 12:49:49 - Send SIGINT 11140
+2022-10-27 12:49:49 - SIGINT to 11140 failed - Killing as fallback
+2022-10-27 12:49:49 - Stopping process 8412
+2022-10-27 12:49:49 - Send SIGINT 8412
+2022-10-27 12:49:49 - SIGINT to 8412 failed - Killing as fallback
+2022-10-27 12:49:49 - Stopping process 8860
+2022-10-27 12:49:49 - Send SIGINT 8860
+2022-10-27 12:49:49 - SIGINT to 8860 failed - Killing as fallback
+2022-10-27 12:49:49 - Finished cardiologiservice.exe
+2022-10-27 12:55:14 - Starting C:\Program Files\nodejs\node.exe  --harmony "F:\WEB APPS\Cardio\node_modules\node-windows\lib\wrapper.js" --file "F:\WEB APPS\Cardio\app.js" --scriptoptions= --log "CardiologiService wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2022-10-27 12:55:14 - Started 6344
+2022-10-27 16:22:30 - Starting C:\Program Files\nodejs\node.exe  --harmony "F:\WEB APPS\Cardio\node_modules\node-windows\lib\wrapper.js" --file "F:\WEB APPS\Cardio\app.js" --scriptoptions= --log "CardiologiService wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2022-10-27 16:22:31 - Started 1988
+2022-10-29 08:43:01 - Stopping cardiologiservice.exe
+2022-10-29 08:43:01 - ProcessKill 1988
+2022-10-29 08:43:01 - Found child process: 2292 Name: conhost.exe
+2022-10-29 08:43:01 - Found child process: 3480 Name: node.exe
+2022-10-29 08:43:02 - Stopping process 2292
+2022-10-29 08:43:02 - Send SIGINT 2292
+2022-10-29 08:43:02 - SIGINT to 2292 failed - Killing as fallback
+2022-10-29 08:43:02 - Stopping process 3480
+2022-10-29 08:43:02 - Send SIGINT 3480
+2022-10-29 08:43:02 - SIGINT to 3480 failed - Killing as fallback
+2022-10-29 08:43:02 - Stopping process 1988
+2022-10-29 08:43:02 - Send SIGINT 1988
+2022-10-29 08:43:02 - SIGINT to 1988 failed - Killing as fallback
+2022-10-29 08:43:02 - Finished cardiologiservice.exe

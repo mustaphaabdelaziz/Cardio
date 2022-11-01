@@ -6,6 +6,7 @@ const Staff = require("../model/staff");
 const Country = require("../model/country");
 const Patient = require("../model/patient");
 const Report = require("../model/compteRendu");
+const conduiteMedicale = require("../seeds/conduiteMedicale");
 
 var fonts = {
   Roboto: {
@@ -17,11 +18,15 @@ var fonts = {
 };
 
 module.exports.listepatient = async (req, res) => {
+  // const patient = await Patient.find({ activated: true });
+
+  // res.send({ inscrit: inscrit, totalCompteRendu: nbrCompterendu });
   // console.time('blocking-await');
   // const medecins = await Staff.find({ fonction: "Medecin" });
   // const techniciens = await Staff.find({ fonction: "technicien cathlab" });
   // const patients = await Patient.find({ activated: true });
   // const algeria = await Country.find({});
+  // {"consultation.compterendu.isEmpty":false}
 
   const [medecins, patients, algeria] = await Promise.all([
     Staff.find({ fonction: "Medecin" }),
@@ -31,6 +36,18 @@ module.exports.listepatient = async (req, res) => {
     }),
     Country.find({}),
   ]);
+  const inscrit = patients.length;
+  const nbrCompterendu = patients.reduce((total, patient) => {
+    if (patient.consultation)
+      return (
+        total +
+        patient.consultation.reduce((total, consultation) => {
+          if (!consultation.compterendu.isEmpty) return total + 1;
+          else return 0;
+        }, 0)
+      );
+    else return 0;
+  }, 0);
   // console.timeEnd('blocking-await');
   // blocking-await: 101.135ms
   // blocking-await: 141.458ms
@@ -39,7 +56,8 @@ module.exports.listepatient = async (req, res) => {
     patients,
     moment,
     medecins,
-    // techniciens,
+    inscrit,
+    nbrCompterendu,
     states,
   });
 };
@@ -69,6 +87,7 @@ module.exports.showpatient = async (req, res) => {
     techniciens,
     states,
     reports,
+    conduitemedicales: conduiteMedicale.conduitemedicale,
   });
   // res.send(patient)
 };
@@ -90,7 +109,7 @@ module.exports.createpatient = async (req, res) => {
     wilaya,
     city,
   } = req.body.patient;
-
+  const { blood } = req.body;
   if (phone2 === "") {
     phone2 = "/";
   }
@@ -108,6 +127,7 @@ module.exports.createpatient = async (req, res) => {
     poids,
     taille,
     saturation,
+    blood,
     phone,
     phone2,
     medecinref,
@@ -139,7 +159,7 @@ module.exports.createandreturn = async (req, res) => {
     wilaya,
     city,
   } = req.body.patient;
-
+  const { blood } = req.body;
   if (phone2 === "") {
     phone2 = "/";
   }
@@ -157,6 +177,7 @@ module.exports.createandreturn = async (req, res) => {
     poids,
     taille,
     saturation,
+    blood,
     phone,
     phone2,
     medecinref,
@@ -192,6 +213,7 @@ module.exports.updatePatient = async (req, res) => {
     wilaya,
     city,
   } = req.body.patient;
+  const { blood } = req.body;
   console.log(poids, taille);
   if (phone2 === "") {
     phone2 = "/";
@@ -211,6 +233,7 @@ module.exports.updatePatient = async (req, res) => {
       poids,
       taille,
       saturation,
+      blood,
       phone,
       phone2,
       medecinref,
@@ -520,7 +543,7 @@ module.exports.generatePatientpdf = async (req, res) => {
                       {
                         text: `${moment(patient.birthdate).format(
                           "DD/MM/YYYY"
-                        )} (${patient.age})`,
+                        )}`,
                       },
                     ],
                     margin: [20, 0, 0, 0],

@@ -16,7 +16,7 @@
   aria-labelledby="staticBackdropLabel"
   aria-hidden="true"
 >
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="addacte-<%= patient.id %>">Ajouter Acte</h5>
@@ -33,10 +33,11 @@
         <form
           action="/patient/<%=patient.id%>/acte"
           method="POST"
-          class="needs-validation"
+          class="row needs-validation"
           novalidate
         >
-          <div class="form-floating mb-3">
+          
+          <div class="form-floating mb-3 col-md-8">
             <input
               class="form-control"
               type="date"
@@ -48,6 +49,18 @@
               value="<%= moment().format("YYYY-MM-DD") %>"
             />
             <label for="dateacte" class="form-labelfs-6">Date de l'acte</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <div class="form-floating mb-3 col-md-4">
+            <input
+              class="form-control"
+              type="time"
+              id="time"
+              name="consultation[time]"
+              placeholder="heure de l'acte"
+             
+            />
+            <label for="time" class="form-labelfs-6">Heure de l'acte</label>
             <div class="valid-feedback">BIEN</div>
           </div>
 
@@ -78,8 +91,8 @@
               required
               onchange="selectActe(this, '<%= patient.id %>')"
             >
-              <option selected disabled>Acte</option>
-              <option class="option" value="Consultation">Consultation</option>
+              <option disabled>Acte</option>
+              <option class="option" value="Consultation" selected>Consultation</option>
               <option class="option" value="Chirurgie">Chirurgie</option>
               <option class="option" value="KT">KT</option>
             </select>
@@ -88,29 +101,70 @@
             <div class="valid-feedback">BIEN</div>
           </div>
           <div
-            class="form-floating mb-3"
-            id="technicien-div-<%=patient.id%>"
-            style="display: none"
+          class="form-floating mb-3"
+          id="technicien-div-<%=patient.id%>"
+          style="display: none"
+        >
+          <select
+            id="technicien-<%=patient.id%>"
+            name="consultation[technicien]"
+            class="form-select"
           >
-            <select
-              id="technicien-<%=patient.id%>"
-              name="consultation[technicien]"
-              class="form-select"
-            >
-              <option class="option" value="" disabled selected>
-                Technicien
-              </option>
-              <% for(technicien of techniciens ){ %>
+            <option class="option" value="" disabled selected>
+              Technicien
+            </option>
+            <% for(technicien of techniciens ){ %>
 
-              <option class="option" value="<%= technicien.fullname%>">
-                <%=technicien.fullname %>
-              </option>
-              <% } %>
-            </select>
+            <option class="option" value="<%= technicien.fullname%>">
+              <%=technicien.fullname %>
+            </option>
+            <% } %>
+          </select>
 
-            <label for="technicien" class="form-label">Technicien</label>
+          <label for="technicien" class="form-label">Technicien</label>
+          <div class="valid-feedback">BIEN</div>
+        </div>
+          <div class="form-floating mb-3 col-md-3">
+            <input
+              type="number"
+              class="form-control"
+              id="poids"
+              name="consultation[poids]"
+            />
+            <label for="poids" class="form-label">Poids (KG)</label>
             <div class="valid-feedback">BIEN</div>
           </div>
+          <div class="form-floating mb-3 col-md-3">
+            <input
+              type="number"
+              class="form-control"
+              id="taille"
+              name="consultation[taille]"
+            />
+            <label for="taille" class="form-label">Taille (cm)</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <div class="form-floating mb-3 col-md-3">
+            <input
+              type="number"
+              class="form-control"
+              id="saturation"
+              name="consultation[saturation]"
+            />
+            <label for="saturation" class="form-label">Saturation %</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <div class="form-floating mb-3 col-md-3">
+            <input
+              type="text"
+              class="form-control"
+              id="ta"
+              name="consultation[ta]"
+            />
+            <label for="ta" class="form-label">TA</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+         
           <div class="form-floating mb-2">
             <div class="d-flex align-item-start form-check form-switch ms-2">
               <input
@@ -120,6 +174,7 @@
                 value="oui"
                 role="switch"
                 id="status"
+                checked
               />
               <label class="form-check-label" for="status">Confirmé ?</label>
             </div>

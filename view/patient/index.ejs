@@ -1,9 +1,14 @@
 <% layout('layouts/boilerplate')%>
-
 <div class="container-fluid mt-4">
   <div class="col m-auto bg-light shadow-sm rounded-5 p-2">
     <h3 class="mb-4 text-center text-success">Liste des patients</h3>
+    <div class="row mb-4">
+      <span class="col-12 text-success">Patient Inscrit: <%= inscrit %> </span>
+      <span class="col-12 text-success">Patient Consulté: <%= nbrCompterendu %> </span>
+      <span id="result" class="col-12 text-success"></span>
+    </div>
     <div class="d-flex mb-2 justify-content-center">
+      
       <div class="form-floating col-2 me-2">
         <select
           id="age"
@@ -14,8 +19,8 @@
         >
           <!-- <option selected disabled >Age</option> -->
           <option class="option" value="all">Tous</option>
-          <option class="option" value="above">+4</option>
-          <option class="option" value="below">-4</option>
+          <option class="option" value="above">+4 ans</option>
+          <option class="option" value="below">-4 ans</option>
         </select>
 
         <label id="hide" for="acte" class="form-label">Age</label>
@@ -80,6 +85,7 @@
       autofocus
     />
   </form>
+  
   <div class="table-responsive shadow-sm">
     <table
       class="table table-striped table-hover table-borderless text-center sortable"

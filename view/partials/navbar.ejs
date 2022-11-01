@@ -58,7 +58,7 @@
             role="button"
             data-bs-toggle="dropdown"
             aria-expanded="false"
-            >Acte</a
+            >Par Acte</a
           >
           <ul
             class="dropdown-menu bg-antiqueSteel"
@@ -83,25 +83,53 @@
             role="button"
             data-bs-toggle="dropdown"
             aria-expanded="false"
-            >Patient par Medecin</a
+            >Par Conduite Médicale</a
           >
           <ul
             class="dropdown-menu bg-antiqueSteel"
             aria-labelledby="navbarDropdown"
           >
             <li>
-              <a class="dropdown-item" href="/medecin/Touati">Dr.Touati</a>
-              <a class="dropdown-item" href="/medecin/Hiba">Dr.Hiba</a>
-              <a class="dropdown-item" href="/medecin/Lassakeur"
-                >Dr.Lassakeur</a
-              >
-              <a class="dropdown-item" href="/medecin/Maten">Dr.Maten</a>
+              <% for(conduiteMedicale of session.conduiteMedicale){ %>
+              <a
+                class="dropdown-item"
+                href="/conduitemedicale/<%= conduiteMedicale %>"
+                ><%= conduiteMedicale %>
+              </a>
+              <% } %>
+            </li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="acte-list"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            >Par Medecin</a
+          >
+          <ul
+            class="dropdown-menu bg-antiqueSteel"
+            aria-labelledby="navbarDropdown"
+          >
+            <li>
+              <% for(medecin of session.medecinList){ %>
+              <a class="dropdown-item" href="/medecin/<%= medecin.lastname %>"
+                >Dr.<%= medecin.lastname %>
+              </a>
+              <% } %>
             </li>
           </ul>
         </li>
 
         <li class="nav-item">
           <a class="nav-link" href="/staffs">Personels</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/medicaments">Medicaments</a>
         </li>
         <li class="nav-item dropdown">
           <a
@@ -124,12 +152,15 @@
             </li>
           </ul>
         </li>
+
         <% if(currentUser){ %> 
-        <% if(currentUser.privileges.includes('admin')) { %>  
+        <% if(currentUser.privileges.includes('admin')) {%>
         <li class="nav-item">
           <a class="nav-link" href="/user"
             >Utilisateurs
-            <span class="badge bg-danger">4</span>
+            <% if(session.newUsers!=0) {%> 
+            <span class="badge bg-danger"> <%=session.newUsers%></span>
+            <% } %> 
           </a>
         </li>
         <% }} %>

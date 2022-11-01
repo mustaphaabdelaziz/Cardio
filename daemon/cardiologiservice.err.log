@@ -1,0 +1,519 @@
+Deprecation warning: value provided is not in a recognized RFC2822 or ISO format. moment construction falls back to js Date(), which is not reliable across all browsers and versions. Non RFC2822/ISO date formats are discouraged. Please refer to http://momentjs.com/guides/#/warnings/js-date/ for more info.
+Arguments: 
+[0] _isAMomentObject: true, _isUTC: false, _useUTC: false, _l: undefined, _i: 01/01/1900, _f: undefined, _strict: undefined, _locale: [object Object]
+Error
+    at Function.createFromInputFallback (F:\WEB APPS\Cardio\node_modules\moment\moment.js:324:25)
+    at configFromString (F:\WEB APPS\Cardio\node_modules\moment\moment.js:2550:19)
+    at configFromInput (F:\WEB APPS\Cardio\node_modules\moment\moment.js:2993:13)
+    at prepareConfig (F:\WEB APPS\Cardio\node_modules\moment\moment.js:2976:13)
+    at createFromConfig (F:\WEB APPS\Cardio\node_modules\moment\moment.js:2943:44)
+    at createLocalOrUTC (F:\WEB APPS\Cardio\node_modules\moment\moment.js:3037:16)
+    at createLocal (F:\WEB APPS\Cardio\node_modules\moment\moment.js:3041:16)
+    at Object.hooks [as moment] (F:\WEB APPS\Cardio\node_modules\moment\moment.js:16:29)
+    at eval (eval at compile (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:673:12), <anonymous>:15:25)
+    at newModal (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:703:17)
+Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+    at new NodeError (node:internal/errors:372:5)
+    at ServerResponse.setHeader (node:_http_outgoing:576:11)
+    at ServerResponse.header (F:\WEB APPS\Cardio\node_modules\express\lib\response.js:794:10)
+    at ServerResponse.location (F:\WEB APPS\Cardio\node_modules\express\lib\response.js:915:15)
+    at ServerResponse.redirect (F:\WEB APPS\Cardio\node_modules\express\lib\response.js:953:18)
+    at module.exports.addCompteRendu (F:\WEB APPS\Cardio\controller\compteRendu.js:99:7)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+    at new NodeError (node:internal/errors:372:5)
+    at ServerResponse.setHeader (node:_http_outgoing:576:11)
+    at ServerResponse.header (F:\WEB APPS\Cardio\node_modules\express\lib\response.js:794:10)
+    at ServerResponse.location (F:\WEB APPS\Cardio\node_modules\express\lib\response.js:915:15)
+    at ServerResponse.redirect (F:\WEB APPS\Cardio\node_modules\express\lib\response.js:953:18)
+    at module.exports.addCompteRendu (F:\WEB APPS\Cardio\controller\compteRendu.js:99:7)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+    at new NodeError (node:internal/errors:372:5)
+    at ServerResponse.setHeader (node:_http_outgoing:576:11)
+    at ServerResponse.header (F:\WEB APPS\Cardio\node_modules\express\lib\response.js:794:10)
+    at ServerResponse.location (F:\WEB APPS\Cardio\node_modules\express\lib\response.js:915:15)
+    at ServerResponse.redirect (F:\WEB APPS\Cardio\node_modules\express\lib\response.js:953:18)
+    at module.exports.addCompteRendu (F:\WEB APPS\Cardio\controller\compteRendu.js:99:7)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+    at new NodeError (node:internal/errors:372:5)
+    at ServerResponse.setHeader (node:_http_outgoing:576:11)
+    at ServerResponse.header (F:\WEB APPS\Cardio\node_modules\express\lib\response.js:794:10)
+    at ServerResponse.location (F:\WEB APPS\Cardio\node_modules\express\lib\response.js:915:15)
+    at ServerResponse.redirect (F:\WEB APPS\Cardio\node_modules\express\lib\response.js:953:18)
+    at module.exports.addCompteRendu (F:\WEB APPS\Cardio\controller\compteRendu.js:99:7)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+    at new NodeError (node:internal/errors:372:5)
+    at ServerResponse.setHeader (node:_http_outgoing:576:11)
+    at ServerResponse.header (F:\WEB APPS\Cardio\node_modules\express\lib\response.js:794:10)
+    at ServerResponse.location (F:\WEB APPS\Cardio\node_modules\express\lib\response.js:915:15)
+    at ServerResponse.redirect (F:\WEB APPS\Cardio\node_modules\express\lib\response.js:953:18)
+    at module.exports.addCompteRendu (F:\WEB APPS\Cardio\controller\compteRendu.js:99:7)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+    at new NodeError (node:internal/errors:372:5)
+    at ServerResponse.setHeader (node:_http_outgoing:576:11)
+    at ServerResponse.header (F:\WEB APPS\Cardio\node_modules\express\lib\response.js:794:10)
+    at ServerResponse.location (F:\WEB APPS\Cardio\node_modules\express\lib\response.js:915:15)
+    at ServerResponse.redirect (F:\WEB APPS\Cardio\node_modules\express\lib\response.js:953:18)
+    at module.exports.addCompteRendu (F:\WEB APPS\Cardio\controller\compteRendu.js:99:7)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+    at new NodeError (node:internal/errors:372:5)
+    at ServerResponse.setHeader (node:_http_outgoing:576:11)
+    at ServerResponse.header (F:\WEB APPS\Cardio\node_modules\express\lib\response.js:794:10)
+    at ServerResponse.location (F:\WEB APPS\Cardio\node_modules\express\lib\response.js:915:15)
+    at ServerResponse.redirect (F:\WEB APPS\Cardio\node_modules\express\lib\response.js:953:18)
+    at module.exports.addCompteRendu (F:\WEB APPS\Cardio\controller\compteRendu.js:99:7)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+Deprecation warning: value provided is not in a recognized RFC2822 or ISO format. moment construction falls back to js Date(), which is not reliable across all browsers and versions. Non RFC2822/ISO date formats are discouraged. Please refer to http://momentjs.com/guides/#/warnings/js-date/ for more info.
+Arguments: 
+[0] _isAMomentObject: true, _isUTC: false, _useUTC: false, _l: undefined, _i: 01/01/1900, _f: undefined, _strict: undefined, _locale: [object Object]
+Error
+    at Function.createFromInputFallback (F:\WEB APPS\Cardio\node_modules\moment\moment.js:324:25)
+    at configFromString (F:\WEB APPS\Cardio\node_modules\moment\moment.js:2550:19)
+    at configFromInput (F:\WEB APPS\Cardio\node_modules\moment\moment.js:2993:13)
+    at prepareConfig (F:\WEB APPS\Cardio\node_modules\moment\moment.js:2976:13)
+    at createFromConfig (F:\WEB APPS\Cardio\node_modules\moment\moment.js:2943:44)
+    at createLocalOrUTC (F:\WEB APPS\Cardio\node_modules\moment\moment.js:3037:16)
+    at createLocal (F:\WEB APPS\Cardio\node_modules\moment\moment.js:3041:16)
+    at Object.hooks [as moment] (F:\WEB APPS\Cardio\node_modules\moment\moment.js:16:29)
+    at eval (eval at compile (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:673:12), <anonymous>:15:25)
+    at newModal (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:703:17)
+TypeError: F:\WEB APPS\Cardio\view\layouts\boilerplate.ejs:50
+    48| 
+    49|   <body class="d-flex flex-column">
+ >> 50|     <%- include("../partials/navbar")%>
+    51|     <main class=""><%- include("../partials/flash")%> <%- body %></main>
+    52|     <script
+    53|       src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment-with-locales.min.js"
+
+F:\WEB APPS\Cardio\view\partials\navbar.ejs:93
+    91|           >
+    92|             <li>
+ >> 93|               <% for(conduiteMedicale of session.conduiteMedicale){ %>
+    94|               <a
+    95|                 class="dropdown-item"
+    96|                 href="/conduitemedicale/<%= conduiteMedicale %>"
+
+session.conduiteMedicale is not iterable
+    at eval (eval at compile (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:673:12), <anonymous>:12:40)
+    at navbar (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:703:17)
+    at include (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:701:39)
+    at eval (eval at compile (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:673:12), <anonymous>:12:17)
+    at boilerplate (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:703:17)
+    at tryHandleCache (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:274:36)
+    at Object.exports.renderFile (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:491:10)
+    at renderFile (F:\WEB APPS\Cardio\node_modules\ejs-mate\lib\index.js:298:7)
+    at F:\WEB APPS\Cardio\node_modules\ejs-mate\lib\index.js:353:7
+    at tryHandleCache (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:280:5)
+Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+    at new NodeError (node:internal/errors:372:5)
+    at ServerResponse.setHeader (node:_http_outgoing:576:11)
+    at ServerResponse.header (F:\WEB APPS\Cardio\node_modules\express\lib\response.js:794:10)
+    at ServerResponse.location (F:\WEB APPS\Cardio\node_modules\express\lib\response.js:915:15)
+    at ServerResponse.redirect (F:\WEB APPS\Cardio\node_modules\express\lib\response.js:953:18)
+    at module.exports.addCompteRendu (F:\WEB APPS\Cardio\controller\compteRendu.js:110:7)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+TypeError: F:\WEB APPS\Cardio\view\layouts\boilerplate.ejs:50
+    48| 
+    49|   <body class="d-flex flex-column">
+ >> 50|     <%- include("../partials/navbar")%>
+    51|     <main class=""><%- include("../partials/flash")%> <%- body %></main>
+    52|     <script
+    53|       src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment-with-locales.min.js"
+
+F:\WEB APPS\Cardio\view\partials\navbar.ejs:93
+    91|           >
+    92|             <li>
+ >> 93|               <% for(conduiteMedicale of session.conduiteMedicale){ %>
+    94|               <a
+    95|                 class="dropdown-item"
+    96|                 href="/conduitemedicale/<%= conduiteMedicale %>"
+
+session.conduiteMedicale is not iterable
+    at eval (eval at compile (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:673:12), <anonymous>:12:40)
+    at navbar (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:703:17)
+    at include (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:701:39)
+    at eval (eval at compile (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:673:12), <anonymous>:12:17)
+    at boilerplate (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:703:17)
+    at tryHandleCache (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:274:36)
+    at Object.exports.renderFile (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:491:10)
+    at renderFile (F:\WEB APPS\Cardio\node_modules\ejs-mate\lib\index.js:298:7)
+    at F:\WEB APPS\Cardio\node_modules\ejs-mate\lib\index.js:353:7
+    at tryHandleCache (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:280:5)
+TypeError: F:\WEB APPS\Cardio\view\layouts\boilerplate.ejs:50
+    48| 
+    49|   <body class="d-flex flex-column">
+ >> 50|     <%- include("../partials/navbar")%>
+    51|     <main class=""><%- include("../partials/flash")%> <%- body %></main>
+    52|     <script
+    53|       src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment-with-locales.min.js"
+
+F:\WEB APPS\Cardio\view\partials\navbar.ejs:93
+    91|           >
+    92|             <li>
+ >> 93|               <% for(conduiteMedicale of session.conduiteMedicale){ %>
+    94|               <a
+    95|                 class="dropdown-item"
+    96|                 href="/conduitemedicale/<%= conduiteMedicale %>"
+
+session.conduiteMedicale is not iterable
+    at eval (eval at compile (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:673:12), <anonymous>:12:40)
+    at navbar (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:703:17)
+    at include (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:701:39)
+    at eval (eval at compile (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:673:12), <anonymous>:12:17)
+    at boilerplate (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:703:17)
+    at tryHandleCache (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:274:36)
+    at Object.exports.renderFile (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:491:10)
+    at renderFile (F:\WEB APPS\Cardio\node_modules\ejs-mate\lib\index.js:298:7)
+    at F:\WEB APPS\Cardio\node_modules\ejs-mate\lib\index.js:353:7
+    at tryHandleCache (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:280:5)
+TypeError: F:\WEB APPS\Cardio\view\layouts\boilerplate.ejs:50
+    48| 
+    49|   <body class="d-flex flex-column">
+ >> 50|     <%- include("../partials/navbar")%>
+    51|     <main class=""><%- include("../partials/flash")%> <%- body %></main>
+    52|     <script
+    53|       src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment-with-locales.min.js"
+
+F:\WEB APPS\Cardio\view\partials\navbar.ejs:93
+    91|           >
+    92|             <li>
+ >> 93|               <% for(conduiteMedicale of session.conduiteMedicale){ %>
+    94|               <a
+    95|                 class="dropdown-item"
+    96|                 href="/conduitemedicale/<%= conduiteMedicale %>"
+
+session.conduiteMedicale is not iterable
+    at eval (eval at compile (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:673:12), <anonymous>:12:40)
+    at navbar (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:703:17)
+    at include (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:701:39)
+    at eval (eval at compile (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:673:12), <anonymous>:12:17)
+    at boilerplate (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:703:17)
+    at tryHandleCache (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:274:36)
+    at Object.exports.renderFile (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:491:10)
+    at renderFile (F:\WEB APPS\Cardio\node_modules\ejs-mate\lib\index.js:298:7)
+    at F:\WEB APPS\Cardio\node_modules\ejs-mate\lib\index.js:353:7
+    at tryHandleCache (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:280:5)
+TypeError: F:\WEB APPS\Cardio\view\layouts\boilerplate.ejs:50
+    48| 
+    49|   <body class="d-flex flex-column">
+ >> 50|     <%- include("../partials/navbar")%>
+    51|     <main class=""><%- include("../partials/flash")%> <%- body %></main>
+    52|     <script
+    53|       src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment-with-locales.min.js"
+
+F:\WEB APPS\Cardio\view\partials\navbar.ejs:93
+    91|           >
+    92|             <li>
+ >> 93|               <% for(conduiteMedicale of session.conduiteMedicale){ %>
+    94|               <a
+    95|                 class="dropdown-item"
+    96|                 href="/conduitemedicale/<%= conduiteMedicale %>"
+
+session.conduiteMedicale is not iterable
+    at eval (eval at compile (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:673:12), <anonymous>:12:40)
+    at navbar (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:703:17)
+    at include (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:701:39)
+    at eval (eval at compile (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:673:12), <anonymous>:12:17)
+    at boilerplate (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:703:17)
+    at tryHandleCache (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:274:36)
+    at Object.exports.renderFile (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:491:10)
+    at renderFile (F:\WEB APPS\Cardio\node_modules\ejs-mate\lib\index.js:298:7)
+    at F:\WEB APPS\Cardio\node_modules\ejs-mate\lib\index.js:353:7
+    at tryHandleCache (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:280:5)
+TypeError: F:\WEB APPS\Cardio\view\layouts\boilerplate.ejs:50
+    48| 
+    49|   <body class="d-flex flex-column">
+ >> 50|     <%- include("../partials/navbar")%>
+    51|     <main class=""><%- include("../partials/flash")%> <%- body %></main>
+    52|     <script
+    53|       src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment-with-locales.min.js"
+
+F:\WEB APPS\Cardio\view\partials\navbar.ejs:93
+    91|           >
+    92|             <li>
+ >> 93|               <% for(conduiteMedicale of session.conduiteMedicale){ %>
+    94|               <a
+    95|                 class="dropdown-item"
+    96|                 href="/conduitemedicale/<%= conduiteMedicale %>"
+
+session.conduiteMedicale is not iterable
+    at eval (eval at compile (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:673:12), <anonymous>:12:40)
+    at navbar (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:703:17)
+    at include (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:701:39)
+    at eval (eval at compile (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:673:12), <anonymous>:12:17)
+    at boilerplate (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:703:17)
+    at tryHandleCache (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:274:36)
+    at Object.exports.renderFile (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:491:10)
+    at renderFile (F:\WEB APPS\Cardio\node_modules\ejs-mate\lib\index.js:298:7)
+    at F:\WEB APPS\Cardio\node_modules\ejs-mate\lib\index.js:353:7
+    at tryHandleCache (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:280:5)
+Deprecation warning: value provided is not in a recognized RFC2822 or ISO format. moment construction falls back to js Date(), which is not reliable across all browsers and versions. Non RFC2822/ISO date formats are discouraged. Please refer to http://momentjs.com/guides/#/warnings/js-date/ for more info.
+Arguments: 
+[0] _isAMomentObject: true, _isUTC: false, _useUTC: false, _l: undefined, _i: 01/01/1900, _f: undefined, _strict: undefined, _locale: [object Object]
+Error
+    at Function.createFromInputFallback (F:\WEB APPS\Cardio\node_modules\moment\moment.js:324:25)
+    at configFromString (F:\WEB APPS\Cardio\node_modules\moment\moment.js:2550:19)
+    at configFromInput (F:\WEB APPS\Cardio\node_modules\moment\moment.js:2993:13)
+    at prepareConfig (F:\WEB APPS\Cardio\node_modules\moment\moment.js:2976:13)
+    at createFromConfig (F:\WEB APPS\Cardio\node_modules\moment\moment.js:2943:44)
+    at createLocalOrUTC (F:\WEB APPS\Cardio\node_modules\moment\moment.js:3037:16)
+    at createLocal (F:\WEB APPS\Cardio\node_modules\moment\moment.js:3041:16)
+    at Object.hooks [as moment] (F:\WEB APPS\Cardio\node_modules\moment\moment.js:16:29)
+    at eval (eval at compile (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:673:12), <anonymous>:15:25)
+    at newModal (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:703:17)
+TypeError: F:\WEB APPS\Cardio\view\layouts\boilerplate.ejs:50
+    48| 
+    49|   <body class="d-flex flex-column">
+ >> 50|     <%- include("../partials/navbar")%>
+    51|     <main class=""><%- include("../partials/flash")%> <%- body %></main>
+    52|     <script
+    53|       src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment-with-locales.min.js"
+
+F:\WEB APPS\Cardio\view\partials\navbar.ejs:93
+    91|           >
+    92|             <li>
+ >> 93|               <% for(conduiteMedicale of session.conduiteMedicale){ %>
+    94|               <a
+    95|                 class="dropdown-item"
+    96|                 href="/conduitemedicale/<%= conduiteMedicale %>"
+
+session.conduiteMedicale is not iterable
+    at eval (eval at compile (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:673:12), <anonymous>:12:40)
+    at navbar (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:703:17)
+    at include (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:701:39)
+    at eval (eval at compile (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:673:12), <anonymous>:12:17)
+    at boilerplate (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:703:17)
+    at tryHandleCache (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:274:36)
+    at Object.exports.renderFile (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:491:10)
+    at renderFile (F:\WEB APPS\Cardio\node_modules\ejs-mate\lib\index.js:298:7)
+    at F:\WEB APPS\Cardio\node_modules\ejs-mate\lib\index.js:353:7
+    at tryHandleCache (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:280:5)
+TypeError: F:\WEB APPS\Cardio\view\layouts\boilerplate.ejs:50
+    48| 
+    49|   <body class="d-flex flex-column">
+ >> 50|     <%- include("../partials/navbar")%>
+    51|     <main class=""><%- include("../partials/flash")%> <%- body %></main>
+    52|     <script
+    53|       src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment-with-locales.min.js"
+
+F:\WEB APPS\Cardio\view\partials\navbar.ejs:93
+    91|           >
+    92|             <li>
+ >> 93|               <% for(conduiteMedicale of session.conduiteMedicale){ %>
+    94|               <a
+    95|                 class="dropdown-item"
+    96|                 href="/conduitemedicale/<%= conduiteMedicale %>"
+
+session.conduiteMedicale is not iterable
+    at eval (eval at compile (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:673:12), <anonymous>:12:40)
+    at navbar (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:703:17)
+    at include (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:701:39)
+    at eval (eval at compile (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:673:12), <anonymous>:12:17)
+    at boilerplate (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:703:17)
+    at tryHandleCache (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:274:36)
+    at Object.exports.renderFile (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:491:10)
+    at renderFile (F:\WEB APPS\Cardio\node_modules\ejs-mate\lib\index.js:298:7)
+    at F:\WEB APPS\Cardio\node_modules\ejs-mate\lib\index.js:353:7
+    at tryHandleCache (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:280:5)
+TypeError: F:\WEB APPS\Cardio\view\layouts\boilerplate.ejs:50
+    48| 
+    49|   <body class="d-flex flex-column">
+ >> 50|     <%- include("../partials/navbar")%>
+    51|     <main class=""><%- include("../partials/flash")%> <%- body %></main>
+    52|     <script
+    53|       src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment-with-locales.min.js"
+
+F:\WEB APPS\Cardio\view\partials\navbar.ejs:93
+    91|           >
+    92|             <li>
+ >> 93|               <% for(conduiteMedicale of session.conduiteMedicale){ %>
+    94|               <a
+    95|                 class="dropdown-item"
+    96|                 href="/conduitemedicale/<%= conduiteMedicale %>"
+
+session.conduiteMedicale is not iterable
+    at eval (eval at compile (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:673:12), <anonymous>:12:40)
+    at navbar (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:703:17)
+    at include (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:701:39)
+    at eval (eval at compile (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:673:12), <anonymous>:12:17)
+    at boilerplate (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:703:17)
+    at tryHandleCache (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:274:36)
+    at Object.exports.renderFile (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:491:10)
+    at renderFile (F:\WEB APPS\Cardio\node_modules\ejs-mate\lib\index.js:298:7)
+    at F:\WEB APPS\Cardio\node_modules\ejs-mate\lib\index.js:353:7
+    at tryHandleCache (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:280:5)
+TypeError: F:\WEB APPS\Cardio\view\layouts\boilerplate.ejs:50
+    48| 
+    49|   <body class="d-flex flex-column">
+ >> 50|     <%- include("../partials/navbar")%>
+    51|     <main class=""><%- include("../partials/flash")%> <%- body %></main>
+    52|     <script
+    53|       src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment-with-locales.min.js"
+
+F:\WEB APPS\Cardio\view\partials\navbar.ejs:93
+    91|           >
+    92|             <li>
+ >> 93|               <% for(conduiteMedicale of session.conduiteMedicale){ %>
+    94|               <a
+    95|                 class="dropdown-item"
+    96|                 href="/conduitemedicale/<%= conduiteMedicale %>"
+
+session.conduiteMedicale is not iterable
+    at eval (eval at compile (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:673:12), <anonymous>:12:40)
+    at navbar (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:703:17)
+    at include (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:701:39)
+    at eval (eval at compile (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:673:12), <anonymous>:12:17)
+    at boilerplate (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:703:17)
+    at tryHandleCache (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:274:36)
+    at Object.exports.renderFile (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:491:10)
+    at renderFile (F:\WEB APPS\Cardio\node_modules\ejs-mate\lib\index.js:298:7)
+    at F:\WEB APPS\Cardio\node_modules\ejs-mate\lib\index.js:353:7
+    at tryHandleCache (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:280:5)
+TypeError: F:\WEB APPS\Cardio\view\layouts\boilerplate.ejs:50
+    48| 
+    49|   <body class="d-flex flex-column">
+ >> 50|     <%- include("../partials/navbar")%>
+    51|     <main class=""><%- include("../partials/flash")%> <%- body %></main>
+    52|     <script
+    53|       src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment-with-locales.min.js"
+
+F:\WEB APPS\Cardio\view\partials\navbar.ejs:93
+    91|           >
+    92|             <li>
+ >> 93|               <% for(conduiteMedicale of session.conduiteMedicale){ %>
+    94|               <a
+    95|                 class="dropdown-item"
+    96|                 href="/conduitemedicale/<%= conduiteMedicale %>"
+
+session.conduiteMedicale is not iterable
+    at eval (eval at compile (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:673:12), <anonymous>:12:40)
+    at navbar (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:703:17)
+    at include (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:701:39)
+    at eval (eval at compile (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:673:12), <anonymous>:12:17)
+    at boilerplate (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:703:17)
+    at tryHandleCache (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:274:36)
+    at Object.exports.renderFile (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:491:10)
+    at renderFile (F:\WEB APPS\Cardio\node_modules\ejs-mate\lib\index.js:298:7)
+    at F:\WEB APPS\Cardio\node_modules\ejs-mate\lib\index.js:353:7
+    at tryHandleCache (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:280:5)
+TypeError: F:\WEB APPS\Cardio\view\layouts\boilerplate.ejs:50
+    48| 
+    49|   <body class="d-flex flex-column">
+ >> 50|     <%- include("../partials/navbar")%>
+    51|     <main class=""><%- include("../partials/flash")%> <%- body %></main>
+    52|     <script
+    53|       src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment-with-locales.min.js"
+
+F:\WEB APPS\Cardio\view\partials\navbar.ejs:93
+    91|           >
+    92|             <li>
+ >> 93|               <% for(conduiteMedicale of session.conduiteMedicale){ %>
+    94|               <a
+    95|                 class="dropdown-item"
+    96|                 href="/conduitemedicale/<%= conduiteMedicale %>"
+
+session.conduiteMedicale is not iterable
+    at eval (eval at compile (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:673:12), <anonymous>:12:40)
+    at navbar (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:703:17)
+    at include (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:701:39)
+    at eval (eval at compile (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:673:12), <anonymous>:12:17)
+    at boilerplate (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:703:17)
+    at tryHandleCache (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:274:36)
+    at Object.exports.renderFile (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:491:10)
+    at renderFile (F:\WEB APPS\Cardio\node_modules\ejs-mate\lib\index.js:298:7)
+    at F:\WEB APPS\Cardio\node_modules\ejs-mate\lib\index.js:353:7
+    at tryHandleCache (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:280:5)
+node:events:505
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::8000
+    at Server.setupListenHandle [as _listen2] (node:net:1372:16)
+    at listenInCluster (node:net:1420:12)
+    at Server.listen (node:net:1508:7)
+    at Function.listen (F:\WEB APPS\Cardio\node_modules\express\lib\application.js:635:24)
+    at Object.<anonymous> (F:\WEB APPS\Cardio\app.js:134:5)
+    at Module._compile (node:internal/modules/cjs/loader:1105:14)
+    at Object.Module._extensions..js (node:internal/modules/cjs/loader:1159:10)
+    at Module.load (node:internal/modules/cjs/loader:981:32)
+    at Function.Module._load (node:internal/modules/cjs/loader:822:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1399:8)
+    at processTicksAndRejections (node:internal/process/task_queues:83:21) {
+  code: 'EADDRINUSE',
+  errno: -4091,
+  syscall: 'listen',
+  address: '::',
+  port: 8000
+}
+node:events:505
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::8000
+    at Server.setupListenHandle [as _listen2] (node:net:1372:16)
+    at listenInCluster (node:net:1420:12)
+    at Server.listen (node:net:1508:7)
+    at Function.listen (F:\WEB APPS\Cardio\node_modules\express\lib\application.js:635:24)
+    at Object.<anonymous> (F:\WEB APPS\Cardio\app.js:134:5)
+    at Module._compile (node:internal/modules/cjs/loader:1105:14)
+    at Object.Module._extensions..js (node:internal/modules/cjs/loader:1159:10)
+    at Module.load (node:internal/modules/cjs/loader:981:32)
+    at Function.Module._load (node:internal/modules/cjs/loader:822:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1399:8)
+    at processTicksAndRejections (node:internal/process/task_queues:83:21) {
+  code: 'EADDRINUSE',
+  errno: -4091,
+  syscall: 'listen',
+  address: '::',
+  port: 8000
+}
+node:events:505
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::8000
+    at Server.setupListenHandle [as _listen2] (node:net:1372:16)
+    at listenInCluster (node:net:1420:12)
+    at Server.listen (node:net:1508:7)
+    at Function.listen (F:\WEB APPS\Cardio\node_modules\express\lib\application.js:635:24)
+    at Object.<anonymous> (F:\WEB APPS\Cardio\app.js:134:5)
+    at Module._compile (node:internal/modules/cjs/loader:1105:14)
+    at Object.Module._extensions..js (node:internal/modules/cjs/loader:1159:10)
+    at Module.load (node:internal/modules/cjs/loader:981:32)
+    at Function.Module._load (node:internal/modules/cjs/loader:822:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1399:8)
+    at processTicksAndRejections (node:internal/process/task_queues:83:21) {
+  code: 'EADDRINUSE',
+  errno: -4091,
+  syscall: 'listen',
+  address: '::',
+  port: 8000
+}
+Deprecation warning: value provided is not in a recognized RFC2822 or ISO format. moment construction falls back to js Date(), which is not reliable across all browsers and versions. Non RFC2822/ISO date formats are discouraged. Please refer to http://momentjs.com/guides/#/warnings/js-date/ for more info.
+Arguments: 
+[0] _isAMomentObject: true, _isUTC: false, _useUTC: false, _l: undefined, _i: 01/01/1900, _f: undefined, _strict: undefined, _locale: [object Object]
+Error
+    at Function.createFromInputFallback (F:\WEB APPS\Cardio\node_modules\moment\moment.js:324:25)
+    at configFromString (F:\WEB APPS\Cardio\node_modules\moment\moment.js:2550:19)
+    at configFromInput (F:\WEB APPS\Cardio\node_modules\moment\moment.js:2993:13)
+    at prepareConfig (F:\WEB APPS\Cardio\node_modules\moment\moment.js:2976:13)
+    at createFromConfig (F:\WEB APPS\Cardio\node_modules\moment\moment.js:2943:44)
+    at createLocalOrUTC (F:\WEB APPS\Cardio\node_modules\moment\moment.js:3037:16)
+    at createLocal (F:\WEB APPS\Cardio\node_modules\moment\moment.js:3041:16)
+    at Object.hooks [as moment] (F:\WEB APPS\Cardio\node_modules\moment\moment.js:16:29)
+    at eval (eval at compile (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:673:12), <anonymous>:15:25)
+    at newModal (F:\WEB APPS\Cardio\node_modules\ejs\lib\ejs.js:703:17)

@@ -1,13 +1,20 @@
 const { patientSchema } = require("../schemas");
+const Staff = require("../model/staff");
+const User = require("../model/user");
+const conduiteMedicale = require("../seeds/conduiteMedicale");
 
 const ExpressError = require("../utils/ExpressError");
 // ALL MIDDLEWARE GOES HERE
 
-module.exports.isLoggedIn = (req, res, next) => {
+module.exports.isLoggedIn = async (req, res, next) => {
   if (!req.isAuthenticated()) {
     req.session.returnTo = req.originalUrl;
     req.flash("error", "You must be signed in first!");
     return res.redirect("/user/login");
+  } else {
+    req.session.medecinList = await Staff.find({ fonction: "Medecin" });
+    req.session.conduiteMedicale = conduiteMedicale.conduitemedicale;
+    req.session.newUsers = await User.find({ approved: false }).count();
   }
   // else if(!req.user.approved){
   //   req.flash("error", "Contact the admin to activate your account");

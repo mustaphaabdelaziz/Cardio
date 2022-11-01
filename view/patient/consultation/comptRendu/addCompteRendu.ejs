@@ -61,6 +61,7 @@
               id="atcd-<%=i%>"
               name="compteRendu[atcd]"
               type="text"
+              
             />
             <label for="atcd-<%=i%>" class="form-label">ATCD</label>
             <div class="valid-feedback">BIEN</div>
@@ -274,7 +275,51 @@
               rows="4"
               placeholder="Conclusion"
               style="text-transform: capitalize"
+              required
             ></textarea>
+          </div>
+          <div class="form-floating col-md-6">
+            <select
+              class="form-select"
+              id="filter-<%=i%>"
+              name="compteRendu[filter]"
+              onchange="selectFilter(this, '<%=i%>')"
+               >
+               <option class="option" value="" selected disabled>Conduite Médicale</option>
+               <% for (conduitemedicale of conduitemedicales){ %> 
+              <option class="option" value="<%=conduitemedicale%>"><%=conduitemedicale%></option>
+              <% } %>    </select>
+            <label for="filter-<%=i%>" class="form-label">Conduite Médicale</label>
+            <div class="valid-feedback">Conduite Médicale</div>
+          </div>
+          <div class="form-floating col-md-3">
+            <input
+              class="form-control"
+              id="surveillanceperiod-<%=i%>"
+              name="compteRendu[surveillanceperiod]"
+              type="number"
+              disabled
+            />
+
+            <label for="surveillanceperiod-<%=i%>" class="form-label"
+              >Surveillance periode</label
+            >
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <div class="form-floating col-md-3">
+            <select
+              class="form-select"
+              id="period-<%=i%>"
+              name="compteRendu[period]"
+              disabled
+               >
+              <option class="option" value="" selected disabled>Période</option>
+              <option class="option" value="Mois">Mois</option>
+              <option class="option" value="An(s)">An(s)</option>
+            
+            </select>
+            <label for="period-<%=i%>" class="form-label">Période</label>
+            <div class="valid-feedback">Période</div>
           </div>
           <div class="col-md-12">
             <textarea
@@ -282,7 +327,7 @@
               name="compteRendu[conduiteMedicale]"
               id="conduiteMedicale-<%=i%>"
               rows="4"
-              placeholder="conduite Médicale"
+              placeholder="Autres (Conduite médicale)"
               style="text-transform: capitalize"
             ></textarea>
           </div>
@@ -355,4 +400,5 @@
   $("#pericarde-<%=i%>").val("<%=reports[0].indication.pericarde %>");
   $("#conclusion-<%=i%>").val("<%=reports[0].conclusion %>");
   $("#conduiteMedicale-<%=i%>").val("<%=reports[0].conduiteMedicale %>");
+
 </script>

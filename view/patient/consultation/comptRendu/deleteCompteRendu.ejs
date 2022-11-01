@@ -3,7 +3,7 @@
   type="button"
   class="btn btn-outline-danger bg-gradient px-2 py-1"
   data-bs-toggle="modal"
-  data-bs-target="#dacte-<%= consultation.compterendu.id %>"
+  data-bs-target="#deletecomptRendu-<%=i%>"
 >
   <i class="bi bi-trash-fill"></i>
 </button>
@@ -11,7 +11,7 @@
 <!-- Modal -->
 <div
   class="modal fade"
-  id="dacte-<%= consultation.compterendu.id %>"
+  id="deletecomptRendu-<%=i%>"
   data-bs-keyboard="false"
   tabindex="-1"
   aria-labelledby="staticBackdropLabel"
@@ -22,6 +22,7 @@
       <div class="modal-header">
         <h5 class="modal-title" id="staticBackdropLabel">
           Suppression de Compte Rendu
+          <%=moment(consultation.date).format("DD/MM/YYYY")%>
         </h5>
 
         <button
@@ -37,8 +38,8 @@
         <p class="mt-4">vous êtes sûr?</p>
         <form
           class=""
-          id="delete-form"
-          action="/patient/<%=patient.id %>/acte/<%=consultation.id %>/compterendu/?_method=DELETE"
+          id="delete-form-<%=i%>"
+          action="/patient/<%=patient.id%>/acte/<%=consultation.id %>/compterendu/?_method=DELETE"
           method="POST"
         >
           <div class="modal-footer mt-4">

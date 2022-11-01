@@ -1,0 +1,59 @@
+<% layout('layouts/boilerplate')%>
+
+
+<div class="container mt-3">
+
+    <div class="col m-auto">
+        <div class="container-fluid">
+
+            <div class=" mb-4 bg-light rounded-5 px-2">
+
+                <div class="d-flex">
+                    <div class="col d-flex m-auto">
+                        <h2>
+                            <%=patient.fullname %>
+                        </h2>
+                    </div>
+                    <div class="col-2 mt-2">
+                        <p>Age:</p>
+                        <p>Tél:</p>
+                        
+                    </div>
+                    <div class="col-2 mt-2">
+                        <p><%=patient.age %></p>
+                        <p><%=patient.phone %></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <form class="d-flex">
+        <input id="search" class="form-control mb-2" type="search" placeholder="Search" aria-label="Search" />
+
+    </form>
+    <table class="table table-striped table-hover table-borderless text-center sortable">
+        <thead class="table-success">
+            <tr>
+                <th scope="col">N°</th>
+                <th scope="col">Date</th>
+                <th id="hide" scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody id="tablebody">
+           <% var i = 1 %>
+           <% for(bc of bcs) {%>
+            <tr>
+            <th class="clickable" onclick="window.location='/kt/bc/<%=patient.id%>/<%=bc.id%>'"><%= i++ %></th> 
+            <td class="clickable" onclick="window.location='/kt/bc/<%=patient.id%>/<%=bc.id%>'"><%= moment(bc.date).format("DD/MM/YYYY")%> </td>
+            <td>EDIT & Delete</td>
+        </tr>
+            <% } %> 
+        </tbody>
+    </table>
+</div>
+</div>

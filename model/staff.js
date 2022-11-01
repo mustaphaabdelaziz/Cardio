@@ -18,7 +18,9 @@ const Staff = new Schema(
     fonction: String,
     phone: { type: String, trim: true },
     email: String,
+    
   },
+
   opts
 );
 Staff.virtual("fullname").get(function () {

@@ -1,0 +1,171 @@
+<% layout('layouts/boilerplate')%>
+<div class="container-fluid mt-4">
+  <div class="col m-auto bg-light rounded-5 p-2">
+    <h2 class="mb-5 text-center text-success">Liste <%= conduiteMedicale %></h2>
+    <div class="row mb-4">
+      <span id="result" class="col-12 text-success"></span>
+    </div>
+    <div class="d-flex mb-2 justify-content-center">
+      <div class="form-floating col-3 me-2">
+        <select
+          id="age"
+          name="age"
+          class="form-select"
+          required
+          onchange="filter(4, 2, 6)"
+        >
+          <!-- <option selected disabled >Age</option> -->
+          <option class="option" value="all" selected>Tous</option>
+          <option class="option" value="above">+4 ans</option>
+          <option class="option" value="below">-4 ans</option>
+        </select>
+
+        <label id="hide" for="conduitemedicale" class="form-label">Age</label>
+        <div class="valid-feedback">BIEN</div>
+      </div>
+      <div class="form-floating col-3 me-2">
+        <input
+          class="form-control"
+          type="date"
+          id="start"
+          name="start"
+          onkeydown="filter(12, 2, 6)"
+        />
+        <label id="hide" for="start" class="form-label">De:</label>
+      </div>
+      <div class="form-floating col-3">
+        <input
+          class="form-control"
+          onkeydown="filter(12, 2, 6)"
+          type="date"
+          id="end"
+          name="end"
+        />
+        <label id="hide" for="end" class="form-label">A:</label>
+      </div>
+      <button
+        class="btn btn-outline-secondary py-3 px-2 ms-2"
+        onclick="printActeList('<%=conduiteMedicale%>')"
+      >
+        Imprimer <i class="bi bi-printer-fill py-3 px-2"></i>
+      </button>
+    </div>
+  </div>
+  <form class="d-flex mt-2">
+    <input
+      id="search"
+      class="form-control mb-2"
+      type="search"
+      placeholder="Search"
+      aria-label="Search"
+    />
+  </form>
+  <div class="table-responsive">
+    <table
+      class="table table-striped table-hover table-borderless text-center shadow sortable"
+      id="patientTable"
+    >
+      <thead class="table-success">
+        <tr>
+          <th scope="col">N°</th>
+          <th scope="col">Nom</th>
+          <th scope="col">Prénom</th>
+          <th scope="col">Age</th>
+          <th scope="col">Téléphone</th>
+          <th scope="col">Medecin</th>
+          <% if(conduiteMedicale == "Interventionnelle KT"){ %> 
+          <th scope="col">Technicien</th>
+          <% } %> 
+          <th scope="col">Date acte</th>
+          <% if(conduiteMedicale == "Surveillance médical"){ %> 
+            <th scope="col">Surveillance periode</th>
+           <% } %> 
+          <th scope="col">Motif</th>
+          <th scope="col">Compte Rendu</th>
+          </tr>
+      </thead>
+      <tbody id="tablebody">
+        <% var i=1 %>
+        <% for (patient of patients){%>
+        <% for (consultation of patient.sortedConsultation){%>
+        <% if(consultation.compterendu.filter == conduiteMedicale){%>
+        <tr>
+          <th
+            class="clickable"
+            onclick="window.location='/patient/<%=patient.id%>'"
+            scope="row"
+          >
+            <%= i%> <% i=i+1; %>
+          </th>
+          <td
+            class="clickable"
+            onclick="window.location='/patient/<%=patient.id%>'"
+          >
+            <%= patient.lastname%>
+          </td>
+          <td
+            class="clickable"
+            onclick="window.location='/patient/<%=patient.id%>'"
+          >
+            <%=patient.firstname%>
+          </td>
+          <td
+            class="clickable"
+            onclick="window.location='/patient/<%=patient.id%>'"
+          >
+            <%= patient.age%>
+          </td>
+          <td
+            class="clickable"
+            onclick="window.location='/patient/<%=patient.id%>'"
+          >
+            <%= patient.phone%>
+          </td>
+          <td
+            class="clickable"
+            onclick="window.location='/patient/<%=patient.id%>'"
+          >
+            Dr. <%=consultation.medecin%>
+          </td>
+          <% if(conduiteMedicale == "Interventionnelle KT"){ %> 
+          <td
+            class="clickable"
+            onclick="window.location='/patient/<%=patient.id%>'"
+          >
+            <%=consultation.technicien%>
+          </td>
+          <% } %> 
+          <td
+            class="clickable"
+            onclick="window.location='/patient/<%=patient.id%>'"
+          >
+            <%=moment(consultation.date).format("DD/MM/YYYY")%>
+          </td>
+          <% if(conduiteMedicale == "Surveillance médical"){ %> 
+            <td class="text-center data">
+              <%=consultation.compterendu.surveillanceperiod%>
+              <%=consultation.compterendu.period%>
+            </td>
+            <% } %> 
+          <td class="text-center data"><%-include("../commentViewer")%></td>
+          <td>
+            <% if(!consultation.compterendu.isEmpty){%>
+            <button
+              class="btn btn-outline-secondary px-2 py-1 ms-2"
+              onclick="printCompteRendu('<%=consultation.id%>','<%=patient.id%>')"
+            >
+              <i class="bi bi-eye-fill px-1 py-1"></i>
+            </button>
+            <!-- delete comptrendu -->
+            <% }else{%> / <% } %>
+          </td>
+        
+        </tr>
+        <% }}}%>
+      </tbody>
+    </table>
+  </div>
+</div>
+<script>
+  let patients = <%- JSON.stringify(patients) %>;
+</script>

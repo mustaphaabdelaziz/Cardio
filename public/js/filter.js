@@ -1,8 +1,10 @@
 var table = document.getElementById("patientTable");
 var tr = table.getElementsByTagName("tr");
 var txtValue;
-
+var result = document.getElementById("result");
+var nbr = 0;
 function filter(age, ageColumn, dateColumn) {
+  nbr = 0;
   var selected = document.getElementById("age").value;
   var start =
     document.getElementById("start").value ||
@@ -19,6 +21,9 @@ function filter(age, ageColumn, dateColumn) {
     tddate = tr[i].getElementsByTagName("td")[dateColumn]; //[6]
     if (tdage && tddate) {
       ageValue = parseInt(tdage.textContent);
+      if (tdage.textContent.indexOf("mois") != -1) {
+        ageValue /= 12;
+      }
       dateValue = tddate.innerText;
 
       if (start && end && selected) {
@@ -30,8 +35,9 @@ function filter(age, ageColumn, dateColumn) {
         ) {
           switch (selected) {
             case "above":
-              if (ageValue >= age) {
+              if (ageValue > age) {
                 tr[i].style.display = "";
+                nbr++;
               } else {
                 tr[i].style.display = "none";
               }
@@ -39,6 +45,7 @@ function filter(age, ageColumn, dateColumn) {
             case "below":
               if (ageValue <= age) {
                 tr[i].style.display = "";
+                nbr++;
               } else {
                 tr[i].style.display = "none";
               }
@@ -48,34 +55,48 @@ function filter(age, ageColumn, dateColumn) {
           moment(dateValue, "DD/MM/YYYY").isBetween(start, end, "day", "[]")
         ) {
           tr[i].style.display = "";
+          nbr++;
         } else {
           tr[i].style.display = "none";
         }
       } else {
         tr[i].style.display = "";
+        nbr++;
       }
     }
   }
+  result.textContent = "Resultat: "+nbr
 }
 function filterAge(age) {
+  nbr = 0;
   var selected = document.getElementById("age").value || "all";
+
   // Loop through all table rows, and hide those who don't match the search query
   for (i = 0; i < tr.length; i++) {
     td = tr[i].getElementsByTagName("td")[2];
     if (td) {
       txtValue = parseInt(td.textContent);
+      if (td.textContent.indexOf("mois") != -1) {
+        txtValue /= 12;
+      }
+
+      // alert(td.textContent.indexOf("ans"));
+
       if (selected === "all") {
         tr[i].style.display = "";
+        nbr++;
       } else {
         if (selected === "above") {
-          if (txtValue >= age) {
+          if (txtValue > age) {
             tr[i].style.display = "";
+            nbr++;
           } else {
             tr[i].style.display = "none";
           }
         } else if (selected === "below") {
           if (txtValue <= age) {
             tr[i].style.display = "";
+            nbr++;
           } else {
             tr[i].style.display = "none";
           }
@@ -83,8 +104,11 @@ function filterAge(age) {
       }
     }
   }
+  result.textContent = "Resultat: " + nbr;
 }
+
 function filterActe(idSelect, idColumn) {
+  nbr = 0;
   var selected = document.getElementById(idSelect).value;
 
   // Loop through all table rows, and hide those who don't match the search query
@@ -96,10 +120,12 @@ function filterActe(idSelect, idColumn) {
       switch (selected) {
         case "all":
           tr[i].style.display = "";
+          nbr++;
           break;
         case "chirurgie":
           if (txtValue === "chirurgie") {
             tr[i].style.display = "";
+            nbr++;
           } else {
             tr[i].style.display = "none";
           }
@@ -107,6 +133,7 @@ function filterActe(idSelect, idColumn) {
         case "consultation":
           if (txtValue === "consultation") {
             tr[i].style.display = "";
+            nbr++;
           } else {
             tr[i].style.display = "none";
           }
@@ -114,6 +141,7 @@ function filterActe(idSelect, idColumn) {
         case "kt":
           if (txtValue === "kt") {
             tr[i].style.display = "";
+            nbr++;
           } else {
             tr[i].style.display = "none";
           }
@@ -121,6 +149,7 @@ function filterActe(idSelect, idColumn) {
         case "no-acte":
           if (txtValue === "/") {
             tr[i].style.display = "";
+            nbr++;
           } else {
             tr[i].style.display = "none";
           }
@@ -128,9 +157,11 @@ function filterActe(idSelect, idColumn) {
       }
     }
   }
+  result.textContent = "Resultat: " + nbr;
 }
 
 function filterDate() {
+  nbr = 0;
   var start = document.getElementById("start").value;
   var end = document.getElementById("end").value;
 
@@ -143,12 +174,15 @@ function filterDate() {
         // [] indicates that the start and end dates are includered in the range
         if (moment(txtValue).isBetween(start, end, "day", "[]")) {
           tr[i].style.display = "";
+          nbr++;
         } else {
           tr[i].style.display = "none";
         }
       } else {
         tr[i].style.display = "";
+        nbr++;
       }
     }
   }
+  result.textContent = "Resultat: "+nbr
 }

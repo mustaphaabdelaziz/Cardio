@@ -1,0 +1,360 @@
+<button
+  type="button"
+  class="btn me-2 btn-outline-success bg-gradient px-2 py-1"
+  data-bs-toggle="modal"
+  data-bs-target="#comptRendu-<%= consultation.id%>"
+>
+  Ajouter <i class="bi bi-clipboard2-pulse-fill"></i>
+</button>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="comptRendu-<%= consultation.id %>"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addcompt-<%= patient.id %>">
+          Ajouter Compte Rendu
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form
+          action="/patient/<%=patient.id%>/acte/<%=consultation.id %>/compterendu"
+          method="POST"
+          class="row g-3 m-2 needs-validation"
+          novalidate
+        >
+          <!-- =========================  Modèle ============================ -->
+          <div class="form-floating col-md-12">
+            <select
+              class="form-select"
+              id="model-<%= i %>"
+              name="model"
+              onchange="generateField('<%= i %>')"
+            >
+              <option class="option" value="" selected disabled>Modèle</option>
+              <% for(report of reports){ %>
+              <option class="option" value="<%= report.type %>">
+                <%= report.type %>
+              </option>
+              <% } %>
+            </select>
+            <label for="model" class="form-label">Modèle</label>
+            <div class="valid-feedback">Modèle</div>
+          </div>
+          <!-- =========================  ATCD ============================ -->
+          <div class="form-floating col-md-12">
+            <input
+              class="form-control"
+              id="atcd-<%=i%>"
+              name="compteRendu[atcd]"
+              type="text"
+              
+            />
+            <label for="atcd-<%=i%>" class="form-label">ATCD</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <!-- =========================  Quality Technique ============================ -->
+          <div class="form-floating col-md-12">
+            <input
+              class="form-control"
+              id="quality-<%=i%>"
+              name="compteRendu[quality]"
+              type="text"
+            />
+            <label for="quality-<%=i%>" class="form-label"
+              >Quality Technique</label
+            >
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <!-- ========================= Situs ============================ -->
+          <div class="form-floating col-md-12">
+            <input
+              class="form-control"
+              id="situs-<%=i%>"
+              name="compteRendu[situs]"
+              type="text"
+            />
+            <label for="situs-<%=i%>" class="form-label">Situs</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <!-- ========================= Aorte ============================ -->
+          <div class="form-floating col-md-12">
+            <input
+              class="form-control"
+              id="aorte-<%=i%>"
+              name="compteRendu[aorte]"
+              type="text"
+            />
+            <label for="aorte-<%=i%>" class="form-label">Aorte</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <!-- ========================= Oreillette Gauche ============================ -->
+          <div class="form-floating col-md-12">
+            <input
+              class="form-control"
+              id="oreilletteGauche-<%=i%>"
+              name="compteRendu[oreilletteGauche]"
+              type="text"
+            />
+            <label for="oreilletteGauche-<%=i%>" class="form-label"
+              >Oreillette Gauche</label
+            >
+            <div class="valid-feedback">BIEN</div>
+          </div>
+
+          <!-- ========================= SIA ============================ -->
+          <div class="form-floating col-md-12">
+            <input
+              class="form-control"
+              id="sia-<%=i%>"
+              name="compteRendu[sia]"
+              type="text"
+            />
+
+            <label for="sia-<%=i%>" class="form-label">SIA</label>
+            <div class="valid-feedback">SIA</div>
+          </div>
+          <!-- ========================= Valve Aortique ============================ -->
+          <div class="form-floating col-md-12">
+            <input
+              class="form-control"
+              id="valveAortique-<%=i%>"
+              name="compteRendu[valveAortique]"
+              type="text"
+            />
+            <label for="valveAortique-<%=i%>" class="form-label"
+              >Valve Aortique</label
+            >
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <!-- ========================= VALVE MITRALE ============================ -->
+          <div class="form-floating col-md-12">
+            <input
+              class="form-control"
+              id="valveMitrale-<%=i%>"
+              name="compteRendu[valveMitrale]"
+              type="text"
+            />
+
+            <label for="valveMitrale-<%=i%>" class="form-label"
+              >Valve Mitrale</label
+            >
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <!-- ========================= Vintricule Gauche ============================ -->
+          <div class="form-floating col-md-12">
+            <input
+              class="form-control"
+              id="motif-<%=i%>"
+              name="ventriculeGauche[motif]"
+              type="text"
+            />
+
+            <label for="motif-<%=i%>" class="form-label"
+              >Ventricule Gauche</label
+            >
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <!-- ========================= DTD ============================ -->
+          <div class="form-floating col-md-4">
+            <input
+              class="form-control"
+              id="dtd-<%=i%>"
+              name="ventriculeGauche[dtd]"
+              type="text"
+            />
+            <label for="dtd-<%=i%>" class="form-label">DTD</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <!-- ========================= SIV ============================ -->
+          <div class="form-floating col-md-4">
+            <input
+              class="form-control"
+              id="ventGsiv-<%=i%>"
+              name="ventriculeGauche[ventGsiv]"
+              type="text"
+            />
+            <label for="ventGsiv-<%=i%>" class="form-label">SIV</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <!-- ========================= FE ============================ -->
+          <div class="form-floating col-md-4">
+            <input
+              class="form-control"
+              id="fe-<%=i%>"
+              name="ventriculeGauche[fe]"
+              type="text"
+            />
+
+            <label for="-<%=i%>" class="form-label">FE</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <!-- ========================= SIV ============================ -->
+          <div class="form-floating col-md-12">
+            <input
+              class="form-control"
+              id="siv-<%=i%>"
+              name="compteRendu[siv]"
+              type="text"
+            />
+
+            <label for="siv-<%=i%>" class="form-label">SIV</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <!-- ========================= Cavités Droite ============================ -->
+          <div class="form-floating col-md-12">
+            <input
+              class="form-control"
+              id="cavitesDroites-<%=i%>"
+              name="compteRendu[cavitesDroites]"
+              type="text"
+            />
+
+            <label for="cavitesDroites" class="form-label"
+              >Cavités Droite</label
+            >
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <!-- ========================= Tricuspide ============================ -->
+          <div class="form-floating col-md-12">
+            <input
+              class="form-control"
+              id="tricuspide-<%=i%>"
+              name="compteRendu[tricuspide]"
+              type="text"
+            />
+
+            <label for="tricuspide-<%=i%>" class="form-label">Tricuspide</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <!-- ========================= Artère Pulmonaire ============================ -->
+          <div class="form-floating col-md-12">
+            <input
+              class="form-control"
+              id="arterePulmonaire-<%=i%>"
+              name="compteRendu[arterePulmonaire]"
+              type="text"
+            />
+
+            <label for="arterePulmonaire-<%=i%>" class="form-label"
+              >Artère Pulmonaire</label
+            >
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <!-- ========================= Péricarde ============================ -->
+          <div class="form-floating col-md-12">
+            <input
+              class="form-control"
+              id="pericarde-<%=i%>"
+              name="compteRendu[pericarde]"
+              type="text"
+            />
+
+            <label for="pericarde-<%=i%>" class="form-label">Péricarde</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+
+          <div class="col-md-12">
+            <textarea
+              class="form-control"
+              name="compteRendu[conclusion]"
+              id="conclusion-<%=i%>"
+              rows="4"
+              placeholder="Conclusion"
+              style="text-transform: capitalize"
+              required
+            ></textarea>
+          </div>
+          <div class="col-md-12">
+            <textarea
+              class="form-control"
+              name="compteRendu[conduiteMedicale]"
+              id="conduiteMedicale-<%=i%>"
+              rows="4"
+              placeholder="conduite Médicale"
+              style="text-transform: capitalize"
+            ></textarea>
+          </div>
+          <div class="row col-12 mt-3 border border-secondary border-2 py-2">
+            <div class="form-floating">
+              <div class="d-flex align-item-start form-check form-switch ms-2 mt-2">
+                <input
+                  class="form-check-input me-2"
+                  type="checkbox"
+                  name="save"
+                  role="switch"
+                  id="save-<%=i%>"
+                />
+                <label class="form-check-label" for="save">Save as Model</label>
+              </div>
+            </div>
+            <div class="form-floating mb-3">
+              <input
+                class="form-control"
+                type="text"
+                id="title-<%=i%>"
+                name="title"
+              />
+              <label for="title-<%=i%>" class="form-label"
+                >Titre de Modèle</label
+              >
+            </div>
+          </div>
+
+          <div class="modal-footer mt-4">
+            <button
+              type="button"
+              class="btn btn-outline-danger bg-gradient"
+              data-bs-dismiss="modal"
+            >
+              Annuler
+            </button>
+            <button class="btn btn-outline-success bg-gradient">Ajouter</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $("#comptRendu-<%= consultation.id %>").on("shown.bs.modal", function () {
+    $(this).find("[autofocus]").focus();
+  });
+  $("#model-<%=i%>").val("<%=reports[0].type %>");
+  $("#atcd-<%=i%>").val("<%=reports[0].atcd %>");
+  $("#quality-<%=i%>").val("<%=reports[0].quality %>");
+  $("#situs-<%=i%>").val("<%=reports[0].indication.situs %>");
+  $("#aorte-<%=i%>").val("<%=reports[0].indication.aorte %>");
+  $("#oreilletteGauche-<%=i%>").val(
+    "<%=reports[0].indication.oreilletteGauche %>"
+  );
+  $("#sia-<%=i%>").val("<%=reports[0].indication.sia %>");
+  $("#siv-<%=i%>").val("<%=reports[0].indication.siv %>");
+  $("#valveAortique-<%=i%>").val("<%=reports[0].indication.valveAortique %>");
+  $("#valveMitrale-<%=i%>").val("<%=reports[0].indication.valveMitrale %>");
+  $("#motif-<%=i%>").val("<%=reports[0].indication.ventriculeGauche.motif %>");
+  $("#ventGsiv-<%=i%>").val("<%=reports[0].indication.ventriculeGauche.siv %>");
+  $("#dtd-<%=i%>").val("<%=reports[0].indication.ventriculeGauche.dtd %>");
+  $("#fe-<%=i%>").val("<%=reports[0].indication.ventriculeGauche.fe %>");
+  $("#cavitesDroites-<%=i%>").val("<%=reports[0].indication.cavitesDroites %>");
+  $("#tricuspide-<%=i%>").val("<%=reports[0].indication.tricuspide %>");
+  $("#arterePulmonaire-<%=i%>").val(
+    "<%=reports[0].indication.arterePulmonaire %>"
+  );
+  $("#pericarde-<%=i%>").val("<%=reports[0].indication.pericarde %>");
+  $("#conclusion-<%=i%>").val("<%=reports[0].conclusion %>");
+  $("#conduiteMedicale-<%=i%>").val("<%=reports[0].conduiteMedicale %>");
+</script>

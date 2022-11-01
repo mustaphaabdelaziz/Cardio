@@ -1,7 +1,7 @@
 const MongoClient = require("mongodb").MongoClient;
 const fs = require("fs");
 const dbName = "cardio";
-const collections = ["staffs", "patients", "countries", "bcs", "materiels"];
+const collections = ["fournisseurs","staffs", "patients", "countries", "bcs", "materiels","users","reports"];
 
 const dbUrl = process.env.LOCAL_DB_URL;
 
