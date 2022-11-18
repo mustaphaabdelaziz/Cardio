@@ -40,7 +40,7 @@
     "pdfkit-table": "^0.1.99",
     "pdfmake": "^0.2.6",
     "phantom": "^6.3.0",
-    "sanitize-html": "^2.7.2",
+    "sanitize-html": "^2.7.3",
     "underscore": "^1.13.6"
   }
 }
