@@ -38,7 +38,7 @@
     "pdf-creator-node": "^2.3.5",
     "pdfkit": "^0.13.0",
     "pdfkit-table": "^0.1.99",
-    "pdfmake": "^0.2.6",
+    "pdfmake": "^0.2.7",
     "phantom": "^6.3.0",
     "sanitize-html": "^2.7.2",
     "underscore": "^1.13.6"
