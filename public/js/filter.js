@@ -21,14 +21,10 @@ function filter(age, ageColumn, dateColumn) {
     tddate = tr[i].getElementsByTagName("td")[dateColumn]; //[6]
     if (tdage && tddate) {
       ageValue = parseInt(tdage.textContent);
-      if (tdage.textContent.indexOf("mois") != -1) {
-        ageValue /= 12;
-      }
       dateValue = tddate.innerText;
 
       if (start && end && selected) {
         // [] indicates that the start and end dates are includered in the range
-
         if (
           moment(dateValue, "DD/MM/YYYY").isBetween(start, end, "days", "[]") &&
           selected != "all"
@@ -65,7 +61,7 @@ function filter(age, ageColumn, dateColumn) {
       }
     }
   }
-  result.textContent = "Resultat: "+nbr
+  result.textContent = "Resultat: " + nbr;
 }
 function filterAge(age) {
   nbr = 0;
@@ -184,5 +180,5 @@ function filterDate() {
       }
     }
   }
-  result.textContent = "Resultat: "+nbr
+  result.textContent = "Resultat: " + nbr;
 }

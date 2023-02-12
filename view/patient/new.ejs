@@ -67,27 +67,17 @@
               <div class="valid-feedback">BIEN</div>
             </div>
             <div class="form-floating col-md-6">
-              <input 
-                id="patientBirthDate"
-                name="patient[birthdate]" 
-                type="date"
-                class="form-control" 
-                max="<%= moment().format("YYYY-MM-DD") %>"
-                min="<%= moment('01/01/1900').format('YYYY-MM-DD')%>"
-              />
+              <input id="patientBirthDate" name="patient[birthdate]" type="date"
+              class="form-control" max="<%= moment().format("YYYY-MM-DD") %>"
+              min="<%= moment('01/01/1900').format('YYYY-MM-DD')%>" />
               <label for="patientBirthDate" class="form-label"
                 >Date de Naissance
               </label>
               <div class="valid-feedback">BIEN</div>
             </div>
-                    
+
             <div class="form-floating col-md-6">
-              <select
-                id="bloodGroup"
-                name="blood[group]"
-                class="form-select"
-                
-              >
+              <select id="bloodGroup" name="blood[group]" class="form-select">
                 <option selected disabled value="">Groupe sanguin</option>
                 <option class="option" value="A">A</option>
                 <option class="option" value="B">B</option>
@@ -98,12 +88,7 @@
               <div class="valid-feedback">BIEN</div>
             </div>
             <div class="form-floating col-md-6">
-              <select
-                id="rhesus"
-                name="blood[rhesus]"
-                class="form-select"
-               
-              >
+              <select id="rhesus" name="blood[rhesus]" class="form-select">
                 <option selected disabled value="">Rhésus</option>
                 <option class="option" value="A">+</option>
                 <option class="option" value="B">-</option>

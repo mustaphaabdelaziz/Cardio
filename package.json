@@ -17,7 +17,7 @@
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
-    "date-and-time": "^2.4.1",
+    "date-and-time": "^2.4.2",
     "dotenv": "^16.0.3",
     "ejs": "^3.1.8",
     "ejs-mate": "^4.0.0",
@@ -25,10 +25,10 @@
     "express-mongo-sanitize": "^2.2.0",
     "express-session": "^1.17.3",
     "html-pdf": "^3.0.1",
-    "joi": "^17.6.3",
+    "joi": "^17.7.1",
     "method-override": "^3.0.0",
     "moment": "^2.29.4",
-    "mongoose": "^6.6.5",
+    "mongoose": "^6.9.1",
     "node-windows": "^1.0.0-beta.8",
     "nodemon": "^2.0.20",
     "passport": "^0.6.0",
@@ -38,9 +38,9 @@
     "pdf-creator-node": "^2.3.5",
     "pdfkit": "^0.13.0",
     "pdfkit-table": "^0.1.99",
-    "pdfmake": "^0.2.6",
+    "pdfmake": "^0.2.7",
     "phantom": "^6.3.0",
-    "sanitize-html": "^2.7.2",
+    "sanitize-html": "^2.9.0",
     "underscore": "^1.13.6"
   }
 }

@@ -12,13 +12,14 @@ const Schema = mongoose.Schema;
 
 const User = new Schema(
   {
-    username: {
+    firstname: { type: String, trim: true },
+    lastname: { type: String, trim: true, required: true },
+    externe: {
       type: String,
-      required: true,
-      unique: true,
-      lowercase: true,
-      trim: true,
+      default: "interne",
     },
+    fonction: String,
+    phone: { type: String, trim: true },
     privileges: [
       {
         type: String,

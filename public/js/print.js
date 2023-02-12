@@ -38,21 +38,26 @@ var styles = {
 };
 
 function printActeList(acte) {
-  var start = document.getElementById("start").value || moment();
-  var end = document.getElementById("end").value || moment();
+  var start =
+    document.getElementById("start").value || moment().format("DD/MM/YYYY");
+  var end =
+    document.getElementById("end").value || moment().format("DD/MM/YYYY");
   let list = [];
   let i = 1;
   for (const patient of patients) {
-    for (let j = 0; j < patient.consultation.length; j++) {
+    for (let j = 0; j < patient.sortedConsultation.length; j++) {
       if (selected.value === "all") {
         if (
-          moment(
-            moment(patient.consultation[j].date).format("DD/MM/YYYY"),
-            "DD/MM/YYYY"
-          ).isBetween(start, end, "day", "[]")
+          moment(patient.sortedConsultation[j].date).isBetween(
+            start,
+            end,
+            "days",
+            "[]"
+          ) &&
+          patient.sortedConsultation[j].acte == acte
         )
           list.push([
-            i,
+            i++,
             patient.fullname,
             patient.father,
             moment(patient.birthdate).format("DD/MM/YYYY"),
@@ -67,12 +72,13 @@ function printActeList(acte) {
             if (
               parseInt(patient.age) >= parseInt(12) &&
               moment(
-                moment(patient.consultation[j].date).format("DD/MM/YYYY"),
+                patient.sortedConsultation[j].date,
                 "DD/MM/YYYY"
-              ).isBetween(start, end, "day", "[]")
+              ).isBetween(start, end, "day", "[]") &&
+              patient.sortedConsultation[j].acte == acte
             )
               list.push([
-                i,
+                i++,
                 patient.fullname,
                 patient.father,
                 moment(patient.birthdate).format("DD/MM/YYYY"),
@@ -87,12 +93,14 @@ function printActeList(acte) {
             if (
               parseInt(patient.age) <= parseInt(12) &&
               moment(
-                moment(patient.consultation[j].date).format("DD/MM/YYYY"),
+                patient.sortedConsultation[j].date,
                 "DD/MM/YYYY"
-              ).isBetween(start, end, "day", "[]")
+              ).isBetween(start, end, "day", "[]") &&
+              patient.sortedConsultation[j].acte == acte &&
+              patient.sortedConsultation[j].compterendu.isEmpty
             )
               list.push([
-                i,
+                i++,
                 patient.fullname,
                 patient.father,
                 moment(patient.birthdate).format("DD/MM/YYYY"),
@@ -104,11 +112,10 @@ function printActeList(acte) {
             break;
         }
       }
-      i++;
     }
   }
 
-  this.getBase64ImageFromURL("../assets/ENTETE.jpg")
+  this.getBase64ImageFromURL("../assets/ENTETE.PNG")
     .then((url) => {
       let docDefinition = {
         pageSize: "A4",
@@ -148,11 +155,13 @@ function printActeList(acte) {
           {
             stack: [
               {
-                text: `Liste .${acte}`,
+                text: `Liste ${acte}`,
                 style: "header",
               },
               {
-                text: `Date: ${moment().format("DD/MM/YYYY")}`,
+                text: `Date: ${moment(start).format("DD/MM/YYYY")} à ${moment(
+                  end
+                ).format("DD/MM/YYYY")}`,
                 alignment: "left",
                 bold: true,
                 fontSize: 13,

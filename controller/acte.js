@@ -5,10 +5,28 @@ const Patient = require("../model/patient");
 module.exports.showacteliste = async (req, res) => {
   const { id } = req.params;
   const patients = await Patient.find({
+    activated: true,
     "consultation.acte": { $regex: new RegExp("^" + id + "$", "i") },
   });
   // res.send(patients)
-  res.render("patient/acte/index", { patients, acte: id, moment, underscore });
+  let idColumns;
+  if (id != "kt")
+    idColumns = {
+      ageColumn: 2,
+      dateColumn: 5,
+    };
+  else
+    idColumns = {
+      ageColumn: 2,
+      dateColumn: 6,
+    };
+  res.render("patient/acte/index", {
+    patients,
+    acte: id,
+    moment,
+    underscore,
+    idColumns,
+  });
 };
 module.exports.filter = async (req, res) => {
   const { age } = req.query;

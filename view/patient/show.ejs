@@ -18,9 +18,9 @@
               </a>
             </div>
           </div>
-          <div class="col-2 mt-2">
-            <p>
-              <span class="fw-bold">Age:</span> <span> <%=patient.age%></span>
+          <div class="col-3 mt-2 border-start">
+            <p class="">
+              <span class="fw-bold">Date de Naissance:</span> <span> <%=moment(patient.birthdate).format("DD-MM-YYYY")%></span>
             </p>
             <p>
               <span class="fw-bold"> Genre:</span>
@@ -61,7 +61,7 @@
               <span><%=patient.drlastname %></span>
             </p>
           </div>
-          <div class="col-2 mt-2">
+          <div class="col-2 mt-2 border-start justify-content-end">
             <p>
               <span class="fw-bold">Groupage:</span>
               <span> <%=patient.groupage%></span>
@@ -75,8 +75,12 @@
               <span> <%=patient.ta%></span>
             </p>
             <p>
-              <span class="fw-bold">Taille:</span>
+              <span class="fw-bold">Poids:</span>
               <span> <%=patient.poids%> Kg</span>
+            </p>
+            <p>
+              <span class="fw-bold">Taille:</span>
+              <span> <%=patient.taille%> cm</span>
             </p>
           </div>
         </div>
@@ -119,7 +123,7 @@
           <td class="data">Dr. <%=consultation.medecin %></td>
           <td class="data"><%= consultation.technicien %></td>
           <td class="data">
-            <%=moment(consultation.date).format("DD/MM/YYYY")%> <%= consultation.time %>
+            <%=moment(consultation.date).format("DD/MM/YYYY")%><%= consultation.time %>
           </td>
 
           <td class="text-center data"><%-include("./commentViewer")%></td>

@@ -16,18 +16,33 @@ var fonts = {
     bolditalics: "fonts/roboto/Roboto-MediumItalic.ttf",
   },
 };
+module.exports.refactoring = async (req, res) => {
+  /* select all patient that has poids, taille */
 
+  const patients = await Patient.find({
+    activated: true,
+  });
+
+  let ps = patients.reduce((total, patient) => {
+    if (patient.consultation && patient.consultation.length >= 1) {
+      if (
+        moment(patient.consultation[0].date, "DD/MM/YYYY").isBetween(
+          moment("14/10/2022", "DD/MM/YYYY"),
+          moment("15/10/2022", "DD/MM/YYYY"),
+          "day",
+          "[]"
+        )
+      ) {
+        return total + 1;
+      }
+    } else return 0;
+  }, 0);
+
+  res.send({
+    Number: ps,
+  });
+};
 module.exports.listepatient = async (req, res) => {
-  // const patient = await Patient.find({ activated: true });
-
-  // res.send({ inscrit: inscrit, totalCompteRendu: nbrCompterendu });
-  // console.time('blocking-await');
-  // const medecins = await Staff.find({ fonction: "Medecin" });
-  // const techniciens = await Staff.find({ fonction: "technicien cathlab" });
-  // const patients = await Patient.find({ activated: true });
-  // const algeria = await Country.find({});
-  // {"consultation.compterendu.isEmpty":false}
-
   const [medecins, patients, algeria] = await Promise.all([
     Staff.find({ fonction: "Medecin" }),
     // Staff.find({ fonction: "technicien cathlab" }),
@@ -141,7 +156,7 @@ module.exports.createpatient = async (req, res) => {
   });
   await patient.save();
   req.flash("success", "Patient ajouté avec succès");
-  res.redirect("/patient");
+  res.redirect("/patient/" + patient.id);
 };
 module.exports.createandreturn = async (req, res) => {
   var {
@@ -214,7 +229,7 @@ module.exports.updatePatient = async (req, res) => {
     city,
   } = req.body.patient;
   const { blood } = req.body;
-  console.log(poids, taille);
+
   if (phone2 === "") {
     phone2 = "/";
   }
@@ -255,6 +270,7 @@ module.exports.deletePatient = async (req, res) => {
   const { id } = req.params;
   // this make the patient inactive
   await Patient.findByIdAndUpdate(id, { $set: { activated: false } });
+
   // await Patient.findByIdAndDelete(id);
   req.flash("success", "Patient a été supprimé");
   res.redirect("/patient");

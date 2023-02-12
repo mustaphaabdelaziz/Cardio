@@ -12,7 +12,7 @@
           name="age"
           class="form-select"
           required
-          onchange="filter(4, 2, 6)"
+          onchange="filter(4, '<%=idColumns.ageColumn%>', '<%=idColumns.dateColumn%>')"
         >
           <!-- <option selected disabled >Age</option> -->
           <option class="option" value="all" selected>Tous</option>
@@ -29,14 +29,14 @@
           type="date"
           id="start"
           name="start"
-          onkeydown="filter(12, 2, 6)"
+          onkeydown="filter(12,'<%=idColumns.ageColumn%>', '<%=idColumns.dateColumn%>')"
         />
         <label id="hide" for="start" class="form-label">De:</label>
       </div>
       <div class="form-floating col-3">
         <input
           class="form-control"
-          onkeydown="filter(12, 2, 6)"
+          onkeydown="filter(12,'<%=idColumns.ageColumn%>', '<%=idColumns.dateColumn%>')"
           type="date"
           id="end"
           name="end"
@@ -73,9 +73,9 @@
           <th scope="col">Age</th>
           <th scope="col">Téléphone</th>
           <th scope="col">Medecin</th>
-          <% if(acte == "KT"){ %> 
+          <% if(acte == "KT"){ %>
           <th scope="col">Technicien</th>
-          <% } %> 
+          <% } %>
           <th scope="col">Date acte</th>
           <th scope="col">Motif</th>
           <th scope="col">Compte Rendu</th>
@@ -83,10 +83,10 @@
         </tr>
       </thead>
       <tbody id="tablebody">
-        <% var i=1 %>
-        <% for (patient of patients){%>
+        <% var i=1 %> 
+        <% for (patient of patients){%> 
         <% for (consultation of patient.sortedConsultation){%>
-        <% if(consultation.acte == acte){%>
+          <% if(consultation.acte == acte){%>
         <tr>
           <th
             class="clickable"
@@ -125,14 +125,14 @@
           >
             Dr. <%=consultation.medecin%>
           </td>
-          <% if(acte == "KT"){ %> 
+          <% if(acte == "KT"){ %>
           <td
             class="clickable"
             onclick="window.location='/patient/<%=patient.id%>'"
           >
             <%=consultation.technicien%>
           </td>
-          <% } %> 
+          <% } %>
           <td
             class="clickable"
             onclick="window.location='/patient/<%=patient.id%>'"

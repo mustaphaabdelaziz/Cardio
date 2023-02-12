@@ -11,7 +11,6 @@ module.exports.userList = async (req, res) => {
 // ===============================================
 module.exports.showUserForm = async (req, res) => {
   const user = await User.findById(req.params.id);
-  // console.log(user)
   res.render("user/editProfile", { user });
 };
 
@@ -23,13 +22,27 @@ module.exports.showLoginForm = async (req, res) => {
 };
 module.exports.register = async (req, res) => {
   try {
-    const { username, email, password } = req.body.user;
-
+    const { firstname, lastname, fonction, externe, phone, email, password } =
+      req.body.user;
+    let phone1 = phone.trim();
+    let email1 = email.trim();
+    if (phone1 === "") {
+      phone1 = "/";
+    }
+    if (email1 === "") {
+      email1 = "/";
+    }
     const user = new User({
-      username: username.toLowerCase(),
-      email: email.toLowerCase(),
+      firstname:
+        firstname.charAt(0).toUpperCase() + firstname.slice(1).toLowerCase(),
+      lastname:
+        lastname.charAt(0).toUpperCase() + lastname.slice(1).toLowerCase(),
+      fonction,
+      phone: phone1,
+      email: email1.toLowerCase(),
       privileges: ["user"],
     });
+
     const registeredUser = await User.register(user, password);
     req.flash("success", "Contact the admin to ativate your account");
     res.redirect("/user/login");
@@ -39,8 +52,9 @@ module.exports.register = async (req, res) => {
   }
 };
 // =============== Login ==============================
-module.exports.login =  (req, res) => {
-  req.flash("success", `Welcome Back ${req.user.username}`);
+module.exports.login = (req, res) => {
+  console.log(req.user)
+  req.flash("success", `Welcome Back ${req.user.firstname}`);
 
   const redirectUrl = req.session.returnTo || "/patient";
   delete req.session.returnTo;
@@ -55,21 +69,45 @@ module.exports.logout = (req, res) => {
   });
 };
 module.exports.updateUser = async (req, res) => {
-  const { username, email, approved } = req.body.user;
-  const { privileges } = req.body;
-  const { id } = req.params;
-  //  const currentUser = req.user._id;
+  const {
+    firstname,
+    lastname,
+    fonction,
+    phone,
+    email,
+    externe,
+    approved,
+    privileges,
+  } = req.body.user;
 
+  const { userid } = req.params;
+
+  const type = externe;
+  let phone1 = phone.trim();
+  let email1 = email.trim();
+  if (phone1 === "") {
+    phone1 = "/";
+  }
+  if (email1 === "") {
+    email1 = "/";
+  }
   await User.findByIdAndUpdate(
-    { _id: id },
+    { _id: userid },
     {
-      username,
-      email,
+      firstname:
+        firstname.charAt(0).toUpperCase() + firstname.slice(1).toLowerCase(),
+      lastname:
+        lastname.charAt(0).toUpperCase() + lastname.slice(1).toLowerCase(),
+      fonction,
+      phone: phone1,
+      email: email1.toLowerCase(),
+      externe: type === "externe" ? externe : "interne",
       approved: approved === "on" ? true : false,
       privileges,
     },
     { new: true }
   );
+
   res.redirect(`/user`);
   // res.send(req.body.user);
 };

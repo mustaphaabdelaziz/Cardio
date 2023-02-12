@@ -12,6 +12,7 @@ const {
   generatepdf,
   createandreturn,
   generatePatientpdf,
+  refactoring,
 } = require("../controller/patient");
 
 router.route("/generatepdf").get(isLoggedIn, catchAsync(generatepdf));
@@ -24,9 +25,11 @@ router
   .get(isLoggedIn, catchAsync(listepatient))
   .post(isLoggedIn, catchAsync(createpatient));
 router.route("/patient/new").post(isLoggedIn, catchAsync(createandreturn));
+router.route("/refactor").get(isLoggedIn, catchAsync(refactoring));
 router
   .route("/:id")
   .get(isLoggedIn, catchAsync(showpatient))
   .delete(isLoggedIn, catchAsync(deletePatient))
   .put(isLoggedIn, catchAsync(updatePatient));
+
 module.exports = router;

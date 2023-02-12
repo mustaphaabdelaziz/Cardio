@@ -206,8 +206,8 @@
             >
               <option value="" disabled selected>Médecin Ref</option>
               <option class="option" value="/">/</option>
-              <% for(medecin of medecins ){ %> <%
-              if(patient.medecinref===medecin.lastname) {%>
+              <% for(medecin of medecins ){ %>
+              <% if(patient.medecinref===medecin.lastname) {%>
               <option class="option" value="<%= medecin.lastname%>" selected>
                 Dr. <%= medecin.lastname %>
               </option>

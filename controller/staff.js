@@ -42,8 +42,10 @@ module.exports.createStaff = async (req, res) => {
   }
 
   const staff = new Staff({
-    firstname: firstname.charAt(0).toUpperCase() + firstname.slice(1).toLowerCase(),
-    lastname: lastname.charAt(0).toUpperCase() + lastname.slice(1).toLowerCase(),
+    firstname:
+      firstname.charAt(0).toUpperCase() + firstname.slice(1).toLowerCase(),
+    lastname:
+      lastname.charAt(0).toUpperCase() + lastname.slice(1).toLowerCase(),
     fonction,
     phone: phone1,
     email: email1,
@@ -62,27 +64,36 @@ module.exports.updateStaff = async (req, res) => {
     req.body.staff;
   const type = externe;
   let phone1 = phone.trim();
-    let email1 = email.trim();
+  let email1 = email.trim();
   if (phone1 === "") {
     phone1 = "/";
   }
-    if (email1 === "") {
+  if (email1 === "") {
     email1 = "/";
   }
   if (type === "externe") {
     await Staff.findByIdAndUpdate(
       id,
-      { firstname:firstname.charAt(0).toUpperCase() + firstname.slice(1).toLowerCase(),
-         lastname : lastname.charAt(0).toUpperCase() + lastname.slice(1).toLowerCase(),
-          fonction, phone: phone1, email: email1, externe },
+      {
+        firstname:
+          firstname.charAt(0).toUpperCase() + firstname.slice(1).toLowerCase(),
+        lastname:
+          lastname.charAt(0).toUpperCase() + lastname.slice(1).toLowerCase(),
+        fonction,
+        phone: phone1,
+        email: email1,
+        externe,
+      },
       { new: true }
     );
   } else {
     await Staff.findByIdAndUpdate(
       id,
       {
-        firstname:firstname.charAt(0).toUpperCase() + firstname.slice(1).toLowerCase(),
-        lastname : lastname.charAt(0).toUpperCase() + lastname.slice(1).toLowerCase(),
+        firstname:
+          firstname.charAt(0).toUpperCase() + firstname.slice(1).toLowerCase(),
+        lastname:
+          lastname.charAt(0).toUpperCase() + lastname.slice(1).toLowerCase(),
         fonction,
         phone: phone1,
         email: email1,
@@ -97,7 +108,7 @@ module.exports.updateStaff = async (req, res) => {
 };
 module.exports.deleteStaff = async (req, res) => {
   const { id } = req.params;
- 
+
   await Staff.findByIdAndDelete(id);
   req.flash("success", "Staff a été supprimé");
   res.redirect("/staffs");

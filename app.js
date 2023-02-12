@@ -46,6 +46,7 @@ const conduiteMedicaleRoutes = require("./routes/conduiteMedicale");
 const ExpressError = require("./utils/ExpressError");
 const { errorPage } = require("./middleware/middleware");
 const User = require("./model/user");
+const Report = require("./model/compteRendu");
 const compression = require("compression");
 const { isLoggedIn } = require("./middleware/middleware");
 // ==================== App Configuration =================
@@ -69,7 +70,7 @@ app.use(passport.session());
 passport.use(
   "user",
   new LocalStrategy((username, password, done) => {
-    User.findOne({ email: username }, function (err, user) {
+    User.findOne({ email: username.toLowerCase() }, function (err, user) {
       if (err) {
         return done(err);
       }
@@ -125,6 +126,10 @@ app.use("/patient/:id/acte", consultationRoutes);
 app.get("/", isLoggedIn, (req, res) => {
   res.render("home");
 });
+// app.get("/reports", async (req, res) => {
+//   await Report.deleteMany({$or:[{type:" "},{type:""},{type:"  "}]})
+//   res.send("Mabrouk")
+// });
 // app.all("*", (req, res, next) => {
 //   next(new ExpressError("page not found", 404));
 // });
