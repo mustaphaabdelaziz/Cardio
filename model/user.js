@@ -23,6 +23,7 @@ const User = new Schema(
     privileges: [
       {
         type: String,
+        default: "user"
       },
     ],
     approved: {

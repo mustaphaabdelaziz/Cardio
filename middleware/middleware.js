@@ -25,11 +25,28 @@ module.exports.isLoggedIn = async (req, res, next) => {
 module.exports.isAdmin = async (req, res, next) => {
   if (req.user.privileges.includes("admin")) {
   } else {
-    req.flash("error", "You do not have permission to do that!");
+    req.flash("error", "Vous n'êtes pas autorisé!");
     return res.redirect(`/patient`);
   }
   next();
 };
+module.exports.isMedecin = async (req, res, next) => {
+  if (req.user.privileges.includes("medecin")) {
+  } else {
+    req.flash("error", "Vous n'êtes pas autorisé!");
+    return res.redirect(`/patient`);
+  }
+  next();
+};
+module.exports.isTech = async (req, res, next) => {
+  if (req.user.privileges.includes("medecin")) {
+  } else {
+    req.flash("error", "Vous n'êtes pas autorisé!");
+    return res.redirect(`/patient`);
+  }
+  next();
+};
+
 // module.exports.isAuthor = async (req, res, next) => {
 //   const { id } = req.params;
 //   const event = await Event.findById(id);

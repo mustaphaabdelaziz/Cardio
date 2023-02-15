@@ -195,13 +195,9 @@
                       required
                     >
                       <option selected disabled value="">Fonction</option>
-                      <option class="option" value="Medecin">Médecin</option>
-                      <option class="option" value="technicien cathlab">
-                        Technicien cathlab
-                      </option>
-                      <option class="option" value="assitant(e) Medicale">
-                        Assitant(e) Medical(e)
-                      </option>
+                      <% for(fonction of fonctions) {%>
+                      <option class="option" value="<%= fonction %>"><%= fonction %></option>
+                      <% } %>
                     </select>
                     <label for="fonction" class="form-label"
                       >Fonction</label

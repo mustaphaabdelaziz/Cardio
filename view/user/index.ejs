@@ -32,10 +32,11 @@
           </tr>
         </thead>
         <tbody id="tablebody">
-          <% var i=1 %> <% for (user of users){%>
+          <% var i=1 %>
+          <% for (user of users){%>
           <tr>
             <th scope="row"><%= i%><% i=i+1; %></th>
-            <td><%= user.username %></td>
+            <td><%= user.fullname %></td>
             <td><%=user.email %></td>
             <td><%=user.privileges[0] %></td>
             <% if (user.approved){%>

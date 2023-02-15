@@ -1,13 +1,18 @@
 const User = require("../model/user");
 const Country = require("../model/country");
 const moment = require("moment");
-
+const fonctions = require("../seeds/fonction");
+const privileges = require("../seeds/privileges");
+const passport = require("passport");
 // ===========================================================================
 module.exports.userList = async (req, res) => {
   const users = await User.find({});
-  res.render("user/index", { users });
+  res.render("user/index", {
+    users,
+    fonctions: fonctions.fonction,
+    privileges: privileges.privileges,
+  });
 };
-
 // ===============================================
 module.exports.showUserForm = async (req, res) => {
   const user = await User.findById(req.params.id);
@@ -18,7 +23,7 @@ module.exports.showUserForm = async (req, res) => {
 module.exports.showLoginForm = async (req, res) => {
   const algeria = await Country.find({});
   const states = algeria[0].states;
-  res.render("user/login", { states });
+  res.render("user/login", { states, fonctions: fonctions.fonction });
 };
 module.exports.register = async (req, res) => {
   try {
@@ -32,6 +37,7 @@ module.exports.register = async (req, res) => {
     if (email1 === "") {
       email1 = "/";
     }
+
     const user = new User({
       firstname:
         firstname.charAt(0).toUpperCase() + firstname.slice(1).toLowerCase(),
@@ -40,12 +46,22 @@ module.exports.register = async (req, res) => {
       fonction,
       phone: phone1,
       email: email1.toLowerCase(),
+      externe,
       privileges: ["user"],
     });
 
-    const registeredUser = await User.register(user, password);
-    req.flash("success", "Contact the admin to ativate your account");
-    res.redirect("/user/login");
+    await User.register(user, password, function (err, user) {
+      if (err) {
+        console.log(err);
+        res.redirect("register");
+      } else {
+        req.flash("success", "Contact the admin to ativate your account");
+        res.redirect("/user/login");
+      }
+    });
+    // req.flash("success", "Contact the admin to ativate your account");
+    // res.redirect("/user/login");
+    // res.send(req.body.user);
   } catch (e) {
     req.flash("error", e.message);
     res.redirect("register");
@@ -53,7 +69,6 @@ module.exports.register = async (req, res) => {
 };
 // =============== Login ==============================
 module.exports.login = (req, res) => {
-  console.log(req.user)
   req.flash("success", `Welcome Back ${req.user.firstname}`);
 
   const redirectUrl = req.session.returnTo || "/patient";
@@ -79,7 +94,6 @@ module.exports.updateUser = async (req, res) => {
     approved,
     privileges,
   } = req.body.user;
-
   const { userid } = req.params;
 
   const type = externe;
@@ -109,7 +123,7 @@ module.exports.updateUser = async (req, res) => {
   );
 
   res.redirect(`/user`);
-  // res.send(req.body.user);
+  // res.send(req.body.user.privileges);
 };
 module.exports.deleteUser = async (req, res) => {
   const { userid } = req.params;

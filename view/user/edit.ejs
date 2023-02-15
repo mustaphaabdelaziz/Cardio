@@ -16,7 +16,9 @@
   aria-labelledby="staticBackdropLabel"
   aria-hidden="true"
 >
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+  <div
+    class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg"
+  >
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="staticBackdropLabel">Modifier Personnel</h5>
@@ -73,31 +75,16 @@
               required
             >
               <option selected disabled value="">Fonction</option>
-              <% if (user.fonction === 'Medecin'){%>
-              <option class="option" value="Medecin" selected>Medecin</option>
-              <option class="option" value="technicien cathlab">
-                Technicien cathlab
+              <% for(fonction of fonctions) {%> 
+              <% if (user.fonction == fonction ){%>
+              <option class="option" value="<%=fonction %>" selected>
+                <%=fonction %>
               </option>
-              <option class="option" value="assitant(e) Medicale">
-                Assitant(e) Medical(e)
+              <% }else{ %>
+              <option class="option" value="<%=fonction %>">
+                <%=fonction %>
               </option>
-              <% }else if(user.fonction === 'technicien cathlab'){ %>
-              <option class="option" value="Medecin">Medecin</option>
-              <option class="option" value="technicien cathlab" selected>
-                Technicien
-              </option>
-              <option class="option" value="assitant(e) Medicale">
-                Assitant(e) Medical(e)
-              </option>
-              <% }else { %>
-              <option class="option" value="Medecin">Medecin</option>
-              <option class="option" value="technicien cathlab">
-                Technicien cathlab
-              </option>
-              <option class="option" value="assitant(e) Medicale" selected>
-                Assitant(e) Medical(e)
-              </option>
-              <% } %>
+              <% }} %>
             </select>
             <label for="staffGender" class="form-label">Fonction</label>
             <div class="valid-feedback">BIEN</div>
@@ -178,50 +165,36 @@
             </div>
           </div>
           <div class="row">
+            <% for(privilege of privileges) {%>
+              <% if(user.privileges.includes(privilege.role)) {%>
             <div class="form-check form-check-inline col-md-4">
               <input
                 class="form-check-input"
                 type="checkbox"
                 name="user[privileges]"
-                value="admin"
-                id="admin"
+                value="<%= privilege.role %>"
+                id="<%= privilege.role %>"
+                checked
               />
-              <label class="form-check-label" for="admin">Admin</label>
+              <label class="form-check-label" for="<%= privilege.role %>">
+                <%=privilege.label %>
+              </label>  
             </div>
-            <div class="form-check form-check-inline col-md-4">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                name="user[privileges]"
-                value="assistant"
-                id="assistant"
-              />
-              <label class="form-check-label" for="assistant">
-                Assistant(e)
-              </label>
-            </div>
-            <div class="form-check form-check-inline col-md-4">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                name="user[privileges]"
-                value="medecin"
-                id="assistant"
-              />
-              <label class="form-check-label" for="medecin"> Medecin </label>
-            </div>
-            <div class="form-check form-check-inline col-md-4">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                name="user[privileges]"
-                value="achteur"
-                id="achteur"
-              />
-              <label class="form-check-label" for="achteur"> Achteur </label>
-            </div>
+            <% }else{ %>
+              <div class="form-check form-check-inline col-md-4">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  name="user[privileges]"
+                  value="<%= privilege.role %>"
+                  id="<%= privilege.role %>"
+                />
+                <label class="form-check-label" for="<%= privilege.role %>">
+                  <%=privilege.label %>
+                </label>
+              </div>
+            <% }} %>
           </div>
-
           <div class="modal-footer mt-3">
             <button
               type="button"

@@ -11,12 +11,12 @@ const {
   generatepdf,
 } = require("../controller/materiel");
 router.route("/generatepdf").get(catchAsync(generatepdf));
-router.route("/new").get(creationform);
-router.route("/").get(listeMateriel).post(createMateriel);
- router
-   .route("/:id")
-   .get(showMateriel)
-   .put(catchAsync(updateMateriel))
-    .delete(catchAsync(deleteMateriel));
+router.route("/new").get(isMedecin, creationform);
+router.route("/").get(isMedecin, listeMateriel).post(isMedecin, createMateriel);
+router
+  .route("/:id")
+  .get(isMedecin, showMateriel)
+  .put(isMedecin, catchAsync(updateMateriel))
+  .delete(isMedecin, catchAsync(deleteMateriel));
 
 module.exports = router;

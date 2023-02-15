@@ -473,7 +473,7 @@ function printPDF() {
   //   document.getElementById("end").value ||
   //   moment("31/12/" + moment().add(2000, "year").year(), "DD/MM/YYYY");
 
-  this.getBase64ImageFromURL("../assets/ENTETE.jpg")
+  this.getBase64ImageFromURL("../assets/ENTETE.png")
     .then((url) => {
       let docDefinition = {
         pageSize: "A4",

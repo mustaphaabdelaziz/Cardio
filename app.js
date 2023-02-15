@@ -70,6 +70,7 @@ app.use(passport.session());
 passport.use(
   "user",
   new LocalStrategy((username, password, done) => {
+
     User.findOne({ email: username.toLowerCase() }, function (err, user) {
       if (err) {
         return done(err);
@@ -80,7 +81,7 @@ passport.use(
         if (user.approved) {
           return done(null, user);
         } else {
-          return done(null, false, "Your account is not approved yet");
+          return done(null, false, "Votre compte n'est pas encore approuvé");
         }
       }
     });
@@ -126,10 +127,23 @@ app.use("/patient/:id/acte", consultationRoutes);
 app.get("/", isLoggedIn, (req, res) => {
   res.render("home");
 });
-// app.get("/reports", async (req, res) => {
-//   await Report.deleteMany({$or:[{type:" "},{type:""},{type:"  "}]})
-//   res.send("Mabrouk")
-// });
+app.get("/reports", async (req, res) => {
+  await User.updateMany(
+    {},
+    {
+      $set: {
+        firstname: "",
+        lastname: "",
+        phone: "",
+        fonction: "",
+        externe: "",
+      },
+    },
+    { strict: false }
+  );
+  // await Report.deleteMany({$or:[{type:" "},{type:""},{type:"  "}]})
+  res.send("Mabrouk");
+});
 // app.all("*", (req, res, next) => {
 //   next(new ExpressError("page not found", 404));
 // });

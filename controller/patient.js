@@ -471,10 +471,10 @@ module.exports.generatePatientpdf = async (req, res) => {
     // [left, top, right, bottom]
     pageMargins: [20, 0, 20, 0],
     header: {
-      image: "public/assets/ENTETE.jpg",
-      width: 570,
+      image: "public/assets/ENTETE.png",
+      width: 610,
       height: 120,
-      margin: [20, 60, 20, 80],
+      margin: [0, 60, 0, 80],
       alignment: "center",
     },
 

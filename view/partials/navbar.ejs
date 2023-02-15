@@ -1,5 +1,5 @@
 <nav
-  class="navbar navbar-expand-lg sticky-top navbar-light bg-antiqueSteel shadow-sm"
+  class="navbar navbar-expand-lg sticky-top navbar-light bg-antiqueSteel shadow-sm fw-bold"
 >
   <div class="container-fluid">
     <a class="navbar-brand fw-bold" href="/">
@@ -26,27 +26,28 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <% if(!currentUser.privileges.includes('acheteur')) { %>
         <li class="nav-item dropdown">
           <a
-            class="nav-link dropdown-toggle"
+            class="nav-link dropdown-toggle fw-bold"
             href="#"
             id="navbarDropdown"
             role="button"
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            Patient
+            Patient <i class="bi bi-heart-pulse-fill fw-bold"></i>
           </a>
           <ul
             class="dropdown-menu bg-antiqueSteel"
             aria-labelledby="navbarDropdown"
           >
             <li>
-              <a class="dropdown-item" href="/patient/new">Nouveau patient</a>
+              <a class="dropdown-item" href="/patient/new">Nouveau patient <i class="bi bi-person-plus-fill"></i></a>
             </li>
 
             <li>
-              <a class="dropdown-item" href="/patient">Liste des patients</a>
+              <a class="dropdown-item" href="/patient">Liste des patients <i class="bi bi-list"></i></a>
             </li>
           </ul>
         </li>
@@ -58,7 +59,7 @@
             role="button"
             data-bs-toggle="dropdown"
             aria-expanded="false"
-            >Par Acte</a
+            >Par Acte <i class="bi bi-activity fw-bold"></i></a
           >
           <ul
             class="dropdown-menu bg-antiqueSteel"
@@ -124,40 +125,51 @@
             </li>
           </ul>
         </li>
-
+        <% } %>
+        <% if(currentUser.privileges.includes('admin')) { %>
         <li class="nav-item">
-          <a class="nav-link" href="/staffs">Personels</a>
+          <a class="nav-link" href="/staffs">Personels <i class="bi bi-person-vcard"></i></a>
         </li>
+        <% } %>
+        <% if(currentUser.privileges.includes('admin') || currentUser.privileges.includes('medecin')) { %>
         <li class="nav-item">
-          <a class="nav-link" href="/medicaments">Medicaments</a>
+          <a class="nav-link" href="/medicaments">Medicaments</i></a>
         </li>
+        <% } %>
         <li class="nav-item dropdown">
           <a
-            class="nav-link dropdown-toggle"
-            href="#"
-            id="acte-list"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-            >Materiels KT</a
+          class="nav-link dropdown-toggle"
+          href="#"
+          id="acte-list"
+          role="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+          >Materiels KT</a
           >
+          <% if(currentUser.privileges.includes('admin') || currentUser.privileges.includes('acheteur') || currentUser.privileges.includes('medecin') || currentUser.privileges.includes('technicien'))  { %>
           <ul
             class="dropdown-menu bg-antiqueSteel"
             aria-labelledby="navbarDropdown"
           >
             <li>
+              <% if(currentUser.privileges.includes('admin')|| currentUser.privileges.includes('acheteur')) {%>
               <a class="dropdown-item" href="/materiels">Matériels entrants</a>
+              <% } %>
+              <% if(currentUser.privileges.includes('admin')|| currentUser.privileges.includes('technicien') || currentUser.privileges.includes('medecin')) {%>
               <a class="dropdown-item" href="/KT">Matériels sortants</a>
+              <% } %>
+              <% if(currentUser.privileges.includes('admin')|| currentUser.privileges.includes('acheteur')) {%>
               <a class="dropdown-item" href="/fournisseur">Fournisseurs</a>
+              <% } %>
             </li>
           </ul>
         </li>
-
+        <% } %>
         <% if(currentUser){ %> 
         <% if(currentUser.privileges.includes('admin')) {%>
         <li class="nav-item">
           <a class="nav-link" href="/user"
-            >Utilisateurs
+            >Utilisateurs <i class="bi bi-people-fill"></i>
             <% if(session.newUsers!=0) {%> 
             <span class="badge bg-danger"> <%=session.newUsers%></span>
             <% } %> 

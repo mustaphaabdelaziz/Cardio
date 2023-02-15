@@ -2,7 +2,10 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const ReportSchema = new Schema({
-  type: String,
+  type: {
+    type: String,
+    // unique: true,
+  },
   atcd: String,
   quality: String,
   indication: {

@@ -2,6 +2,7 @@ const moment = require("moment");
 const fs = require("fs");
 const Pdfmake = require("pdfmake");
 const Staff = require("../model/staff");
+const fonctions = require("../seeds/fonction");
 // Define font files
 var fonts = {
   Roboto: {
@@ -14,7 +15,7 @@ var fonts = {
 
 module.exports.listeStaff = async (req, res) => {
   const staffs = await Staff.find({});
-  res.render("staff/index", { staffs, moment });
+  res.render("staff/index", { staffs, moment,fonctions: fonctions.fonction});
 };
 module.exports.creationform = (req, res) => {
   res.render("staff/index");
