@@ -7,7 +7,9 @@
         <div class="d-flex">
           <div class="col d-flex m-auto">
             <h4><%=patient.fullname %></h4>
+            <% if(!currentUser.privileges.includes('acheteur') && !currentUser.privileges.includes('assistant')){ %>
             <%- include("./new") %>
+            <% } %>
           </div>
           <div class="col-2 mt-2">
             <p>Age:</p>
@@ -58,8 +60,11 @@
             <%= moment(bc.date).format("DD/MM/YYYY")%>
           </td>
           <td>
-            <%- include("./article/new") %> <%- include("./edit") %> <%-
-            include("./delete") %>
+            <% if(!currentUser.privileges.includes('acheteur') && !currentUser.privileges.includes('assistant')){ %>
+            <%- include("./article/new") %>
+            <%- include("./edit") %>
+            <%- include("./delete") %>
+            <% } %>
           </td>
         </tr>
 

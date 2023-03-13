@@ -90,12 +90,15 @@
           </div>
          
           <div class="form-floating col-md-6  mb-3">
-            <select id="bloodGroup" name="blood[group]" class="form-select">
+            <select id="bloodGroup" name="blood[groupe]" class="form-select">
               <option selected disabled value="">Groupe sanguin</option>
-              <option class="option" value="A">A</option>
-              <option class="option" value="B">B</option>
-              <option class="option" value="O">O</option>
-              <option class="option" value="AB">AB</option>
+              <% for(groupe of bloodGroup){ %>
+                <% if(groupe==patient.blood.groupe) {%>
+                <option class="option" selected value="<%= groupe%>"><%=groupe%></option>
+                <% }else{ %>
+                  <option class="option" value="<%= groupe %>"><%=groupe%></option>
+                <% } }%>
+              
             </select>
             <label for="bloodGroup" class="form-label">Groupe sanguin</label>
             <div class="valid-feedback">BIEN</div>
@@ -103,8 +106,13 @@
           <div class="form-floating col-md-6  mb-3">
             <select id="rhesus" name="blood[rhesus]" class="form-select">
               <option selected disabled value="">Rhésus</option>
-              <option class="option" value="A">+</option>
-              <option class="option" value="B">-</option>
+              <% for(rhesus of bloodRhesus){ %>
+                <% if(rhesus==patient.blood.rhesus){%>
+                <option class="option" selected value="<%= patient.blood.rhesus %>"><%=patient.blood.rhesus%></option>
+                <% }else{ %>
+                  <option class="option" value="<%= patient.blood.rhesus %>"><%=patient.blood.rhesus%></option>
+                <% }}%>
+             
             </select>
             <label for="rhesus" class="form-label">Rhésus</label>
             <div class="valid-feedback">BIEN</div>

@@ -46,18 +46,17 @@ module.exports.addArticleBC = async (req, res) => {
         "article.$[outer].detail.$[inner].taken": true,
       },
     },
-    { arrayFilters: [{ "inner.serie": serialN }, { "outer.marque": marque }] },
-    (err, result) => {
-      if (err) {
-        console.err("Error updating detail: " + err);
-        // res.send(result);
-      } else {
-        const redirectUrl = `back`;
-        req.flash("success", "Bc a été ajouté avec succès");
-        res.redirect(redirectUrl);
-      }
+    { arrayFilters: [{ "inner.serie": serialN }, { "outer.marque": marque }] }
+  ).then((result, err) => {
+    if (err) {
+      console.err("Error updating detail: " + err);
+      // res.send(result);
+    } else {
+      const redirectUrl = `back`;
+      req.flash("success", "Bc a été ajouté avec succès");
+      res.redirect(redirectUrl);
     }
-  );
+  });
 };
 
 module.exports.deleteArticleBc = async (req, res) => {
@@ -88,18 +87,17 @@ module.exports.deleteArticleBc = async (req, res) => {
         "article.$[outer].detail.$[inner].taken": false,
       },
     },
-    { arrayFilters: [{ "inner.serie": serie }, { "outer.marque": marque }] },
-    (err, result) => {
-      if (err) {
-        console.log("Error updating detail: " + err);
-        // res.send(result);
-      } else {
-        const redirectUrl = `back`;
-        req.flash("success", "Bc a été ajouté avec succès");
-        res.redirect(redirectUrl);
-      }
+    { arrayFilters: [{ "inner.serie": serie }, { "outer.marque": marque }] }
+  ).then((result, err) => {
+    if (err) {
+      console.log("Error updating detail: " + err);
+      // res.send(result);
+    } else {
+      const redirectUrl = `back`;
+      req.flash("success", "Bc a été ajouté avec succès");
+      res.redirect(redirectUrl);
     }
-  );
+  });
 };
 module.exports.updateArticleBc = async (req, res) => {
   const { id, idbc } = req.params;

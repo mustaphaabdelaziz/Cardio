@@ -14,6 +14,7 @@ const {
   logout,
   updateUser,
   deleteUser,
+  showProfile
 } = require("../controller/user");
 router.route("/").get(isLoggedIn, isAdmin, catchAsync(userList));
 router.route("/register").post(catchAsync(register));
@@ -34,4 +35,5 @@ router
   .get(isLoggedIn, catchAsync(showUserForm))
   .put(isLoggedIn, isAdmin, catchAsync(updateUser))
   .delete(isLoggedIn, isAdmin, catchAsync(deleteUser));
+router.route("/:id/profile").get(catchAsync(showProfile));
 module.exports = router;

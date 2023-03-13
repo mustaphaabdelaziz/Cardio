@@ -115,7 +115,8 @@ function printActeList(acte) {
     }
   }
 
-  this.getBase64ImageFromURL("../assets/ENTETE.PNG")
+  // this.getBase64ImageFromURL("../assets/ENTETE.PNG")
+  this.getBase64ImageFromURL("/assets/ENTETE.PNG")
     .then((url) => {
       let docDefinition = {
         pageSize: "A4",
@@ -127,7 +128,7 @@ function printActeList(acte) {
           image: url,
           width: 595,
           height: 80,
-          margin: [0, 0, 0, 0],
+          margin: [10, 10, 10, 0],
         },
         footer: function (currentPage, pageCount) {
           return {
@@ -331,7 +332,7 @@ function printMedecinList(medecin) {
     }
   }
 
-  this.getBase64ImageFromURL("../assets/ENTETE.jpg")
+  this.getBase64ImageFromURL("/assets/ENTETE.png")
     .then((url) => {
       let docDefinition = {
         pageSize: "A4",
@@ -473,7 +474,7 @@ function printPDF() {
   //   document.getElementById("end").value ||
   //   moment("31/12/" + moment().add(2000, "year").year(), "DD/MM/YYYY");
 
-  this.getBase64ImageFromURL("../assets/ENTETE.png")
+  this.getBase64ImageFromURL("/assets/ENTETE.png")
     .then((url) => {
       let docDefinition = {
         pageSize: "A4",
@@ -610,8 +611,8 @@ function filterPatient(age, base) {
   }
 }
 function printBC() {
-  // this.getBase64ImageFromURL("http://localhost:8000/assets/en-tete.png")
-  this.getBase64ImageFromURL("../assets/ENTETE.jpg")
+  // this.getBase64ImageFromURL("http://localhost:8000/assets/ENTETE.png")
+  this.getBase64ImageFromURL("/assets/ENTETE.png")
     .then((url) => {
       let docDefinition = {
         pageSize: "A4",
@@ -753,7 +754,8 @@ function printBC() {
 }
 function printArticle() {
   // this.getBase64ImageFromURL("http://localhost:8000/assets/en-tete.png")
-  this.getBase64ImageFromURL("../assets/ENTETE.jpg")
+  // this.getBase64ImageFromURL("../assets/ENTETE.png")
+  this.getBase64ImageFromURL("/assets/ENTETE.png")
     .then((url) => {
       let docDefinition = {
         pageSize: "A4",
@@ -813,7 +815,7 @@ function printArticle() {
                     margin: [100, 0, 0, 0],
                     color: "#061e30",
                     bold: true,
-                    alignment: "right",
+                    alignment: "left",
                   },
                   {
                     margin: [10, 0, 10, 0],
@@ -989,7 +991,8 @@ function printCompteRendu(consultationID, patientID) {
   );
   consultation = consultation[0];
 
-  this.getBase64ImageFromURL("../assets/ENTETE.PNG")
+  // this.getBase64ImageFromURL("../assets/ENTETE.PNG")
+  this.getBase64ImageFromURL("/assets/ENTETE.png")
     .then((url) => {
       let definition = {
         pageSize: "A4",

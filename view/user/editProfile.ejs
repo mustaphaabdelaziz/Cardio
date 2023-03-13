@@ -1,100 +1,190 @@
-<% layout('layouts/boilerplate')%>
-<div class="form-signin  col-md-6 offset-md-3 mt-3 mb-5">
-  <h1 class="card-title mb-4 text-center">Profile</h1>
-  <form action="/user/<%= user._id%>?_method=PUT" method="POST" class="needs-validation row" enctype="multipart/form-data" novalidate>
-    <div class="form-floating mb-3 col-md-6">
-      <input class="form-control" type="text" id="firstn=ame" name="user[firstname]" placeholder="FirstName" value="<%=user.firstname%>" required>
-      <label for="floatingInput" class="form-label fs-6">First Name</label>
-      <div class="valid-feedback">looks good</div>
-    </div>
-    <div class="form-floating mb-3 col-md-6">
-      <input class="form-control" type="text" id="lastname" name="user[lastname]" placeholder="Lastname" value="<%=user.lastname%>" required>
-      <label for="floatingInput" class="form-label fs-6">Last Name</label>
-      <div class="valid-feedback">looks good</div>
-    </div>
-    <div class="form-floating mb-3 col-md-6">
-      <input class="form-control" type="date" id="birthday" name="user[birthday]" placeholder="Date of Birth" value="<%=user.birthday%>" required>
-      <label for="floatingInput" class="form-label fs-6">Birth Date</label>
-      <div class="valid-feedback">looks good</div>
-    </div>
-    <div class="col-md-6 mb-3">
-      <select class="form-select" name="user[gender]" required>
-        <option selected disabled value="">Gender</option>
-        <% if(user.gender==="Male" ) { %>
-        <option value="Male" selected>Male</option>
-        <option value="Female">Female</option>
-        <% } else { %>
-        <option value="Male">Female</option>
-        <option value="Female" selected>Female</option>
-        <% } %>
-      </select>
-      <div class="invalid-feedback">
-        Please select Your Gender
+<button
+  type="button"
+  class="me-3 btn btn-outline-warning bg-gradient px-2 py-1"
+  data-bs-toggle="modal"
+  data-bs-target="#edit-<%= user.id %>"
+>
+  <i class="bi bi-pencil-fill"></i>
+</button>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="edit-<%= user.id %>"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div
+    class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg"
+  >
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Modifier Personnel</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          required
+        ></button>
+      </div>
+
+      <div class="modal-body">
+        <form
+          class="row g-3 needs-validation"
+          action="/user/<%= user.id %>/?_method=PUT"
+          id="user"
+          method="POST"
+          novalidate
+        >
+          <div class="form-floating">
+            <input
+              id="staffLastName"
+              name="user[lastname]"
+              type="text"
+              class="form-control"
+              style="text-transform: capitalize"
+              value="<%= user.lastname %>"
+              required
+              autofocus
+            />
+            <label for="staffLastName" class="form-label">Nom</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <div class="form-floating">
+            <input
+              id="staffFirstName"
+              name="user[firstname]"
+              type="text"
+              class="form-control"
+              style="text-transform: capitalize"
+              value="<%= user.firstname %>"
+            />
+            <label for="staffFirstName" class="form-label">Prénom</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+
+          <div class="form-floating">
+            <select
+              id="staffFonction"
+              name="user[fonction]"
+              class="form-select"
+              value="<%= user.fonction %>"
+              required
+            >
+              <option selected disabled value="">Fonction</option>
+              <% for(fonction of fonctions) {%> 
+              <% if (user.fonction == fonction ){%>
+              <option class="option" value="<%=fonction %>" selected>
+                <%=fonction %>
+              </option>
+              <% }else{ %>
+              <option class="option" value="<%=fonction %>">
+                <%=fonction %>
+              </option>
+              <% }} %>
+            </select>
+            <label for="staffGender" class="form-label">Fonction</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <div class="form-floating">
+            <div class="d-flex align-item-start form-check form-switch ms-2">
+              <% if (user.externe === 'externe'){%>
+              <input
+                class="form-check-input me-2"
+                type="checkbox"
+                name="user[externe]"
+                value="externe"
+                role="switch"
+                id="externe"
+                checked
+              />
+              <% }else{ %>
+              <input
+                class="form-check-input me-2"
+                type="checkbox"
+                name="user[externe]"
+                value="externe"
+                role="switch"
+                id="externe"
+              />
+              <% } %>
+              <label class="form-check-label" for="externe">Externe</label>
+              <div class="valid-feedback">BIEN</div>
+            </div>
+          </div>
+
+          <div class="form-floating">
+            <input
+              type="text"
+              class="form-control"
+              style="text-transform: lowercase"
+              id="stafemail"
+              name="user[email]"
+              value="<%= user.email %>"
+            />
+            <label for="staffemail" class="form-label">Email</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <div class="form-floating">
+            <input
+              type="text"
+              class="form-control"
+              id="staffPhone"
+              name="user[phone]"
+              value="<%= user.phone %>"
+              maxlength="10"
+            />
+            <label for="staffPhone" class="form-label">Téléphone</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <div class="form-floating">
+            <input
+              type="password"
+              class="form-control"
+              id="oldPassword"
+              name="user[oldPassword]"
+            />
+            <label for="oldPassword" class="form-label">Ancien Mot de Passe</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <div class="form-floating">
+            <input
+              type="password"
+              class="form-control"
+              id="newPassword"
+              name="user[newPassword]"
+            />
+            <label for="newPassword" class="form-label">Nouveau Mot de Passe</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+         
+        
+          <div class="modal-footer mt-3">
+            <button
+              type="button"
+              class="btn btn-outline-danger bg-gradient"
+              data-bs-dismiss="modal"
+            >
+              Annuler
+            </button>
+            <button
+              type="submit"
+              id="user-edit"
+              class="btn btn-outline-warning bg-gradient"
+            >
+              Modifier
+            </button>
+          </div>
+        </form>
       </div>
     </div>
-
-    <div class="form-floating mb-3 col-md-6">
-      <input class="form-control" type="email" id="email" name="user[email]" placeholder="Email" value="<%=user.email%>" required>
-      <label for="floatingInput" class="form-label fs-6">Email</label>
-      <div class="valid-feedback">looks good</div>
-    </div>
-    <div class="form-floating mb-3 col-md-6">
-      <input class="form-control" type="password" id="password" name="user[password]" placeholder="Password" required>
-      <label for="floatingInput" class="form-label fs-6">Password</label>
-      <div class="valid-feedback">looks good</div>
-    </div>
-    <div class="form-floating mb-3 col-md-12">
-      <input class="form-control" type="text" id="phone" name="user[phone]" placeholder="Phone Number" value="<%=user.phone%>" required>
-      <label for="floatingInput" class="form-label fs-6">Phone</label>
-      <div class="valid-feedback">looks good</div>
-    </div>
-
-    <div class="form-floating mb-3 col-md-12">
-      <input class="form-control" type="text" id="job" name="user[job]" placeholder="Job Title" value="<%=user.job%>" required>
-      <label for="floatingInput" class="form-label fs-6">Job</label>
-      <div class="valid-feedback">looks good</div>
-    </div>
-
-    <div class="input-group mb-3 col-md-12">
-      <input type="file" class="form-control" id="picture" name="picture" multiple>
-      <label class="input-group-text" for="picture">Upload another Picture</label>
-    </div>
-    <div class="col-md-8">
-      <span>Are you an Organizer ?</span>
-    </div>
-    <% if (user.privileges.includes('organizer')) {%>
-    <div class="col-md-2">
-      <input class="form-check-input" type="radio" name="user[privileges]" id="organizer" value="organizer" checked>
-      <label class="form-check-label" for="organizer">Yes</label>
-    </div>
-    <div class="mb-3 col-md-2">
-      <input class="form-check-input" type="radio" name="user[privileges]" id="user" value="user">
-      <label class="form-check-label" for="user">No</label>
-    </div>
-    <% }else {%>
-    <div class="col-md-2">
-      <input class="form-check-input" type="radio" name="user[privileges]" id="organizer" value="organizer">
-      <label class="form-check-label" for="organizer">Yes</label>
-    </div>
-    <div class="mb-3 col-md-2">
-      <input class="form-check-input" type="radio" name="user[privileges]" id="user" value="user" checked>
-      <label class="form-check-label" for="user">No</label>
-    </div>
-    <% } %>
-
-
-    <!-- <div class="form-floating mb-3"> -->
-    <label for="floatingInput" class="form-label fs-6">
-      <h3>biography:</h3>
-    </label>
-    <textarea class="form-control" type="text" id="about" name="user[about]" rows="10" required><%= user.about %></textarea>
-    <div class="valid-feedback">looks good</div>
-    <!-- </div> -->
-    <!-- Fetch the Skills to display them -->
-    <!-- <h3>Skills:</h3> -->
-    <h3>Social Media:</h3>
-    <%- include("./socialMedia") %> 
-    <div class="mb-3">
-      <button class="w-100 btn btn-lg btn-outline-success">Update</button>
-    </div>
-  </form>
+  </div>
+</div>
+<script>
+  $("#edit-<%= user.id %>").on("shown.bs.modal", function () {
+    $(this).find("[autofocus]").focus();
+  });
+</script>

@@ -47,6 +47,7 @@ const ExpressError = require("./utils/ExpressError");
 const { errorPage } = require("./middleware/middleware");
 const User = require("./model/user");
 const Report = require("./model/compteRendu");
+const Medicament = require("./model/medicament");
 const compression = require("compression");
 const { isLoggedIn } = require("./middleware/middleware");
 // ==================== App Configuration =================
@@ -70,17 +71,20 @@ app.use(passport.session());
 passport.use(
   "user",
   new LocalStrategy((username, password, done) => {
-
-    User.findOne({ email: username.toLowerCase() }, function (err, user) {
+    User.findOne({ email: username.toLowerCase() }).then((user, err) => {
       if (err) {
+        console.log("error");
         return done(err);
       }
       if (!user) {
+        console.log("Not user");
         return done(null, false);
       } else {
         if (user.approved) {
+          console.log("approved");
           return done(null, user);
         } else {
+          console.log("not apprroved");
           return done(null, false, "Votre compte n'est pas encore approuvé");
         }
       }
@@ -106,42 +110,62 @@ app.use(compression());
 // =========================================================
 
 // ================= App Routes =======================
+// need to be logged in
 app.use("/acte", acteRoutes);
+// need to be logged in
 app.use("/conduitemedicale", conduiteMedicaleRoutes);
+// need to be logged in and has to be an Achetteur
 app.use("/fournisseur", fournisseurRoutes);
+// need to be logged in and has to be an Achetteur
 app.use("/materiels", materielRoutes);
+// need to be logged in and has to be an Achetteur or technicien or medecin
 app.use("/kt", patientKTRoutes);
+// need to be logged in and has not to be an Achetteur
 app.use("/patient", patientRoutes);
+// need to be logged in and has not to be an admin
 app.use("/staffs", staffRoutes);
+// need to be logged in and has to be an Medecin
 app.use("/medicaments", medicamentRoutes);
+// need to be logged in and has to be an admin 
 app.use("/user", userRoutes);
+// need to be logged in and has to be an admin 
 app.use("/user/request", requestUserRoutes);
+// need to be logged in and has to be an acheteur or technicien or medecin 
 app.use("/kt/bc/:id", bcktRoutes);
+// need to be logged in and has to be an acheteur or technicien or medecin 
 app.use("/kt/bc/:id/:idbc/articles", bcArticleRoutes);
+// need to be logged in and has to be an acheteur
 app.use("/materiel/:id/article", articleRoutes);
+// need to be logged in and has to be an acheteur 
 app.use("/materiel/:id/articles/:idarticle", detailsArticleRoutes);
+// need to be logged in and not an acheteur
 app.use("/medecin/:lastname", medecinRoutes);
+// need to be logged in and has to be a medecin 
 app.use("/patient/:id/acte/:idacte/compterendu", compteRenduRoutes);
+// need to be logged in and has to be an assistant , technicien or medecin 
 app.use("/patient/:id/acte", consultationRoutes);
 // ========================================================
 app.get("/", isLoggedIn, (req, res) => {
   res.render("home");
 });
 app.get("/reports", async (req, res) => {
-  await User.updateMany(
-    {},
-    {
-      $set: {
-        firstname: "",
-        lastname: "",
-        phone: "",
-        fonction: "",
-        externe: "",
-      },
-    },
-    { strict: false }
-  );
+  // await User.updateMany(
+  //   {},
+  //   {
+  //     $set: {
+  //       firstname: "",
+  //       lastname: "",
+  //       phone: "",
+  //       fonction: "",
+  //       externe: "",
+  //     },
+  //   },
+  //   { strict: false }
+  // );
   // await Report.deleteMany({$or:[{type:" "},{type:""},{type:"  "}]})
+  await Medicament.deleteMany({
+    $or: [{ dci: " " }, { dci: null }, { dci: "  " }],
+  });
   res.send("Mabrouk");
 });
 // app.all("*", (req, res, next) => {

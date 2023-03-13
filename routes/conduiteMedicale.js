@@ -5,8 +5,8 @@ var { showliste
      
  } = require("../controller/conduiteMedicale");
 
-var { isLoggedIn } = require("../middleware/middleware");
+var { isLoggedIn,isAssistant } = require("../middleware/middleware");
 
-router.route("/:id").get(isLoggedIn, catchAsync(showliste));
+router.route("/:id").get(isLoggedIn,isAssistant, catchAsync(showliste));
 
 module.exports = router;

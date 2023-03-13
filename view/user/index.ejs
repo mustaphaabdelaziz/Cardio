@@ -27,6 +27,7 @@
           
             <th scope="col">Email</th>
             <th scope="col">Role</th>
+            <th scope="col">Logged in at</th>
             <th scope="col">Status</th>
             <th id="item1" scope="col">Action</th>
           </tr>
@@ -39,6 +40,9 @@
             <td><%= user.fullname %></td>
             <td><%=user.email %></td>
             <td><%=user.privileges[0] %></td>
+            
+            <td><%=moment(user.loggedIn).format("DD/MM/YYYY-HH:mm:ss") %></td>
+            
             <% if (user.approved){%>
               <th class="p-3"><span class="rounded-pill badge bg-success bg-gradient">OUI</span></th>
               <%}else{%>

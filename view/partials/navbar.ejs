@@ -36,7 +36,7 @@
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            Patient <i class="bi bi-heart-pulse-fill fw-bold"></i>
+            Patient <i class="bi bi-heart-pulse-fill fw-bold text-danger"></i>
           </a>
           <ul
             class="dropdown-menu bg-antiqueSteel"
@@ -59,7 +59,7 @@
             role="button"
             data-bs-toggle="dropdown"
             aria-expanded="false"
-            >Par Acte <i class="bi bi-activity fw-bold"></i></a
+            >Par Acte <i class="ri-stethoscope-line"></i></a
           >
           <ul
             class="dropdown-menu bg-antiqueSteel"
@@ -110,7 +110,7 @@
             role="button"
             data-bs-toggle="dropdown"
             aria-expanded="false"
-            >Par Medecin</a
+            >Par Medecin <i class="ri-nurse-fill"></i></a
           >
           <ul
             class="dropdown-menu bg-antiqueSteel"
@@ -133,9 +133,10 @@
         <% } %>
         <% if(currentUser.privileges.includes('admin') || currentUser.privileges.includes('medecin')) { %>
         <li class="nav-item">
-          <a class="nav-link" href="/medicaments">Medicaments</i></a>
+          <a class="nav-link" href="/medicaments">Medicaments <i class="ri-medicine-bottle-line text-success"></i></a>
         </li>
         <% } %>
+        <% if(currentUser.privileges.includes('admin') || currentUser.privileges.includes('acheteur') || currentUser.privileges.includes('medecin') || currentUser.privileges.includes('technicien'))  { %>
         <li class="nav-item dropdown">
           <a
           class="nav-link dropdown-toggle"
@@ -146,7 +147,6 @@
           aria-expanded="false"
           >Materiels KT</a
           >
-          <% if(currentUser.privileges.includes('admin') || currentUser.privileges.includes('acheteur') || currentUser.privileges.includes('medecin') || currentUser.privileges.includes('technicien'))  { %>
           <ul
             class="dropdown-menu bg-antiqueSteel"
             aria-labelledby="navbarDropdown"
@@ -155,7 +155,7 @@
               <% if(currentUser.privileges.includes('admin')|| currentUser.privileges.includes('acheteur')) {%>
               <a class="dropdown-item" href="/materiels">Matériels entrants</a>
               <% } %>
-              <% if(currentUser.privileges.includes('admin')|| currentUser.privileges.includes('technicien') || currentUser.privileges.includes('medecin')) {%>
+              <% if(!currentUser.privileges.includes('assistant')) {%>
               <a class="dropdown-item" href="/KT">Matériels sortants</a>
               <% } %>
               <% if(currentUser.privileges.includes('admin')|| currentUser.privileges.includes('acheteur')) {%>

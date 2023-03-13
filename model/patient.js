@@ -17,7 +17,7 @@ const Patient = new Schema(
       trim: true,
       default: "/",
     },
-    birthdate: Date,
+    birthdate: { type: Date, default: Date.now },
     poids: {
       type: Number,
       default: "/",
@@ -191,6 +191,10 @@ const Patient = new Schema(
           conduiteMedicale: {
             type: String,
             trim: true,
+          },
+          createdBy: {
+            type: Schema.Types.ObjectId,
+            ref: "User",
           },
         },
         status: {

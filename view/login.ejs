@@ -1,0 +1,79 @@
+<div class="container">
+  <div class="card my-5">
+    <div class="row">
+      <div class="col-12">
+        <div class="d-flex flex-column align-items-center my-5">
+          <a href="/">
+            <img src="/assets/logo.png" alt="" height="100px" />
+          </a>
+        </div>
+      </div>
+      <div class="col-12">
+        <ul class="nav nav-tabs" role="tablist">
+          <li class="nav-item">
+            <button
+              id="userLoginTab"
+              data-bs-target="#userLoginForm"
+              data-bs-toggle="tab"
+              role="tab"
+              class="nav-link active"
+              aria-controls="userLoginForm"
+              aria-selected="true"
+            >
+            login <i class="bi bi-box-arrow-in-right"></i>
+            </button>
+          </li>
+          <li class="nav-item">
+            <button
+              id="userRegisterTab"
+              data-bs-target="#userRegisterForm"
+              data-bs-toggle="tab"
+              role="tab"
+              class="nav-link"
+              aria-controls="userRegisterForm"
+              aria-selected="false"
+            >
+              register<i class="bi bi-person-plus-fill"></i>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+      <div class="tab-content">
+        <div
+          aria-labelledby="userLoginTab"
+          role="tabpanel"
+          class="px-5 my-5 tab-pane fade active show"
+          id="userLoginForm"
+        >
+          <h3 class="my-5 text-center text-primary">login</h3>
+          <form action="/users/login" method="POST">
+            <div class="mb-3">
+              <label for="userLoginEmail" class="form-label"
+                >email
+              </label>
+              <input
+                type="email"
+                class="form-control"
+                name="username"
+                id="userLoginEmail"
+                placeholder="name@example.com"
+                style="text-transform: lowercase"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="userLoginPassword" class="form-label"
+                >password</label
+              >
+              <input type="password" class="form-control" id="userLoginPassword"
+              name="password" placeholder="password">
+            </div>
+            <div class="mb-3 text-center">
+              <button type="submit" id="user-submit" class="btn btn-primary">
+                login <i class="bi bi-box-arrow-in-right"></i>
+              </button>
+            </div>
+          </form>
+        </div>

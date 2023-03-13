@@ -23,7 +23,7 @@ const User = new Schema(
     privileges: [
       {
         type: String,
-        default: "user"
+        default: "user",
       },
     ],
     approved: {
@@ -36,6 +36,10 @@ const User = new Schema(
         ref: "Report",
       },
     ],
+    loggedIn: {
+      type: Date,
+      default: Date.now,
+    },
   },
   opts
 );

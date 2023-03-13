@@ -81,20 +81,19 @@
           </div>
           <div class="form-floating col-md-6">
             <input id="patientBirthDate" name="patient[birthdate]" type="date"
-            class="form-control" max="<%=moment().format('YYYY-M-D')%>"
-            min="<%=moment("01/01/1900").format('YYYY-M-D')%>" />
+            class="form-control" max="<%=moment().format('YYYY-MM-DD')%>"
+            min="<%=moment("01/01/1900").format('YYYY-MM-DD')%>" />
             <label for="patientBirthDate" class="form-label"
               >Date de Naissance
             </label>
             <div class="valid-feedback">BIEN</div>
           </div>
           <div class="form-floating col-md-6">
-            <select id="bloodGroup" name="blood[group]" class="form-select">
+            <select id="bloodGroup" name="blood[groupe]" class="form-select">
               <option selected disabled value="">Groupe sanguin</option>
-              <option class="option" value="A">A</option>
-              <option class="option" value="B">B</option>
-              <option class="option" value="O">O</option>
-              <option class="option" value="AB">AB</option>
+              <% for(groupe of bloodGroup){ %>
+                <option class="option" value="<%= groupe %>"><%=groupe  %></option>
+                <% } %>
             </select>
             <label for="bloodGroup" class="form-label">Groupe sanguin</label>
             <div class="valid-feedback">BIEN</div>
@@ -102,8 +101,9 @@
           <div class="form-floating col-md-6">
             <select id="rhesus" name="blood[rhesus]" class="form-select">
               <option selected disabled value="">Rhésus</option>
-              <option class="option" value="A">+</option>
-              <option class="option" value="B">-</option>
+              <% for(rhesus of bloodRhesus){ %>
+              <option class="option" value="<%= rhesus %>">+</option>
+              <% } %>
             </select>
             <label for="rhesus" class="form-label">Rhésus</label>
             <div class="valid-feedback">BIEN</div>

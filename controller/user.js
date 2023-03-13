@@ -11,6 +11,7 @@ module.exports.userList = async (req, res) => {
     users,
     fonctions: fonctions.fonction,
     privileges: privileges.privileges,
+    moment,
   });
 };
 // ===============================================
@@ -50,7 +51,7 @@ module.exports.register = async (req, res) => {
       privileges: ["user"],
     });
 
-    await User.register(user, password, function (err, user) {
+    User.register(user, password, function (err, user) {
       if (err) {
         console.log(err);
         res.redirect("register");
@@ -67,10 +68,11 @@ module.exports.register = async (req, res) => {
     res.redirect("register");
   }
 };
-// =============== Login ==============================
-module.exports.login = (req, res) => {
+// ============================ Login =================================
+module.exports.login = async (req, res) => {
   req.flash("success", `Welcome Back ${req.user.firstname}`);
-
+  // update the recently logged in user
+  await User.findByIdAndUpdate(req.user.id, { loggedIn: moment() });
   const redirectUrl = req.session.returnTo || "/patient";
   delete req.session.returnTo;
   res.redirect(redirectUrl);
@@ -130,4 +132,9 @@ module.exports.deleteUser = async (req, res) => {
   await User.findByIdAndDelete(userid);
   req.flash("success", "Utilisateur a été supprimé");
   res.redirect("/user");
+};
+module.exports.showProfile = async (req, res) => {
+  // res.send("good")
+  const user = await User.findById(req.params.id);
+  res.render("user/profile", { user, moment, fonctions: fonctions.fonction });
 };

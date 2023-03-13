@@ -71,8 +71,12 @@
           >
             <%=patient.phone %>
           </td>
-
-          <th><%- include("./bc/new")%></th>
+          
+          <th>
+            <% if(!currentUser.privileges.includes('acheteur') && !currentUser.privileges.includes('assistant')){ %>
+              <%- include("./bc/new")%>
+              <% } %>
+          </th>
         </tr>
         <% }%>
       </tbody>

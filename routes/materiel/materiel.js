@@ -10,17 +10,19 @@ const {
   updateMateriel,
   generatepdf,
 } = require("../../controller/materiel/materiel");
-const { isLoggedIn } = require("../../middleware/middleware");
-router.route("/generatepdf").get(isLoggedIn, catchAsync(generatepdf));
-router.route("/new").get(isLoggedIn, catchAsync(creationform));
+const { isLoggedIn, isAcheteur } = require("../../middleware/middleware");
+router
+  .route("/generatepdf")
+  .get(isLoggedIn, isAcheteur, catchAsync(generatepdf));
+router.route("/new").get(isLoggedIn, isAcheteur, catchAsync(creationform));
 router
   .route("/")
-  .get(isLoggedIn, catchAsync(listeMateriel))
-  .post(isLoggedIn, catchAsync(createMateriel));
+  .get(isLoggedIn, isAcheteur, catchAsync(listeMateriel))
+  .post(isLoggedIn, isAcheteur, catchAsync(createMateriel));
 router
   .route("/:id")
-  .get(isLoggedIn, catchAsync(showMateriel))
-  .put(isLoggedIn, catchAsync(updateMateriel))
-  .delete(isLoggedIn, catchAsync(deleteMateriel));
+  .get(isLoggedIn, isAcheteur, catchAsync(showMateriel))
+  .put(isLoggedIn, isAcheteur, catchAsync(updateMateriel))
+  .delete(isLoggedIn, isAcheteur, catchAsync(deleteMateriel));
 
 module.exports = router;

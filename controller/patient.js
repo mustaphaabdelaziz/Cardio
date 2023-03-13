@@ -16,6 +16,8 @@ var fonts = {
     bolditalics: "fonts/roboto/Roboto-MediumItalic.ttf",
   },
 };
+const bloodGroup = ["A", "B", "O", "AB"];
+const bloodRhesus = ["+", "-"];
 module.exports.refactoring = async (req, res) => {
   /* select all patient that has poids, taille */
 
@@ -74,6 +76,8 @@ module.exports.listepatient = async (req, res) => {
     inscrit,
     nbrCompterendu,
     states,
+    bloodGroup,
+    bloodRhesus,
   });
 };
 
@@ -81,7 +85,8 @@ module.exports.creationform = async (req, res) => {
   const medecins = await Staff.find({ fonction: "Medecin" });
   const algeria = await Country.find({});
   const states = algeria[0].states;
-  res.render("patient/new", { medecins, states, moment });
+
+  res.render("patient/new", { medecins, states, moment, bloodGroup });
 };
 module.exports.showpatient = async (req, res) => {
   // get the patient id from the patients table
@@ -94,6 +99,7 @@ module.exports.showpatient = async (req, res) => {
     Report.find({}),
   ]);
   const states = algeria[0].states;
+
   // send it to the client
   res.render("patient/show", {
     patient,
@@ -103,6 +109,8 @@ module.exports.showpatient = async (req, res) => {
     states,
     reports,
     conduitemedicales: conduiteMedicale.conduitemedicale,
+    bloodGroup,
+    bloodRhesus,
   });
   // res.send(patient)
 };
@@ -113,9 +121,6 @@ module.exports.createpatient = async (req, res) => {
     lastname,
     father,
     birthdate,
-    poids,
-    taille,
-    saturation,
     gender,
     medecinref,
     phone,

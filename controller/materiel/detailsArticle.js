@@ -6,7 +6,7 @@ module.exports.showdetail = async (req, res) => {
   const { id, idarticle } = req.params;
   // // find the materiel in the database
   const materiel = await Materiel.findOne(
-    { id: id, "article._id": idarticle },
+    { _id: id, "article._id": idarticle },
     { "article.$": 1, designation: 1, code: 1 }
   );
   // send it to the client

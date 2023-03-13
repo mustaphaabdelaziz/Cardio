@@ -11,7 +11,9 @@
               <span class="text-decoration-underline"> <%=patient.fullname %> </span>
             </h4>
             <div class="ms-2 mt-1">
+              <% if(!currentUser.privileges.includes('acheteur') && !currentUser.privileges.includes('assistant')){ %>
               <%- include("./new") %>
+              <% } %>
               <button
                 class="btn btn-outline-secondary bg-gradient px-2 py-1"
                 onclick="printBC()"

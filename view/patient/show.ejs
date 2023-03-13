@@ -7,8 +7,9 @@
           <div class="col d-flex m-auto">
             <h2><%=patient.fullname %></h2>
             <div class="ms-2">
-              <%- include("./consultation/new")%> <%- include("./edit")%> <%-
-              include("./delete")%>
+              <%- include("./consultation/new")%>
+              <%- include("./edit")%> 
+              <%- include("./delete")%>
               <a
                 class="btn btn-outline-secondary px-2 py-1 ms-2"
                 href="/patient/generatepdf/<%=patient.id%>"
@@ -68,26 +69,25 @@
             </p>
             <p>
               <span class="fw-bold">Saturation:</span>
-              <span> <%=patient.saturationP%></span>
+              <span> <%= patient.consultation[0].saturation%></span>
             </p>
             <p>
               <span class="fw-bold">TA:</span>
-              <span> <%=patient.ta%></span>
+              <span> <%=patient.consultation[0].ta%></span>
             </p>
             <p>
               <span class="fw-bold">Poids:</span>
-              <span> <%=patient.poids%> Kg</span>
+              <span> <%=patient.consultation[0].poids%> Kg</span>
             </p>
             <p>
               <span class="fw-bold">Taille:</span>
-              <span> <%=patient.taille%> cm</span>
+              <span> <%=patient.consultation[0].taille%> cm</span>
             </p>
           </div>
         </div>
       </div>
     </div>
   </div>
-
   <form class="d-flex shadow-sm">
     <input
       id="search"
@@ -123,14 +123,16 @@
           <td class="data">Dr. <%=consultation.medecin %></td>
           <td class="data"><%= consultation.technicien %></td>
           <td class="data">
-            <%=moment(consultation.date).format("DD/MM/YYYY")%><%= consultation.time %>
+            <%=moment(consultation.date).format("DD/MM/YYYY")%> - <%= consultation.time %>
           </td>
 
           <td class="text-center data"><%-include("./commentViewer")%></td>
           <th>
-            <% if(!consultation.compterendu.isEmpty ){%>
+            <% if(!consultation.compterendu.isEmpty){%>
+            <% if(!currentUser.privileges.includes('assistant') && !currentUser.privileges.includes('technicien')){ %>
             <%-include("./consultation/comptRendu/editCompteRendu",{i})%>
             <%-include("./consultation/comptRendu/deleteCompteRendu",{i})%>
+            <% } %>
             <button
               class="btn btn-outline-secondary px-2 py-1 ms-2"
               onclick="printCompteRendu('<%=consultation.id%>','non')"
@@ -138,8 +140,10 @@
               <i class="bi bi-eye-fill px-1 py-1"></i>
             </button>
             <!-- delete comptrendu -->
-            <% }else{%>
-            <%-include("./consultation/comptRendu/addCompteRendu",{i})%> <% } %>
+            <% }else if(!currentUser.privileges.includes('assistant') && !currentUser.privileges.includes('technicien')) {%>
+             
+            <%-include("./consultation/comptRendu/addCompteRendu",{i})%>
+            <% }%>
           </th>
           <% if (consultation.status==="oui"){%>
           <th class="p-3">
@@ -155,12 +159,21 @@
 
           <th>
             <div class="d-flex justify-content-center align-items-center">
-              <%- include("./consultation/edit")%> 
-              <%- include("./consultation/delete")%>
+              <% if(!consultation.compterendu.isEmpty){%>
+              <% if(!currentUser.privileges.includes('assistant') && !currentUser.privileges.includes('acheteur')){ %>
+                <%- include("./consultation/edit")%> 
+                <%- include("./consultation/delete")%>
+                <% }else{ %>
+                  <%- include("./consultation/edit")%> 
+                  <% }}else{ %>
+                    <%- include("./consultation/edit")%> 
+                    <%- include("./consultation/delete")%>
+                  <% } %>
             </div>
           </th>
+          <%  %>
         </tr>
-        <% }%>
+        <%}%>
       </tbody>
     </table>
   </div>
