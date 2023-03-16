@@ -46,7 +46,7 @@ module.exports.isTech = async (req, res, next) => {
     !req.user.privileges.includes("admin")
   ) {
     req.flash("error", "Vous n'êtes pas autorisé!");
-    return res.redirect(`/patient`);
+    return res.redirect(`/`);
   }
   next();
 };
@@ -55,6 +55,7 @@ module.exports.isAcheteur = async (req, res, next) => {
     !req.user.privileges.includes("acheteur") &&
     !req.user.privileges.includes("admin")
   ) {
+    console.log("not authorized");
     req.flash("error", "Vous n'êtes pas autorisé!");
     return res.redirect(`/`);
   }
@@ -62,7 +63,7 @@ module.exports.isAcheteur = async (req, res, next) => {
 };
 module.exports.isAssistant = async (req, res, next) => {
   if (
-    req.user.privileges.includes("assistant") &&
+    !req.user.privileges.includes("assistant") &&
     !req.user.privileges.includes("technicien") &&
     !req.user.privileges.includes("medecin") &&
     !req.user.privileges.includes("admin")

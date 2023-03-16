@@ -21,3 +21,15 @@
     );
   });
 })();
+$(document).ready(function () {
+  $("#confirmedPassword").on("keyup", function () {
+    var password = $("#registerPassword").val();
+    var confirmPassword = $("#confirmedPassword").val();
+    if (password != confirmPassword)
+      $("#checkPasswordMatch")
+        .html("Le mot de passe ne correspond pas !")
+        .css("color", "red");
+    else
+      $("#checkPasswordMatch").html("Correspondance du mot de passe !").css("color", "green");
+  });
+});

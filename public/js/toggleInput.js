@@ -146,3 +146,42 @@ function generateField(line) {
     }
   }
 }
+$(document).ready(function(){
+  
+  $('#show_hide_login').on('click', function(){
+     var passInput=$("#loginPassword");
+     if(passInput.attr('type')==='password')
+       {
+         passInput.attr('type','text');
+         $('#icon-eye').toggleClass("bi-eye-slash-fill");
+         
+        }else{
+          passInput.attr('type','password');
+          $('#icon-eye').toggleClass("bi-eye-slash-fill");
+     }
+  })
+  $('#show_hide_register').on('click', function(){
+     var passInput=$("#registerPassword");
+     if(passInput.attr('type')==='password')
+       {
+         passInput.attr('type','text');
+         $('#icon-eye-register').toggleClass("bi-eye-slash-fill");
+         
+        }else{
+          passInput.attr('type','password');
+          $('#icon-eye-register').toggleClass("bi-eye-slash-fill");
+     }
+  })
+  $('#show_hide_confirmed').on('click', function(){
+     var passInput=$("#confirmedPassword");
+     if(passInput.attr('type')==='password')
+       {
+         passInput.attr('type','text');
+         $('#icon-eye-confirmed').toggleClass("bi-eye-slash-fill");
+         
+        }else{
+          passInput.attr('type','password');
+          $('#icon-eye-confirmed').toggleClass("bi-eye-slash-fill");
+     }
+  })
+})

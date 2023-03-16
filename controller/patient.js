@@ -69,6 +69,7 @@ module.exports.listepatient = async (req, res) => {
   // blocking-await: 101.135ms
   // blocking-await: 141.458ms
   const states = algeria[0].states;
+  // res.send(patients)
   res.render("patient/index", {
     patients,
     moment,

@@ -105,34 +105,37 @@
                   class="needs-validation"
                   novalidate
                 >
-                  <div class="mb-3">
-                    <label for="userLoginEmail" class="form-label"
-                      >Email
-                    </label>
+                  <div class="form-floating mb-3">
                     <input
                       type="email"
                       class="form-control"
                       name="username"
-                      id="userLoginEmail"
+                      id="loginEmail"
                       placeholder="name@example.com"
                       style="text-transform: lowercase"
                       required
                     />
+                    <label for="loginEmail" class="form-label">Email</label>
                     <div class="valid-feedback">BIEN</div>
                   </div>
-                  <div class="mb-3">
-                    <label for="userLoginPassword" class="form-label"
-                      >Password</label
-                    >
+                  <div class="form-floating input-group mb-3">
                     <input
                       type="password"
                       class="form-control"
-                      id="userLoginPassword"
+                      id="loginPassword"
                       name="password"
                       placeholder="Password"
                       required
                     />
+                    <label for="loginPassword" class="form-label"
+                      >Password</label
+                    >
                     <div class="valid-feedback">BIEN</div>
+                    <div class="input-group-text">
+                      <span id="show_hide_login">
+                        <i id="icon-eye" class="bi bi-eye-fill"></i>
+                      </span>
+                    </div>
                   </div>
                   <div class="mb-3 text-center">
                     <button
@@ -182,9 +185,7 @@
                       type="text"
                       class="form-control"
                     />
-                    <label for="firstName" class="form-label"
-                      >Prénom</label
-                    >
+                    <label for="firstName" class="form-label">Prénom</label>
                     <div class="valid-feedback">BIEN</div>
                   </div>
                   <div class="form-floating">
@@ -196,12 +197,12 @@
                     >
                       <option selected disabled value="">Fonction</option>
                       <% for(fonction of fonctions) {%>
-                      <option class="option" value="<%= fonction %>"><%= fonction %></option>
+                      <option class="option" value="<%= fonction %>">
+                        <%= fonction %>
+                      </option>
                       <% } %>
                     </select>
-                    <label for="fonction" class="form-label"
-                      >Fonction</label
-                    >
+                    <label for="fonction" class="form-label">Fonction</label>
                     <div class="valid-feedback">BIEN</div>
                   </div>
                   <div class="form-floating">
@@ -220,7 +221,7 @@
                       <div class="valid-feedback">BIEN</div>
                     </div>
                   </div>
-                  <div class="form-floating">
+                  <div class="form-floating mb-3">
                     <input
                       type="text"
                       class="form-control"
@@ -231,47 +232,59 @@
                     <label for="phone" class="form-label">Télephone</label>
                     <div class="valid-feedback">BIEN</div>
                   </div>
+                  <div class="row">
+                    <div class="form-floating mb-3 col-md-12">
+                      <input
+                        id="email"
+                        placeholder="name@example.com"
+                        name="user[email]"
+                        type="email"
+                        class="form-control"
+                        required
+                      />
+                      <label for="email" class="form-label">Email</label>
+                      <div class="valid-feedback">BIEN</div>
+                    </div>
+                    <div class="form-floating input-group mb-3 col-md-12">
+                      <input
+                        type="password"
+                        class="form-control"
+                        id="registerPassword"
+                        name="password"
+                        placeholder="Password"
+                        required
+                      />
+                      <div class="input-group-text">
+                        <span id="show_hide_register">
+                          <i id="icon-eye-register" class="bi bi-eye-fill"></i>
+                        </span>
+                      </div>
+                      <label for="registerPassword" class="form-label"
+                        >Password</label
+                      >
+                      <div class="valid-feedback">BIEN</div>
+                    </div>
+                    <div class="form-floating input-group mb-3 col-md-12">
+                      <input
+                        id="confirmedPassword"
+                        placeholder="Confirmé Mot de pass"
+                        type="password"
+                        class="form-control"
+                        name="user[confirmedPassword]"
+                        required
+                      />
+                      <div class="input-group-text">
+                        <span id="show_hide_confirmed">
+                          <i id="icon-eye-confirmed" class="bi bi-eye-fill"></i>
+                        </span>
+                      </div>
+                      <label for="confirmedPassword" class="form-label"
+                        >Confirmé Mot de pass</label
+                      >
+                    </div>
+                    <div id="checkPasswordMatch"></div>
+                  </div>
 
-                  <div class="col-md-6">
-                    <label for="email" class="form-label">Email %></label>
-                    <input
-                      id="email"
-                      placeholder="name@example.com"
-                      name="user[email]"
-                      type="email"
-                      class="form-control"
-                      required
-                    />
-                    <div class="valid-feedback">BIEN</div>
-                  </div>
-                  <div class="col-md-6">
-                    <label for="userPassword" class="form-label"
-                      >Mot de pass</label
-                    >
-                    <input
-                      id="userPassword"
-                      placeholder="Mot de pass"
-                      type="password"
-                      class="form-control"
-                      name="user[password]"
-                      required
-                    />
-                    <div class="valid-feedback">BIEN</div>
-                  </div>
-                  <!-- <div class="col-md-6">
-                    <label for="confirmedPassword" class="form-label"
-                      >Confirmé Mot de pass</label
-                    >
-                    <input
-                      id="confirmedPassword"
-                      placeholder="Confirmé Mot de pass"
-                      type="password"
-                      class="form-control"
-                      name="user[confirmedPassword]"
-                      required
-                    />
-                    <div class="valid-feedback">BIEN</div>
-                  </div> -->
                   <div class="mb-3 text-center">
                     <button
                       type="submit"
