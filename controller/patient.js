@@ -87,7 +87,13 @@ module.exports.creationform = async (req, res) => {
   const algeria = await Country.find({});
   const states = algeria[0].states;
 
-  res.render("patient/new", { medecins, states, moment, bloodGroup });
+  res.render("patient/new", {
+    medecins,
+    states,
+    moment,
+    bloodGroup,
+    bloodRhesus,
+  });
 };
 module.exports.showpatient = async (req, res) => {
   // get the patient id from the patients table
@@ -145,9 +151,6 @@ module.exports.createpatient = async (req, res) => {
       lastname.charAt(0).toUpperCase() + lastname.slice(1).toLowerCase(),
     father: father.charAt(0).toUpperCase() + father.slice(1).toLowerCase(),
     birthdate,
-    poids,
-    taille,
-    saturation,
     blood,
     phone,
     phone2,
@@ -170,9 +173,6 @@ module.exports.createandreturn = async (req, res) => {
     lastname,
     father,
     birthdate,
-    poids,
-    taille,
-    saturation,
     gender,
     medecinref,
     phone,
@@ -195,9 +195,6 @@ module.exports.createandreturn = async (req, res) => {
       lastname.charAt(0).toUpperCase() + lastname.slice(1).toLowerCase(),
     father: father.charAt(0).toUpperCase() + father.slice(1).toLowerCase(),
     birthdate,
-    poids,
-    taille,
-    saturation,
     blood,
     phone,
     phone2,
@@ -224,9 +221,6 @@ module.exports.updatePatient = async (req, res) => {
     lastname,
     father,
     birthdate,
-    poids,
-    taille,
-    saturation,
     gender,
     medecinref,
     phone,
@@ -251,9 +245,6 @@ module.exports.updatePatient = async (req, res) => {
         lastname.charAt(0).toUpperCase() + lastname.slice(1).toLowerCase(),
       father: father.charAt(0).toUpperCase() + father.slice(1).toLowerCase(),
       birthdate,
-      poids,
-      taille,
-      saturation,
       blood,
       phone,
       phone2,
@@ -570,56 +561,11 @@ module.exports.generatePatientpdf = async (req, res) => {
                     ],
                     margin: [20, 0, 0, 0],
                   },
-                  {
-                    text: [
-                      {
-                        text: `Poids:   `,
-                        alignment: "left",
-                        color: "#061e30",
-                        bold: true,
-                        // [left, top, right, bottom]
-                      },
-                      {
-                        text: `${patient.poids} kg`,
-                      },
-                    ],
-                    margin: [20, 10, 0, 0],
-                  },
-                  {
-                    text: [
-                      {
-                        text: `Taille:   `,
-                        alignment: "left",
-                        color: "#061e30",
-                        bold: true,
-                        // [left, top, right, bottom]
-                      },
-                      {
-                        text: `${patient.taille} cm`,
-                      },
-                    ],
-                    margin: [20, 10, 0, 0],
-                  },
                 ],
               },
               {
                 width: "*",
                 stack: [
-                  {
-                    text: [
-                      {
-                        text: `Saturation:   `,
-                        alignment: "left",
-                        color: "#061e30",
-                        bold: true,
-                        // [left, top, right, bottom]
-                      },
-                      {
-                        text: `${patient.saturationP}`,
-                      },
-                    ],
-                    margin: [20, 0, 0, 0],
-                  },
                   {
                     text: [
                       {

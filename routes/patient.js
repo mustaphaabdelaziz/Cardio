@@ -24,7 +24,7 @@ router
 router.route("/new").get(isLoggedIn, isAssistant, catchAsync(creationform));
 router
   .route("/")
-  .get( isLoggedIn, isAssistant,catchAsync(listepatient))
+  .get(isLoggedIn, isAssistant, catchAsync(listepatient))
   .post(isLoggedIn, isAssistant, catchAsync(createpatient));
 router
   .route("/patient/new")
@@ -32,7 +32,7 @@ router
 router.route("/refactor").get(isLoggedIn, isAssistant, catchAsync(refactoring));
 router
   .route("/:id")
-  .get( catchAsync(showpatient))
+  .get(catchAsync(showpatient))
   .delete(isLoggedIn, isAssistant, catchAsync(deletePatient))
   .put(isLoggedIn, isAssistant, catchAsync(updatePatient));
 

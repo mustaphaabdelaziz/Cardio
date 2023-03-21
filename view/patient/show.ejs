@@ -68,20 +68,21 @@
               <span> <%=patient.groupage%></span>
             </p>
             <p>
+       
               <span class="fw-bold">Saturation:</span>
-              <span> <%= patient.consultation[0].saturation%></span>
+              <span> <%= (patient.consultation.length>=1) ? patient.sortedConsultation[patient.consultation.length-1].saturation+" %":"/"%></span>
             </p>
             <p>
               <span class="fw-bold">TA:</span>
-              <span> <%=patient.consultation[0].ta%></span>
+              <span> <%=(patient.consultation.length>=1) ? patient.sortedConsultation[patient.consultation.length-1].ta:"/"%></span>
             </p>
             <p>
               <span class="fw-bold">Poids:</span>
-              <span> <%=patient.consultation[0].poids%> Kg</span>
+              <span> <%= (patient.consultation.length>=1) ? patient.sortedConsultation[patient.consultation.length-1].poids+" Kg":"/"%> </span>
             </p>
             <p>
               <span class="fw-bold">Taille:</span>
-              <span> <%=patient.consultation[0].taille%> cm</span>
+              <span> <%= (patient.consultation.length>=1) ? patient.sortedConsultation[patient.consultation.length-1].taille+" cm":"/"%></span>
             </p>
           </div>
         </div>
@@ -116,7 +117,7 @@
       </thead>
       <tbody id="tablebody">
         <% var i=1 %> 
-        <% for (consultation of patient.consultation){%>
+        <% for (consultation of patient.sortedConsultation){%>
         <tr>
           <th scope="row"><%= i%> <% i=i+1; %></th>
           <td class="data"><%= consultation.acte%></td>

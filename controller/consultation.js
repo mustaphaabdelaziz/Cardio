@@ -17,9 +17,21 @@ module.exports.showc = async (req, res) => {
 };
 
 module.exports.addActe = async (req, res) => {
-  let { dateacte,time, medecin, technicien,poids,taille,saturation,ta, acte, comment, status } =
-    req.body.consultation;
+  let {
+    dateacte,
+    time,
+    medecin,
+    technicien,
+    poids,
+    taille,
+    saturation,
+    ta,
+    acte,
+    comment,
+    status,
+  } = req.body.consultation;
   const { id } = req.params;
+  console.log(time);
   let tech, med;
   if (technicien) tech = technicien;
   if (medecin) med = medecin;
@@ -67,58 +79,41 @@ module.exports.deletePatientActe = async (req, res) => {
 module.exports.updatePatientActe = async (req, res) => {
   const { id, idacte } = req.params;
 
-  const { dateacte,time, acte, medecin, technicien,poids, taille,saturation,ta, comment, status } =
-    req.body.consultation;
+  const {
+    dateacte,
+    time,
+    acte,
+    medecin,
+    technicien,
+    poids,
+    taille,
+    saturation,
+    ta,
+    comment,
+    status,
+  } = req.body.consultation;
   const state = status;
   let patient;
-
-  if (state === "oui") {
-    patient = await Patient.updateOne(
-      {
-        id,
-        "consultation._id": idacte,
-      },
-      {
-        $set: {
-          "consultation.$.date": dateacte,
-          "consultation.$.time": time,
-          "consultation.$.acte": acte,
-          "consultation.$.medecin": medecin,
-          "consultation.$.technicien": technicien,
-          "consultation.$.poids": poids,
-          "consultation.$.taille": taille,
-          "consultation.$.saturation": saturation,
-          "consultation.$.ta": ta,
-          "consultation.$.comment": comment,
-          "consultation.$.status": state,
-        },
-      }
-    );
-  } else {
-    patient = await Patient.updateOne(
-      {
-        id,
-        "consultation._id": idacte,
-      },
-      {
-        $set: {
-          "consultation.$.date": dateacte,
-          "consultation.$.time": time,
-          "consultation.$.acte": acte,
-          "consultation.$.medecin": medecin,
-          "consultation.$.technicien": technicien,
-          "consultation.$.poids": poids,
-          "consultation.$.taille": taille,
-          "consultation.$.saturation": saturation,
-          "consultation.$.ta": ta,
-          "consultation.$.comment": comment,
-          "consultation.$.status": "non",
-        },
-      }
-    );
-  }
-
-  // res.send(patient);
+  const query = { id, "consultation._id": idacte };
+  const updateDocument = {
+    $set: {
+      "consultation.$.medecin": medecin,
+      "consultation.$.technicien": technicien,
+      "consultation.$.date": dateacte,
+      "consultation.$.time": time,
+      "consultation.$.acte": acte,
+      "consultation.$.poids": poids,
+      "consultation.$.taille": taille,
+      "consultation.$.saturation": saturation,
+      "consultation.$.ta": ta,
+      "consultation.$.comment": comment,
+      "consultation.$.status": state === "oui" ? state : "non",
+    },
+  };
+  patient = await Patient.findOneAndUpdate({
+    query,
+    updateDocument,
+  });
   req.flash("success", "Acte à été modifé avec succès");
   res.redirect(`/patient/${id}`);
 };

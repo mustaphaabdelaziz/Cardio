@@ -18,24 +18,6 @@ const Patient = new Schema(
       default: "/",
     },
     birthdate: { type: Date, default: Date.now },
-    poids: {
-      type: Number,
-      default: "/",
-    },
-    taille: {
-      type: Number,
-      default: "/",
-    },
-    saturation: {
-      type: String,
-      default: "/",
-      trim: true,
-    },
-    ta: {
-      type: String,
-      default: "/",
-      trim: true,
-    },
     blood: {
       groupe: {
         type: String,
@@ -250,9 +232,6 @@ Patient.virtual("fullname").get(function () {
 });
 Patient.virtual("address").get(function () {
   return this.city + ", " + this.wilaya;
-});
-Patient.virtual("saturationP").get(function () {
-  return this.saturation + " %";
 });
 Patient.virtual("drlastname").get(function () {
   if (this.medecinref === "/") {

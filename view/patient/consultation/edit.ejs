@@ -52,8 +52,7 @@
               type="time"
               id="time"
               name="consultation[time]"
-              placeholder="heure de l'acte"
-              value="<%=consultation.time%>" />
+              value="<%=moment(consultation.time,"HH:mm").format("HH:mm")%>" />
             
             <label for="time" class="form-labelfs-6">Heure de l'acte</label>
             <div class="valid-feedback">BIEN</div>
