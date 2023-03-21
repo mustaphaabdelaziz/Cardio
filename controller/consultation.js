@@ -94,7 +94,7 @@ module.exports.updatePatientActe = async (req, res) => {
   } = req.body.consultation;
   const state = status;
   let patient;
-  const query = { id, "consultation._id": idacte };
+  const query = { _id: id, "consultation._id": idacte };
   const updateDocument = {
     $set: {
       "consultation.$.medecin": medecin,
@@ -110,10 +110,11 @@ module.exports.updatePatientActe = async (req, res) => {
       "consultation.$.status": state === "oui" ? state : "non",
     },
   };
-  patient = await Patient.findOneAndUpdate({
-    query,
-    updateDocument,
+  // both updateOne and findOneAndUpdate work 
+  patient = await Patient.updateOne(query, updateDocument, {
+    rawResult: true,
   });
+  // res.send(patient);
   req.flash("success", "Acte à été modifé avec succès");
   res.redirect(`/patient/${id}`);
 };
