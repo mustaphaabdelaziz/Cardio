@@ -11,7 +11,7 @@ var styles = {
     fontSize: 12,
     alignment: "center",
     // [left, top, right, bottom]
-    margin: [30, 05, 30, 10],
+    margin: [30, 5, 30, 10],
     color: "#4caf82",
   },
   tableHeader: {

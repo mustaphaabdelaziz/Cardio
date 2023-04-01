@@ -1,6 +1,6 @@
 const { patientSchema } = require("../schemas");
-const Staff = require("../model/staff");
-const User = require("../model/user");
+const Staff = require("../model/staff/staff");
+const User = require("../model/user/user");
 const conduiteMedicale = require("../seeds/conduiteMedicale");
 
 const ExpressError = require("../utils/ExpressError");
