@@ -1,14 +1,18 @@
 $lightCoral: #e2564c;
-$mediumTurquoise: #0fa2b6;
-$greenSea: #5da49c;
+$mediumTurquoise: #16a7ba;
+$greenSea: #66b0a7;
+$pearlAqua: #5bb8ad9e;
 $crystalBlue: #afd9ea;
 $pistachio: #DCF4E4 ;
-$antiqueSteel : #E8E9E9 ;
+$antiqueSteel : #d4dede ;
 .bg-pistachio {
   background-color: $pistachio;
 }
 .bg-greenSea {
   background-color: $greenSea;
+}
+.bg-pearlAqua {
+  background-color: $pearlAqua;
 }
 .bg-crystalBlue {
   background-color: $crystalBlue;
@@ -19,6 +23,7 @@ $antiqueSteel : #E8E9E9 ;
 .bg-mediumTurquoise {
   background-color: $mediumTurquoise;
 }
+
 .bg-antiqueSteel {
   background-color: $antiqueSteel;
 }
@@ -34,6 +39,9 @@ $antiqueSteel : #E8E9E9 ;
 .text-greenSea {
   color: $greenSea;
 }
+.text-pearlAqua {
+  color: $pearlAqua;
+}
 .text-lightCoral {
   color: $lightCoral;
 }
@@ -45,11 +53,39 @@ $antiqueSteel : #E8E9E9 ;
   background-color: $greenSea;
   border-color: $greenSea;
 }
+.btn-outline-greenSea {
+  color: $greenSea;
+  border-color: $greenSea;
+}
+.btn-outline-greenSea:hover {
+  color: #fffdfd;
+  background-color: $greenSea;
+  border-color: $greenSea;
+}
 .btn-greenSea:hover {
   color: #fff;
   background-color: $greenSea;
   opacity: 0.8;
 }
+.btn-pearlAqua {
+  color: #545454;
+  background-color: $pearlAqua;
+  border-color: $pearlAqua;
+}
+.btn-outline-pearlAqua {
+  color: $pearlAqua;
+  border-color: $pearlAqua;
+}
+.btn-outline-pearlAqua:hover {
+  color: #fffdfd;
+  background-color: $pearlAqua;
+  border-color: $pearlAqua;
+}
+.btn-pearlAqua:hover {
+  background-color: $pearlAqua;
+  opacity: 0.8;
+}
+
 .btn-crystalBlue {
   color: #fff;
   background-color: $crystalBlue;
@@ -70,6 +106,15 @@ $antiqueSteel : #E8E9E9 ;
   background-color: $mediumTurquoise;
   opacity: 0.8;
 }
+.btn-outline-mediumTurquoise {
+  color: $mediumTurquoise;
+  border-color: $mediumTurquoise;
+}
+.btn-outline-mediumTurquoise:hover {
+  color: #fffdfd;
+  background-color: $mediumTurquoise;
+  border-color: $mediumTurquoise;
+}
 .btn-lightCoral {
   color: #fff;
   background-color: $lightCoral;
@@ -79,6 +124,15 @@ $antiqueSteel : #E8E9E9 ;
   color: #fff;
   background-color: $lightCoral;
   opacity: 0.8;
+}
+.btn-outline-lightCoral {
+  color: $lightCoral;
+  border-color: $lightCoral;
+}
+.btn-outline-lightCoral:hover {
+  color: #fffdfd;
+  background-color: $lightCoral;
+  border-color: $lightCoral;
 }
 .btn-pistachio {
   color: #fff;
@@ -99,4 +153,20 @@ $antiqueSteel : #E8E9E9 ;
   color: #fff;
   background-color: $antiqueSteel;
   opacity: 0.8;
+}
+.alert-greenSea {
+  color: #4c837c;
+  background-color: $pistachio;
+  border-color: $pistachio;
+}
+.table-greenSea {
+  --bs-table-bg:#5bb8ad91;
+  --bs-table-striped-bg: #CAEDE9;
+  --bs-table-striped-color: #000;
+  --bs-table-active-bg: #bbd8d5;
+  --bs-table-active-color: #000;
+  --bs-table-hover-bg: #CAEDE9;
+  --bs-table-hover-color: #000;
+  color: #555353;
+  border-color: #bcd0c7;
 }

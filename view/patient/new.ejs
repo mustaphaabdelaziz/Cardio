@@ -4,9 +4,7 @@
     <div class="row">
       <div class="col-12">
         <div class="d-flex flex-column align-items-center">
-          <a href="/">
-            <img src="/assets/logo.png" alt="" height="200px" />
-          </a>
+          <img class="" src="/assets/new patient.png" alt="" height="250px" />
         </div>
       </div>
     </div>
@@ -19,7 +17,7 @@
           class="mt-2 my-5 tab-pane fade active show"
           id="patientRegisterForm"
         >
-          <h3 class="m-4 text-center text-success">Nouveau Patient</h3>
+          <h3 class="m-4 text-center text-greenSea">Nouveau Patient</h3>
           <form
             class="row g-3 m-2 needs-validation"
             action="/patient"
@@ -80,9 +78,10 @@
               <select id="bloodGroup" name="blood[groupe]" class="form-select">
                 <option selected disabled value="">Groupe sanguin</option>
                 <% for(groupe of bloodGroup){ %>
-                <option class="option" value="<%= groupe %>"><%=groupe  %></option>
+                <option class="option" value="<%= groupe %>">
+                  <%=groupe %>
+                </option>
                 <% } %>
-                
               </select>
               <label for="bloodGroup" class="form-label">Groupe sanguin</label>
               <div class="valid-feedback">BIEN</div>
@@ -91,8 +90,10 @@
               <select id="rhesus" name="blood[rhesus]" class="form-select">
                 <option selected disabled value="">Rhésus</option>
                 <% for(rhesus of bloodRhesus){ %>
-                  <option class="option" value="<%= rhesus %>"><%= rhesus %></option>
-                  <% } %>
+                <option class="option" value="<%= rhesus %>">
+                  <%= rhesus %>
+                </option>
+                <% } %>
               </select>
               <label for="rhesus" class="form-label">Rhésus</label>
               <div class="valid-feedback">BIEN</div>
@@ -193,7 +194,7 @@
               <button
                 type="submit"
                 id="patient-register"
-                class="btn btn-outline-success bg-gradient bg-opacity-25"
+                class="btn btn-outline-greenSea bg-gradient bg-opacity-25"
                 formaction="patient/new"
               >
                 Ajouter autre patient <i class="bi bi-person-plus-fill"></i>
@@ -201,7 +202,7 @@
               <button
                 type="submit"
                 id="patient-register"
-                class="btn btn-outline-success bg-gradient"
+                class="btn btn-outline-greenSea bg-gradient"
               >
                 Ajouter <i class="bi bi-person-plus-fill"></i>
               </button>

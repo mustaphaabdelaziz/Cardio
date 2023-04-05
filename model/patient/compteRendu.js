@@ -2,6 +2,11 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const ReportSchema = new Schema({
+  //for adulte and congenitale
+  adulte: {
+    type: Boolean,
+  },
+  //name of the model
   type: {
     type: String,
     // unique: true,

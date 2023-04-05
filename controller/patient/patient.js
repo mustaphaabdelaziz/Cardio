@@ -106,7 +106,37 @@ module.exports.showpatient = async (req, res) => {
     Report.find({}),
   ]);
   const states = algeria[0].states;
-
+  let medicalInfo = { saturation: "", ta: "", poids: "", taille: "" };
+  
+  if (patient.consultation.length >= 1) {
+    medicalInfo.saturation = patient.sortedConsultation[
+      patient.consultation.length - 1
+    ].saturation
+      ? patient.sortedConsultation[patient.consultation.length - 1].saturation +
+        " %"
+      : "/";
+    medicalInfo.ta = patient.sortedConsultation[patient.consultation.length - 1]
+      .ta
+      ? patient.sortedConsultation[patient.consultation.length - 1].ta
+      : "/";
+    medicalInfo.taille = patient.sortedConsultation[
+      patient.consultation.length - 1
+    ].taille
+      ? patient.sortedConsultation[patient.consultation.length - 1].taille +
+        " cm"
+      : "/";
+    medicalInfo.poids = patient.sortedConsultation[
+      patient.consultation.length - 1
+    ].poids
+      ? patient.sortedConsultation[patient.consultation.length - 1].poids +
+        " kg"
+      : "/";
+  } else {
+    medicalInfo.saturation = "/";
+    medicalInfo.ta = "/";
+    medicalInfo.taille = "/";
+    medicalInfo.poids = "/";
+  }
   // send it to the client
   res.render("patient/show", {
     patient,
@@ -118,6 +148,7 @@ module.exports.showpatient = async (req, res) => {
     conduitemedicales: conduiteMedicale.conduitemedicale,
     bloodGroup,
     bloodRhesus,
+    medicalInfo,
   });
   // res.send(patient)
 };

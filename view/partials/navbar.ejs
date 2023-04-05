@@ -1,5 +1,5 @@
 <nav
-  class="navbar navbar-expand-lg sticky-top navbar-light bg-antiqueSteel shadow-sm fw-bold"
+  class="navbar navbar-expand-lg sticky-top navbar-light bg-antiqueSteel shadow fw-bold rounded"
 >
   <div class="container-fluid">
     <a class="navbar-brand fw-bold" href="/">
@@ -36,7 +36,7 @@
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            Patient <i class="bi bi-heart-pulse-fill fw-bold text-danger"></i>
+            Patient <i class="bi bi-heart-pulse-fill fw-bold text-lightCoral"></i>
           </a>
           <ul
             class="dropdown-menu bg-antiqueSteel"
@@ -133,7 +133,7 @@
         <% } %>
         <% if(currentUser.privileges.includes('admin') || currentUser.privileges.includes('medecin')) { %>
         <li class="nav-item">
-          <a class="nav-link" href="/medicaments">Medicaments <i class="ri-medicine-bottle-line text-success"></i></a>
+          <a class="nav-link" href="/medicaments">Medicaments <i class="ri-medicine-bottle-line text-greenSea"></i></a>
         </li>
         <% } %>
         <% if(currentUser.privileges.includes('admin') || currentUser.privileges.includes('acheteur') || currentUser.privileges.includes('medecin') || currentUser.privileges.includes('technicien'))  { %>
@@ -171,7 +171,7 @@
           <a class="nav-link" href="/user"
             >Utilisateurs <i class="bi bi-people-fill"></i>
             <% if(session.newUsers!=0) {%> 
-            <span class="badge bg-danger"> <%=session.newUsers%></span>
+            <span class="badge bg-lightCoral"> <%=session.newUsers%></span>
             <% } %> 
           </a>
         </li>

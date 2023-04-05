@@ -47,7 +47,7 @@
     </form>
     <div class="table-responsive">
         <table class="table table-striped table-hover table-borderless text-center sortable">
-            <thead class="table-success">
+            <thead class="table-greenSea shadow-sm">
                 <tr>
                     <th scope="col">N°</th>
                     <th scope="col">N° Lot</th>
@@ -106,7 +106,7 @@
                         <%=article.fc %>
                     </td>
                     <% if (article.etat==="Reçu"){%>
-                        <th class="p-3"><span class="rounded-pill badge bg-success bg-gradient">Reçu</span></th>
+                        <th class="p-3"><span class="rounded-pill badge bg-greenSea bg-gradient">Reçu</span></th>
                         <%}else if(article.etat==="Commandé"){%>
                         <th class="p-3"><span class="rounded-pill badge bg-warning bg-gradient bg-gradient">Commandé</span></th>
                         <%}else{%>

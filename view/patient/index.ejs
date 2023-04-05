@@ -1,11 +1,11 @@
 <% layout('layouts/boilerplate')%>
 <div class="container-fluid mt-4">
   <div class="col m-auto bg-light shadow-sm rounded-5 p-2">
-    <h3 class="mb-4 text-center text-success">Liste des patients</h3>
-    <div class="row mb-4">
-      <span class="col-12 text-success">Patient Inscrit: <%= inscrit %> </span>
-      <span class="col-12 text-success">Patient Consulté: <%= nbrCompterendu %> </span>
-      <span id="result" class="col-12 text-success"></span>
+    <h3 class="mb-4 text-center text-greenSea fs-1">Liste des patients</h3>
+    <div class="d-flex flex-row justify-content-around mb-4">
+      <div class="shadow-sm rounded fw-bold text-center text-antiqueSteel p-3 btn-pearlAqua  fs-5"><i class="bi bi-person-check-fill fs-5"></i> <span class="">Patient Inscrit: <%= inscrit %> </span></div>
+      <div class="shadow-sm rounded fw-bold text-center text-antiqueSteel p-3 btn-pearlAqua ms-2 me-2 fs-5"><i class="bi bi-clipboard2-check-fill"></i> <span class=" ">Patient Consulté: <%= nbrCompterendu %> </span></div>
+      <div class="shadow-sm rounded fw-bold text-center text-antiqueSteel p-3 btn-pearlAqua fs-5"><i class="bi bi-funnel-fill"></i> <span id="result" class="">Resultat:</span></div>
     </div>
     <div class="d-flex mb-2 justify-content-center">
       
@@ -86,12 +86,12 @@
     />
   </form>
   
-  <div class="table-responsive shadow-sm">
+  <div class="table-responsive shadow-sm rounded">
     <table
-      class="table table-striped table-hover table-borderless text-center sortable"
+      class="table table-striped table-hover table-borderless text-center sortable "
       id="patientTable"
     >
-      <thead class="table-success shadow-sm">
+      <thead class="table-greenSea shadow-sm">
         <tr>
           <th scope="col">N°</th>
           <th scope="col">Nom</th>
