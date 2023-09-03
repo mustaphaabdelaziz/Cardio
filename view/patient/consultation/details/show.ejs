@@ -1,0 +1,107 @@
+<% layout('layouts/boilerplate')%>
+<div class="container-fluid mt-3">
+  <div class="col m-auto bg-light shadow-sm rounded-5 px-2">
+    <div class="container-fluid">
+      <div class="mb-4">
+        <div class="d-flex">
+          <div class="col d-flex m-auto">
+            <h2><%=patient.fullname %></h2>
+            <div class="ms-2">
+              <button
+                class="btn btn-outline-secondary px-2 py-1 ms-2"
+                onclick="printCompteRendu('','non')"
+              >
+                <i class="bi bi-printer-fill px-1 py-1"></i>
+              </button>
+              <%- include("./new")%>
+            </div>
+          </div>
+          <div class="col-3 mt-2 border-start">
+            <p class="">
+              <span class="fw-bold">Acte:</span>
+              <span> <%=patientConsultation.acte%></span>
+            </p>
+            <p>
+              <span class="fw-bold">Medecin:</span>
+              <span> <%=patientConsultation.medecin%></span>
+            </p>
+            <p>
+              <span class="fw-bold">Technicien:</span>
+              <span> <%= patientConsultation.technicien %></span>
+            </p>
+            <p>
+              <span class="fw-bold">Date et Heure:</span>
+              <span>
+                <%=moment(patientConsultation.date).format("DD-MM-YYYY - HH:mm")
+                %></span
+              >
+            </p>
+            <p>
+              <span class="fw-bold">Confirmé:</span>
+              <span> <%=patientConsultation.status%></span>
+            </p>
+          </div>
+          <div class="col-2 mt-2 border-start justify-content-end">
+            <p>
+              <span class="fw-bold">Groupage:</span>
+              <span> <%=patient.groupage%></span>
+            </p>
+            <p>
+              <span class="fw-bold">Saturation:</span>
+              <span> <%=medicalInfo.saturation%></span>
+            </p>
+            <p>
+              <span class="fw-bold">TA:</span>
+              <span> <%=medicalInfo.ta%></span>
+            </p>
+            <p>
+              <span class="fw-bold">Poids:</span>
+              <span> <%= medicalInfo.poids%> </span>
+            </p>
+            <p>
+              <span class="fw-bold">Taille:</span>
+              <span> <%= medicalInfo.taille%></span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <form class="d-flex shadow-sm">
+    <input
+      id="search"
+      class="form-control mb-2"
+      type="search"
+      placeholder="Search"
+      aria-label="Search"
+    />
+  </form>
+  <div class="table-responsive shadow-sm">
+    <table
+      class="table table-striped table-hover table-borderless text-center sortable"
+    >
+      <thead class="table-greenSea">
+        <tr>
+          <th scope="col">N°</th>
+          <th scope="col">Fichier</th>
+          <th scope="col">Service</th>
+          <th scope="col">Type d'examen</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody id="tablebody">
+        <% var i=1 %> <% for (document of patientConsultation.documents){%>
+        <tr>
+          <th class="clickable data" scope="row" scope="row">
+            <%= i%> <% i=i+1; %>
+          </th>
+          <td class="clickable data"  scope="row"><%- include("./preview")%></td>
+          <td class="clickable data" scope="row"><%= document.service%></td>
+          <td class="clickable data" scope="row"><%= document.acte%></td>
+          <td class="clickable data" scope="row">Edit/Delete</td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+</div>

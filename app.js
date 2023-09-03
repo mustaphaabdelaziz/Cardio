@@ -6,6 +6,7 @@ const app = express();
 const path = require("path");
 let ejs = require("ejs");
 const ejsMate = require("ejs-mate");
+// 
 const methodOverride = require("method-override");
 const session = require("express-session");
 // flash is a middleware that can be used to flash messages to the user.
@@ -37,6 +38,7 @@ const patientRoutes = require("./routes/patient/patient");
 const staffRoutes = require("./routes/staff/staff");
 const medicamentRoutes = require("./routes/medicament/medicament");
 const consultationRoutes = require("./routes/patient/consultation/consultation");
+const detailConsultaFtionRoutes = require("./routes/patient/consultation/detailConsultation");
 const compteRenduRoutes = require("./routes/patient/consultation/compteRendu/compteRendu");
 const medecinRoutes = require("./routes/filtre/medecin/medecin");
 const userRoutes = require("./routes/user/user");
@@ -50,6 +52,9 @@ const Report = require("./model/patient/compteRendu");
 const Medicament = require("./model/medicament/medicament");
 const compression = require("compression");
 const { isLoggedIn } = require("./middleware/middleware");
+const _ = require('lodash');
+
+
 // ==================== App Configuration =================
 app.set("trust proxy", true);
 app.engine("ejs", ejsMate);
@@ -60,6 +65,7 @@ app.use(express.json());
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(cookieParser());
+
 
 app.use(mongoSanitize({ replaceWith: "_" }));
 app.use(session(sessionConfig));
@@ -73,18 +79,18 @@ passport.use(
   new LocalStrategy((username, password, done) => {
     User.findOne({ email: username.toLowerCase() }).then((user, err) => {
       if (err) {
-        console.log("error");
+        // console.log("error");
         return done(err);
       }
       if (!user) {
-        console.log("Not user");
+        // console.log("Not user");
         return done(null, false);
       } else {
         if (user.approved) {
-          console.log("approved");
+          // console.log("approved");
           return done(null, user);
         } else {
-          console.log("not apprroved");
+          // console.log("not apprroved");
           return done(null, false, "Votre compte n'est pas encore approuvé");
         }
       }
@@ -126,23 +132,24 @@ app.use("/patient", patientRoutes);
 app.use("/staffs", staffRoutes);
 // need to be logged in and has to be an Medecin
 app.use("/medicaments", medicamentRoutes);
-// need to be logged in and has to be an admin 
+// need to be logged in and has to be an admin
 app.use("/user", userRoutes);
-// need to be logged in and has to be an admin 
+// need to be logged in and has to be an admin
 app.use("/user/request", requestUserRoutes);
-// need to be logged in and has to be an acheteur or technicien or medecin 
+// need to be logged in and has to be an acheteur or technicien or medecin
 app.use("/kt/bc/:id", bcktRoutes);
-// need to be logged in and has to be an acheteur or technicien or medecin 
+// need to be logged in and has to be an acheteur or technicien or medecin
 app.use("/kt/bc/:id/:idbc/articles", bcArticleRoutes);
 // need to be logged in and has to be an acheteur
 app.use("/materiel/:id/article", articleRoutes);
-// need to be logged in and has to be an acheteur 
+// need to be logged in and has to be an acheteur
 app.use("/materiel/:id/articles/:idarticle", detailsArticleRoutes);
 // need to be logged in and not an acheteur
 app.use("/medecin/:lastname", medecinRoutes);
-// need to be logged in and has to be a medecin 
+// need to be logged in and has to be a medecin
 app.use("/patient/:id/acte/:idacte/compterendu", compteRenduRoutes);
-// need to be logged in and has to be an assistant , technicien or medecin 
+// need to be logged in and has to be an assistant , technicien or medecin
+app.use("/patient/:id/acte/:idacte", detailConsultaFtionRoutes);
 app.use("/patient/:id/acte", consultationRoutes);
 // ========================================================
 app.get("/", isLoggedIn, (req, res) => {

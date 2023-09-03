@@ -1,0 +1,110 @@
+<button
+  type="button"
+  class="btn me-2 btn-outline-greenSea bg-gradient px-2 py-1"
+  data-bs-toggle="modal"
+  data-bs-target="#acte-<%= patient.id %>"
+>
+  <i class="bi bi-upload"></i>
+</button>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="acte-<%= patient.id %>"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div
+    class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg"
+  >
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addacte-<%= patient.id %>">
+          Ajouter Pièce-jointe
+        </h5>
+
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+
+      <div class="modal-body">
+        <form
+          action="/patient/<%=patient.id%>/acte/<%= idacte %>/files?name=<%= patient.fullname%>&date=<%= patientConsultation.date%>"
+          method="POST"
+          class="row needs-validation"
+          enctype="multipart/form-data"
+          novalidate
+        >
+          <div class="form-floating mb-3">
+            <select
+              class="form-select"
+              id="service"
+              name="service"
+              placeholder="Service"
+              onchange="makeSubmenuAct(this.value, '')"
+            >
+              <option class="option" value="" disabled selected>Service</option>
+              <% for (examen of examens) { %>
+              <option class="option" value="<%= examen.service %>">
+                <%= examen.service %>
+              </option>
+              <%} %>
+            </select>
+            <label for="service" class="form-label">Service</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+
+          <div class="form-floating" style="display: none;" id="acteDiv">
+            <select id="acte" name="acte" class="form-select">
+              <option class="option" value="" disabled selected>
+                Type D'examen
+              </option>
+            </select>
+            <label for="acte" class="form-label">Type D'examen</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <div class="mb-3 col">
+            <label for="file" class="form-label fs-6">Choisir un Fichier</label>
+            <input
+              class="form-control"
+              type="file"
+              id="file"
+              name="file"
+              required
+              autofocus
+            />
+
+            <div class="valid-feedback">BIEN</div>
+          </div>
+
+          <div class="modal-footer mt-4">
+            <button
+              type="button"
+              class="btn btn-outline-lightCoral bg-gradient"
+              data-bs-dismiss="modal"
+            >
+              Annuler
+            </button>
+            <button class="btn btn-outline-greenSea bg-gradient">
+              Ajouter
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $("#acte-<%= patient.id %>").on("shown.bs.modal", function () {
+    $(this).find("[autofocus]").focus();
+  });
+</script>
+<script>
+  let examens = <%- JSON.stringify(examens) %>;
+</script>

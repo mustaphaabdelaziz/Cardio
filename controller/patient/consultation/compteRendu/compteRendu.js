@@ -8,9 +8,7 @@ module.exports.showComptRendu = async (req, res) => {
   res.send(patient);
 };
 module.exports.addCompteRendu = async (req, res) => {
-  // let {  } = req.body.model;
   let { save, title } = req.body;
-
   let {
     atcd,
     quality,
@@ -67,7 +65,7 @@ module.exports.addCompteRendu = async (req, res) => {
     await report.save();
   }
   const patient = await Patient.findOneAndUpdate(
-    { id, "consultation._id": idacte },
+    { _id: id, "consultation._id": idacte },
     {
       $set: {
         "consultation.$.compterendu": {
@@ -107,7 +105,8 @@ module.exports.addCompteRendu = async (req, res) => {
   const redirectUrl = `back`;
   req.flash("success", "Acte ajouté avec succès");
   res.redirect(redirectUrl);
-  res.redirect("/patient");
+  // res.redirect("/patient");
+  // res.send("Add compte rendu");
 };
 
 module.exports.updateCompteRendu = async (req, res) => {

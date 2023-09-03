@@ -1,6 +1,4 @@
-
 function selectActe(acte, id) {
-  
   let technicien = document.getElementById("technicien-div-" + id);
   if (acte.value === "KT") {
     technicien.style.display = "";
@@ -8,45 +6,66 @@ function selectActe(acte, id) {
     technicien.style.display = "none";
   }
 }
-  function selectActe2(id, acte) {
-    let technicien2 = document.getElementById("tech-" + id);
-    let select = document.getElementById(id).value;
-  
-    if (acte === "KT" || select === "KT") {
-      technicien2.style.display = "";
-    } else {
-      technicien2.style.display = "none";
-    }
+function selectActe2(id, acte) {
+  let technicien2 = document.getElementById("tech-" + id);
+  let select = document.getElementById(id).value;
+
+  if (acte === "KT" || select === "KT") {
+    technicien2.style.display = "";
+  } else {
+    technicien2.style.display = "none";
   }
+}
 
 function selectFilter2(filter, id) {
-  
-    let period = document.getElementById("surveillanceperiod-" + id);
+  let period = document.getElementById("surveillanceperiod-" + id);
   let per = document.getElementById("period-" + id);
 
   if (filter === "Surveillance médical") {
-    period.disabled ="";
-    per.disabled ="";
+    period.disabled = "";
+    per.disabled = "";
   } else {
-    period.disabled ="disabled";
-    per.disabled ="disabled";
+    period.disabled = "disabled";
+    per.disabled = "disabled";
   }
 }
 
 function selectFilter(filter, id) {
-  
   let period = document.getElementById("surveillanceperiod-" + id);
   let per = document.getElementById("period-" + id);
 
   if (filter.value === "Surveillance médical") {
-    period.disabled ="";
-    per.disabled ="";
+    period.disabled = "";
+    per.disabled = "";
   } else {
-    period.disabled ="disabled";
-    per.disabled ="disabled";
+    period.disabled = "disabled";
+    per.disabled = "disabled";
   }
 }
 
+function makeSubmenuAct(value, id) {
+  let elementId;
+  console.log("id.lengh", id.length);
+  console.log("value", value);
+  console.log("examens", examens);
+
+  if (id.length == 0) elementId = "#acte";
+  else elementId = "#acte" + id;
+
+  let actes = examens
+    .filter((examen) => examen.service === value)
+    .map((examen) => examen.speciality);
+  
+  $("#acteDiv").show();
+  $(elementId)
+    .empty()
+    .append("<option class='option' selected disabled value=''>Acte</option>");
+  for (const acte of actes[0]) {
+    console.log("acte", acte);
+    $(elementId).append(new Option(acte, acte));
+  }
+  // }
+}
 function makeSubmenu(value, id) {
   let elementId;
   // console.log("id.lengh", id.length);
@@ -146,42 +165,35 @@ function generateField(line) {
     }
   }
 }
-$(document).ready(function(){
-  
-  $('#show_hide_login').on('click', function(){
-     var passInput=$("#loginPassword");
-     if(passInput.attr('type')==='password')
-       {
-         passInput.attr('type','text');
-         $('#icon-eye').toggleClass("bi-eye-slash-fill");
-         
-        }else{
-          passInput.attr('type','password');
-          $('#icon-eye').toggleClass("bi-eye-slash-fill");
-     }
-  })
-  $('#show_hide_register').on('click', function(){
-     var passInput=$("#registerPassword");
-     if(passInput.attr('type')==='password')
-       {
-         passInput.attr('type','text');
-         $('#icon-eye-register').toggleClass("bi-eye-slash-fill");
-         
-        }else{
-          passInput.attr('type','password');
-          $('#icon-eye-register').toggleClass("bi-eye-slash-fill");
-     }
-  })
-  $('#show_hide_confirmed').on('click', function(){
-     var passInput=$("#confirmedPassword");
-     if(passInput.attr('type')==='password')
-       {
-         passInput.attr('type','text');
-         $('#icon-eye-confirmed').toggleClass("bi-eye-slash-fill");
-         
-        }else{
-          passInput.attr('type','password');
-          $('#icon-eye-confirmed').toggleClass("bi-eye-slash-fill");
-     }
-  })
-})
+$(document).ready(function () {
+  $("#show_hide_login").on("click", function () {
+    var passInput = $("#loginPassword");
+    if (passInput.attr("type") === "password") {
+      passInput.attr("type", "text");
+      $("#icon-eye").toggleClass("bi-eye-slash-fill");
+    } else {
+      passInput.attr("type", "password");
+      $("#icon-eye").toggleClass("bi-eye-slash-fill");
+    }
+  });
+  $("#show_hide_register").on("click", function () {
+    var passInput = $("#registerPassword");
+    if (passInput.attr("type") === "password") {
+      passInput.attr("type", "text");
+      $("#icon-eye-register").toggleClass("bi-eye-slash-fill");
+    } else {
+      passInput.attr("type", "password");
+      $("#icon-eye-register").toggleClass("bi-eye-slash-fill");
+    }
+  });
+  $("#show_hide_confirmed").on("click", function () {
+    var passInput = $("#confirmedPassword");
+    if (passInput.attr("type") === "password") {
+      passInput.attr("type", "text");
+      $("#icon-eye-confirmed").toggleClass("bi-eye-slash-fill");
+    } else {
+      passInput.attr("type", "password");
+      $("#icon-eye-confirmed").toggleClass("bi-eye-slash-fill");
+    }
+  });
+});

@@ -119,11 +119,21 @@
         <% var i=1 %> 
         <% for (consultation of patient.sortedConsultation){%>
         <tr>
-          <th scope="row"><%= i%> <% i=i+1; %></th>
-          <td class="data"><%= consultation.acte%></td>
-          <td class="data">Dr. <%=consultation.medecin %></td>
-          <td class="data"><%= consultation.technicien %></td>
-          <td class="data">
+          <th class="clickable data"
+            onclick="window.location='/patient/<%=patient.id%>/acte/<%=consultation.id%>'"
+            scope="row" scope="row"><%= i%> <% i=i+1; %></th>
+          <td class="clickable data"
+            onclick="window.location='/patient/<%=patient.id%>/acte/<%=consultation.id%>'"
+            scope="row" ><%= consultation.acte%></td>
+          <td class="clickable data"
+            onclick="window.location='/patient/<%=patient.id%>/acte/<%=consultation.id%>'"
+            scope="row">Dr. <%=consultation.medecin %></td>
+          <td class="clickable data"
+            onclick="window.location='/patient/<%=patient.id%>/acte/<%=consultation.id%>'"
+            scope="row" ><%= consultation.technicien %></td>
+          <td class="clickable data"
+            onclick="window.location='/patient/<%=patient.id%>/acte/<%=consultation.id%>'"
+            scope="row">
             <%=moment(consultation.date).format("DD/MM/YYYY")%> - <%= consultation.time %>
           </td>
 

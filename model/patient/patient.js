@@ -183,6 +183,14 @@ const Patient = new Schema(
           type: String,
           default: "non",
         },
+        documents: [
+          {
+            service: String,
+            acte: String,
+            filename: String,
+            path: String,
+          },
+        ],
         createdBy: {
           _id: false,
           user: {
