@@ -89,24 +89,19 @@
               required
               onchange="selectActe2('<%=consultation.id %>',this.value)"
             >
-              <option disabled value="">Acte</option>
-              <% switch (consultation.acte) { case "Consultation" :%>
-              <option class="option" value="Consultation" selected>
-                Consultation
-              </option>
-              <option class="option" value="Chirurgie">Chirurgie</option>
-              <option class="option" value="KT">KT</option>
-              <% break; case "Chirurgie" :%>
-              <option class="option" value="Consultation">Consultation</option>
-              <option class="option" value="Chirurgie" selected>
-                Chirurgie
-              </option>
-              <option class="option" value="KT">KT</option>
-              <% break; case "KT" :%>
-              <option class="option" value="Consultation">Consultation</option>
-              <option class="option" value="Chirurgie">Chirurgie</option>
-              <option class="option" value="KT" selected>KT</option>
-              <% break; } %>
+            <% if(!consultation.acte) {%>
+              <option disabled value selected="">Acte</option>
+              <% } %>
+              <% for(acte of actes){ %>
+                <% if(consultation.acte===acte) {%>
+                  <option class="option" value="<%= consultation.acte %>" selected>
+                    <%= consultation.acte %>
+                  </option>
+                <% } else { %>
+                   <option class="option" value="<%= acte %>" >
+                    <%= acte %>
+                  </option>
+                <% }} %>
             </select>
 
             <label for="acte2" class="form-label">Acte</label>

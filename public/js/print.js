@@ -114,6 +114,7 @@ function printActeList(acte) {
       }
     }
   }
+  console.log(...list);
 
   // this.getBase64ImageFromURL("../assets/ENTETE.PNG")
   this.getBase64ImageFromURL("/assets/ENTETE.PNG")
@@ -263,7 +264,10 @@ function printMedecinList(medecin) {
     : `${moment(start, "DD/MM/YYYY").format("DD/MM/YYYY")} à ${moment(
         end
       ).format("DD/MM/YYYY")}`;
-
+  console.log(`start: ${start}`);
+  console.log(`end: ${end}`);
+  console.log(`period: ${period}`);
+  console.log(`Medecin: ${medecin}`);
   let list = [];
   let i = 1;
   for (const patient of patients) {
@@ -274,17 +278,19 @@ function printMedecinList(medecin) {
             moment(patient.consultation[j].date).format("DD/MM/YYYY"),
             "DD/MM/YYYY"
           ).isBetween(start, end, "day", "[]")
-        )
+        ) {
+          
           list.push([
             i,
             patient.fullname,
             patient.father,
             moment(patient.birthdate).format("DD/MM/YYYY"),
             patient.phone,
-            patient.consultation[j].acte,
+            patient.consultation[j].acte ? patient.consultation[j].acte : "/",
             moment(patient.consultation[j].date).format("DD/MM/YYYY"),
             patient.consultation[j].status,
           ]);
+        }
       } else {
         switch (selected.value) {
           case "above":
@@ -301,7 +307,7 @@ function printMedecinList(medecin) {
                 patient.father,
                 moment(patient.birthdate).format("DD/MM/YYYY"),
                 patient.phone,
-                patient.consultation[j].acte,
+                patient.consultation[j].acte ? patient.consultation[j].acte : "/",,
                 moment(patient.consultation[j].date).format("DD/MM/YYYY"),
                 patient.consultation[j].status,
               ]);
@@ -321,7 +327,7 @@ function printMedecinList(medecin) {
                 patient.father,
                 moment(patient.birthdate).format("DD/MM/YYYY"),
                 patient.phone,
-                patient.consultation[j].acte,
+                patient.consultation[j].acte ? patient.consultation[j].acte : "/",,
                 moment(patient.consultation[j].date).format("DD/MM/YYYY"),
                 patient.consultation[j].status,
               ]);
@@ -332,7 +338,8 @@ function printMedecinList(medecin) {
     }
   }
 
-  this.getBase64ImageFromURL("/assets/ENTETE.png")
+
+  this.getBase64ImageFromURL("/assets/ENTETE.PNG")
     .then((url) => {
       let docDefinition = {
         pageSize: "A4",
@@ -344,7 +351,7 @@ function printMedecinList(medecin) {
           image: url,
           width: 595,
           height: 80,
-          margin: [0, 0, 0, 0],
+          margin: [10, 10, 10, 0],
         },
         footer: function (currentPage, pageCount) {
           return {
@@ -376,7 +383,9 @@ function printMedecinList(medecin) {
                 style: "header",
               },
               {
-                text: `Date: ${period}`,
+                text: `Date: ${moment(start).format("DD/MM/YYYY")} à ${moment(
+                  end
+                ).format("DD/MM/YYYY")}`,
                 alignment: "left",
                 bold: true,
                 fontSize: 13,
@@ -432,7 +441,7 @@ function printMedecinList(medecin) {
                           },
 
                           {
-                            text: "Acte",
+                            text: "Medecin",
                             style: "tableHeader",
                           },
                           {
@@ -474,7 +483,7 @@ function printPDF() {
   //   document.getElementById("end").value ||
   //   moment("31/12/" + moment().add(2000, "year").year(), "DD/MM/YYYY");
 
-  this.getBase64ImageFromURL("/assets/ENTETE.png")
+  this.getBase64ImageFromURL("/assets/ENTETE.PNG")
     .then((url) => {
       let docDefinition = {
         pageSize: "A4",
@@ -612,7 +621,7 @@ function filterPatient(age, base) {
 }
 function printBC() {
   // this.getBase64ImageFromURL("http://localhost:8000/assets/ENTETE.png")
-  this.getBase64ImageFromURL("/assets/ENTETE.png")
+  this.getBase64ImageFromURL("/assets/ENTETE.PNG")
     .then((url) => {
       let docDefinition = {
         pageSize: "A4",
@@ -755,7 +764,7 @@ function printBC() {
 function printArticle() {
   // this.getBase64ImageFromURL("http://localhost:8000/assets/en-tete.png")
   // this.getBase64ImageFromURL("../assets/ENTETE.png")
-  this.getBase64ImageFromURL("/assets/ENTETE.png")
+  this.getBase64ImageFromURL("/assets/ENTETE.PNG")
     .then((url) => {
       let docDefinition = {
         pageSize: "A4",
@@ -992,7 +1001,7 @@ function printCompteRendu(consultationID, patientID) {
   consultation = consultation[0];
 
   // this.getBase64ImageFromURL("../assets/ENTETE.PNG")
-  this.getBase64ImageFromURL("/assets/ENTETE.png")
+  this.getBase64ImageFromURL("/assets/ENTETE.PNG")
     .then((url) => {
       let definition = {
         pageSize: "A4",

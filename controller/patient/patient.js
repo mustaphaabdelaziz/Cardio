@@ -7,7 +7,7 @@ const Country = require("../../model/data/country");
 const Patient = require("../../model/patient/patient");
 const Report = require("../../model/patient/compteRendu");
 const conduiteMedicale = require("../../seeds/conduiteMedicale");
-
+const actes = ["Consultation", "Chirurgie", "KT"];
 var fonts = {
   Roboto: {
     normal: "fonts/roboto/Roboto-Regular.ttf",
@@ -107,7 +107,7 @@ module.exports.showpatient = async (req, res) => {
   ]);
   const states = algeria[0].states;
   let medicalInfo = { saturation: "", ta: "", poids: "", taille: "" };
-  
+
   if (patient.consultation.length >= 1) {
     medicalInfo.saturation = patient.sortedConsultation[
       patient.consultation.length - 1
@@ -149,6 +149,7 @@ module.exports.showpatient = async (req, res) => {
     bloodGroup,
     bloodRhesus,
     medicalInfo,
+    actes,
   });
   // res.send(patient)
 };

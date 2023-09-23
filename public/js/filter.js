@@ -4,64 +4,71 @@ var txtValue;
 var result = document.getElementById("result");
 var nbr = 0;
 function filter(age, ageColumn, dateColumn) {
-  nbr = 0;
-  var selected = document.getElementById("age").value;
-  var start =
-    document.getElementById("start").value ||
-    moment("01/01/1800", "DD/MM/YYYY");
+  setTimeout(() => {
+    nbr = 0;
+    var selected = document.getElementById("age").value;
+    var start =
+      document.getElementById("start").value ||
+      moment("01/01/1800", "DD/MM/YYYY");
 
-  var end =
-    document.getElementById("end").value ||
-    moment("31/12/" + moment().add(2000, "year").year(), "DD/MM/YYYY");
+    var end =
+      document.getElementById("end").value ||
+      moment("31/12/" + moment().add(2000, "year").year(), "DD/MM/YYYY");
 
-  var tddate, tdage, ageValue, dateValue;
+    var tddate, tdage, ageValue, dateValue;
 
-  for (i = 0; i < tr.length; i++) {
-    tdage = tr[i].getElementsByTagName("td")[ageColumn]; //[2]
-    tddate = tr[i].getElementsByTagName("td")[dateColumn]; //[6]
-    if (tdage && tddate) {
-      ageValue = parseInt(tdage.textContent);
-      dateValue = tddate.innerText;
+    for (i = 0; i < tr.length; i++) {
+      tdage = tr[i].getElementsByTagName("td")[ageColumn]; //[2]
+      tddate = tr[i].getElementsByTagName("td")[dateColumn]; //[6]
+      if (tdage && tddate) {
+        ageValue = parseInt(tdage.textContent);
+        dateValue = tddate.innerText;
 
-      if (start && end && selected) {
-        // [] indicates that the start and end dates are includered in the range
-        if (
-          moment(dateValue, "DD/MM/YYYY").isBetween(start, end, "days", "[]") &&
-          selected != "all"
-        ) {
-          switch (selected) {
-            case "above":
-              if (ageValue > age) {
-                tr[i].style.display = "";
-                nbr++;
-              } else {
-                tr[i].style.display = "none";
-              }
-              break;
-            case "below":
-              if (ageValue <= age) {
-                tr[i].style.display = "";
-                nbr++;
-              } else {
-                tr[i].style.display = "none";
-              }
-              break;
+        if (start && end && selected) {
+          // [] indicates that the start and end dates are includered in the range
+          if (
+            moment(dateValue, "DD/MM/YYYY").isBetween(
+              start,
+              end,
+              "days",
+              "[]"
+            ) &&
+            selected != "all"
+          ) {
+            switch (selected) {
+              case "above":
+                if (ageValue > age) {
+                  tr[i].style.display = "";
+                  nbr++;
+                } else {
+                  tr[i].style.display = "none";
+                }
+                break;
+              case "below":
+                if (ageValue <= age) {
+                  tr[i].style.display = "";
+                  nbr++;
+                } else {
+                  tr[i].style.display = "none";
+                }
+                break;
+            }
+          } else if (
+            moment(dateValue, "DD/MM/YYYY").isBetween(start, end, "day", "[]")
+          ) {
+            tr[i].style.display = "";
+            nbr++;
+          } else {
+            tr[i].style.display = "none";
           }
-        } else if (
-          moment(dateValue, "DD/MM/YYYY").isBetween(start, end, "day", "[]")
-        ) {
+        } else {
           tr[i].style.display = "";
           nbr++;
-        } else {
-          tr[i].style.display = "none";
         }
-      } else {
-        tr[i].style.display = "";
-        nbr++;
       }
     }
-  }
-  result.textContent = "Resultat: " + nbr;
+    result.textContent = "Resultat: " + nbr;
+  }, 4000);
 }
 function filterAge(age) {
   nbr = 0;
