@@ -1558,6 +1558,15 @@ function printCompteRendu(consultationID, patientID) {
                 text: "________________________________________________________________________________________________________",
                 alignment: "center",
               },
+              {
+                fontSize: 12,
+                alignment: "right",
+                // [left, top, right, bottom]
+                margin: [0, 5, 10, 5],
+                bold: true,
+                text: "le:  "+moment(consultation.date).format("DD/MM/YYYY"),
+                decoration: "",
+              },
               ...compterenduTextValue,
             ],
           },

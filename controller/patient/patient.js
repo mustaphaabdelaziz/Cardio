@@ -107,7 +107,7 @@ module.exports.showpatient = async (req, res) => {
   ]);
   const states = algeria[0].states;
   let medicalInfo = { saturation: "", ta: "", poids: "", taille: "" };
-
+  // take the last value of the consultation 
   if (patient.consultation.length >= 1) {
     medicalInfo.saturation = patient.sortedConsultation[
       patient.consultation.length - 1

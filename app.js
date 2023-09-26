@@ -6,7 +6,7 @@ const app = express();
 const path = require("path");
 let ejs = require("ejs");
 const ejsMate = require("ejs-mate");
-// 
+//
 const methodOverride = require("method-override");
 const session = require("express-session");
 // flash is a middleware that can be used to flash messages to the user.
@@ -52,8 +52,8 @@ const Report = require("./model/patient/compteRendu");
 const Medicament = require("./model/medicament/medicament");
 const compression = require("compression");
 const { isLoggedIn } = require("./middleware/middleware");
-const _ = require('lodash');
-
+const _ = require("lodash");
+const Patient = require("./model/patient/patient");
 
 // ==================== App Configuration =================
 app.set("trust proxy", true);
@@ -65,7 +65,6 @@ app.use(express.json());
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(cookieParser());
-
 
 app.use(mongoSanitize({ replaceWith: "_" }));
 app.use(session(sessionConfig));
@@ -170,9 +169,39 @@ app.get("/reports", async (req, res) => {
   //   { strict: false }
   // );
   // await Report.deleteMany({$or:[{type:" "},{type:""},{type:"  "}]})
-  await Medicament.deleteMany({
-    $or: [{ dci: " " }, { dci: null }, { dci: "  " }],
-  });
+  // await Medicament.deleteMany({
+  //   $or: [{ dci: " " }, { dci: null }, { dci: "  " }],
+  // });
+  await Patient.updateMany(
+    {
+      consultation: {
+        $exists: true,
+      },
+    },
+
+    [
+      {
+        $set: {
+          "consultation.poids": "$poids",
+          "consultation.saturation": "$saturation",
+          "consultation.taille": "$taille",
+        },
+      },
+      {
+        $unset: "saturation",
+      },
+      {
+        $unset: "poids",
+      },
+      {
+        $unset: "taille",
+      },
+    ],
+
+    {
+      multi: true,
+    }
+  );
   res.send("Mabrouk");
 });
 // app.all("*", (req, res, next) => {
