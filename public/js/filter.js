@@ -3,14 +3,16 @@ var tr = table.getElementsByTagName("tr");
 var txtValue;
 var result = document.getElementById("result");
 var nbr = 0;
-function filter(age, ageColumn, dateColumn) {
-  setTimeout(() => {
+function filter(elementID, age, ageColumn, dateColumn) {
+  $('#'+elementID).keyup(function (event) {
+    if (event.which === 13) {
+     
+      // setTimeout(() => {
     nbr = 0;
     var selected = document.getElementById("age").value;
     var start =
       document.getElementById("start").value ||
       moment("01/01/1800", "DD/MM/YYYY");
-
     var end =
       document.getElementById("end").value ||
       moment("31/12/" + moment().add(2000, "year").year(), "DD/MM/YYYY");
@@ -68,7 +70,10 @@ function filter(age, ageColumn, dateColumn) {
       }
     }
     result.textContent = "Resultat: " + nbr;
-  }, 4000);
+    // }, 2500);
+  
+    }
+  });
 }
 function filterAge(age) {
   nbr = 0;
@@ -109,7 +114,11 @@ function filterAge(age) {
   }
   result.textContent = "Resultat: " + nbr;
 }
-
+/* the filter acte function takes two arguments:
+ the id of the select option it's used to make the function 
+ multi usage across multiple select options
+ and the column id of the table to search in 
+ */
 function filterActe(idSelect, idColumn) {
   nbr = 0;
   var selected = document.getElementById(idSelect).value;
@@ -162,30 +171,30 @@ function filterActe(idSelect, idColumn) {
   }
   result.textContent = "Resultat: " + nbr;
 }
+// ======================================================================
+// function filterDate() {
+//   nbr = 0;
+//   var start = document.getElementById("start").value;
+//   var end = document.getElementById("end").value;
 
-function filterDate() {
-  nbr = 0;
-  var start = document.getElementById("start").value;
-  var end = document.getElementById("end").value;
+//   for (i = 0; i < tr.length; i++) {
+//     td = tr[i].getElementsByTagName("td")[6];
+//     if (td) {
+//       txtValue = td.textContent.toString();
 
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[6];
-    if (td) {
-      txtValue = td.textContent.toString();
-
-      if (start && end) {
-        // [] indicates that the start and end dates are includered in the range
-        if (moment(txtValue).isBetween(start, end, "day", "[]")) {
-          tr[i].style.display = "";
-          nbr++;
-        } else {
-          tr[i].style.display = "none";
-        }
-      } else {
-        tr[i].style.display = "";
-        nbr++;
-      }
-    }
-  }
-  result.textContent = "Resultat: " + nbr;
-}
+//       if (start && end) {
+//         // [] indicates that the start and end dates are includered in the range
+//         if (moment(txtValue).isBetween(start, end, "day", "[]")) {
+//           tr[i].style.display = "";
+//           nbr++;
+//         } else {
+//           tr[i].style.display = "none";
+//         }
+//       } else {
+//         tr[i].style.display = "";
+//         nbr++;
+//       }
+//     }
+//   }
+//   result.textContent = "Resultat: " + nbr;
+// }

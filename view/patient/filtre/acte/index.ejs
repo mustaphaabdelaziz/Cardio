@@ -29,14 +29,13 @@
           type="date"
           id="start"
           name="start"
-          onkeydown="filter(12,'<%=idColumns.ageColumn%>', '<%=idColumns.dateColumn%>')"
         />
         <label id="hide" for="start" class="form-label">De:</label>
       </div>
       <div class="form-floating col-3">
         <input
           class="form-control"
-          onkeydown="filter(12,'<%=idColumns.ageColumn%>', '<%=idColumns.dateColumn%>')"
+          onkeyup="filter('end',12,'<%=idColumns.ageColumn%>', '<%=idColumns.dateColumn%>')"
           type="date"
           id="end"
           name="end"

@@ -78,18 +78,18 @@ passport.use(
   new LocalStrategy((username, password, done) => {
     User.findOne({ email: username.toLowerCase() }).then((user, err) => {
       if (err) {
-        // console.log("error");
+       
         return done(err);
       }
       if (!user) {
-        // console.log("Not user");
+      
         return done(null, false);
       } else {
         if (user.approved) {
-          // console.log("approved");
+          
           return done(null, user);
         } else {
-          // console.log("not apprroved");
+          
           return done(null, false, "Votre compte n'est pas encore approuvé");
         }
       }

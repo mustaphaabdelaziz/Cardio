@@ -32,7 +32,7 @@ router
 router.route("/refactor").get(isLoggedIn, isAssistant, catchAsync(refactoring));
 router
   .route("/:id")
-  .get(catchAsync(showpatient))
+  .get(isLoggedIn,catchAsync(showpatient))
   .delete(isLoggedIn, isAssistant, catchAsync(deletePatient))
   .put(isLoggedIn, isAssistant, catchAsync(updatePatient));
 

@@ -3,8 +3,6 @@ const Medicament = require("../../model/medicament/medicament");
 
 module.exports.showmedicaments = async (req, res) => {
   // get the materiel id from the materiels table
-  console.log("hi");
-
   // find the materiel in the database
   const medicaments = await Medicament.find({});
   // send it to the client

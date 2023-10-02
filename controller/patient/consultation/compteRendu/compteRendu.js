@@ -29,7 +29,6 @@ module.exports.addCompteRendu = async (req, res) => {
     period,
     conduiteMedicale,
   } = req.body.compteRendu;
-  console.log("filter: ", filter);
   let { motif, dtd, ventGsiv, fe } = req.body.ventriculeGauche;
   const { id, idacte } = req.params;
   if (save == "on") {

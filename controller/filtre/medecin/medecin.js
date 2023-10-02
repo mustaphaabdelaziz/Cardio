@@ -9,13 +9,17 @@ module.exports.listParMedecin = async (req, res) => {
   // find the patient in the database
   const patients = await Patient.find({
     "consultation.medecin": { $regex: new RegExp("^" + lastname + "$", "i") },
-  });
+    activated: true
+  }).sort({
+    lastname: 1,
+  })
+  
 
   // let ps = [];
   // let i = 1;
   // for (const patient of patients) {
   //   for (let j= 0; j < patient.consultation.length; j++) {
-  //     console.log(patient.consultation[j].acte);
+  //    
   //     ps.push([
   //       i,
   //       patient.lastname,

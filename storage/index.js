@@ -10,7 +10,6 @@ let storage = multer.diskStorage({
       ).format("DD-MM-YYYY")}/${req.body.service}`;
       
       fs.mkdirsSync(url);
-      console.log(path.join(__dirname, url))
       // url = path.join(__dirname, url)
     cb(null, url);
   },
@@ -20,7 +19,6 @@ let storage = multer.diskStorage({
   },
 });
 const fileFilter = (req, file, cb) => {
-  // console.log(req.query.name);
   if (!file.originalname.match(/\.(jpg|jpeg|png|gif|svg|pdf)$/)) {
     return cb(
       new Error(

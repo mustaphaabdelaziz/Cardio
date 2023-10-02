@@ -593,6 +593,21 @@ module.exports.generatePatientpdf = async (req, res) => {
                     ],
                     margin: [20, 0, 0, 0],
                   },
+                  {
+                    text: [
+                      {
+                        text: `Groupage:   `,
+                        alignment: "left",
+                        color: "#061e30",
+                        bold: true,
+                        // [left, top, right, bottom]
+                      },
+                      {
+                        text: `${patient.groupage}`,
+                      },
+                    ],
+                    margin: [20, 10, 0, 0],
+                  },
                 ],
               },
               {

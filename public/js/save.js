@@ -686,6 +686,6 @@ function printCompteRendu(consultationID, patientID) {
         pdfMake.createPdf(docDefinition).open();
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
       });
   }

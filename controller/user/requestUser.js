@@ -44,14 +44,10 @@ module.exports.register = async (req, res) => {
 module.exports.login = (req, res) => {
   req.flash("success", `Welcome Back ${req.user.fullname}`);
 
-  // console.log(res.locals);
   const redirectUrl = req.session.returnTo || "/patient";
   delete req.session.returnTo;
 
-  // console.log("is Authenticated: ", req.isAuthenticated());
-  // console.log(res.locals.currentUser);
-  // console.log(res.locals.user);
-  // console.log(req.user);
+ 
   res.redirect(redirectUrl);
 };
 // ======================= Logout ==============

@@ -90,7 +90,7 @@ module.exports.deleteArticleBc = async (req, res) => {
     { arrayFilters: [{ "inner.serie": serie }, { "outer.marque": marque }] }
   ).then((result, err) => {
     if (err) {
-      console.log("Error updating detail: " + err);
+      console.error("Error updating detail: " + err);
       // res.send(result);
     } else {
       const redirectUrl = `back`;

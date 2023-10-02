@@ -42,7 +42,7 @@ const seedDB = async () => {
   //     conclusion: report.conclusion,
   //     conduiteMedical: report.conduiteMedical,
   //   });
-  //   console.log(compteRendu);
+ 
   //   await compteRendu.save();
   // }
   for (const act of acteList.actes) {
@@ -54,7 +54,6 @@ const seedDB = async () => {
       price: act.price,
       tva: act.tva,
     });
-    console.log(acte);
     await acte.save();
   }
 };

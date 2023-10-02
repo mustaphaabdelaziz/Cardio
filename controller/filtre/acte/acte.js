@@ -7,7 +7,9 @@ module.exports.showacteliste = async (req, res) => {
   const patients = await Patient.find({
     activated: true,
     "consultation.acte": { $regex: new RegExp("^" + id + "$", "i") },
-  });
+  }).sort({
+    lastname: 1,
+  })
   // res.send(patients)
   let idColumns;
   if (id != "kt")

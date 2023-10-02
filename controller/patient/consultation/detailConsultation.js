@@ -10,7 +10,6 @@ const bloodRhesus = ["+", "-"];
 module.exports.showPatientConsulation = async (req, res) => {
   let { id, idacte } = req.params;
   const uid = (() => (ids = 0, () => ids++))();
-  console.log(uid())
   const [patient] = await Promise.all([Patient.findById(id)]);
 
   let medicalInfo = { saturation: "", ta: "", poids: "", taille: "" };

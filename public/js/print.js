@@ -36,7 +36,235 @@ var styles = {
     color: "#0074c1",
   },
 };
+function printConduitMList(conduite) {
+  var start =
+    document.getElementById("start").value || moment().format("DD/MM/YYYY");
+  var end =
+    document.getElementById("end").value || moment().format("DD/MM/YYYY");
+  let list = [];
+  let i = 1;
 
+  for (const patient of patients) {
+    for (let j = 0; j < patient.sortedConsultation.length; j++) {
+      if (selected.value == "all") {
+        if (moment(start).isSame(end)) {
+          if (patient.sortedConsultation[j].compterendu.filter == conduite)
+            list.push([
+              i++,
+              patient.fullname,
+              patient.father,
+              moment(patient.birthdate).format("DD/MM/YYYY"),
+              patient.phone,
+              patient.consultation[j].medecin,
+              moment(patient.consultation[j].date).format("DD/MM/YYYY"),
+              patient.consultation[j].status,
+            ]);
+        } else {
+          if (
+            moment(patient.sortedConsultation[j].date).isBetween(
+              start,
+              end,
+              "days",
+              "[]"
+            ) &&
+            patient.sortedConsultation[j].compterendu.filter == conduite
+          )
+            list.push([
+              i++,
+              patient.fullname,
+              patient.father,
+              moment(patient.birthdate).format("DD/MM/YYYY"),
+              patient.phone,
+              patient.consultation[j].medecin,
+              moment(patient.consultation[j].date).format("DD/MM/YYYY"),
+              patient.consultation[j].status,
+            ]);
+        }
+      } else {
+        switch (selected.value) {
+          case "above":
+            if (
+              parseInt(patient.age) >= parseInt(12) &&
+              moment(
+                patient.sortedConsultation[j].date,
+                "DD/MM/YYYY"
+              ).isBetween(start, end, "day", "[]") &&
+              patient.sortedConsultation[j].compterendu.filter == conduite
+            )
+              list.push([
+                i++,
+                patient.fullname,
+                patient.father,
+                moment(patient.birthdate).format("DD/MM/YYYY"),
+                patient.phone,
+                patient.consultation[j].medecin,
+                moment(patient.consultation[j].date).format("DD/MM/YYYY"),
+                patient.consultation[j].status,
+              ]);
+            break;
+
+          case "below":
+            if (
+              parseInt(patient.age) <= parseInt(12) &&
+              moment(
+                patient.sortedConsultation[j].date,
+                "DD/MM/YYYY"
+              ).isBetween(start, end, "day", "[]") &&
+              patient.sortedConsultation[j].compterendu.filter == conduite &&
+              patient.sortedConsultation[j].compterendu.isEmpty
+            )
+              list.push([
+                i++,
+                patient.fullname,
+                patient.father,
+                moment(patient.birthdate).format("DD/MM/YYYY"),
+                patient.phone,
+                patient.consultation[j].medecin,
+                moment(patient.consultation[j].date).format("DD/MM/YYYY"),
+                patient.consultation[j].status,
+              ]);
+            break;
+        }
+      }
+    }
+  }
+
+  // this.getBase64ImageFromURL("../assets/ENTETE.PNG")
+  this.getBase64ImageFromURL("/assets/ENTETE.PNG")
+    .then((url) => {
+      let docDefinition = {
+        pageSize: "A4",
+        pageOrientation: "portrait",
+        // [left, top, right, bottom]
+        pageMargins: [10, 100, 10, 70],
+
+        header: {
+          image: url,
+          width: 595,
+          height: 80,
+          margin: [10, 10, 10, 0],
+        },
+        footer: function (currentPage, pageCount) {
+          return {
+            margin: 10,
+            columns: [
+              {
+                fontSize: 12,
+                text: [
+                  {
+                    text:
+                      "----------------------------------------------------------------------------------------------------" +
+                      "\n",
+                    margin: [0, 20],
+                  },
+                  {
+                    text: currentPage.toString() + " of " + pageCount,
+                  },
+                ],
+                alignment: "center",
+              },
+            ],
+          };
+        },
+        content: [
+          {
+            stack: [
+              {
+                text: `Liste ${conduite}`,
+                style: "header",
+              },
+              {
+                text: `Date: ${moment(start).format("DD/MM/YYYY")} à ${moment(
+                  end
+                ).format("DD/MM/YYYY")}`,
+                alignment: "left",
+                bold: true,
+                fontSize: 13,
+                color: "#061e30",
+                decoration: "underline",
+                margin: [40, 0, 0, 30],
+              },
+              {
+                columns: [
+                  { width: "*", text: "" },
+                  {
+                    width: "auto",
+                    table: {
+                      // style: "table",
+                      // headers are automatically repeated if the table spans over multiple pages
+                      // you can declare how many rows should be treated as headers
+                      headerRows: 1,
+                      // widths:number of columns in the table here we have 8 columns
+                      widths: [
+                        "auto",
+                        "auto",
+                        "auto",
+                        "auto",
+                        "auto",
+                        "auto",
+                        "auto",
+                        "auto",
+                      ],
+
+                      body: [
+                        [
+                          {
+                            text: "N°",
+                            style: "tableHeader",
+                          },
+                          {
+                            text: "Nom",
+                            style: "tableHeader",
+                          },
+
+                          {
+                            text: "Père",
+                            style: "tableHeader",
+                          },
+
+                          {
+                            text: "Date Naissance",
+                            style: "tableHeader",
+                          },
+                          {
+                            text: "Téléphone",
+                            style: "tableHeader",
+                          },
+
+                          {
+                            text: "Medecin",
+                            style: "tableHeader",
+                          },
+                          {
+                            text: "Date Acte",
+                            style: "tableHeader",
+                          },
+                          {
+                            text: "Confirmé",
+                            style: "tableHeader",
+                          },
+                        ],
+                        ...list,
+                      ],
+                      alignment: "center",
+                    },
+                  },
+                  { width: "*", text: "" },
+                ],
+              },
+            ],
+          },
+        ],
+
+        // Define styles
+        styles,
+      };
+      pdfMake.createPdf(docDefinition).open();
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
 function printActeList(acte) {
   var start =
     document.getElementById("start").value || moment().format("DD/MM/YYYY");
@@ -44,28 +272,44 @@ function printActeList(acte) {
     document.getElementById("end").value || moment().format("DD/MM/YYYY");
   let list = [];
   let i = 1;
+
   for (const patient of patients) {
     for (let j = 0; j < patient.sortedConsultation.length; j++) {
-      if (selected.value === "all") {
-        if (
-          moment(patient.sortedConsultation[j].date).isBetween(
-            start,
-            end,
-            "days",
-            "[]"
-          ) &&
-          patient.sortedConsultation[j].acte == acte
-        )
-          list.push([
-            i++,
-            patient.fullname,
-            patient.father,
-            moment(patient.birthdate).format("DD/MM/YYYY"),
-            patient.phone,
-            patient.consultation[j].medecin,
-            moment(patient.consultation[j].date).format("DD/MM/YYYY"),
-            patient.consultation[j].status,
-          ]);
+      if (selected.value == "all") {
+        if (moment(start).isSame(end)) {
+      
+          if (patient.sortedConsultation[j].acte == acte)
+            list.push([
+              i++,
+              patient.fullname,
+              patient.father,
+              moment(patient.birthdate).format("DD/MM/YYYY"),
+              patient.phone,
+              patient.consultation[j].medecin,
+              moment(patient.consultation[j].date).format("DD/MM/YYYY"),
+              patient.consultation[j].status,
+            ]);
+        } else {
+          if (
+            moment(patient.sortedConsultation[j].date).isBetween(
+              start,
+              end,
+              "days",
+              "[]"
+            ) &&
+            patient.sortedConsultation[j].acte == acte
+          )
+            list.push([
+              i++,
+              patient.fullname,
+              patient.father,
+              moment(patient.birthdate).format("DD/MM/YYYY"),
+              patient.phone,
+              patient.consultation[j].medecin,
+              moment(patient.consultation[j].date).format("DD/MM/YYYY"),
+              patient.consultation[j].status,
+            ]);
+        }
       } else {
         switch (selected.value) {
           case "above":
@@ -114,7 +358,6 @@ function printActeList(acte) {
       }
     }
   }
-  console.log(...list);
 
   // this.getBase64ImageFromURL("../assets/ENTETE.PNG")
   this.getBase64ImageFromURL("/assets/ENTETE.PNG")
@@ -249,7 +492,7 @@ function printActeList(acte) {
       pdfMake.createPdf(docDefinition).open();
     })
     .catch((error) => {
-      console.log(error);
+      console.error(error);
     });
 }
 
@@ -264,22 +507,12 @@ function printMedecinList(medecin) {
     : `${moment(start, "DD/MM/YYYY").format("DD/MM/YYYY")} à ${moment(
         end
       ).format("DD/MM/YYYY")}`;
-  console.log(`start: ${start}`);
-  console.log(`end: ${end}`);
-  console.log(`period: ${period}`);
-  console.log(`Medecin: ${medecin}`);
   let list = [];
   let i = 1;
   for (const patient of patients) {
     for (let j = 0; j < patient.consultation.length; j++) {
       if (selected.value === "all") {
-        if (
-          moment(
-            moment(patient.consultation[j].date).format("DD/MM/YYYY"),
-            "DD/MM/YYYY"
-          ).isBetween(start, end, "day", "[]")
-        ) {
-          
+        if (moment(start).isSame(end)) {
           list.push([
             i,
             patient.fullname,
@@ -290,6 +523,24 @@ function printMedecinList(medecin) {
             moment(patient.consultation[j].date).format("DD/MM/YYYY"),
             patient.consultation[j].status,
           ]);
+        } else {
+          if (
+            moment(
+              moment(patient.consultation[j].date).format("DD/MM/YYYY"),
+              "DD/MM/YYYY"
+            ).isBetween(start, end, "day", "[]")
+          ) {
+            list.push([
+              i,
+              patient.fullname,
+              patient.father,
+              moment(patient.birthdate).format("DD/MM/YYYY"),
+              patient.phone,
+              patient.consultation[j].acte ? patient.consultation[j].acte : "/",
+              moment(patient.consultation[j].date).format("DD/MM/YYYY"),
+              patient.consultation[j].status,
+            ]);
+          }
         }
       } else {
         switch (selected.value) {
@@ -307,7 +558,10 @@ function printMedecinList(medecin) {
                 patient.father,
                 moment(patient.birthdate).format("DD/MM/YYYY"),
                 patient.phone,
-                patient.consultation[j].acte ? patient.consultation[j].acte : "/",,
+                patient.consultation[j].acte
+                  ? patient.consultation[j].acte
+                  : "/",
+                ,
                 moment(patient.consultation[j].date).format("DD/MM/YYYY"),
                 patient.consultation[j].status,
               ]);
@@ -327,7 +581,10 @@ function printMedecinList(medecin) {
                 patient.father,
                 moment(patient.birthdate).format("DD/MM/YYYY"),
                 patient.phone,
-                patient.consultation[j].acte ? patient.consultation[j].acte : "/",,
+                patient.consultation[j].acte
+                  ? patient.consultation[j].acte
+                  : "/",
+                ,
                 moment(patient.consultation[j].date).format("DD/MM/YYYY"),
                 patient.consultation[j].status,
               ]);
@@ -337,7 +594,6 @@ function printMedecinList(medecin) {
       i++;
     }
   }
-
 
   this.getBase64ImageFromURL("/assets/ENTETE.PNG")
     .then((url) => {
@@ -471,7 +727,7 @@ function printMedecinList(medecin) {
       pdfMake.createPdf(docDefinition).open();
     })
     .catch((error) => {
-      console.log(error);
+      console.error(error);
     });
 }
 function printPDF() {
@@ -595,7 +851,7 @@ function printPDF() {
       pdfMake.createPdf(docDefinition).open();
     })
     .catch((error) => {
-      console.log(error);
+      console.error(error);
     });
 }
 
@@ -758,7 +1014,7 @@ function printBC() {
       pdfMake.createPdf(docDefinition).open();
     })
     .catch((error) => {
-      console.log(error);
+      console.error(error);
     });
 }
 function printArticle() {
@@ -941,7 +1197,7 @@ function printArticle() {
       pdfMake.createPdf(docDefinition).open();
     })
     .catch((error) => {
-      console.log(error);
+      console.error;
     });
 }
 
@@ -1564,7 +1820,7 @@ function printCompteRendu(consultationID, patientID) {
                 // [left, top, right, bottom]
                 margin: [0, 5, 10, 5],
                 bold: true,
-                text: "le:  "+moment(consultation.date).format("DD/MM/YYYY"),
+                text: "le:  " + moment(consultation.date).format("DD/MM/YYYY"),
                 decoration: "",
               },
               ...compterenduTextValue,
@@ -1578,6 +1834,6 @@ function printCompteRendu(consultationID, patientID) {
       pdfMake.createPdf(docDefinition).open();
     })
     .catch((error) => {
-      console.log(error);
+      console.error(error);
     });
 }

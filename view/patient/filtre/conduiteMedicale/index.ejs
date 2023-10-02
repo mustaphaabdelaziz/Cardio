@@ -29,14 +29,14 @@
           type="date"
           id="start"
           name="start"
-          onkeydown="filter(12, 2, 6)"
+          onkeyup="filter(12, 2, 6)"
         />
         <label id="hide" for="start" class="form-label">De:</label>
       </div>
       <div class="form-floating col-3">
         <input
           class="form-control"
-          onkeydown="filter(12, 2, 6)"
+          onkeyup="filter(12, 2, 6)"
           type="date"
           id="end"
           name="end"
@@ -45,7 +45,7 @@
       </div>
       <button
         class="btn btn-outline-secondary py-3 px-2 ms-2"
-        onclick="printActeList('<%=conduiteMedicale%>')"
+        onclick="printConduitMList('<%=conduiteMedicale%>')"
       >
         Imprimer <i class="bi bi-printer-fill py-3 px-2"></i>
       </button>

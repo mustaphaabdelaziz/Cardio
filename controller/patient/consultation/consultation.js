@@ -31,7 +31,6 @@ module.exports.addActe = async (req, res) => {
     status,
   } = req.body.consultation;
   const { id } = req.params;
-  console.log(time);
   let tech, med;
   if (technicien) tech = technicien;
   if (medecin) med = medecin;

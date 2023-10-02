@@ -4,11 +4,13 @@ const Patient = require("../../../model/patient/patient");
 
 module.exports.showliste = async (req, res) => {
   let { id } = req.params;
-
   const patients = await Patient.find({
-    "consultation.$.compterendu.filter": {
+    "consultation.compterendu.filter": {
       $regex: new RegExp("^" + id + "$", "i"),
     },
+    activated: true,
+  }).sort({
+    lastname: 1,
   });
   // res.send(patients)
   res.render("patient/filtre/conduiteMedicale/index", {

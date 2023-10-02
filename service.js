@@ -20,7 +20,7 @@ for (let i = 0; i < collections.length; i++) {
         fs.writeFileSync(collections[i] + ".json", JSON.stringify(docs));
         console.log("Done writing to file.");
       } catch (err) {
-        console.log("Error writing to file", err);
+        console.error("Error writing to file", err);
       }
     });
   });

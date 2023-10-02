@@ -22,8 +22,7 @@ module.exports.showdetail = async (req, res) => {
 module.exports.addDetail = async (req, res) => {
   let { serie, ddp } = req.body.detail;
   const { id, idarticle } = req.params;
-  console.log(serie, ddp);
-  console.log(id, idarticle);
+ 
   const materiel = await Materiel.findOneAndUpdate(
     { _id: id, "article._id": idarticle },
     {
@@ -84,10 +83,10 @@ module.exports.updatedetail = (req, res) => {
     { arrayFilters: [{ "inner._id": iddetail }] },
     (err, result) => {
       if (err) {
-        console.log("Error updating service: " + err);
+        console.error("Error updating service: " + err);
         // res.send(result);
       } else {
-        // console.log(result);
+  
         req.flash("success", "Article à été modifé avec succès");
         res.redirect(`/materiel/${id}/articles/${idarticle}`);
         // res.send(err);

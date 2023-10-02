@@ -53,7 +53,7 @@ module.exports.register = async (req, res) => {
 
     User.register(user, password, function (err, user) {
       if (err) {
-        console.log(err);
+        console.error(err);
         res.redirect("register");
       } else {
         req.flash("success", "Contact the admin to ativate your account");
