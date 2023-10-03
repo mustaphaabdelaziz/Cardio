@@ -1,9 +1,18 @@
-var table = document.getElementById("patientTable");
-var tr = table.getElementsByTagName("tr");
+
+var table ;
+var tr ;
 var txtValue;
-var result = document.getElementById("result");
-var nbr = 0;
+var result ;
+var nbr ;
+function initElements (){
+  var table = document.getElementById("patientTable");
+  var tr = table.getElementsByTagName("tr");
+  var txtValue;
+  var result = document.getElementById("result");
+  var nbr = 0;
+}
 function filter(elementID, age, ageColumn, dateColumn) {
+  initElements();
   $('#'+elementID).keyup(function (event) {
     if (event.which === 13) {
      
@@ -76,6 +85,7 @@ function filter(elementID, age, ageColumn, dateColumn) {
   });
 }
 function filterAge(age) {
+  initElements();
   nbr = 0;
   var selected = document.getElementById("age").value || "all";
 
@@ -120,6 +130,7 @@ function filterAge(age) {
  and the column id of the table to search in 
  */
 function filterActe(idSelect, idColumn) {
+  initElements();
   nbr = 0;
   var selected = document.getElementById(idSelect).value;
 

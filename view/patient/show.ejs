@@ -137,7 +137,7 @@
             <%=moment(consultation.date).format("DD/MM/YYYY")%> - <%= consultation.time %>
           </td>
 
-          <td class="text-center data"><%-include("./commentViewer")%></td>
+          <td class="text-center data "><%-include("./commentViewer")%></td>
           <th>
             <% if(!consultation.compterendu.isEmpty){%>
             <% if(!currentUser.privileges.includes('assistant') && !currentUser.privileges.includes('technicien')){ %>

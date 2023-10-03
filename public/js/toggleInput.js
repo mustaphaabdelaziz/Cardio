@@ -46,14 +46,13 @@ function selectFilter(filter, id) {
 function makeSubmenuAct(value, id) {
   let elementId;
 
-
   if (id.length == 0) elementId = "#acte";
   else elementId = "#acte" + id;
 
   let actes = examens
     .filter((examen) => examen.service === value)
     .map((examen) => examen.speciality);
-  
+
   $("#acteDiv").show();
   $(elementId)
     .empty()
@@ -66,10 +65,9 @@ function makeSubmenuAct(value, id) {
 function makeSubmenu(value, id) {
   let elementId;
 
-
   if (id.length == 0) elementId = "#city";
   else elementId = "#city" + id;
- 
+
   let communes = states
     .filter((state) => state.name === value)
     .map((state) => state.communes);
@@ -190,3 +188,6 @@ $(document).ready(function () {
     }
   });
 });
+function activateInput(id) {
+  $("#" + id).toggle();
+}

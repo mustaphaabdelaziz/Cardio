@@ -284,6 +284,7 @@
               id="filter-<%=i%>"
               name="compteRendu[filter]"
               onchange="selectFilter(this, '<%=i%>')"
+              required
                >
                <option class="option" value="" selected disabled>Conduite Médicale</option>
                <% for (conduitemedicale of conduitemedicales){ %> 
@@ -312,6 +313,7 @@
               id="period-<%=i%>"
               name="compteRendu[period]"
               disabled
+              
                >
               <option class="option" value="" selected disabled>Période</option>
               <option class="option" value="Mois">Mois</option>
@@ -340,15 +342,15 @@
                   name="save"
                   role="switch"
                   id="save-<%=i%>"
+                  onchange="activateInput('title-<%=i%>')"
                 />
                 <label class="form-check-label" for="save">Save as Model</label>
               </div>
             </div>
-            <div class="form-floating mb-3">
+            <div class="form-floating mb-3" id="title-<%=i%>"style="display:none;">
               <input
                 class="form-control"
                 type="text"
-                id="title-<%=i%>"
                 name="title"
                 required
               />
