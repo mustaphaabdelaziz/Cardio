@@ -4,24 +4,48 @@
     <div class="container-fluid">
       <div class="mb-4">
         <div class="d-flex">
-          <div class="col d-flex m-auto">
-            <h2><%=patient.fullname %></h2>
-            <div class="ms-2">
-              <%- include("./consultation/new")%>
-              <%- include("./edit")%> 
-              <%- include("./delete")%>
-              <a
+          
+          <div class="col m-auto">
+            <div class="d-flex">  
+                <h1>
+                <%=patient.fullname %>
+               </h1>
+              
+              <div class="m-2">
+                <%- include("./consultation/new")%>
+                <%- include("./edit")%> 
+                <%- include("./delete")%>
+                <a
                 class="btn btn-outline-secondary px-2 py-1 ms-2"
                 href="/patient/generatepdf/<%=patient.id%>"
                 target="_blank"
               >
                 <i class="bi bi-printer-fill px-1 py-1"></i>
               </a>
+               
+               
+              </div>
             </div>
+            
+            <div class="pe-1 ">
+             
+              <span class="rounded-pill badge  bg-mediumTurquoise bg-gradient fs-5"><%=patient.isParent.relation%></span>
+               <span class="rounded-pill badge bg-lightCoral bg-gradient fs-5"><%= patient.status %></span> 
+               <% if (patient.isParent.activate){%>
+                <%- include("./fils/new")%>
+                <%- include("./fils/index")%>
+                <% } %>
+            </div>
+            
+            
+            
+         
           </div>
+
           <div class="col-3 mt-2 border-start">
             <p class="">
-              <span class="fw-bold">Date de Naissance:</span> <span> <%=moment(patient.birthdate).format("DD-MM-YYYY")%></span>
+              <span class="fw-bold">Date de Naissance:</span>
+               <span> <%=moment(patient.birthdate).format("DD-MM-YYYY")%> (<%=patient.age%>) </span>
             </p>
             <p>
               <span class="fw-bold"> Genre:</span>
@@ -109,9 +133,9 @@
           <th scope="col">Medecin</th>
           <th scope="col">Technicien</th>
           <th scope="col">Date/Heure acte</th>
-          <th id="hide" scope="col">Remarque</th>
+          <th id="hide" scope="col">Remarques</th>
           <th id="hide" scope="col">Compte Rendu</th>
-          <th id="hide" scope="col">Confirmé</th>
+          <th id="hide" scope="col">RDV Confirmé</th>
           <th id="hide" scope="col">Action</th>
         </tr>
       </thead>

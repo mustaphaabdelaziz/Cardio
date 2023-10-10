@@ -26,6 +26,21 @@
             autocomplete="on"
             novalidate
           >
+          <div class="form-floating col-12">
+            <select
+              id="patientRole"
+              name="patient[relation]"
+              class="form-select"
+              
+            >
+              <option selected disabled value="">Relation</option>
+              <option class="option" value="Père" disabled>Père</option>
+              <option class="option" value="Mère">Mère</option>
+              <option class="option" value="Fils">Fils</option>
+            </select>
+            <label for="patientGender" class="form-label">Relation</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
             <div class="form-floating col-md-6">
               <input
                 id="patientLastName"
@@ -189,6 +204,7 @@
               <label for="medecinref" class="form-label">Medecin Ref</label>
               <div class="valid-feedback">BIEN</div>
             </div>
+            
 
             <div class="mb-2 mt-4 text-center">
               <button

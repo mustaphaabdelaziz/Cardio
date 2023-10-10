@@ -4,7 +4,10 @@ module.exports = {
     "Surveillance médical",
     "Traitement médicale",
     "Interventionnelle KT",
-    "Chirurgie urgence",
+    "KT Urgent",
+    "Chirurgie urgente",
     "Chirurgie normale",
+    "Complement D'exploration",
+    "Autre"
   ],
 };

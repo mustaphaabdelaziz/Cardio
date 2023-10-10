@@ -35,6 +35,7 @@ const articleRoutes = require("./routes/materiel/entrant/article");
 const fournisseurRoutes = require("./routes/materiel/fournisseur/fournisseur");
 const detailsArticleRoutes = require("./routes/materiel/entrant/detailsArticle");
 const patientRoutes = require("./routes/patient/patient");
+const filsRoutes = require("./routes/patient/fils");
 const staffRoutes = require("./routes/staff/staff");
 const medicamentRoutes = require("./routes/medicament/medicament");
 const consultationRoutes = require("./routes/patient/consultation/consultation");
@@ -150,6 +151,7 @@ app.use("/patient/:id/acte/:idacte/compterendu", compteRenduRoutes);
 // need to be logged in and has to be an assistant , technicien or medecin
 app.use("/patient/:id/acte/:idacte", detailConsultaFtionRoutes);
 app.use("/patient/:id/acte", consultationRoutes);
+app.use("/patient/:id/son", filsRoutes);
 // ========================================================
 app.get("/", isLoggedIn, (req, res) => {
   res.render("home");

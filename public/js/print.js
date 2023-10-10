@@ -36,10 +36,112 @@ var styles = {
     color: "#0074c1",
   },
 };
-function printConduitMList(conduite) {
-  var start =
+function printAllReports(acte, conduite) {
+  // get the date(period) of the report
+  // seach through patients and get the consutation that matchs the criteria date
+  //
+  let start =
     document.getElementById("start").value || moment().format("DD/MM/YYYY");
-  var end =
+  let end =
+    document.getElementById("end").value || moment().format("DD/MM/YYYY");
+  let list = [];
+  let i = 1;
+
+  for (const patient of patients) {
+    for (let j = 0; j < patient.sortedConsultation.length; j++) {
+      // the value of age === all
+      if (selected.value == "all") {
+        // if the user doesn't 
+        if (moment(start).isSame(end)) {
+          if (moment(patient.sortedConsultation[j].date).isSame(start))
+            if (
+              patient.sortedConsultation[j].compterendu.filter == conduite &&
+              patient.sortedConsultation[j].acte === acte
+            )
+              list.push([
+                i++,
+                patient.fullname,
+                patient.father,
+                moment(patient.birthdate).format("DD/MM/YYYY"),
+                patient.phone,
+                patient.consultation[j].medecin,
+                moment(patient.consultation[j].date).format("DD/MM/YYYY"),
+                patient.consultation[j].status,
+              ]);
+        } else {
+          if (
+            moment(patient.sortedConsultation[j].date).isBetween(
+              start,
+              end,
+              "days",
+              "[]"
+            ) &&
+            patient.sortedConsultation[j].compterendu.filter == conduite
+          )
+            list.push([
+              i++,
+              patient.fullname,
+              patient.father,
+              moment(patient.birthdate).format("DD/MM/YYYY"),
+              patient.phone,
+              patient.consultation[j].medecin,
+              moment(patient.consultation[j].date).format("DD/MM/YYYY"),
+              patient.consultation[j].status,
+            ]);
+        }
+      } else {
+        switch (selected.value) {
+          case "above":
+            if (
+              parseInt(patient.age) >= parseInt(12) &&
+              moment(
+                patient.sortedConsultation[j].date,
+                "DD/MM/YYYY"
+              ).isBetween(start, end, "day", "[]") &&
+              patient.sortedConsultation[j].compterendu.filter == conduite
+            )
+              list.push([
+                i++,
+                patient.fullname,
+                patient.father,
+                moment(patient.birthdate).format("DD/MM/YYYY"),
+                patient.phone,
+                patient.consultation[j].medecin,
+                moment(patient.consultation[j].date).format("DD/MM/YYYY"),
+                patient.consultation[j].status,
+              ]);
+            break;
+
+          case "below":
+            if (
+              parseInt(patient.age) <= parseInt(12) &&
+              moment(
+                patient.sortedConsultation[j].date,
+                "DD/MM/YYYY"
+              ).isBetween(start, end, "day", "[]") &&
+              patient.sortedConsultation[j].compterendu.filter == conduite &&
+              patient.sortedConsultation[j].compterendu.isEmpty
+            )
+              list.push([
+                i++,
+                patient.fullname,
+                patient.father,
+                moment(patient.birthdate).format("DD/MM/YYYY"),
+                patient.phone,
+                patient.consultation[j].medecin,
+                moment(patient.consultation[j].date).format("DD/MM/YYYY"),
+                patient.consultation[j].status,
+              ]);
+            break;
+        }
+      }
+    }
+  }
+}
+function printConduitMList(conduite) {
+  let start =
+    document.getElementById("start").value || moment().format("DD/MM/YYYY");
+  let end =
     document.getElementById("end").value || moment().format("DD/MM/YYYY");
   let list = [];
   let i = 1;
@@ -266,9 +368,9 @@ function printConduitMList(conduite) {
     });
 }
 function printActeList(acte) {
-  var start =
+  let start =
     document.getElementById("start").value || moment().format("DD/MM/YYYY");
-  var end =
+  let end =
     document.getElementById("end").value || moment().format("DD/MM/YYYY");
   let list = [];
   let i = 1;
@@ -277,7 +379,6 @@ function printActeList(acte) {
     for (let j = 0; j < patient.sortedConsultation.length; j++) {
       if (selected.value == "all") {
         if (moment(start).isSame(end)) {
-      
           if (patient.sortedConsultation[j].acte == acte)
             list.push([
               i++,
@@ -497,9 +598,9 @@ function printActeList(acte) {
 }
 
 function printMedecinList(medecin) {
-  var start =
+  let start =
     document.getElementById("start").value || moment().format("DD/MM/YYYY");
-  var end =
+  let end =
     document.getElementById("end").value || moment().format("DD/MM/YYYY");
 
   var period = moment(start).isSame(end, "day")
@@ -731,11 +832,11 @@ function printMedecinList(medecin) {
     });
 }
 function printPDF() {
-  // var start =
+  // let start =
   //   document.getElementById("start").value ||
   //   moment("01/01/1800", "DD/MM/YYYY").format("YYYY-MM-DD");
 
-  // var end =
+  // let end =
   //   document.getElementById("end").value ||
   //   moment("31/12/" + moment().add(2000, "year").year(), "DD/MM/YYYY");
 

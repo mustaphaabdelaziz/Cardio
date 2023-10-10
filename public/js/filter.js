@@ -5,11 +5,11 @@ var txtValue;
 var result ;
 var nbr ;
 function initElements (){
-  var table = document.getElementById("patientTable");
-  var tr = table.getElementsByTagName("tr");
-  var txtValue;
-  var result = document.getElementById("result");
-  var nbr = 0;
+  table = document.getElementById("patientTable");
+  tr = table.getElementsByTagName("tr");
+  txtValue;
+  result = document.getElementById("result");
+  nbr = 0;
 }
 function filter(elementID, age, ageColumn, dateColumn) {
   initElements();
@@ -182,30 +182,3 @@ function filterActe(idSelect, idColumn) {
   }
   result.textContent = "Resultat: " + nbr;
 }
-// ======================================================================
-// function filterDate() {
-//   nbr = 0;
-//   var start = document.getElementById("start").value;
-//   var end = document.getElementById("end").value;
-
-//   for (i = 0; i < tr.length; i++) {
-//     td = tr[i].getElementsByTagName("td")[6];
-//     if (td) {
-//       txtValue = td.textContent.toString();
-
-//       if (start && end) {
-//         // [] indicates that the start and end dates are includered in the range
-//         if (moment(txtValue).isBetween(start, end, "day", "[]")) {
-//           tr[i].style.display = "";
-//           nbr++;
-//         } else {
-//           tr[i].style.display = "none";
-//         }
-//       } else {
-//         tr[i].style.display = "";
-//         nbr++;
-//       }
-//     }
-//   }
-//   result.textContent = "Resultat: " + nbr;
-// }

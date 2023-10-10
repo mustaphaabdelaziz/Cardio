@@ -11,7 +11,7 @@
 <div
   class="modal fade"
   id="edit-<%= patient.id %>"
-  data-bs-keyboard="false"
+  data-bs-keyboard="true"
   tabindex="-1"
   aria-labelledby="staticBackdropLabel"
   aria-hidden="true"
@@ -39,6 +39,32 @@
           class="row needs-validation"
           novalidate
         >
+        <div class="form-floating col-12 mb-3">
+          <select
+            id="patientRole"
+            name="patient[relation]"
+            class="form-select"
+          >
+            <option selected disabled value="">Relation</option>
+            <% if (patient.isParent.relation==='Père' ){%>
+              <option class="option" value="Père" selected>Père</option>
+              <option class="option" value="Mère">Mère</option>
+              <option class="option" value="Fils">Fils</option>
+              <% }else if (patient.isParent.relation==='Mère' ) { %>
+                <option class="option" value="Père" >Père</option>
+                <option class="option" value="Mère" selected>Mère</option>
+                <option class="option" value="Fils">Fils</option>
+                <% }else{ %>
+                  <option class="option" value="Père" >Père</option>
+                <option class="option" value="Mère" >Mère</option>
+                <option class="option" value="Fils" selected>Fils</option>
+              <% } %>
+            
+          </select>
+          <label for="patientGender" class="form-label">Relation</label>
+          <div class="valid-feedback">BIEN</div>
+        </div>
+
           <div class="form-floating col-md-6 mb-3">
             <input
               id="patientLastName"
@@ -228,6 +254,33 @@
 
             <label for="medecinref" class="form-label">Médecin Ref</label>
             <div class="valid-feedback">BIEN</div>
+          </div>
+          <div class="form-floating mb-2">
+            <div class="d-flex align-item-start form-check form-switch ms-2">
+              <% if (patient.status === "Décédé"){%>
+                <input
+                class="form-check-input me-2"
+                type="checkbox"
+                name="patient[status]"
+                value="<%=patient.status%>"
+                role="switch"
+                id="status"
+                checked
+                />
+                <% }else{ %>
+                <input
+                class="form-check-input me-2"
+                type="checkbox"
+                name="patient[status]"
+                role="switch"
+                id="status"
+                />
+                <% } %>
+             
+             
+                
+              <label class="form-check-label" for="status">Décédé ?</label>
+            </div>
           </div>
 
           <div class="modal-footer mt-3">

@@ -10,8 +10,8 @@ const Schema = mongoose.Schema;
 
 const Patient = new Schema(
   {
-    firstname: { type: String, trim: true, required: true },
-    lastname: { type: String, trim: true, required: true },
+    firstname: { type: String, trim: true, default: "/" },
+    lastname: { type: String, trim: true, default: "/" },
     father: {
       type: String,
       trim: true,
@@ -53,7 +53,16 @@ const Patient = new Schema(
       type: String,
       default: "/",
     },
-
+    sons: [
+      {
+        type: Schema.Types.ObjectId,
+        ref:"Patient"
+      },
+    ],
+    isParent: {
+      relation: String,
+      activate: Boolean,
+    },
     consultation: [
       {
         medecin: String,
@@ -208,6 +217,13 @@ const Patient = new Schema(
       type: Boolean,
       default: true,
     },
+    status: {
+      type: String,
+    },
+    status: {
+      type: String,
+    },
+
     createdBy: {
       _id: false,
       user: {

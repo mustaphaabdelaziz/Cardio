@@ -20,11 +20,9 @@ const bloodGroup = ["A", "B", "O", "AB"];
 const bloodRhesus = ["+", "-"];
 module.exports.refactoring = async (req, res) => {
   /* select all patient that has poids, taille */
-
   const patients = await Patient.find({
     activated: true,
   });
-
   let ps = patients.reduce((total, patient) => {
     if (patient.consultation && patient.consultation.length >= 1) {
       if (
@@ -48,7 +46,7 @@ module.exports.listepatient = async (req, res) => {
   const [medecins, patients, algeria] = await Promise.all([
     Staff.find({ fonction: "Medecin" }),
     // Staff.find({ fonction: "technicien cathlab" }),
-    Patient.find({ activated: true }).sort({
+    Patient.find({  "isParent.relation":{ $ne:"Foetus"} ,activated: true }).sort({
       lastname: 1,
     }),
     Country.find({}),
@@ -101,13 +99,13 @@ module.exports.showpatient = async (req, res) => {
   const [medecins, techniciens, patient, algeria, reports] = await Promise.all([
     Staff.find({ fonction: "Medecin" }),
     Staff.find({ fonction: "technicien cathlab" }),
-    Patient.findById(id),
+    Patient.findById(id).populate("sons"),
     Country.find({}),
     Report.find({}),
   ]);
   const states = algeria[0].states;
   let medicalInfo = { saturation: "", ta: "", poids: "", taille: "" };
-  // take the last value of the consultation 
+  // take the last value of the consultation
   if (patient.consultation.length >= 1) {
     medicalInfo.saturation = patient.sortedConsultation[
       patient.consultation.length - 1
@@ -151,7 +149,7 @@ module.exports.showpatient = async (req, res) => {
     medicalInfo,
     actes,
   });
-  // res.send(patient)
+  // res.send(patient);
 };
 
 module.exports.createpatient = async (req, res) => {
@@ -167,7 +165,17 @@ module.exports.createpatient = async (req, res) => {
     status,
     wilaya,
     city,
+    relation,
   } = req.body.patient;
+  let isParent = {
+    relation: "Fils",
+    activate: false,
+  };
+ 
+  if (relation != "Fils") {
+    isParent.activate = true;
+    isParent.relation = relation;
+  }
   const { blood } = req.body;
   if (phone2 === "") {
     phone2 = "/";
@@ -191,6 +199,7 @@ module.exports.createpatient = async (req, res) => {
     status,
     wilaya,
     city,
+    isParent: isParent,
     createdBy: {
       user: req.user._id,
     },
@@ -246,6 +255,7 @@ module.exports.createandreturn = async (req, res) => {
 module.exports.showEditForm = async (req, res) => {
   res.render("patient/edit");
 };
+
 module.exports.updatePatient = async (req, res) => {
   const { id } = req.params;
   var {
@@ -259,8 +269,19 @@ module.exports.updatePatient = async (req, res) => {
     phone2,
     wilaya,
     city,
+    status,
+    relation,
   } = req.body.patient;
   const { blood } = req.body;
+
+  let isParent = {
+    relation: "Fils",
+    activate: false,
+  };
+  if (relation != "Fils") {
+    isParent.activate = true;
+    isParent.relation = relation;
+  }
 
   if (phone2 === "") {
     phone2 = "/";
@@ -268,6 +289,7 @@ module.exports.updatePatient = async (req, res) => {
   if (father === "") {
     father = "/";
   }
+
   await Patient.findByIdAndUpdate(
     id,
     {
@@ -284,6 +306,9 @@ module.exports.updatePatient = async (req, res) => {
       gender,
       wilaya,
       city,
+      isParent,
+
+      status: !status ? "" : "Décédé",
       $push: {
         updatedBy: {
           user: req.user._id,

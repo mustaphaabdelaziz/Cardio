@@ -118,7 +118,7 @@
             class="clickable"
             onclick="window.location='/patient/<%=patient.id%>'"
           >
-            <%= patient.fullname %>
+            <%= patient.fullname %>  <span class="rounded-pill badge bg-lightCoral bg-gradient"><%= patient.status %></span> 
           </td>
 
           <td

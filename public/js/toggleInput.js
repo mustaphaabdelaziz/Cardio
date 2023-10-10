@@ -28,6 +28,11 @@ function selectFilter2(filter, id) {
     period.disabled = "disabled";
     per.disabled = "disabled";
   }
+  if (filter.value === "Autre") {
+    $("#conduiteMedicale-" + id).toggle();
+  } else {
+    $("#conduiteMedicale-" + id).hide();
+  }
 }
 
 function selectFilter(filter, id) {
@@ -40,6 +45,11 @@ function selectFilter(filter, id) {
   } else {
     period.disabled = "disabled";
     per.disabled = "disabled";
+  }
+  if (filter.value === "Autre") {
+    $("#conduiteMedicale-" + id).toggle();
+  } else {
+    $("#conduiteMedicale-" + id).hide();
   }
 }
 
@@ -157,6 +167,7 @@ function generateField(line) {
   }
 }
 $(document).ready(function () {
+  $("#bebe-info").hide();
   $("#show_hide_login").on("click", function () {
     var passInput = $("#loginPassword");
     if (passInput.attr("type") === "password") {
@@ -188,6 +199,12 @@ $(document).ready(function () {
     }
   });
 });
+function toggleBebeInfo(value){
+  console.log(value)
+  
+  $("#bebe-info").toggle();
+  
+}
 function activateInput(id) {
   $("#" + id).toggle();
 }

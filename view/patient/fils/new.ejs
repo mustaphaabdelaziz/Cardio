@@ -4,9 +4,7 @@
   class="btn btn-outline-greenSea bg-gradient ms-2"
   data-bs-toggle="modal"
   data-bs-target="#newPatient"
->
-  Nouveau patient <i class="bi bi-person-plus-fill me-2"></i>
-  
+><i class="fa-solid fa-plus fa-xl pe-1"></i><i class="fa-solid fa-baby fa-xl"></i>
 </button>
 
 <!-- Modal -->
@@ -24,7 +22,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <img src="/assets/new patient.png" alt="" height="40px" />
-        <h5 class="modal-title" id="staticBackdropLabel">Ajouter Patient</h5>
+        <h5 class="modal-title" id="staticBackdropLabel">Ajouter Fils / Foetus</h5>
         
         <button
           type="button"
@@ -37,52 +35,66 @@
       <div class="modal-body">
         <form
           class="row g-3 m-2 needs-validation"
-          action="/patient"
+          action="/patient/<%= patient.id %>/son"
           id="personal"
           method="POST"
           autocomplete="on"
           novalidate
         >
-        <div class="form-floating col-12">
-          <select
-            id="patientRole"
-            name="patient[relation]"
-            class="form-select"
-            
-          >
-            <option selected disabled value="">Relation</option>
-            <option class="option" value="Père" disabled>Père</option>
-            <option class="option" value="Mère">Mère</option>
-            <option class="option" value="Fils">Fils</option>
-          </select>
-          <label for="patientGender" class="form-label">Relation</label>
-          <div class="valid-feedback">BIEN</div>
-        </div>
+          <div class="form-floating col-12">
+            <select
+              id="patientRole"
+              name="patient[relation]"
+              class="form-select"
+              onchange="toggleBebeInfo(this.value)"
+              
+            >
+            <option class="option" value="Foetus" selected>Foetus</option>
+            <option class="option" value="Fils" >Fils</option>
+           
+              
+            </select>
+            <label for="patientGender" class="form-label">Relation</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <div class="row g-3" id="bebe-info">
+
+          
           <div class="form-floating col-md-6">
             <input
-              id="patientLastName"
+              id="lastname"
               name="patient[lastname]"
               type="text"
               class="form-control"
               style="text-transform: capitalize"
-              required
               autofocus
               autocomplete="on"
+              
             />
-            <label for="patientLastName" class="form-label">Nom</label>
+            <label for="lastname" class="form-label">Nom</label>
             <div class="valid-feedback">BIEN</div>
           </div>
           <div class="form-floating col-md-6">
             <input
-              id="patientFirstName"
+              id="firstname"
               name="patient[firstname]"
               type="text"
               class="form-control"
               style="text-transform: capitalize"
-              required
               autocomplete="on"
             />
-            <label for="patientFirstName" class="form-label">Prénom</label>
+            <label for="firstname" class="form-label">Prénom</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <div class="form-floating col-md-6">
+            <input
+              id="mother"
+              name="patient[mother]"
+              style="text-transform: capitalize"
+              type="text"
+              class="form-control"
+            />
+            <label for="mother" class="form-label">Mère</label>
             <div class="valid-feedback">BIEN</div>
           </div>
           <div class="form-floating col-md-6">
@@ -109,8 +121,8 @@
             <select id="bloodGroup" name="blood[groupe]" class="form-select">
               <option selected disabled value="">Groupe sanguin</option>
               <% for(groupe of bloodGroup){ %>
-                <option class="option" value="<%= groupe %>"><%=groupe  %></option>
-                <% } %>
+              <option class="option" value="<%= groupe %>"><%=groupe %></option>
+              <% } %>
             </select>
             <label for="bloodGroup" class="form-label">Groupe sanguin</label>
             <div class="valid-feedback">BIEN</div>
@@ -135,6 +147,8 @@
               required
               maxlength="10"
               minlength="10"
+              value="<%= patient.phone%>"
+              
             />
             <label for="patientPhoneNumber" class="form-label"
               >Téléphone 1</label
@@ -149,6 +163,8 @@
               name="patient[phone2]"
               maxlength="10"
               minlength="10"
+              value="<%= patient.phone2%>"
+              
             />
             <label for="patientPhoneNumber2" class="form-label"
               >Téléphone 2</label
@@ -160,7 +176,7 @@
               id="patientGender"
               name="patient[gender]"
               class="form-select"
-              required
+            
             >
               <option selected disabled value="">Genre</option>
               <option class="option" value="Male">Male</option>
@@ -171,29 +187,26 @@
           </div>
           <div class="form-floating col-md-6">
             <input
-              class="form-select"
+              type="text"
+              class="form-control"
               id="wilaya"
               name="patient[wilaya]"
-              list="cities"
-              placeholder="Wilaya"
-              onchange="makeSubmenu(this.value, '')"
+              value="<%= patient.wilaya%>"
+              
             />
-            <datalist id="cities">
-              <option class="option" value="">Ville</option>
-              <% for (city of states) { %>
-              <option class="option" value="<%= city.name %>">
-                <%= city.id + " - " + city.name %>
-              </option>
-              <%} %>
-            </datalist>
             <label for="wilaya" class="form-label">Wilaya</label>
             <div class="valid-feedback">BIEN</div>
           </div>
 
           <div class="form-floating col-md-6">
-            <select id="city" name="patient[city]" class="form-select">
-              <option class="option" value="" disabled selected>Ville</option>
-            </select>
+            <input
+              type="text"
+              class="form-control"
+              id="city" name="patient[city]"
+          
+              value="<%= patient.city%>"
+              
+            />
             <label for="city" class="form-label">Ville</label>
             <div class="valid-feedback">BIEN</div>
           </div>
@@ -216,8 +229,7 @@
             <label for="medecinref" class="form-label">Medecin Ref</label>
             <div class="valid-feedback">BIEN</div>
           </div>
-         
-
+        </div>
           <div class="modal-footer mt-4">
             <button
               type="button"
@@ -226,7 +238,9 @@
             >
               Annuler
             </button>
-            <button class="btn btn-outline-greenSea bg-gradient">Ajouter</button>
+            <button class="btn btn-outline-greenSea bg-gradient">
+              Ajouter
+            </button>
           </div>
         </form>
       </div>
