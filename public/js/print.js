@@ -51,7 +51,7 @@ function printAllReports(acte, conduite) {
     for (let j = 0; j < patient.sortedConsultation.length; j++) {
       // the value of age === all
       if (selected.value == "all") {
-        // if the user doesn't 
+        // if the user doesn't
         if (moment(start).isSame(end)) {
           if (moment(patient.sortedConsultation[j].date).isSame(start))
             if (
@@ -149,8 +149,16 @@ function printConduitMList(conduite) {
   for (const patient of patients) {
     for (let j = 0; j < patient.sortedConsultation.length; j++) {
       if (selected.value == "all") {
+        // start date and end date are equal
         if (moment(start).isSame(end)) {
-          if (patient.sortedConsultation[j].compterendu.filter == conduite)
+          // if the start date or end date are equal to the consultation date
+          // && the selected acte is equalto the patient acte
+          if (
+            moment(
+              moment(patient.sortedConsultation[j].date).format("YYYY-MM-DD")
+            ).isSame(start) &&
+            patient.sortedConsultation[j].compterendu.filter == conduite
+          )
             list.push([
               i++,
               patient.fullname,
@@ -378,8 +386,16 @@ function printActeList(acte) {
   for (const patient of patients) {
     for (let j = 0; j < patient.sortedConsultation.length; j++) {
       if (selected.value == "all") {
+        // start date and end date are equal
         if (moment(start).isSame(end)) {
-          if (patient.sortedConsultation[j].acte == acte)
+          // if the start date or end date are equal to the consultation date
+          // && the selected acte is equalto the patient acte
+          if (
+            moment(
+              moment(patient.sortedConsultation[j].date).format("YYYY-MM-DD")
+            ).isSame(start) &&
+            patient.sortedConsultation[j].acte == acte
+          ) {
             list.push([
               i++,
               patient.fullname,
@@ -390,7 +406,9 @@ function printActeList(acte) {
               moment(patient.consultation[j].date).format("DD/MM/YYYY"),
               patient.consultation[j].status,
             ]);
+          }
         } else {
+          // start and end date are different
           if (
             moment(patient.sortedConsultation[j].date).isBetween(
               start,
@@ -412,6 +430,7 @@ function printActeList(acte) {
             ]);
         }
       } else {
+        // the selected age value is either greater than or equal to 12 or less than
         switch (selected.value) {
           case "above":
             if (
@@ -611,25 +630,37 @@ function printMedecinList(medecin) {
   let list = [];
   let i = 1;
   for (const patient of patients) {
-    for (let j = 0; j < patient.consultation.length; j++) {
+    for (let j = 0; j < patient.sortedConsultation.length; j++) {
       if (selected.value === "all") {
+        // start date and end date are equal
         if (moment(start).isSame(end)) {
-          list.push([
-            i,
-            patient.fullname,
-            patient.father,
-            moment(patient.birthdate).format("DD/MM/YYYY"),
-            patient.phone,
-            patient.consultation[j].acte ? patient.consultation[j].acte : "/",
-            moment(patient.consultation[j].date).format("DD/MM/YYYY"),
-            patient.consultation[j].status,
-          ]);
+          // if the start date or end date are equal to the consultation date
+          // && the selected acte is equalto the patient acte
+          if (
+            moment(
+              moment(patient.sortedConsultation[j].date).format("YYYY-MM-DD")
+            ).isSame(start) &&
+            sortedConsultation[j].medecin == medecin
+          )
+            list.push([
+              i,
+              patient.fullname,
+              patient.father,
+              moment(patient.birthdate).format("DD/MM/YYYY"),
+              patient.phone,
+              patient.sortedConsultation[j].acte
+                ? patient.sortedConsultation[j].acte
+                : "/",
+              moment(patient.sortedConsultation[j].date).format("DD/MM/YYYY"),
+              patient.sortedConsultation[j].status,
+            ]);
         } else {
           if (
             moment(
-              moment(patient.consultation[j].date).format("DD/MM/YYYY"),
+              moment(patient.sortedConsultation[j].date).format("DD/MM/YYYY"),
               "DD/MM/YYYY"
-            ).isBetween(start, end, "day", "[]")
+            ).isBetween(start, end, "day", "[]") &&
+            sortedConsultation[j].medecin == medecin
           ) {
             list.push([
               i,
@@ -637,9 +668,11 @@ function printMedecinList(medecin) {
               patient.father,
               moment(patient.birthdate).format("DD/MM/YYYY"),
               patient.phone,
-              patient.consultation[j].acte ? patient.consultation[j].acte : "/",
-              moment(patient.consultation[j].date).format("DD/MM/YYYY"),
-              patient.consultation[j].status,
+              patient.sortedConsultation[j].acte
+                ? patient.sortedConsultation[j].acte
+                : "/",
+              moment(patient.sortedConsultation[j].date).format("DD/MM/YYYY"),
+              patient.sortedConsultation[j].status,
             ]);
           }
         }
@@ -649,9 +682,10 @@ function printMedecinList(medecin) {
             if (
               parseInt(patient.age) >= parseInt(12) &&
               moment(
-                moment(patient.consultation[j].date).format("DD/MM/YYYY"),
+                moment(patient.sortedConsultation[j].date).format("DD/MM/YYYY"),
                 "DD/MM/YYYY"
-              ).isBetween(start, end, "day", "[]")
+              ).isBetween(start, end, "day", "[]") &&
+              sortedConsultation[j].medecin == medecin
             )
               list.push([
                 i,
@@ -659,12 +693,12 @@ function printMedecinList(medecin) {
                 patient.father,
                 moment(patient.birthdate).format("DD/MM/YYYY"),
                 patient.phone,
-                patient.consultation[j].acte
-                  ? patient.consultation[j].acte
+                patient.sortedConsultation[j].acte
+                  ? patient.sortedConsultation[j].acte
                   : "/",
                 ,
-                moment(patient.consultation[j].date).format("DD/MM/YYYY"),
-                patient.consultation[j].status,
+                moment(patient.sortedConsultation[j].date).format("DD/MM/YYYY"),
+                patient.sortedConsultation[j].status,
               ]);
             break;
 
@@ -672,9 +706,10 @@ function printMedecinList(medecin) {
             if (
               parseInt(patient.age) <= parseInt(12) &&
               moment(
-                moment(patient.consultation[j].date).format("DD/MM/YYYY"),
+                moment(patient.sortedConsultation[j].date).format("DD/MM/YYYY"),
                 "DD/MM/YYYY"
-              ).isBetween(start, end, "day", "[]")
+              ).isBetween(start, end, "day", "[]") &&
+              sortedConsultation[j].medecin == medecin
             )
               list.push([
                 i,
@@ -682,12 +717,12 @@ function printMedecinList(medecin) {
                 patient.father,
                 moment(patient.birthdate).format("DD/MM/YYYY"),
                 patient.phone,
-                patient.consultation[j].acte
-                  ? patient.consultation[j].acte
+                patient.sortedConsultation[j].acte
+                  ? patient.sortedConsultation[j].acte
                   : "/",
                 ,
-                moment(patient.consultation[j].date).format("DD/MM/YYYY"),
-                patient.consultation[j].status,
+                moment(patient.sortedConsultation[j].date).format("DD/MM/YYYY"),
+                patient.sortedConsultation[j].status,
               ]);
             break;
         }

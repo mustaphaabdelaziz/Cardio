@@ -18,15 +18,15 @@ function filter(elementID, age, ageColumn, dateColumn) {
      
       // setTimeout(() => {
     nbr = 0;
-    var selected = document.getElementById("age").value;
-    var start =
+    let selected = document.getElementById("age").value;
+    let start =
       document.getElementById("start").value ||
       moment("01/01/1800", "DD/MM/YYYY");
-    var end =
+    let end =
       document.getElementById("end").value ||
       moment("31/12/" + moment().add(2000, "year").year(), "DD/MM/YYYY");
 
-    var tddate, tdage, ageValue, dateValue;
+    let tddate, tdage, ageValue, dateValue;
 
     for (i = 0; i < tr.length; i++) {
       tdage = tr[i].getElementsByTagName("td")[ageColumn]; //[2]
