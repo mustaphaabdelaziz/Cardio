@@ -95,7 +95,9 @@
           <th class="clickable data" scope="row" scope="row">
             <%= i%> <% i=i+1; %>
           </th>
-          <td class="clickable data"  scope="row"><%- include("./preview")%></td>
+          <td class="clickable data" scope="row">
+            <a href="<%= document.path%>"target="_blank"><i class="bi bi-eye-fill"></i></a>
+          </td>
           <td class="clickable data" scope="row"><%= document.service%></td>
           <td class="clickable data" scope="row"><%= document.acte%></td>
           <td class="clickable data" scope="row">Edit/Delete</td>

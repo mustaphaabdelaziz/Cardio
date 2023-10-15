@@ -56,12 +56,20 @@ const Patient = new Schema(
     sons: [
       {
         type: Schema.Types.ObjectId,
-        ref:"Patient"
+        ref: "Patient",
       },
     ],
     isParent: {
       relation: String,
       activate: Boolean,
+      idMother: {
+        type: Schema.Types.ObjectId,
+        ref: "Patient",
+      },
+      idFather: {
+        type: Schema.Types.ObjectId,
+        ref: "Patient",
+      },
     },
     consultation: [
       {
@@ -70,20 +78,33 @@ const Patient = new Schema(
           type: String,
           default: "/",
         },
-        date: Date,
-        time: String,
-        acte: String,
+        date: {
+          type: Date,
+          default: moment(),
+        },
+        time: {
+          type: String,
+          default: moment().format("HH:mm"),
+        },
+        acte: {
+          type: String,
+          default: "consultation",
+        },
         poids: {
           type: Number,
+          default: 0,
         },
         taille: {
           type: Number,
+          default: 0,
         },
         saturation: {
           type: String,
+          default: "0%",
         },
         ta: {
           type: String,
+          default: "0/0",
         },
 
         comment: {
@@ -92,7 +113,10 @@ const Patient = new Schema(
           default: "Pas de commentaire",
         },
         compterendu: {
-          isEmpty: Boolean,
+          isEmpty: {
+            type: Boolean,
+            default: true,
+          },
           atcd: {
             type: String,
             trim: true,
@@ -287,7 +311,7 @@ Patient.virtual("groupage").get(function () {
 });
 
 Patient.virtual("sortedConsultation").get(function () {
-  return underscore.sortBy(this.consultation, "date");
+  return underscore.sortBy(this.consultation, "date").reverse();
 });
 
 Patient.virtual("lastacte").get(function () {

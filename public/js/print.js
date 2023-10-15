@@ -622,15 +622,11 @@ function printMedecinList(medecin) {
   let end =
     document.getElementById("end").value || moment().format("DD/MM/YYYY");
 
-  var period = moment(start).isSame(end, "day")
-    ? `${moment(start).format("DD/MM/YYYY")}`
-    : `${moment(start, "DD/MM/YYYY").format("DD/MM/YYYY")} à ${moment(
-        end
-      ).format("DD/MM/YYYY")}`;
   let list = [];
   let i = 1;
+
   for (const patient of patients) {
-    for (let j = 0; j < patient.sortedConsultation.length; j++) {
+    for (let j = 0; j < patient.consultation.length; j++) {
       if (selected.value === "all") {
         // start date and end date are equal
         if (moment(start).isSame(end)) {
@@ -638,9 +634,9 @@ function printMedecinList(medecin) {
           // && the selected acte is equalto the patient acte
           if (
             moment(
-              moment(patient.sortedConsultation[j].date).format("YYYY-MM-DD")
+              moment(patient.consultation[j].date).format("YYYY-MM-DD")
             ).isSame(start) &&
-            sortedConsultation[j].medecin == medecin
+            consultation[j].medecin === medecin
           )
             list.push([
               i,
@@ -648,19 +644,17 @@ function printMedecinList(medecin) {
               patient.father,
               moment(patient.birthdate).format("DD/MM/YYYY"),
               patient.phone,
-              patient.sortedConsultation[j].acte
-                ? patient.sortedConsultation[j].acte
-                : "/",
-              moment(patient.sortedConsultation[j].date).format("DD/MM/YYYY"),
-              patient.sortedConsultation[j].status,
+              patient.consultation[j].acte ? patient.consultation[j].acte : "/",
+              moment(patient.consultation[j].date).format("DD/MM/YYYY"),
+              patient.consultation[j].status,
             ]);
         } else {
           if (
             moment(
-              moment(patient.sortedConsultation[j].date).format("DD/MM/YYYY"),
+              moment(patient.consultation[j].date).format("DD/MM/YYYY"),
               "DD/MM/YYYY"
             ).isBetween(start, end, "day", "[]") &&
-            sortedConsultation[j].medecin == medecin
+            consultation[j].medecin == medecin
           ) {
             list.push([
               i,
@@ -668,11 +662,9 @@ function printMedecinList(medecin) {
               patient.father,
               moment(patient.birthdate).format("DD/MM/YYYY"),
               patient.phone,
-              patient.sortedConsultation[j].acte
-                ? patient.sortedConsultation[j].acte
-                : "/",
-              moment(patient.sortedConsultation[j].date).format("DD/MM/YYYY"),
-              patient.sortedConsultation[j].status,
+              patient.consultation[j].acte ? patient.consultation[j].acte : "/",
+              moment(patient.consultation[j].date).format("DD/MM/YYYY"),
+              patient.consultation[j].status,
             ]);
           }
         }
@@ -682,10 +674,10 @@ function printMedecinList(medecin) {
             if (
               parseInt(patient.age) >= parseInt(12) &&
               moment(
-                moment(patient.sortedConsultation[j].date).format("DD/MM/YYYY"),
+                moment(patient.consultation[j].date).format("DD/MM/YYYY"),
                 "DD/MM/YYYY"
               ).isBetween(start, end, "day", "[]") &&
-              sortedConsultation[j].medecin == medecin
+              consultation[j].medecin == medecin
             )
               list.push([
                 i,
@@ -693,12 +685,12 @@ function printMedecinList(medecin) {
                 patient.father,
                 moment(patient.birthdate).format("DD/MM/YYYY"),
                 patient.phone,
-                patient.sortedConsultation[j].acte
-                  ? patient.sortedConsultation[j].acte
+                patient.consultation[j].acte
+                  ? patient.consultation[j].acte
                   : "/",
                 ,
-                moment(patient.sortedConsultation[j].date).format("DD/MM/YYYY"),
-                patient.sortedConsultation[j].status,
+                moment(patient.consultation[j].date).format("DD/MM/YYYY"),
+                patient.consultation[j].status,
               ]);
             break;
 
@@ -706,10 +698,10 @@ function printMedecinList(medecin) {
             if (
               parseInt(patient.age) <= parseInt(12) &&
               moment(
-                moment(patient.sortedConsultation[j].date).format("DD/MM/YYYY"),
+                moment(patient.consultation[j].date).format("DD/MM/YYYY"),
                 "DD/MM/YYYY"
               ).isBetween(start, end, "day", "[]") &&
-              sortedConsultation[j].medecin == medecin
+              consultation[j].medecin == medecin
             )
               list.push([
                 i,
@@ -717,12 +709,12 @@ function printMedecinList(medecin) {
                 patient.father,
                 moment(patient.birthdate).format("DD/MM/YYYY"),
                 patient.phone,
-                patient.sortedConsultation[j].acte
-                  ? patient.sortedConsultation[j].acte
+                patient.consultation[j].acte
+                  ? patient.consultation[j].acte
                   : "/",
                 ,
-                moment(patient.sortedConsultation[j].date).format("DD/MM/YYYY"),
-                patient.sortedConsultation[j].status,
+                moment(patient.consultation[j].date).format("DD/MM/YYYY"),
+                patient.consultation[j].status,
               ]);
             break;
         }
@@ -1858,10 +1850,11 @@ function printCompteRendu(consultationID, patientID) {
         //[left, top, right, bottom]
         margin: [10, 20, 0, 0],
       });
-      if (
-        consultation.compterendu.conduiteMedicale &&
-        consultation.compterendu.filter
-      ) {
+      // if (
+      //   consultation.compterendu.conduiteMedicale &&
+      //   consultation.compterendu.filter
+      // ) {
+      if (consultation.compterendu.filter) {
         if (consultation.compterendu.filter == "Surveillance médical") {
           // [parameters,unite,title,styling,margin]
           compterendu.surveillanceperiod = getText(

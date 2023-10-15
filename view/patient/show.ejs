@@ -29,12 +29,24 @@
             
             <div class="pe-1 ">
              
-              <span class="rounded-pill badge  bg-mediumTurquoise bg-gradient fs-5"><%=patient.isParent.relation%></span>
+              <span  id="relation" value="<%=patient.isParent.relation%>" class="rounded-pill badge  bg-mediumTurquoise bg-gradient fs-5"><%=patient.isParent.relation%></span>
                <span class="rounded-pill badge bg-lightCoral bg-gradient fs-5"><%= patient.status %></span> 
                <% if (patient.isParent.activate){%>
                 <%- include("./fils/new")%>
                 <%- include("./fils/index")%>
+                
                 <% } %>
+                <% if(patient.isParent.idMother) {%>
+                  <a href="<%=patient.isParent.idMother%>">
+                    <span  class="btn btn-outline-lightCoral bg-gradient mb-2"><i class="fa-solid fa-person-breastfeeding fa-xl me-1"></i><span class="fw-bold">Mère</span></span>
+                    
+                  </a>
+                  <% } %>
+                <% if(patient.isParent.idFather) {%>
+                  <a href="<%=patient.isParent.idFather%>">
+                    <span  class="btn btn-outline-lightCoral bg-gradient mb-2"><i class="fa-solid fa-person-breastfeeding fa-xl me-1"></i><span class="fw-bold">Mère</span></span>
+                  </a>
+                  <% } %>
             </div>
             
             

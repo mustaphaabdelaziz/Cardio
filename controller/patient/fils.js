@@ -100,10 +100,13 @@ module.exports.createSon = async (req, res) => {
   let isParent = {
     relation: "Fils",
     activate: false,
+    idMother: null,
+    idFather: null,
   };
   if (relation == "Foetus") {
     firstname = relation;
     lastname = "";
+    isParent.idMother = id;
   }
   if (relation != "Fils" && relation != "Foetus") {
     isParent.activate = true;
@@ -136,6 +139,7 @@ module.exports.createSon = async (req, res) => {
     wilaya,
     city,
     isParent: isParent,
+   
     createdBy: {
       user: req.user._id,
     },
@@ -207,14 +211,14 @@ module.exports.updateSon = async (req, res) => {
   res.redirect("back");
 };
 module.exports.deleteSon = async (req, res) => {
-  
-  const { id ,idSon} = req.params;
+  const { id, idSon } = req.params;
 
   // this make the patient inactive
-  await Patient.findByIdAndUpdate({_id:id},{$pull:{sons:idSon} });
+  await Patient.findByIdAndDelete(idSon);
+  await Patient.findByIdAndUpdate({ _id: id }, { $pull: { sons: idSon } });
 
   // await Patient.findByIdAndDelete(id);
   req.flash("success", "Fils a été supprimé");
-  res.redirect("/patient/"+id);
+  res.redirect("/patient/" + id);
   // res.send("deleted")
 };

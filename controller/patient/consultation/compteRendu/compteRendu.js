@@ -28,6 +28,7 @@ module.exports.addCompteRendu = async (req, res) => {
     surveillanceperiod,
     period,
     conduiteMedicale,
+    
   } = req.body.compteRendu;
   let { motif, dtd, ventGsiv, fe } = req.body.ventriculeGauche;
   const { id, idacte } = req.params;
@@ -131,12 +132,18 @@ module.exports.updateCompteRendu = async (req, res) => {
     period,
     conduiteMedicale,
   } = req.body.compteRendu;
+  console.log("=============== comte=========")
+  console.log("1"+filter)
+  console.log("2"+surveillanceperiod)
+  console.log("3"+period)
+  console.log("4"+conduiteMedicale)
   let { motif, dtd, ventGsiv, fe } = req.body.ventriculeGauche;
   const patient = await Patient.findOneAndUpdate(
-    { id, "consultation._id": idacte },
+    { _id:id, "consultation._id": idacte },
     {
       $set: {
         "consultation.$.compterendu": {
+          isEmpty:false,
           atcd,
           quality,
           indication: {
@@ -166,7 +173,7 @@ module.exports.updateCompteRendu = async (req, res) => {
         },
       },
     },
-    { new: true }
+    { includeResultMetadata:false }
   );
   // res.send(patient);
   req.flash("success", "Acte à été modifé avec succès");
@@ -176,7 +183,7 @@ module.exports.deleteCompteRendu = async (req, res) => {
   // const {idPatient,idConsultation} = req.params;
   const { id, idacte } = req.params;
   const patient = await Patient.findOneAndUpdate(
-    { id, "consultation._id": idacte },
+    { _id:id, "consultation._id": idacte },
     { $set: { "consultation.$.compterendu": { isEmpty: true } } },
     { new: true }
   );

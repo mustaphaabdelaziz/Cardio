@@ -35,7 +35,7 @@
       <div class="modal-body">
         <form
           class="row g-3 m-2 needs-validation"
-          action="/patient/<%= patient.id %>/son"
+          action="/patient/<%= patient.id %>/son?parent=<%=patient.isParent.relation%>"
           id="personal"
           method="POST"
           autocomplete="on"
@@ -46,12 +46,16 @@
               id="patientRole"
               name="patient[relation]"
               class="form-select"
-              onchange="toggleBebeInfo(this.value)"
+              onchange="toggleBebeInfo('<%=patient.isParent.relation%>')"
               
             >
+            <%if(patient.isParent.relation != "Père"){%>
             <option class="option" value="Foetus" selected>Foetus</option>
             <option class="option" value="Fils" >Fils</option>
-           
+           <%}else {%>
+            <option class="option" value="Fils" selected>Fils</option>
+           <%}%>
+
               
             </select>
             <label for="patientGender" class="form-label">Relation</label>

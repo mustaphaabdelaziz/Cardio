@@ -50,12 +50,14 @@ module.exports.register = async (req, res) => {
       externe,
       privileges: ["user"],
     });
-
+    console.log("9999");
+    console.log(password);
     User.register(user, password, function (err, user) {
       if (err) {
         console.error(err);
         res.redirect("register");
       } else {
+        console.log("55555");
         req.flash("success", "Contact the admin to ativate your account");
         res.redirect("/user/login");
       }
@@ -72,7 +74,7 @@ module.exports.register = async (req, res) => {
 module.exports.login = async (req, res) => {
   req.flash("success", `Welcome Back ${req.user.firstname}`);
   // update the recently logged in user
-  await User.findByIdAndUpdate(req.user.id, { loggedIn: moment() });
+  await User.findByIdAndUpdate({ _id: req.user.id }, { loggedIn: moment() });
   const redirectUrl = req.session.returnTo || "/patient";
   delete req.session.returnTo;
   res.redirect(redirectUrl);
@@ -95,6 +97,8 @@ module.exports.updateUser = async (req, res) => {
     externe,
     approved,
     privileges,
+    newPassword,
+    oldPassword,
   } = req.body.user;
   const { userid } = req.params;
 
@@ -107,24 +111,52 @@ module.exports.updateUser = async (req, res) => {
   if (email1 === "") {
     email1 = "/";
   }
-  await User.findByIdAndUpdate(
-    { _id: userid },
-    {
-      firstname:
-        firstname.charAt(0).toUpperCase() + firstname.slice(1).toLowerCase(),
-      lastname:
-        lastname.charAt(0).toUpperCase() + lastname.slice(1).toLowerCase(),
-      fonction,
-      phone: phone1,
-      email: email1.toLowerCase(),
-      externe: type === "externe" ? externe : "interne",
-      approved: approved === "on" ? true : false,
-      privileges,
-    },
-    { new: true }
-  );
+  User.findOne({ _id: userid }).then((user, err) => {
+    // Check if error connecting
+    if (err) {
+      res.json({ success: false, message: err }); // Return error
+    } else {
+      // Check if user was found in database
+      if (!user) {
+        res.json({ success: false, message: "User not found" }); // Return error, user was not found in db
+      } else {
+        user.setPassword(newPassword, function (err) {
+          if (err) {
+            if (err.name === "IncorrectPasswordError") {
+              res.json({ success: false, message: "Incorrect password" }); // Return error
+            } else {
+              res.json({
+                success: false,
+                message:
+                  "Something went wrong!! Please try again after sometimes.",
+              });
+            }
+          } else {
+            User.findByIdAndUpdate(
+              { _id: userid },
+              {
+                firstname:
+                  firstname.charAt(0).toUpperCase() +
+                  firstname.slice(1).toLowerCase(),
+                lastname:
+                  lastname.charAt(0).toUpperCase() +
+                  lastname.slice(1).toLowerCase(),
+                fonction,
+                phone: phone1,
+                email: email1.toLowerCase(),
+                externe: type === "externe" ? externe : "interne",
+                approved: approved === "on" ? true : false,
+                privileges,
+              },
+              { new: true }
+            );
+            res.redirect(`/user`);
+          }
+        });
+      }
+    }
+  });
 
-  res.redirect(`/user`);
   // res.send(req.body.user.privileges);
 };
 module.exports.deleteUser = async (req, res) => {

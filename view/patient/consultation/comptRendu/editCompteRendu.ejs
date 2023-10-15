@@ -351,17 +351,29 @@
             <label for="period-<%=i%>" class="form-label">Période</label>
             <div class="valid-feedback">Période</div>
           </div>
-          <div class="col-md-12">
+          <% if(consultation.compterendu.filter != "Autre"){%>
+          <div class="col-md-12" style="display: none;">
             <textarea
               class="form-control"
               name="compteRendu[conduiteMedicale]"
               id="conduiteMedicale-<%=i%>"
               rows="4"
               placeholder="Autres (conduite Médicale)"
-              style="text-transform: capitalize"
+              style="text-transform: capitalize; "
             ><%= consultation.compterendu.conduiteMedicale %></textarea>
           </div>
-
+          <%}else {%>
+            <div class="col-md-12">
+              <textarea
+                class="form-control"
+                name="compteRendu[conduiteMedicale]"
+                id="conduiteMedicale-<%=i%>"
+                rows="4"
+                placeholder="Autres (conduite Médicale)"
+                style="text-transform: capitalize; "
+              ><%= consultation.compterendu.conduiteMedicale %></textarea>
+            </div>
+          <%}%>
           <div class="modal-footer mt-4">
             <button
               type="button"

@@ -167,7 +167,15 @@ function generateField(line) {
   }
 }
 $(document).ready(function () {
-  $("#bebe-info").hide();
+  // if ($("#patientRole : selected").val() != "Père") $("#bebe-info").hide();
+  // else $("#bebe-info").show();
+
+  if ($("#relation").text() == "Père") {
+    $("#bebe-info").show();
+  }else{
+    $("#bebe-info").hide();
+  };
+
   $("#show_hide_login").on("click", function () {
     var passInput = $("#loginPassword");
     if (passInput.attr("type") === "password") {
@@ -199,11 +207,8 @@ $(document).ready(function () {
     }
   });
 });
-function toggleBebeInfo(value){
-  console.log(value)
-  
+function toggleBebeInfo(value) {
   $("#bebe-info").toggle();
-  
 }
 function activateInput(id) {
   $("#" + id).toggle();

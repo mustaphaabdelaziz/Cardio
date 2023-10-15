@@ -170,40 +170,40 @@ app.get("/reports", async (req, res) => {
   //   },
   //   { strict: false }
   // );
-  // await Report.deleteMany({$or:[{type:" "},{type:""},{type:"  "}]})
+  await Report.deleteMany({$or:[{type:" "},{type:""},{type:"  "}]})
   // await Medicament.deleteMany({
   //   $or: [{ dci: " " }, { dci: null }, { dci: "  " }],
   // });
-  await Patient.updateMany(
-    {
-      consultation: {
-        $exists: true,
-      },
-    },
+  // await Patient.updateMany(
+  //   {
+  //     consultation: {
+  //       $exists: true,
+  //     },
+  //   },
 
-    [
-      {
-        $set: {
-          "consultation.poids": "$poids",
-          "consultation.saturation": "$saturation",
-          "consultation.taille": "$taille",
-        },
-      },
-      {
-        $unset: "saturation",
-      },
-      {
-        $unset: "poids",
-      },
-      {
-        $unset: "taille",
-      },
-    ],
+  //   [
+  //     {
+  //       $set: {
+  //         "consultation.poids": "$poids",
+  //         "consultation.saturation": "$saturation",
+  //         "consultation.taille": "$taille",
+  //       },
+  //     },
+  //     {
+  //       $unset: "saturation",
+  //     },
+  //     {
+  //       $unset: "poids",
+  //     },
+  //     {
+  //       $unset: "taille",
+  //     },
+  //   ],
 
-    {
-      multi: true,
-    }
-  );
+  //   {
+  //     multi: true,
+  //   }
+  // );
   res.send("Mabrouk");
 });
 // app.all("*", (req, res, next) => {

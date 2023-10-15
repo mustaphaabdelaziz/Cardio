@@ -1,10 +1,11 @@
-
-var table ;
-var tr ;
+var table;
+var tr;
 var txtValue;
-var result ;
-var nbr ;
-function initElements (){
+var result;
+var nbr;
+
+
+function initElements() {
   table = document.getElementById("patientTable");
   tr = table.getElementsByTagName("tr");
   txtValue;
@@ -13,18 +14,19 @@ function initElements (){
 }
 function filter(elementID, age, ageColumn, dateColumn) {
   initElements();
-  $('#'+elementID).keyup(function (event) {
-    if (event.which === 13) {
-     
-      // setTimeout(() => {
+  let timer;
+  const waitTimer = 2000;
+  // $('#'+elementID).keyup(function (event) {
+  // if (event.which === 13) {
+
+  clearTimeout(timer);
+  timer = setTimeout(() => {
     nbr = 0;
     let selected = document.getElementById("age").value;
     let start =
-      document.getElementById("start").value ||
-      moment("01/01/1800", "DD/MM/YYYY");
+      document.getElementById("start").value || moment().format("DD/MM/YYYY");
     let end =
-      document.getElementById("end").value ||
-      moment("31/12/" + moment().add(2000, "year").year(), "DD/MM/YYYY");
+      document.getElementById("end").value || moment().format("DD/MM/YYYY");
 
     let tddate, tdage, ageValue, dateValue;
 
@@ -46,6 +48,7 @@ function filter(elementID, age, ageColumn, dateColumn) {
             ) &&
             selected != "all"
           ) {
+            console.log("Equals");
             switch (selected) {
               case "above":
                 if (ageValue > age) {
@@ -79,16 +82,18 @@ function filter(elementID, age, ageColumn, dateColumn) {
       }
     }
     result.textContent = "Resultat: " + nbr;
-    // }, 2500);
+    $("#fiterResut").show()
   
-    }
-  });
+  }, waitTimer);
+
+  // }
+  // });
 }
 function filterAge(age) {
   initElements();
   nbr = 0;
   var selected = document.getElementById("age").value || "all";
-
+  console.log("FIFA");
   // Loop through all table rows, and hide those who don't match the search query
   for (i = 0; i < tr.length; i++) {
     td = tr[i].getElementsByTagName("td")[2];
@@ -123,6 +128,7 @@ function filterAge(age) {
     }
   }
   result.textContent = "Resultat: " + nbr;
+  $("#fiterResut").show()
 }
 /* the filter acte function takes two arguments:
  the id of the select option it's used to make the function 
@@ -181,4 +187,5 @@ function filterActe(idSelect, idColumn) {
     }
   }
   result.textContent = "Resultat: " + nbr;
+  $("#fiterResut").show()
 }
