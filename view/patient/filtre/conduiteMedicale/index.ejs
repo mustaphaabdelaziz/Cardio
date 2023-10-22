@@ -35,7 +35,7 @@
       <div class="form-floating col-3">
         <input
           class="form-control"
-          onkeyup="filter('end',12, 2, 6)"
+          onkeyup="filter('end',12, 2, 5)"
           type="date"
           id="end"
           name="end"
@@ -47,6 +47,12 @@
         onclick="printConduitMList('<%=conduiteMedicale%>')"
       >
         Imprimer <i class="bi bi-printer-fill py-3 px-2"></i>
+      </button>
+      <button
+        class="btn btn-outline-primary py-3 px-2 ms-2"
+        onclick="printAllReports('consultation','<%=conduiteMedicale%>')"
+      >
+        Imprimer Tous <i class="bi bi-printer-fill py-3 px-2"></i>
       </button>
     </div>
   </div>

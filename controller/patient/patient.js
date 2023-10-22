@@ -46,7 +46,10 @@ module.exports.listepatient = async (req, res) => {
   const [medecins, patients, algeria] = await Promise.all([
     Staff.find({ fonction: "Medecin" }),
     // Staff.find({ fonction: "technicien cathlab" }),
-    Patient.find({  "isParent.relation":{ $ne:"Foetus"} ,activated: true }).sort({
+    Patient.find({
+      "isParent.relation": { $ne: "Foetus" },
+      activated: true,
+    }).sort({
       lastname: 1,
     }),
     Country.find({}),
@@ -171,7 +174,7 @@ module.exports.createpatient = async (req, res) => {
     relation: "Fils",
     activate: false,
   };
- 
+
   if (relation != "Fils") {
     isParent.activate = true;
     isParent.relation = relation;
@@ -848,3 +851,6 @@ module.exports.generatePatientpdf = async (req, res) => {
   pdfDoc.end();
   pdfDoc.pipe(res);
 };
+
+
+

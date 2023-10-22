@@ -1,4 +1,7 @@
 var selected = document.getElementById("age");
+var pdfPages = [];
+let docDefinition = {};
+
 var styles = {
   header: {
     fontSize: 22,
@@ -40,103 +43,115 @@ function printAllReports(acte, conduite) {
   // get the date(period) of the report
   // seach through patients and get the consutation that matchs the criteria date
   //
-  let start =
-    document.getElementById("start").value || moment().format("DD/MM/YYYY");
-  let end =
-    document.getElementById("end").value || moment().format("DD/MM/YYYY");
+  // console.log(getBase64ImageFromURL("/assets/ENTETE.PNG").then());
+  let start = document.getElementById("start").value || moment("01/01/2022");
+  let end = document.getElementById("end").value || moment();
+  console.log(
+    "getElementById(start).value: " + document.getElementById("start").value
+  );
+  console.log(moment(start).format("DD/MM/YYYY"));
+  console.log(moment(end).format("DD/MM/YYYY"));
   let list = [];
   let i = 1;
 
   for (const patient of patients) {
     for (let j = 0; j < patient.sortedConsultation.length; j++) {
       // the value of age === all
-      if (selected.value == "all") {
-        // if the user doesn't
-        if (moment(start).isSame(end)) {
-          if (moment(patient.sortedConsultation[j].date).isSame(start))
+      if (
+        document.getElementById("start").value &&
+        document.getElementById("end").value
+      ) {
+        console.log("value provided");
+        if (selected.value == "all") {
+          // if the user doesn't
+          // the start and end dates are not available
+          // console.log("start and end are not available");
+          // saveCompteRendu(patient.sortedConsultation[j], patient);
+          if (moment(start).isSame(end)) {
+            if (moment(patient.sortedConsultation[j].date).isSame(start))
+              if (
+                patient.sortedConsultation[j].compterendu.filter == conduite &&
+                patient.sortedConsultation[j].acte === acte
+              )
+                saveCompteRendu(patient.sortedConsultation[j], patient);
+          } else {
             if (
-              patient.sortedConsultation[j].compterendu.filter == conduite &&
-              patient.sortedConsultation[j].acte === acte
-            )
-              list.push([
-                i++,
-                patient.fullname,
-                patient.father,
-                moment(patient.birthdate).format("DD/MM/YYYY"),
-                patient.phone,
-                patient.consultation[j].medecin,
-                moment(patient.consultation[j].date).format("DD/MM/YYYY"),
-                patient.consultation[j].status,
-              ]);
-        } else {
-          if (
-            moment(patient.sortedConsultation[j].date).isBetween(
-              start,
-              end,
-              "days",
-              "[]"
-            ) &&
-            patient.sortedConsultation[j].compterendu.filter == conduite
-          )
-            list.push([
-              i++,
-              patient.fullname,
-              patient.father,
-              moment(patient.birthdate).format("DD/MM/YYYY"),
-              patient.phone,
-              patient.consultation[j].medecin,
-              moment(patient.consultation[j].date).format("DD/MM/YYYY"),
-              patient.consultation[j].status,
-            ]);
-        }
-      } else {
-        switch (selected.value) {
-          case "above":
-            if (
-              parseInt(patient.age) >= parseInt(12) &&
-              moment(
-                patient.sortedConsultation[j].date,
-                "DD/MM/YYYY"
-              ).isBetween(start, end, "day", "[]") &&
+              moment(patient.sortedConsultation[j].date).isBetween(
+                start,
+                end,
+                "days",
+                "[]"
+              ) &&
               patient.sortedConsultation[j].compterendu.filter == conduite
             )
-              list.push([
-                i++,
-                patient.fullname,
-                patient.father,
-                moment(patient.birthdate).format("DD/MM/YYYY"),
-                patient.phone,
-                patient.consultation[j].medecin,
-                moment(patient.consultation[j].date).format("DD/MM/YYYY"),
-                patient.consultation[j].status,
-              ]);
-            break;
+              saveCompteRendu(patient.sortedConsultation[j], patient);
+          }
+        } else {
+          switch (selected.value) {
+            case "above":
+              if (
+                parseInt(patient.age) >= parseInt(12) &&
+                moment(
+                  patient.sortedConsultation[j].date,
+                  "DD/MM/YYYY"
+                ).isBetween(start, end, "day", "[]") &&
+                patient.sortedConsultation[j].compterendu.filter == conduite
+              )
+                saveCompteRendu(patient.sortedConsultation[j], patient);
+              break;
 
-          case "below":
-            if (
-              parseInt(patient.age) <= parseInt(12) &&
-              moment(
-                patient.sortedConsultation[j].date,
-                "DD/MM/YYYY"
-              ).isBetween(start, end, "day", "[]") &&
-              patient.sortedConsultation[j].compterendu.filter == conduite &&
-              patient.sortedConsultation[j].compterendu.isEmpty
-            )
-              list.push([
-                i++,
-                patient.fullname,
-                patient.father,
-                moment(patient.birthdate).format("DD/MM/YYYY"),
-                patient.phone,
-                patient.consultation[j].medecin,
-                moment(patient.consultation[j].date).format("DD/MM/YYYY"),
-                patient.consultation[j].status,
-              ]);
-            break;
+            case "below":
+              if (
+                parseInt(patient.age) <= parseInt(12) &&
+                moment(
+                  patient.sortedConsultation[j].date,
+                  "DD/MM/YYYY"
+                ).isBetween(start, end, "day", "[]") &&
+                patient.sortedConsultation[j].compterendu.filter == conduite &&
+                patient.sortedConsultation[j].compterendu.isEmpty
+              )
+                saveCompteRendu(patient.sortedConsultation[j], patient);
+              break;
+          }
         }
+      } else {
+        // start and end are available
+        if (patient.sortedConsultation[j].compterendu.filter == conduite)
+          saveCompteRendu(patient.sortedConsultation[j], patient);
+        console.log("value not provided");
       }
     }
   }
+  // console.log(definition);
+  this.getBase64ImageFromURL("/assets/ENTETE.PNG")
+    .then((url) => {
+      let definition = {
+        pageSize: "A4",
+        pageOrientation: "portrait",
+        // [left, top, right, bottom]
+        pageMargins: [1, 10, 10, 10],
+
+        header: {
+          image: url,
+          width: 570,
+          height: 90,
+          margin: [5, 0, 0, 0],
+        },
+      };
+      docDefinition = {
+        ...definition,
+        content: pdfPages,
+
+        // Define styles
+        styles,
+      };
+      // pdfPages.push(docDefinition);
+      // pdfMake.createPdf(docDefinition).download(conduite + ".pdf");
+      pdfMake.createPdf(docDefinition).open();
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 }
 function printConduitMList(conduite) {
   let start =
@@ -1965,4 +1980,562 @@ function printCompteRendu(consultationID, patientID) {
     .catch((error) => {
       console.error(error);
     });
+}
+function saveCompteRendu(consultation, patient) {
+  // this.getBase64ImageFromURL("../assets/ENTETE.PNG")
+  // this.getBase64ImageFromURL("/assets/ENTETE.PNG").then((url) => {
+  let poids, taille, saturation, ta;
+
+  let compterendu = {};
+  let compterenduTextValue = [];
+  let patientStyle = {
+    alignment: "left",
+    color: "#061e30",
+    bold: true,
+  };
+
+  let columns = [
+    {
+      width: "*",
+      alignment: "center",
+      margin: [],
+      stack: [
+        {
+          text: [
+            {
+              text: `Nom:   `,
+              alignment: "left",
+              color: "#061e30",
+              bold: true,
+              // [left, top, right, bottom]
+            },
+            {
+              text: ` ${patient.lastname}`,
+            },
+          ],
+          margin: [20, 0, 0, 0],
+        },
+        {
+          text: [
+            {
+              text: `Prénom:   `,
+              alignment: "left",
+              color: "#061e30",
+              bold: true,
+              // [left, top, right, bottom]
+            },
+            {
+              text: ` ${patient.firstname}`,
+            },
+          ],
+          margin: [20, 10, 0, 0],
+        },
+        {
+          text: [
+            {
+              text: `Père:   `,
+              alignment: "left",
+              color: "#061e30",
+              bold: true,
+              // [left, top, right, bottom]
+            },
+            {
+              text: ` ${patient.father}`,
+            },
+          ],
+          margin: [20, 10, 0, 0],
+        },
+      ],
+    },
+    {
+      width: "*",
+      stack: [
+        {
+          text: [
+            {
+              text: `Age:   `,
+              alignment: "left",
+              color: "#061e30",
+              bold: true,
+              // [left, top, right, bottom]
+            },
+            {
+              text: `${moment(patient.birthdate).format("DD/MM/YYYY")} (${
+                patient.age
+              })`,
+            },
+          ],
+          margin: [20, 0, 0, 0],
+        },
+        {
+          text: [
+            {
+              text: `Tel:   `,
+              alignment: "left",
+              color: "#061e30",
+              bold: true,
+              // [left, top, right, bottom]
+            },
+            {
+              text: `${patient.phone}`,
+            },
+          ],
+          margin: [20, 10, 0, 0],
+        },
+        {
+          text: [
+            {
+              text: `Addresse:   `,
+              alignment: "left",
+              color: "#061e30",
+              bold: true,
+              // [left, top, right, bottom]
+            },
+            {
+              text: `${patient.address}`,
+            },
+          ],
+          margin: [20, 10, 0, 0],
+        },
+      ],
+    },
+  ];
+  let stack = [];
+  if (consultation.poids) {
+    // [parameters,unite,title,stylingText,stylingBloc]
+    poids = getText(consultation.poids, "kg", "Poids:", patientStyle, {
+      margin: [20, 0, 0, 0],
+    });
+    stack.push(poids);
+  }
+  if (consultation.taille) {
+    // [parameters,unite,title,styling,margin]
+    taille = getText(consultation.taille, "cm", "Taille:", patientStyle, {
+      margin: [20, 10, 0, 0],
+    });
+    stack.push(taille);
+  }
+  if (consultation.saturation) {
+    // [parameters,unite,title,styling,margin]
+    saturation = getText(
+      consultation.saturation,
+      "%",
+      "Saturation:",
+      patientStyle,
+      {
+        margin: [20, 10, 0, 0],
+      }
+    );
+    stack.push(saturation);
+  }
+  if (consultation.ta) {
+    // [parameters,unite,title,styling,margin]
+    ta = getText(consultation.ta, "", "TA:", patientStyle, {
+      margin: [20, 10, 0, 0],
+    });
+    stack.push(ta);
+  }
+
+  columns.push({
+    width: "*",
+    stack: [...stack],
+  });
+  if (consultation.compterendu.atcd) {
+    // [parameters,unite,title,styling,margin]
+    compterendu.atcd = getText(
+      consultation.compterendu.atcd,
+      "",
+      "- ATCD:",
+      {
+        alignment: "left",
+        bold: true,
+      },
+      {
+        alignment: "left",
+        margin: [10, 15, 0, 0],
+      }
+    );
+    compterenduTextValue.push(compterendu.atcd);
+  }
+  if (consultation.compterendu.quality) {
+    // [parameters,unite,title,styling,margin]
+    compterendu.quality = getText(
+      consultation.compterendu.quality,
+      "",
+      "- Quality:",
+      { alignment: "left", bold: true },
+      {
+        alignment: "left",
+        margin: [10, 7, 0, 0],
+      }
+    );
+    compterenduTextValue.push(compterendu.quality);
+  }
+  compterenduTextValue.push({
+    text: `Indication:`,
+    fontSize: 16,
+    bold: true,
+    decoration: "underline",
+    //[left, top, right, bottom]
+    margin: [10, 5, 0, 0],
+  });
+  if (consultation.compterendu.indication.situs) {
+    // [parameters,unite,title,styling,margin]
+    compterendu.situe = getText(
+      consultation.compterendu.indication.situs,
+      "",
+      "- Situs:",
+      { alignment: "left", bold: true },
+      {
+        alignment: "left",
+        margin: [13, 7, 0, 0],
+      }
+    );
+    compterenduTextValue.push(compterendu.situe);
+  }
+  if (consultation.compterendu.indication.aorte) {
+    // [parameters,unite,title,styling,margin]
+    compterendu.aorte = getText(
+      consultation.compterendu.indication.aorte,
+      "",
+      "- Aorte:",
+      { alignment: "left", bold: true },
+      {
+        alignment: "left",
+        //[left, top, right, bottom]
+        margin: [13, 7, 0, 0],
+      }
+    );
+    compterenduTextValue.push(compterendu.aorte);
+  }
+  if (consultation.compterendu.indication.oreilletteGauche) {
+    // [parameters,unite,title,styling,margin]
+    compterendu.oreilletteGauche = getText(
+      consultation.compterendu.indication.oreilletteGauche,
+      "",
+      "- Oreillette Gauche:",
+      { alignment: "left", bold: true },
+      {
+        alignment: "left",
+        //[left, top, right, bottom]
+        margin: [13, 7, 0, 0],
+      }
+    );
+    compterenduTextValue.push(compterendu.oreilletteGauche);
+  }
+  if (consultation.compterendu.indication.sia) {
+    // [parameters,unite,title,styling,margin]
+
+    compterendu.sia = getText(
+      consultation.compterendu.indication.sia,
+      "",
+      "- SIA:",
+      { alignment: "left", bold: true },
+      {
+        alignment: "left",
+        //[left, top, right, bottom]
+        margin: [13, 7, 0, 0],
+      }
+    );
+    compterenduTextValue.push(compterendu.sia);
+  }
+  if (consultation.compterendu.indication.valveAortique) {
+    // [parameters,unite,title,styling,margin]
+    compterendu.valveAortique = getText(
+      consultation.compterendu.indication.valveAortique,
+      "",
+      "- Valve Aortique:",
+      { alignment: "left", bold: true },
+      {
+        alignment: "left",
+        //[left, top, right, bottom]
+        margin: [13, 7, 0, 0],
+      }
+    );
+    compterenduTextValue.push(compterendu.valveAortique);
+  }
+  if (consultation.compterendu.indication.valveMitrale) {
+    // [parameters,unite,title,styling,margin]
+    compterendu.valveMitrale = getText(
+      consultation.compterendu.indication.valveMitrale,
+      "",
+      "- Valve Mitrale:",
+      { alignment: "left", bold: true },
+      {
+        alignment: "left",
+        //[left, top, right, bottom]
+        margin: [13, 7, 0, 0],
+      }
+    );
+    compterenduTextValue.push(compterendu.valveMitrale);
+  }
+  if (consultation.compterendu.indication.ventriculeGauche.motif) {
+    // [parameters,unite,title,styling,margin]
+    let motif = getText(
+      consultation.compterendu.indication.ventriculeGauche.motif,
+      "",
+      "- Ventricule Gauche:",
+      { alignment: "left", bold: true },
+      {
+        alignment: "left",
+        //[left, top, right, bottom]
+        margin: [13, 7, 0, 0],
+      }
+    );
+    compterenduTextValue.push(motif);
+  }
+  // this is for DTD, SIV, FE
+  let ventriculeGauche = {
+    text: [],
+    alignment: "left",
+    margin: [100, 5, 0, 5],
+  };
+  if (consultation.compterendu.indication.ventriculeGauche.dtd) {
+    // [parameters,unite,title,styling,margin]
+    let dtd = getText(
+      consultation.compterendu.indication.ventriculeGauche.dtd,
+      "           ",
+      "DTD:",
+      { bold: true },
+      {}
+    );
+    ventriculeGauche.text.push(dtd);
+  }
+  if (consultation.compterendu.indication.ventriculeGauche.siv) {
+    // [parameters,unite,title,styling,margin]
+    let siv = getText(
+      consultation.compterendu.indication.ventriculeGauche.siv,
+      "           ",
+      "SIV:",
+      { bold: true },
+      {}
+    );
+    ventriculeGauche.text.push(siv);
+  }
+  if (consultation.compterendu.indication.ventriculeGauche.fe) {
+    // [parameters,unite,title,styling,margin]
+    let fe = getText(
+      consultation.compterendu.indication.ventriculeGauche.fe,
+      "           ",
+      "FE:",
+      { bold: true },
+      {}
+    );
+    ventriculeGauche.text.push(fe);
+  }
+  compterenduTextValue.push(ventriculeGauche);
+  if (consultation.compterendu.indication.siv) {
+    // [parameters,unite,title,styling,margin]
+    compterendu.siv = getText(
+      consultation.compterendu.indication.siv,
+      "",
+      "- SIV:",
+      { alignment: "left", bold: true },
+      {
+        alignment: "left",
+        //[left, top, right, bottom]
+        margin: [13, 7, 0, 0],
+      }
+    );
+    compterenduTextValue.push(compterendu.siv);
+  }
+  if (consultation.compterendu.indication.cavitesDroites) {
+    // [parameters,unite,title,styling,margin]
+    compterendu.cavitesDroites = getText(
+      consultation.compterendu.indication.cavitesDroites,
+      "",
+      "- Cavites Droites:",
+      { alignment: "left", bold: true },
+      {
+        alignment: "left",
+        //[left, top, right, bottom]
+        margin: [13, 7, 0, 0],
+      }
+    );
+    compterenduTextValue.push(compterendu.cavitesDroites);
+  }
+  if (consultation.compterendu.indication.tricuspide) {
+    // [parameters,unite,title,styling,margin]
+    compterendu.tricuspide = getText(
+      consultation.compterendu.indication.tricuspide,
+      "",
+      "- Tricuspide:",
+      { alignment: "left", bold: true },
+      {
+        alignment: "left",
+        //[left, top, right, bottom]
+        margin: [13, 7, 0, 0],
+      }
+    );
+    compterenduTextValue.push(compterendu.tricuspide);
+  }
+  if (consultation.compterendu.indication.arterePulmonaire) {
+    // [parameters,unite,title,styling,margin]
+    compterendu.arterePulmonaire = getText(
+      consultation.compterendu.indication.arterePulmonaire,
+      "",
+      "- Artere Pulmonaire:",
+      { alignment: "left", bold: true },
+      {
+        alignment: "left",
+        //[left, top, right, bottom]
+        margin: [13, 7, 0, 0],
+      }
+    );
+    compterenduTextValue.push(compterendu.arterePulmonaire);
+  }
+  if (consultation.compterendu.indication.pericarde) {
+    // [parameters,unite,title,styling,margin]
+    compterendu.pericarde = getText(
+      consultation.compterendu.indication.pericarde,
+      "",
+      "- Pericarde:",
+      { alignment: "left", bold: true },
+      {
+        alignment: "left",
+        //[left, top, right, bottom]
+        margin: [13, 7, 0, 0],
+      }
+    );
+    compterenduTextValue.push(compterendu.pericarde);
+  }
+  compterenduTextValue.push({
+    text: `Conclusion:`,
+    fontSize: 16,
+    bold: true,
+    decoration: "underline",
+    //[left, top, right, bottom]
+    margin: [10, 5, 0, 0],
+  });
+
+  if (consultation.compterendu.conclusion) {
+    // [parameters,unite,title,styling,margin]
+    compterendu.conclusion = getText(
+      consultation.compterendu.conclusion,
+      "",
+      "-",
+      {},
+      {
+        alignment: "left",
+        //[left, top, right, bottom]
+        margin: [13, 7, 0, 0],
+      }
+    );
+
+    compterenduTextValue.push(compterendu.conclusion);
+  }
+  compterenduTextValue.push({
+    text: `Conduite Medicale:`,
+    fontSize: 16,
+    bold: true,
+    decoration: "underline",
+    //[left, top, right, bottom]
+    margin: [10, 5, 0, 0],
+  });
+  // if (
+  //   consultation.compterendu.conduiteMedicale &&
+  //   consultation.compterendu.filter
+  // ) {
+  if (consultation.compterendu.filter) {
+    if (consultation.compterendu.filter == "Surveillance médical") {
+      // [parameters,unite,title,styling,margin]
+      compterendu.surveillanceperiod = getText(
+        consultation.compterendu.filter +
+          ", " +
+          consultation.compterendu.surveillanceperiod +
+          " " +
+          consultation.compterendu.period,
+        "",
+        "-",
+        {},
+        {
+          alignment: "left",
+          //[left, top, right, bottom]
+          margin: [13, 7, 0, 0],
+        }
+      );
+      compterenduTextValue.push(compterendu.surveillanceperiod);
+      compterendu.conduiteMedicale = getText(
+        consultation.compterendu.conduiteMedicale,
+        "",
+        "-",
+        {},
+        {
+          alignment: "left",
+          //[left, top, right, bottom]
+          margin: [13, 7, 0, 0],
+        }
+      );
+      compterenduTextValue.push(compterendu.conduiteMedicale);
+    } else {
+      compterendu.surveillanceperiod = getText(
+        consultation.compterendu.filter,
+        "",
+        "-",
+        {},
+        {
+          alignment: "left",
+          //[left, top, right, bottom]
+          margin: [13, 7, 0, 0],
+        }
+      );
+      compterenduTextValue.push(compterendu.surveillanceperiod);
+      // [parameters,unite,title,styling,margin]
+      compterendu.conduiteMedicale = getText(
+        consultation.compterendu.conduiteMedicale,
+        "",
+        "-",
+        {},
+        {
+          alignment: "left",
+          //[left, top, right, bottom]
+          margin: [13, 7, 0, 0],
+        }
+      );
+    }
+    compterenduTextValue.push(compterendu.conduiteMedicale);
+  }
+  compterenduTextValue.push({
+    text: "Confraterellement",
+    alignment: "right",
+    fontSize: 14,
+    //[left, top, right, bottom]
+    margin: [50, 5, 50, 0],
+    decoration: "underline",
+  });
+  let content = [
+    {
+      stack: [
+        {
+          fontSize: 20,
+          alignment: "center",
+          // [left, top, right, bottom]
+          margin: [0, 80, 0, 20],
+          bold: true,
+          text: "ECHOCARDIOGRAPHIE-DOPPLER TRANS-THORACIQUE",
+          decoration: "underline",
+        },
+        {
+          columns: [...columns],
+        },
+        {
+          text: "________________________________________________________________________________________________________",
+          alignment: "center",
+        },
+        {
+          fontSize: 12,
+          alignment: "right",
+          // [left, top, right, bottom]
+          margin: [0, 5, 10, 5],
+          bold: true,
+          text: "le:  " + moment(consultation.date).format("DD/MM/YYYY"),
+          decoration: "",
+        },
+        ...compterenduTextValue,
+      ],
+      pageBreak: "after",
+    },
+  ];
+  pdfPages.push(...content);
+  // });
 }
