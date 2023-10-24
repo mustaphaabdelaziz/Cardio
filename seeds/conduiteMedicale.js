@@ -7,7 +7,7 @@ module.exports = {
     "KT Urgent",
     "Chirurgie urgente",
     "Chirurgie normale",
-    "Complement D'exploration",
+    "Complement Dexploration",
     "Autre"
   ],
 };

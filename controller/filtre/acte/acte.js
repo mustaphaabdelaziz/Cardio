@@ -5,11 +5,15 @@ const Patient = require("../../../model/patient/patient");
 module.exports.showacteliste = async (req, res) => {
   const { id } = req.params;
   const patients = await Patient.find({
-    activated: true,
-    "consultation.acte": { $regex: new RegExp("^" + id + "$", "i") },
+    $and: [
+      { activated: true },
+      { "consultation.acte": { $regex: new RegExp("^" + id + "$", "i") } },
+
+      { "consultation.compterendu.isEmpty": false },
+    ],
   }).sort({
     lastname: 1,
-  })
+  });
   // res.send(patients)
   let idColumns;
   if (id != "kt")

@@ -81,11 +81,12 @@
           <th scope="col">Confirmé</th>
         </tr>
       </thead>
+      <!-- && consultation.compterendu.isEmpty==false -->
       <tbody id="tablebody">
         <% var i=1 %> 
         <% for (patient of patients){%> 
         <% for (consultation of patient.sortedConsultation){%>
-          <% if(consultation.acte == acte){%>
+          <% if(consultation.acte == acte && consultation.compterendu.isEmpty==false){%>
         <tr>
           <th
             class="clickable"

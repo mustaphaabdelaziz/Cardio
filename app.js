@@ -79,18 +79,14 @@ passport.use(
   new LocalStrategy((username, password, done) => {
     User.findOne({ email: username.toLowerCase() }).then((user, err) => {
       if (err) {
-       
         return done(err);
       }
       if (!user) {
-      
         return done(null, false);
       } else {
         if (user.approved) {
-          
           return done(null, user);
         } else {
-          
           return done(null, false, "Votre compte n'est pas encore approuvé");
         }
       }
@@ -170,7 +166,9 @@ app.get("/reports", async (req, res) => {
   //   },
   //   { strict: false }
   // );
-  await Report.deleteMany({$or:[{type:" "},{type:""},{type:"  "}]})
+  // await Report.deleteMany({
+  //   $or: [{ type: " " }, { type: "" }, { type: "  " }],
+  // });
   // await Medicament.deleteMany({
   //   $or: [{ dci: " " }, { dci: null }, { dci: "  " }],
   // });
@@ -204,7 +202,11 @@ app.get("/reports", async (req, res) => {
   //     multi: true,
   //   }
   // );
-  res.send("Mabrouk");
+  let p = await Patient.find({
+    "consultation.compterendu.isEmpty": true,
+    activated: true,
+  });
+  res.send(p);
 });
 // app.all("*", (req, res, next) => {
 //   next(new ExpressError("page not found", 404));

@@ -40,17 +40,20 @@ var styles = {
   },
 };
 function printAllReports(acte, conduite) {
+  pdfPages = [];
   // get the date(period) of the report
   // seach through patients and get the consutation that matchs the criteria date
   //
-  // console.log(getBase64ImageFromURL("/assets/ENTETE.PNG").then());
+  let conduiteMedical;
+  if (conduite == "Complement Dexploration") {
+    conduiteMedical = "Complement D'exploration";
+  } else {
+    conduiteMedical = conduite;
+  }
+
   let start = document.getElementById("start").value || moment("01/01/2022");
   let end = document.getElementById("end").value || moment();
-  console.log(
-    "getElementById(start).value: " + document.getElementById("start").value
-  );
-  console.log(moment(start).format("DD/MM/YYYY"));
-  console.log(moment(end).format("DD/MM/YYYY"));
+
   let list = [];
   let i = 1;
 
@@ -61,16 +64,14 @@ function printAllReports(acte, conduite) {
         document.getElementById("start").value &&
         document.getElementById("end").value
       ) {
-        console.log("value provided");
         if (selected.value == "all") {
           // if the user doesn't
           // the start and end dates are not available
-          // console.log("start and end are not available");
-          // saveCompteRendu(patient.sortedConsultation[j], patient);
           if (moment(start).isSame(end)) {
             if (moment(patient.sortedConsultation[j].date).isSame(start))
               if (
-                patient.sortedConsultation[j].compterendu.filter == conduite &&
+                patient.sortedConsultation[j].compterendu.filter ==
+                  conduiteMedical &&
                 patient.sortedConsultation[j].acte === acte
               )
                 saveCompteRendu(patient.sortedConsultation[j], patient);
@@ -82,7 +83,8 @@ function printAllReports(acte, conduite) {
                 "days",
                 "[]"
               ) &&
-              patient.sortedConsultation[j].compterendu.filter == conduite
+              patient.sortedConsultation[j].compterendu.filter ==
+                conduiteMedical
             )
               saveCompteRendu(patient.sortedConsultation[j], patient);
           }
@@ -95,7 +97,8 @@ function printAllReports(acte, conduite) {
                   patient.sortedConsultation[j].date,
                   "DD/MM/YYYY"
                 ).isBetween(start, end, "day", "[]") &&
-                patient.sortedConsultation[j].compterendu.filter == conduite
+                patient.sortedConsultation[j].compterendu.filter ==
+                  conduiteMedical
               )
                 saveCompteRendu(patient.sortedConsultation[j], patient);
               break;
@@ -107,7 +110,8 @@ function printAllReports(acte, conduite) {
                   patient.sortedConsultation[j].date,
                   "DD/MM/YYYY"
                 ).isBetween(start, end, "day", "[]") &&
-                patient.sortedConsultation[j].compterendu.filter == conduite &&
+                patient.sortedConsultation[j].compterendu.filter ==
+                  conduiteMedical &&
                 patient.sortedConsultation[j].compterendu.isEmpty
               )
                 saveCompteRendu(patient.sortedConsultation[j], patient);
@@ -116,13 +120,11 @@ function printAllReports(acte, conduite) {
         }
       } else {
         // start and end are available
-        if (patient.sortedConsultation[j].compterendu.filter == conduite)
+        if (patient.sortedConsultation[j].compterendu.filter == conduiteMedical)
           saveCompteRendu(patient.sortedConsultation[j], patient);
-        console.log("value not provided");
       }
     }
   }
-  // console.log(definition);
   this.getBase64ImageFromURL("/assets/ENTETE.PNG")
     .then((url) => {
       let definition = {
