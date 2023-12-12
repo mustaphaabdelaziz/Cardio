@@ -21,8 +21,8 @@ const LocalStrategy = require("passport-local");
 const MongoDBStore = require("connect-mongo");
 const mongoSanitize = require("express-mongo-sanitize");
 const cookieParser = require("cookie-parser");
-// Connect/Express middleware that can be used to enable CORS
-const cors = require("cors");
+
+
 const DBConnection = require("./database/connection");
 const { sessionConfig } = require("./config/sessionConfig");
 // the local file contain all the local variable
@@ -54,13 +54,16 @@ const Medicament = require("./model/medicament/medicament");
 const compression = require("compression");
 const { isLoggedIn } = require("./middleware/middleware");
 const _ = require("lodash");
+const helmet = require("helmet")
 const Patient = require("./model/patient/patient");
 
 // ==================== App Configuration =================
 app.set("trust proxy", true);
+app.disable('x-powered-by')
 app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "view"));
+app.use(helmet)
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(methodOverride("_method"));
@@ -107,7 +110,7 @@ passport.deserializeUser((user, done) => {
   done(null, user);
 });
 app.use(locals);
-app.use(cors());
+
 app.use(compression());
 // =========================================================
 
