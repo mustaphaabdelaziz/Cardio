@@ -47,7 +47,7 @@
     "pdfkit-table": "^0.1.99",
     "pdfmake": "^0.2.8",
     "phantom": "^6.3.0",
-    "sanitize-html": "^2.11.0",
+    "sanitize-html": "^2.12.1",
     "underscore": "^1.13.6",
     "uuid": "^9.0.1",
     "uuidv4": "^6.2.13"
