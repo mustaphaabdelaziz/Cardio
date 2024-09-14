@@ -14,7 +14,8 @@ module.exports.isLoggedIn = async (req, res, next) => {
   } else {
     req.session.medecinList = await Staff.find({ fonction: "Medecin" });
     req.session.conduiteMedicale = conduiteMedicale.conduitemedicale;
-    req.session.newUsers = await User.find({ approved: false }).count();
+    let users = await User.find({ approved: false });
+    req.session.newUsers = users.length
   }
   // else if(!req.user.approved){
   //   req.flash("error", "Contact the admin to activate your account");

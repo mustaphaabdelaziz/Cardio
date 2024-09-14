@@ -1,0 +1,171 @@
+<!-- Button trigger modal -->
+<button
+  type="button"
+  class="btn btn-outline-greenSea bg-gradient px-5 py-1 mb-2 ms-2"
+  data-bs-toggle="modal"
+  data-bs-target="#update-password"
+>
+  <span class="text-black px-5">إضافة مستثمر جديد <i class="bi bi-person-fill-add"></i></span>
+</button>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="update-password"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">إضافة مستثمر جديد</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form
+          class="row g-3 needs-validation"
+          action="/user/register"
+          id="personal"
+          method="POST"
+          novalidate
+        >
+          <div class="form-floating col-12">
+            <select
+              id="role"
+              name="user[role]"
+              class="form-select border border-success"
+              required
+            >
+              <option disabled value="">الدور</option>
+              <% if (currentUser.role.includes("سوبر أدمين")){ %>
+              <option class="option" value="أدمين" selected>أدمين</option>
+              <option class="option" value="مستثمر">مستثمر</option>
+              <%}%>
+              <option class="option" value="مستثمر" selected>مستثمر</option>
+            </select>
+            <label for="role" class="form-label">الدور</label>
+            <div class="valid-feedback">صحيح</div>
+          </div>
+          <div class="form-floating col-sm-12 col-md-6 col-lg-6 mb-2">
+            <input
+              type="text"
+              name="user[firstname]"
+              class="form-control border border-success"
+              id="firstname"
+              placeholder="الإسم"
+              maxlength="100"
+            />
+            <label for="firstname" class="form-label">الإسم</label>
+            <div class="valid-feedback">صحيح</div>
+          </div>
+          <div class="form-floating col-sm-12 col-md-6 col-lg-6 mb-2">
+            <input
+              type="text"
+              name="user[lastname]"
+              class="form-control border border-success"
+              id="lastname"
+              placeholder="اللقب"
+              maxlength="100"
+            />
+            <label for="lastname" class="form-label">اللقب</label>
+            <div class="valid-feedback">صحيح</div>
+          </div>
+
+          <div class="form-floating col-sm-12 col-md-6 col-lg-6 mb-2">
+            <input
+              type="text"
+              name="user[phone]"
+              class="form-control border border-success"
+              id="phone"
+              placeholder="الهاتف"
+              maxlength="10"
+            />
+            <label for="phone" class="form-label">الهاتف</label>
+            <div class="valid-feedback">صحيح</div>
+          </div>
+          <div class="form-floating col-sm-12 col-md-6 col-lg-6 mb-2">
+            <input
+              type="text"
+              name="user[address]"
+              class="form-control border border-success"
+              id="address"
+              placeholder="العنوان"
+              maxlength="200"
+            />
+            <label for="address" class="form-label">العنوان</label>
+            <div class="valid-feedback">صحيح</div>
+          </div>
+
+          <div class="form-floating col-sm-12 col-md-6 col-lg-6 mb-2">
+            <input id="BirthDate" name="user[birthdate]" type="date"
+            class="form-control border border-success" max="<%=
+            moment().format("YYYY-MM-DD") %>" min="<%=
+            moment('01/01/1900').format('YYYY-MM-DD')%>" />
+            <label for="BirthDate" class="form-label">تاريخ الميلاد </label>
+            <div class="valid-feedback">صحيح</div>
+          </div>
+
+          <div class="form-floating col-sm-12 col-md-6 col-lg-6">
+            <select
+              id="gender"
+              name="user[gender]"
+              class="form-select border border-success"
+              required
+            >
+              <option selected disabled value="">الجنس</option>
+              <option class="option" value="ذكر">ذكر</option>
+              <option class="option" value="أنثى">أنثى</option>
+            </select>
+            <label for="gender" class="form-label">الجنس</label>
+            <div class="valid-feedback">صحيح</div>
+          </div>
+
+          <div class="form-floating col-sm-12 col-md-6 col-lg-6 mb-2">
+            <input
+              type="email"
+              name="user[email]"
+              class="form-control border border-success"
+              id="email"
+              style="direction: rtl"
+              placeholder="البريد الإلكتروني"
+              maxlength="100"
+            />
+            <label for="email" class="form-label"> البريد الإلكتروني</label>
+            <div class="valid-feedback">صحيح</div>
+          </div>
+          <div class="form-floating col-sm-12 col-md-6 col-lg-6 mb-2">
+            <input
+              name="user[password]"
+              type="text"
+              class="form-control border border-success"
+              id="exampleInputPassword1"
+              placeholder="كلمة المرور"
+              maxlength="100"
+            />
+            <label for="password" class="form-label">كلمةالمرور</label>
+            <div class="valid-feedback">صحيح</div>
+          </div>
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-outline-danger px-5 py-1"
+              data-bs-dismiss="modal"
+            >
+              إلغاء
+            </button>
+            <button class="btn btn-outline-greenSea px-5 py-1" type="submit">إضافة</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

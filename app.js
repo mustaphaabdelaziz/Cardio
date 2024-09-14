@@ -22,7 +22,6 @@ const MongoDBStore = require("connect-mongo");
 const mongoSanitize = require("express-mongo-sanitize");
 const cookieParser = require("cookie-parser");
 
-
 const DBConnection = require("./database/connection");
 const { sessionConfig } = require("./config/sessionConfig");
 // the local file contain all the local variable
@@ -54,16 +53,16 @@ const Medicament = require("./model/medicament/medicament");
 const compression = require("compression");
 const { isLoggedIn } = require("./middleware/middleware");
 const _ = require("lodash");
-const helmet = require("helmet")
+
 const Patient = require("./model/patient/patient");
 
 // ==================== App Configuration =================
 app.set("trust proxy", true);
-app.disable('x-powered-by')
+app.disable("x-powered-by");
 app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "view"));
-app.use(helmet)
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(methodOverride("_method"));
@@ -79,18 +78,26 @@ app.use(passport.session());
 // passport.use("user", new LocalStrategy(User.authenticate()));
 passport.use(
   "user",
-  new LocalStrategy((username, password, done) => {
-    User.findOne({ email: username.toLowerCase() }).then((user, err) => {
+  new LocalStrategy((email, password, done) => {
+    User.findOne({ email: email.toLowerCase() }).select("+salt +hash").then((user, err) => {
       if (err) {
         return done(err);
       }
       if (!user) {
-        return done(null, false);
+        return done(null, false, "Verifer email ou le mot de passe");
       } else {
-        if (user.approved) {
-          return done(null, user);
+        if (user.verifyPassword(password, user.hash)) {
+          if (user.approved) {
+            return done(null, user);
+          } else {
+            return done(null, false, "Votre compte n'est pas encore approuvé");
+          }
         } else {
-          return done(null, false, "Votre compte n'est pas encore approuvé");
+          return done(
+            null,
+            false,
+            "Mot de passe incorrect, verifier votre mot de passe"
+          );
         }
       }
     });
