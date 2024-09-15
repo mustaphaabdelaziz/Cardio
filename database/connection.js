@@ -24,11 +24,16 @@ db.once("open", async () => {
       firstname: process.env.ADMIN_FIRSTNAME,
       lastname: process.env.ADMIN_LASTNAME,
       email: process.env.ADMIN_EMAIL,
+      fonction: process.env.ADMIN_FONCTION,
+      phone:process.env.ADMIN_PHONE,
       hash: process.env.ADMIN_PASSWORD,
       approved: true,
     });
     //  user.replaceOne.push("أدمين");
-    user.privileges.push("admin", "superadmin");
+    user.privileges.push(
+      "superadmin",
+      "admin",
+    );
     await user.save().then((usr, err) => {
       if (err) {
         console.log(err);

@@ -24,35 +24,45 @@
           <tr>
             <th scope="col">N°</th>
             <th scope="col">Nom utilisateur</th>
-          
+
             <th scope="col">Email</th>
             <th scope="col">Role</th>
             <th scope="col">Logged in at</th>
             <th scope="col">Status</th>
+            <% if (currentUser.privileges.includes("superadmin")){ %>
             <th id="item1" scope="col">Action</th>
+            <% }%>
           </tr>
         </thead>
         <tbody id="tablebody">
-          <% var i=1 %>
-          <% for (user of users){%>
+          <% var i=1 %> <% for (user of users){%>
           <tr>
             <th scope="row"><%= i%><% i=i+1; %></th>
             <td><%= user.fullname %></td>
             <td><%=user.email %></td>
             <td><%=user.privileges[0] %></td>
-            
+
             <td><%=moment(user.loggedIn).format("DD/MM/YYYY-HH:mm:ss") %></td>
-            
+
             <% if (user.approved){%>
-              <th class="p-3"><span class="rounded-pill badge bg-greenSea bg-gradient">OUI</span></th>
-              <%}else{%>
-              <th class="p-3"><span class="rounded-pill badge bg-lightCoral bg-gradient">NON</span></th>
-              <%}%>
+            <th class="p-3">
+              <span class="rounded-pill badge bg-greenSea bg-gradient"
+                >OUI</span
+              >
+            </th>
+            <%}else{%>
+            <th class="p-3">
+              <span class="rounded-pill badge bg-lightCoral bg-gradient"
+                >NON</span
+              >
+            </th>
+            <%}%> <% if (currentUser.privileges.includes("superadmin")){ %>
             <th>
               <div class="d-flex justify-content-center align-items-center">
                 <%- include("./edit")%> <%- include("./delete")%>
               </div>
             </th>
+            <% }%>
           </tr>
           <% }%>
         </tbody>

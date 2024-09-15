@@ -1,5 +1,6 @@
 module.exports = {
   privileges: [
+    { role: "superadmin", label: "Super admin" },
     { role: "admin", label: "Admin" },
     { role: "medecin", label: "Medecin" },
     { role: "technicien", label: "Technicien Cathlab" },

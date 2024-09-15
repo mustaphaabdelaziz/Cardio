@@ -79,7 +79,7 @@ const User = new Schema(
 // this virtual property is not stored in the mongo DB
 User.plugin(passportLocalMongoose);
 User.virtual("fullname").get(function () {
-  return this.firstname + " " + this.lastname;
+  return this.lastname + " " + this.firstname;
 });
 User.pre("save", async function (next) {
   const salt = await bcrypt.genSalt();
