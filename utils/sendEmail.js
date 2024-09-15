@@ -10,10 +10,10 @@ const transporter = nodemailer.createTransport({
     user: process.env.SENDER_EMAIL,
     pass: process.env.APP_PASSWORD,
   },
-  tls: {
-    ciphers: "SSLv3",
-    secureProtocol: "TLSv1_method", // Add this line
-  },
+  // tls: {
+  //   ciphers: "SSLv3",
+  //   secureProtocol: "TLSv1_method", // Add this line
+  // },
 });
 module.exports.sendMail = (email, token) => {
   // send mail with defined transport object

@@ -57,6 +57,21 @@ const User = new Schema(
       type: Date,
       default: Date.now,
     },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    },
+    resetToken: {
+      token: String,
+      createdAt: {
+        type: Date,
+        default: Date.now(),
+      },
+      expires: {
+        type: Date,
+        default: Date.now(),
+      },
+    },
   },
   opts
 );

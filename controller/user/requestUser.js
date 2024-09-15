@@ -11,12 +11,14 @@ module.exports.usersRequest = async (req, res) => {
 // ===============================================
 module.exports.approveUser = async (req, res) => {
   const { id } = req.params;
-  const { privileges } = req.body;
+  const { privileges } = req.body.user;
+ 
   await User.findByIdAndUpdate(
     id,
     { approved: true, privileges },
     { new: true }
   );
+  req.flash("success", "User modifié avec succes");
   res.redirect("/user");
 };
 module.exports.register = async (req, res) => {

@@ -94,8 +94,6 @@ module.exports.createSon = async (req, res) => {
     city,
     relation,
   } = req.body.patient;
-  console.log("relation: " + relation);
-  console.log("test: " + relation != "Fils" || relation != "Foetus");
 
   let isParent = {
     relation: "Fils",

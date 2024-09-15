@@ -132,11 +132,7 @@ module.exports.updateCompteRendu = async (req, res) => {
     period,
     conduiteMedicale,
   } = req.body.compteRendu;
-  console.log("=============== comte=========")
-  console.log("1"+filter)
-  console.log("2"+surveillanceperiod)
-  console.log("3"+period)
-  console.log("4"+conduiteMedicale)
+ 
   let { motif, dtd, ventGsiv, fe } = req.body.ventriculeGauche;
   const patient = await Patient.findOneAndUpdate(
     { _id:id, "consultation._id": idacte },

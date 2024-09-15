@@ -48,7 +48,7 @@ function filter(elementID, age, ageColumn, dateColumn) {
             ) &&
             selected != "all"
           ) {
-            console.log("Equals");
+           
             switch (selected) {
               case "above":
                 if (ageValue > age) {
@@ -93,7 +93,6 @@ function filterAge(age) {
   initElements();
   nbr = 0;
   var selected = document.getElementById("age").value || "all";
-  console.log("FIFA");
   // Loop through all table rows, and hide those who don't match the search query
   for (i = 0; i < tr.length; i++) {
     td = tr[i].getElementsByTagName("td")[2];
