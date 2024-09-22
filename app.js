@@ -54,7 +54,7 @@ const Medicament = require("./model/medicament/medicament");
 const compression = require("compression");
 const { isLoggedIn } = require("./middleware/middleware");
 const _ = require("lodash");
-const helmet = require("helmet")
+// const helmet = require("helmet")
 const Patient = require("./model/patient/patient");
 
 // ==================== App Configuration =================
@@ -63,7 +63,7 @@ app.disable('x-powered-by')
 app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "view"));
-app.use(helmet)
+// app.use(helmet)
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(methodOverride("_method"));
@@ -153,7 +153,7 @@ app.use("/patient/:id/acte", consultationRoutes);
 app.use("/patient/:id/son", filsRoutes);
 // ========================================================
 app.get("/", isLoggedIn, (req, res) => {
-  res.render("home");
+  res.render("home");``
 });
 app.get("/reports", async (req, res) => {
   // await User.updateMany(
