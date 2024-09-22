@@ -4,6 +4,9 @@ const moment = require("moment");
 const fonctions = require("../../seeds/fonction");
 const privileges = require("../../seeds/privileges");
 const passport = require("passport");
+const { sendMail } = require("../../utils/sendEmail");
+const crypto = require("crypto");
+const bcrypt = require("bcrypt");
 // ===========================================================================
 module.exports.userList = async (req, res) => {
   const users = await User.find({});
@@ -38,33 +41,35 @@ module.exports.register = async (req, res) => {
     if (email1 === "") {
       email1 = "/";
     }
-
-    const user = new User({
-      firstname:
-        firstname.charAt(0).toUpperCase() + firstname.slice(1).toLowerCase(),
-      lastname:
-        lastname.charAt(0).toUpperCase() + lastname.slice(1).toLowerCase(),
-      fonction,
-      phone: phone1,
-      email: email1.toLowerCase(),
-      externe,
-      privileges: ["user"],
-    });
-    console.log("9999");
-    console.log(password);
-    User.register(user, password, function (err, user) {
-      if (err) {
-        console.error(err);
-        res.redirect("register");
-      } else {
-        console.log("55555");
-        req.flash("success", "Contact the admin to ativate your account");
-        res.redirect("/user/login");
-      }
-    });
-    // req.flash("success", "Contact the admin to ativate your account");
-    // res.redirect("/user/login");
-    // res.send(req.body.user);
+    const userExist = await User.findOne({ email: email });
+    if (userExist) {
+      req.flash("error", "user already exist");
+      res.redirect("register");
+    } else {
+      const user = new User({
+        firstname:
+          firstname.charAt(0).toUpperCase() + firstname.slice(1).toLowerCase(),
+        lastname:
+          lastname.charAt(0).toUpperCase() + lastname.slice(1).toLowerCase(),
+        fonction,
+        phone: phone1,
+        email: email1.toLowerCase(),
+        hash: password,
+        externe,
+        privileges: ["user"],
+      });
+      
+      await user.save().then((usr, err) => {
+        if (err) {
+    
+          req.flash("error", err);
+          res.redirect("register");
+        } else {
+          req.flash("success", "Contacter l'admin pour activer votre compte");
+          res.redirect("/user");
+        }
+      });
+    }
   } catch (e) {
     req.flash("error", e.message);
     res.redirect("register");
@@ -74,7 +79,7 @@ module.exports.register = async (req, res) => {
 module.exports.login = async (req, res) => {
   req.flash("success", `Welcome Back ${req.user.firstname}`);
   // update the recently logged in user
-  await User.findByIdAndUpdate({ _id: req.user.id }, { loggedIn: moment() });
+  await User.findByIdAndUpdate(req.user.id, { loggedIn: moment() });
   const redirectUrl = req.session.returnTo || "/patient";
   delete req.session.returnTo;
   res.redirect(redirectUrl);
@@ -159,6 +164,69 @@ module.exports.updateUser = async (req, res) => {
 
   // res.send(req.body.user.privileges);
 };
+module.exports.showResetPasswordForm = async (req, res) => {
+  const { token } = req.params;
+  // Verify the token, update the user's password, and redirect
+  await User.findOne({ "resetToken.token": token }).then(async (user) => {
+    if (!user) {
+      req.flash("error", "الرابط غير صالح");
+      res.redirect("/user/login");
+    } else {
+      // check if the token has expired
+      if (moment().isBefore(user.resetToken.expires)) {
+        res.render("user/resetPassword", { email: user.email, token });
+      } else {
+        req.flash("error", "الرابط غير صالح");
+        res.redirect("/user/login");
+      }
+    }
+  });
+};
+module.exports.passwordReset = async (req, res) => {
+  const { email, password } = req.body;
+  const salt = await bcrypt.genSalt();
+  const hash = await bcrypt.hash(password, salt);
+  try {
+    await User.findOneAndUpdate(
+      { email: email },
+      {
+        $set: {
+          hash: hash,
+          salt: salt,
+          resetToken: {},
+        },
+      }
+    );
+    req.flash("success", "تم تغيير كلمة المرور بنجاح");
+    res.redirect("/user/login");
+  } catch (err) {
+    req.flash("error", err.message);
+    res.redirect("back");
+  }
+};
+module.exports.changePassword = async (req, res) => {
+  const { newPassword, oldPassword } = req.body;
+  const salt = await bcrypt.genSalt();
+  const hash = await bcrypt.hash(newPassword, salt);
+  const user = await User.findById({ _id: req.user.id }).select("+salt +hash");
+  try {
+    if (user.verifyPassword(oldPassword, user.hash)) {
+      await User.findByIdAndUpdate(
+        { _id: req.user.id },
+        { hash: hash, salt: salt }
+      );
+      req.flash("success", "Le mot de passe a été changé avec succès");
+      res.redirect("/user/" + req.user.id + "/profile");
+    }
+  } catch (e) {
+    console.error(e);
+    req.flash("error", "Le mot de passe n'est pas correct");
+    res.redirect("/user/" + req.user.id + "/profile");
+  }
+};
+function generateResetToken() {
+  return crypto.randomBytes(20).toString("hex");
+}
 module.exports.deleteUser = async (req, res) => {
   const { userid } = req.params;
   await User.findByIdAndDelete(userid);
@@ -167,6 +235,39 @@ module.exports.deleteUser = async (req, res) => {
 };
 module.exports.showProfile = async (req, res) => {
   // res.send("good")
-  const user = await User.findById(req.params.id);
+  const user = await User.findById(req.params.userid);
   res.render("user/profile", { user, moment, fonctions: fonctions.fonction });
+};
+module.exports.showEmailSendingForm = async (req, res) => {
+  res.render("user/sendEmailReset");
+};
+module.exports.sendEmail = async (req, res) => {
+  const { email } = req.body;
+  // generate a reset token for the user, save it to the database
+  try {
+    const createdAt = moment();
+    const expires = createdAt.add(1, "days");
+    const user = await User.findOneAndUpdate(
+      { email: email },
+      {
+        resetToken: {
+          token: generateResetToken(),
+          createdAt: createdAt,
+          expires: expires,
+        },
+      },
+      { new: true }
+    );
+    if (!user) {
+      req.flash("error", "ليس هنالك حساب بهذا الإيمل");
+      res.redirect("back");
+    } else {
+      sendMail(email, user.resetToken.token);
+      req.flash("success", "تم ارسال  رابط تغيير كلمة المرور عبر الإيمل");
+      res.redirect("/user/login");
+    }
+  } catch (error) {
+    req.flash("error", error.message);
+    res.redirect("back");
+  }
 };

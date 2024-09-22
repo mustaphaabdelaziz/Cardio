@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-  <head>
+  <%- include("../layouts/head")%>
+  <!-- <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -43,7 +44,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
-    <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="https://unpkg.com/scrollreveal"></script> -->
   </head>
 
   <body class="d-flex flex-column">
@@ -147,6 +148,7 @@
                     </button>
                   </div>
                 </form>
+                <a href="/user/reset-password">Mot de passe oublié ?</a>
               </div>
               <!-- ============================= Register =============================================== -->
               <div
@@ -297,24 +299,6 @@
         </div>
       </div>
     </main>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment-with-locales.min.js"
-      integrity="sha512-vFABRuf5oGUaztndx4KoAEUVQnOvAIFs59y4tO0DILGWhQiFnFHiR+ZJfxLDyJlXgeut9Z07Svuvm+1Jv89w5g=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
-    <script src="https://cdn.jsdelivr.net/npm/underscore@1.13.4/underscore-umd-min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <script async src="/js/validate-form.js"></script>
-    <script src="/js/sorttable.js"></script>
-    <script src="/js/filter.js"></script>
-    <script src="/js/print.js"></script>
-    <script src="/js/toggleInput.js"></script>
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script>
-      AOS.init();
-      ScrollReveal().reveal(".headline");
-    </script>
+    <%- include("../layouts/imports")%>
   </body>
 </html>

@@ -11,12 +11,18 @@ module.exports.usersRequest = async (req, res) => {
 // ===============================================
 module.exports.approveUser = async (req, res) => {
   const { id } = req.params;
-  const { privileges } = req.body;
-  await User.findByIdAndUpdate(
-    id,
-    { approved: true, privileges },
-    { new: true }
-  );
+  const { user } = req.body;
+
+  let updatedUser = { ...user };
+  if (user.approved == "on") {
+    updatedUser.approved = true;
+    console.log(updatedUser.privileges)
+  } else {
+    updatedUser.approved = false;
+    updatedUser.privileges = ["user"];
+  }
+  await User.findByIdAndUpdate(id, { ...updatedUser }, { new: true });
+  req.flash("success", "User modifié avec succes");
   res.redirect("/user");
 };
 module.exports.register = async (req, res) => {
@@ -47,7 +53,6 @@ module.exports.login = (req, res) => {
   const redirectUrl = req.session.returnTo || "/patient";
   delete req.session.returnTo;
 
- 
   res.redirect(redirectUrl);
 };
 // ======================= Logout ==============

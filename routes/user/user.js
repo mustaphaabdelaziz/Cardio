@@ -14,7 +14,12 @@ const {
   logout,
   updateUser,
   deleteUser,
-  showProfile
+  showProfile,
+  showResetPasswordForm,
+  passwordReset,
+  changePassword,
+  showEmailSendingForm,
+  sendEmail,
 } = require("../../controller/user/user");
 router.route("/").get(isLoggedIn, isAdmin, catchAsync(userList));
 router.route("/register").post(catchAsync(register));
@@ -31,9 +36,19 @@ router
   );
 router.route("/logout").get(isLoggedIn, logout);
 router
+  .route("/reset-password/")
+  .get(catchAsync(showEmailSendingForm))
+  .post(catchAsync(sendEmail));
+router
   .route("/:userid")
   .get(isLoggedIn, catchAsync(showUserForm))
   .put(isLoggedIn, isAdmin, catchAsync(updateUser))
   .delete(isLoggedIn, isAdmin, catchAsync(deleteUser));
-router.route("/:id/profile").get(catchAsync(showProfile));
+router.route("/:userid/reset-password/").put(catchAsync(changePassword));
+router
+  .route("/reset-password/:token")
+  .get(catchAsync(showResetPasswordForm))
+  .post(catchAsync(passwordReset));
+router.route("/:userid/profile").get(catchAsync(showProfile));
+
 module.exports = router;

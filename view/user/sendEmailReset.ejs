@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <%- include("../layouts/head")%>
+  <body class="d-flex flex-column">
+    <div
+      class="vh-100 d-flex justify-content-center align-items-center"
+      id="login-box"
+    >
+      <div class="p-5 shadow-sm border rounded-3">
+        <div class="d-flex justify-content-center align-items-center pb-5">
+          <div class="d-flex flex-column align-items-center my-5">
+            <a href="/">
+              <img src="/assets/logo.png" alt="" height="100px" />
+            </a>
+          </div>
+        </div>
+
+        <form
+          class="row g-3 needs-validation"
+          action="/user/reset-password"
+          id="personal"
+          method="POST"
+          novalidate
+        >
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input
+              type="email"
+              name="email"
+              class="form-control border border-success"
+              id="email"
+              required
+            />
+          </div>
+
+          <div class="d-grid">
+            <button class="btn btn-success px-3 py-2" type="submit">
+              إرسال
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <%- include("../layouts/imports")%>
+  </body>
+</html>
