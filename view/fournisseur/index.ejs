@@ -5,36 +5,25 @@
     <h3 class="mb-4 text-center text-greenSea">Liste des Foursnisseurs</h3>
     <div class="mb-3">
       <%- include("./new")%>
-      <a
-        class="btn btn-outline-secondary ms-2"
-        href="/fournisseur/generatepdf"
-        target="_blank"
-        >Imprimer <i class="bi bi-printer-fill py-3 px-2"></i>
+      <a class="btn btn-outline-secondary ms-2" href="/fournisseur/generatepdf" target="_blank">Imprimer <i
+          class="bi bi-printer-fill py-3 px-2"></i>
       </a>
     </div>
 
     <form class="d-flex">
-      <input
-        id="search"
-        class="form-control mb-2"
-        type="search"
-        placeholder="Search"
-        aria-label="Search"
-      />
+      <input id="search" class="form-control mb-2" type="search" placeholder="Search" aria-label="Search" />
     </form>
 
-    <table
-      class="table table-striped table-hover table-borderless text-center sortable"
-    >
+    <table class="table table-striped table-hover table-borderless text-center sortable">
       <thead class="table-greenSea">
         <tr>
           <th scope="col">N°</th>
-          <th scope="col">Nom</th>
+          <th scope="col">Raison sociale</th>
           <th scope="col">Wilaya</th>
-
           <th scope="col">Email</th>
-          <th scope="col">Téléphone 1</th>
-          <th scope="col">Téléphone 2</th>
+          <th scope="col">Fix</th>
+          <th scope="col">Mobile</th>
+          <th scope="col">Fax</th>
           <th id="item1" scope="col">Action</th>
         </tr>
       </thead>
@@ -47,8 +36,9 @@
           <td><%= fournisseur.wilaya %></td>
 
           <td><%=fournisseur.email%></td>
-          <td><%=fournisseur.phone1%></td>
-          <td><%=fournisseur.phone2%></td>
+          <td><%=fournisseur.phone%></td>
+          <td><%=[...fournisseur.mobile] %></td>
+          <td><%=fournisseur.fax %></td>
           <th>
             <div class="d-flex justify-content-center align-items-center">
               <%- include("./edit")%> <%- include("./delete")%>
@@ -60,3 +50,11 @@
     </table>
   </div>
 </div>
+
+<script>
+  let states = <%- JSON.stringify(states) %>  
+</script>
+<script>
+  
+
+</script>

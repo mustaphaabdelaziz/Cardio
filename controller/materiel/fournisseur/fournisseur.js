@@ -31,28 +31,39 @@ module.exports.showFournisseur = async (req, res) => {
 };
 
 module.exports.createFournisseur = async (req, res) => {
-  const { name, wilaya, phone1, phone2, email } = req.body.fournisseur;
-  let ph1 = phone1.trim();
-  let ph2 = phone2.trim();
-  let mail = email.trim();
-  if (ph1 === "") {
-    ph1 = "/";
+  const { fournisseur } = req.body;
+  let phone = fournisseur.phone.trim();
+  let fax = fournisseur.fax.trim();
+  let mail =fournisseur.email.trim();
+  if (phone === "") {
+    phone = "/";
   }
-  if (ph2 === "") {
-    ph2 = "/";
+  if (fax === "") {
+    fax = "/";
   }
   if (mail === "") {
     mail = "/";
   }
 
-  const fournisseur = new Fournisseur({
-    name: name.charAt(0).toUpperCase() + name.slice(1).toLowerCase(),
-    wilaya,
-    phone1: phone1,
-    phone2: phone2,
+  const newFournisseur = new Fournisseur({
+    name:
+      fournisseur.name.charAt(0).toUpperCase() +
+      fournisseur.name.slice(1).toLowerCase(),
+    wilaya: fournisseur.wilaya,
+    city:fournisseur.city,
+    postalCode:fournisseur.postalCode,
+    phone: phone,
+    fax: fax,
+    mobile:fournisseur.mobile,
     email: mail,
+    website: fournisseur.website,
+    description: fournisseur.description,
+    nrc: fournisseur.nrc,
+    nif: fournisseur.nif,
+    narticle: fournisseur.narticle,
+    nis: fournisseur.nis,
   });
-  await fournisseur.save();
+  await newFournisseur.save();
 
   req.flash("success", "Fournisseur ajouté avec succès");
   res.redirect("/fournisseur");
@@ -60,16 +71,16 @@ module.exports.createFournisseur = async (req, res) => {
 
 module.exports.updateFournisseur = async (req, res) => {
   const { id } = req.params;
-  const { name, wilaya, phone1, phone2, email } = req.body.fournisseur;
+  const { fournisseur } = req.body;
 
-  let ph1 = phone1.trim();
-  let ph2 = phone2.trim();
-  let mail = email.trim();
-  if (ph1 === "") {
-    ph1 = "/";
+  let phone = fournisseur.phone.trim();
+  let fax = fournisseur.fax.trim();
+  let mail = fournisseur.email.trim();
+  if (phone === "") {
+    phone = "/";
   }
-  if (ph2 === "") {
-    ph2 = "/";
+  if (fax === "") {
+    fax = "/";
   }
   if (mail === "") {
     mail = "/";
@@ -78,11 +89,22 @@ module.exports.updateFournisseur = async (req, res) => {
   await Fournisseur.findByIdAndUpdate(
     id,
     {
-      name: name.charAt(0).toUpperCase() + name.slice(1).toLowerCase(),
-      wilaya,
-      phone1: phone1,
-      phone2: phone2,
-      email: mail,
+      name:
+      fournisseur.name.charAt(0).toUpperCase() +
+      fournisseur.name.slice(1).toLowerCase(),
+    wilaya: fournisseur.wilaya,
+    city:fournisseur.city,
+    postalCode:fournisseur.postalCode,
+    phone: phone,
+    fax: fax,
+    mobile:fournisseur.mobile,
+    email: mail,
+    website: fournisseur.website,
+    description: fournisseur.description,
+    nrc: fournisseur.nrc,
+    nif: fournisseur.nif,
+    narticle: fournisseur.narticle,
+    nis: fournisseur.nis,
     },
     { new: true }
   );

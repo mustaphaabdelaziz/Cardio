@@ -4,7 +4,6 @@ const Materiel = require("../../../model/materiel/materiel");
 module.exports.showdetail = async (req, res) => {
   // get the materiel id from the materiels table
   const { id, idarticle } = req.params;
-  // // find the materiel in the database
   const materiel = await Materiel.findOne(
     { _id: id, "article._id": idarticle },
     { "article.$": 1, designation: 1, code: 1 }
@@ -22,7 +21,7 @@ module.exports.showdetail = async (req, res) => {
 module.exports.addDetail = async (req, res) => {
   let { serie, ddp } = req.body.detail;
   const { id, idarticle } = req.params;
- 
+
   const materiel = await Materiel.findOneAndUpdate(
     { _id: id, "article._id": idarticle },
     {
@@ -42,10 +41,11 @@ module.exports.addDetail = async (req, res) => {
 };
 module.exports.deletedetail = async (req, res) => {
   const { id, idarticle, iddetail } = req.params;
-  
+  console.log("idarticle:", idarticle);
+  console.log("iddetail:", iddetail);
   await Materiel.findOneAndUpdate(
     {
-      id,
+      _id: id,
       "article._id": idarticle,
     },
     {
@@ -59,14 +59,14 @@ module.exports.deletedetail = async (req, res) => {
   req.flash("success", "detail à été supprimé avec succès");
   res.redirect(`/materiel/${id}/articles/${idarticle}`);
 };
-module.exports.updatedetail = (req, res) => {
+module.exports.updatedetail = async (req, res) => {
   const { id, idarticle, iddetail } = req.params;
 
   const { serie, ddp } = req.body.detail;
 
-  let materiel = Materiel.findOneAndUpdate(
+  await Materiel.findOneAndUpdate(
     {
-      id,
+      _id: id,
       article: {
         $elemMatch: {
           _id: idarticle,
@@ -80,17 +80,14 @@ module.exports.updatedetail = (req, res) => {
         "article.$[].detail.$[inner].ddp": ddp,
       },
     },
-    { arrayFilters: [{ "inner._id": iddetail }] },
-    (err, result) => {
-      if (err) {
-        console.error("Error updating service: " + err);
-        // res.send(result);
-      } else {
-  
-        req.flash("success", "Article à été modifé avec succès");
-        res.redirect(`/materiel/${id}/articles/${idarticle}`);
-        // res.send(err);
-      }
+    { arrayFilters: [{ "inner._id": iddetail }] }
+  ).then((result, err) => {
+    if (err) {
+      console.error("Error updating service: " + err);
+      // res.send(result);
+    } else {
+      req.flash("success", "Article à été modifé avec succès");
+      res.redirect(`/materiel/${id}/articles/${idarticle}`);
     }
-  );
+  });
 };

@@ -32,7 +32,7 @@ module.exports.addArticleBC = async (req, res) => {
     },
     { new: true }
   );
-  Materiel.findOneAndUpdate(
+  await Materiel.findOneAndUpdate(
     {
       article: {
         $elemMatch: {

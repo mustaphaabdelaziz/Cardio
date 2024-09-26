@@ -9,9 +9,18 @@ const Fournisseur = new Schema(
   {
     name: String,
     wilaya: String,
-    phone1: String,
-    phone2: String,
+    city: String,
+    postalCode:String,
+    phone: String,
+    fax: String,
+    mobile:[String],
     email: String,
+    website: String,
+    description:String,
+    nrc:String,
+    nif:String,
+    narticle:String,
+    nis:String,
   },
   opts
 );

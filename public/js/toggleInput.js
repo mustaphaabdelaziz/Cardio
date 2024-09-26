@@ -172,9 +172,9 @@ $(document).ready(function () {
 
   if ($("#relation").text() == "Père") {
     $("#bebe-info").show();
-  }else{
+  } else {
     $("#bebe-info").hide();
-  };
+  }
 
   $("#show_hide_login").on("click", function () {
     var passInput = $("#loginPassword");
@@ -213,3 +213,42 @@ function toggleBebeInfo(value) {
 function activateInput(id) {
   $("#" + id).toggle();
 }
+let phoneIndex = 2;
+  $(document).ready(function () {
+    console.log(phoneIndex)
+    // Function to add a new phone input
+    function addPhoneInput(value = '',container) {
+      const newPhoneInput = `
+            <div class="input-group form-floating col-6 mb-3" id="mobile-${phoneIndex}">
+                <input type="text" class="form-control" name="fournisseur[mobile][]" value="${value}" required>
+                <button type="button" class="btn btn-outline-lightCoral bg-gradient removePhoneButton"><i class="bi bi-trash"></i></button>
+                <label for="mobile-${phoneIndex}" class="form-label">Mobile ${phoneIndex}</label>
+                <div class="valid-feedback">BIEN</div>
+                
+            </div>`;
+      $(container).append(newPhoneInput);
+      phoneIndex++;
+    }
+
+    // Add initial phone inputs 
+    const initialPhones = mobiles;
+    initialPhones.forEach(phone => addPhoneInput(phone,'#phoneContaineredit'));
+    console.log('populating numbers section')
+    // Add new phone input on button click
+    $('#addPhoneButton').click(function () {
+      addPhoneInput('','#phoneContainer');
+      console.log('this is the add button section')
+    });
+    $('#addPhoneButtonedit').click(function () {
+      addPhoneInput('','#phoneContaineredit');
+      console.log('this is the add button section')
+    });
+
+    // Remove phone input on button click
+    $('#phoneContainer').on('click', '.removePhoneButton', function () {
+      $(this).parent().remove();
+    });
+    $('#phoneContaineredit').on('click', '.removePhoneButton', function () {
+      $(this).parent().remove();
+    });
+  });
