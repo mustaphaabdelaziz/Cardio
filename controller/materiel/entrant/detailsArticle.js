@@ -35,14 +35,13 @@ module.exports.addDetail = async (req, res) => {
     { new: true }
   );
 
-  const redirectUrl = `back`;
+ const redirectUrl = req.get("Referrer") || "/";
   req.flash("success", "Les détails ont été ajouté avec succès");
   res.redirect(redirectUrl);
+
 };
 module.exports.deletedetail = async (req, res) => {
   const { id, idarticle, iddetail } = req.params;
-  console.log("idarticle:", idarticle);
-  console.log("iddetail:", iddetail);
   await Materiel.findOneAndUpdate(
     {
       _id: id,

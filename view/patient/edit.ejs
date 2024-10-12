@@ -1,130 +1,81 @@
-<button
-  type="button"
-  class="btn me-2 btn-outline-warning bg-gradient px-2 py-1"
-  data-bs-toggle="modal"
-  data-bs-target="#edit-<%= patient.id %>"
->
+<button type="button" class="btn me-2 btn-outline-warning bg-gradient px-2 py-1" data-bs-toggle="modal"
+  data-bs-target="#edit-<%= patient.id %>">
   <i class="bi bi-pencil-fill"></i>
 </button>
 
 <!-- Modal -->
-<div
-  class="modal fade"
-  id="edit-<%= patient.id %>"
-  data-bs-keyboard="true"
-  tabindex="-1"
-  aria-labelledby="staticBackdropLabel"
-  aria-hidden="true"
->
-  <div
-    class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg"
-  >
+<div class="modal fade" id="edit-<%= patient.id %>" data-bs-keyboard="true" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="staticBackdropLabel">Modifier Patient</h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-          required
-        ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" required></button>
       </div>
 
       <div class="modal-body">
-        <form
-          action="/patient/<%= patient.id %>/?_method=PUT"
-          id="personal"
-          method="POST"
-          class="row needs-validation"
-          novalidate
-        >
-        <div class="form-floating col-12 mb-3">
-          <select
-            id="patientRole"
-            name="patient[relation]"
-            class="form-select"
-          >
-            <option selected disabled value="">Relation</option>
-            <% if (patient.isParent.relation==='Père' ){%>
+        <form action="/patient/<%= patient.id %>/?_method=PUT" id="personal" method="POST" class="row needs-validation"
+          novalidate>
+          <div class="form-floating col-12 mb-3">
+            <select id="patientRole" name="patient[relation]" class="form-select">
+              <option selected disabled value="">Relation</option>
+              <% if (patient.isParent.relation==='Père' ){%>
               <option class="option" value="Père" selected>Père</option>
               <option class="option" value="Mère">Mère</option>
               <option class="option" value="Fils">Fils</option>
               <% }else if (patient.isParent.relation==='Mère' ) { %>
-                <option class="option" value="Père" >Père</option>
-                <option class="option" value="Mère" selected>Mère</option>
-                <option class="option" value="Fils">Fils</option>
-                <% }else{ %>
-                  <option class="option" value="Père" >Père</option>
-                <option class="option" value="Mère" >Mère</option>
-                <option class="option" value="Fils" selected>Fils</option>
+              <option class="option" value="Père">Père</option>
+              <option class="option" value="Mère" selected>Mère</option>
+              <option class="option" value="Fils">Fils</option>
+              <% }else{ %>
+              <option class="option" value="Père">Père</option>
+              <option class="option" value="Mère">Mère</option>
+              <option class="option" value="Fils" selected>Fils</option>
               <% } %>
-            
-          </select>
-          <label for="patientGender" class="form-label">Relation</label>
-          <div class="valid-feedback">BIEN</div>
-        </div>
+
+            </select>
+            <label for="patientGender" class="form-label">Relation</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
 
           <div class="form-floating col-md-6 mb-3">
-            <input
-              id="patientLastName"
-              name="patient[lastname]"
-              type="text"
-              class="form-control"
-              style="text-transform: capitalize"
-              required
-              value="<%= patient.lastname%>"
-              autofocus
-            />
+            <input id="patientLastName" name="patient[lastname]" type="text" class="form-control"
+              style="text-transform: capitalize" required value="<%= patient.lastname%>" autofocus />
             <label for="patientLastName" class="form-label">Nom</label>
             <div class="valid-feedback">BIEN</div>
           </div>
           <div class="form-floating col-md-6 mb-3">
-            <input
-              id="patientFirstName"
-              name="patient[firstname]"
-              style="text-transform: capitalize"
-              type="text"
-              class="form-control"
-              required
-              value="<%= patient.firstname %>"
-            />
+            <input id="patientFirstName" name="patient[firstname]" style="text-transform: capitalize" type="text"
+              class="form-control" required value="<%= patient.firstname %>" />
             <label for="patientFirstName" class="form-label">Prénom</label>
             <div class="valid-feedback">BIEN</div>
           </div>
           <div class="form-floating col-md-6 mb-3">
-            <input
-              id="father"
-              name="patient[father]"
-              type="text"
-              style="text-transform: capitalize"
-              class="form-control"
-              value="<%= patient.father%>"
-            />
+            <input id="father" name="patient[father]" type="text" style="text-transform: capitalize"
+              class="form-control" value="<%= patient.father%>" />
             <label for="father" class="form-label">Père</label>
             <div class="valid-feedback">BIEN</div>
           </div>
 
           <div class="form-floating col-md-6 mb-3">
-            <input id="patientBirthDate" name="patient[birthdate]" type="date"
-            class="form-control"max="<%= moment().format('YYYY-MM-DD')%>"
-            min="<%= moment("01/01/1900").format('YYYY-MM-DD')%>" value="<%=
-            moment(patient.birthdate).format('YYYY-MM-DD')%>"/>
-            <label for="patientBirthDate" class="form-label"
-              >Date de Naissance</label
-            >
+            <input id="patientBirthDate" name="patient[birthdate]" type="date" class="form-control"
+              max="<%= moment().format('YYYY-MM-DD') %>"
+              min="<%= moment('1900-01-01', 'YYYY-MM-DD').format('YYYY-MM-DD') %>"
+              value="<%= moment(patient.birthdate).format('YYYY-MM-DD') %>" />
+            <label for="patientBirthDate" class="form-label">Date de Naissance</label>
           </div>
-         
+
+
           <div class="form-floating col-md-6  mb-3">
             <select id="bloodGroup" name="blood[groupe]" class="form-select">
               <option selected disabled value="">Groupe sanguin</option>
               <% for(groupe of bloodGroup){ %>
-                <% if(groupe==patient.blood.groupe) {%>
-                <option class="option" selected value="<%= groupe%>"><%=groupe%></option>
-                <% }else{ %>
-                  <option class="option" value="<%= groupe %>"><%=groupe%></option>
-                <% } }%>
-              
+              <% if(groupe==patient.blood.groupe) {%>
+              <option class="option" selected value="<%= groupe%>"><%=groupe%></option>
+              <% }else{ %>
+              <option class="option" value="<%= groupe %>"><%=groupe%></option>
+              <% } }%>
+
             </select>
             <label for="bloodGroup" class="form-label">Groupe sanguin</label>
             <div class="valid-feedback">BIEN</div>
@@ -133,24 +84,19 @@
             <select id="rhesus" name="blood[rhesus]" class="form-select">
               <option selected disabled value="">Rhésus</option>
               <% for(rhesus of bloodRhesus){ %>
-                <% if(rhesus==patient.blood.rhesus){%>
-                <option class="option" selected value="<%= patient.blood.rhesus %>"><%=patient.blood.rhesus%></option>
-                <% }else{ %>
-                  <option class="option" value="<%= rhesus %>"><%=rhesus%></option>
-                <% }}%>
-             
+              <% if(rhesus==patient.blood.rhesus){%>
+              <option class="option" selected value="<%= patient.blood.rhesus %>"><%=patient.blood.rhesus%></option>
+              <% }else{ %>
+              <option class="option" value="<%= rhesus %>"><%=rhesus%></option>
+              <% }}%>
+
             </select>
             <label for="rhesus" class="form-label">Rhésus</label>
             <div class="valid-feedback">BIEN</div>
           </div>
 
           <div class="form-floating col-md-6 mb-3">
-            <select
-              id="patientGender"
-              name="patient[gender]"
-              class="form-select"
-              required
-            >
+            <select id="patientGender" name="patient[gender]" class="form-select" required>
               <option disabled value="">Genre</option>
               <% if (patient.gender==='Male' ){%>
               <option class="option" value="Male" selected>Male</option>
@@ -165,15 +111,8 @@
           </div>
 
           <div class="form-floating col-md-6 mb-3">
-            <input
-              class="form-select"
-              id="wilaya"
-              name="patient[wilaya]"
-              list="cities"
-              placeholder="Wilaya"
-              onchange="makeSubmenu(this.value,'<%= patient._id %>')"
-              value="<%= patient.wilaya %>"
-            />
+            <input class="form-select" id="wilaya" name="patient[wilaya]" list="cities" placeholder="Wilaya"
+              onchange="makeSubmenu(this.value,'<%= patient._id %>')" value="<%= patient.wilaya %>" />
             <datalist id="cities">
               <option class="option" value="">Wilaya</option>
               <% for (city of states) { %>
@@ -187,11 +126,7 @@
           </div>
 
           <div class="form-floating col-md-6 col mb-3">
-            <select
-              id="city<%=patient._id%>"
-              name="patient[city]"
-              class="form-select"
-            >
+            <select id="city<%=patient._id%>" name="patient[city]" class="form-select">
               <option class="option" value="" disabled selected>Ville</option>
               <option class="option" value="<%= patient.city %>" selected>
                 <%= patient.city %>
@@ -202,42 +137,19 @@
           </div>
 
           <div class="form-floating col-md-6 mb-3">
-            <input
-              type="text"
-              class="form-control"
-              id="patientPhoneNumber"
-              name="patient[phone]"
-              required
-              maxlength="10"
-              minlength="10"
-              value="<%= patient.phone %>"
-            />
-            <label for="patientPhoneNumber" class="form-label"
-              >Téléphone 1</label
-            >
+            <input type="text" class="form-control" id="patientPhoneNumber" name="patient[phone]" required
+              maxlength="10" minlength="10" value="<%= patient.phone %>" />
+            <label for="patientPhoneNumber" class="form-label">Téléphone 1</label>
             <div class="valid-feedback">BIEN</div>
           </div>
           <div class="form-floating col-md-6 mb-3">
-            <input
-              type="text"
-              class="form-control"
-              id="patientPhoneNumber2"
-              name="patient[phone2]"
-              maxlength="10"
-              minlength="10"
-              value="<%= patient.phone2 %>"
-            />
-            <label for="patientPhoneNumber2" class="form-label"
-              >Téléphone 2</label
-            >
+            <input type="text" class="form-control" id="patientPhoneNumber2" name="patient[phone2]" maxlength="10"
+              minlength="10" value="<%= patient.phone2 %>" />
+            <label for="patientPhoneNumber2" class="form-label">Téléphone 2</label>
             <div class="valid-feedback">BIEN</div>
           </div>
           <div class="form-floating col-md-6 mb-3">
-            <select
-              id="medeciref"
-              name="patient[medecinref]"
-              class="form-select"
-            >
+            <select id="medeciref" name="patient[medecinref]" class="form-select">
               <option value="" disabled selected>Médecin Ref</option>
               <option class="option" value="/">/</option>
               <% for(medecin of medecins ){ %>
@@ -258,44 +170,23 @@
           <div class="form-floating mb-2">
             <div class="d-flex align-item-start form-check form-switch ms-2">
               <% if (patient.status === "Décédé"){%>
-                <input
-                class="form-check-input me-2"
-                type="checkbox"
-                name="patient[status]"
-                value="<%=patient.status%>"
-                role="switch"
-                id="status"
-                checked
-                />
-                <% }else{ %>
-                <input
-                class="form-check-input me-2"
-                type="checkbox"
-                name="patient[status]"
-                role="switch"
-                id="status"
-                />
-                <% } %>
-             
-             
-                
+              <input class="form-check-input me-2" type="checkbox" name="patient[status]" value="<%=patient.status%>"
+                role="switch" id="status" checked />
+              <% }else{ %>
+              <input class="form-check-input me-2" type="checkbox" name="patient[status]" role="switch" id="status" />
+              <% } %>
+
+
+
               <label class="form-check-label" for="status">Décédé ?</label>
             </div>
           </div>
 
           <div class="modal-footer mt-3">
-            <button
-              type="button"
-              class="btn btn-outline-lightCoral bg-gradient"
-              data-bs-dismiss="modal"
-            >
+            <button type="button" class="btn btn-outline-lightCoral bg-gradient" data-bs-dismiss="modal">
               Annuler
             </button>
-            <button
-              type="submit"
-              id="patient-register"
-              class="btn btn-outline-warning bg-gradient"
-            >
+            <button type="submit" id="patient-register" class="btn btn-outline-warning bg-gradient">
               Modifier
             </button>
           </div>

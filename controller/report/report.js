@@ -58,7 +58,7 @@ module.exports.addReport = async (req, res) => {
     await report.save();
   }
   const patient = await Patient.findOneAndUpdate(
-    { id, "consultation._id": idacte },
+    { _id:id, "consultation._id": idacte },
     {
       $set: {
         "consultation.$.compterendu": {
@@ -92,7 +92,7 @@ module.exports.addReport = async (req, res) => {
     { new: true }
   );
 
-  const redirectUrl = `back`;
+ const redirectUrl = req.get("Referrer") || "/";
   req.flash("success", "Acte ajouté avec succès");
   res.redirect(redirectUrl);
   res.redirect("/patient");
@@ -120,7 +120,7 @@ module.exports.updateReport = async (req, res) => {
   } = req.body.compteRendu;
   let { motif, dtd, ventGsiv, fe } = req.body.ventriculeGauche;
   const patient = await Patient.findOneAndUpdate(
-    { id, "consultation._id": idacte },
+    { _id:id, "consultation._id": idacte },
     {
       $set: {
         "consultation.$.compterendu": {
@@ -158,12 +158,11 @@ module.exports.updateReport = async (req, res) => {
 };
 module.exports.deleteReport = async (req, res) => {
   const { id, idacte } = req.params;
-  const patient = await Patient.findOneAndUpdate(
-    { id, "consultation._id": idacte },
+  await Patient.findOneAndUpdate(
+    { _id:id, "consultation._id": idacte },
     { $set: { "consultation.$.compterendu": { isEmpty: true } } },
     { new: true }
   );
-
   req.flash("success", "Compte Rendu à été supprimé avec succès");
   res.redirect(`/patient/${id}`);
   // res.send("sent from compteRendu")

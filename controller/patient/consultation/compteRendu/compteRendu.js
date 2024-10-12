@@ -102,7 +102,7 @@ module.exports.addCompteRendu = async (req, res) => {
     { new: true }
   );
 
-  const redirectUrl = `back`;
+ const redirectUrl = req.get("Referrer") || "/";
   req.flash("success", "Acte ajouté avec succès");
   res.redirect(redirectUrl);
   // res.redirect("/patient");

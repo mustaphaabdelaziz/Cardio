@@ -1,7 +1,5 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
-
-const moment = require("moment");
 const opts = {
   toJSON: {
     virtuals: true,
@@ -82,7 +80,7 @@ User.virtual("fullname").get(function () {
   return this.lastname + " " + this.firstname;
 });
 User.pre("save", async function (next) {
-  const salt = await bcrypt.genSalt();
+  const salt = await bcrypt.genSalt(10);
   this.salt = salt;
   this.hash = await bcrypt.hash(this.hash, salt);
 

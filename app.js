@@ -3,10 +3,13 @@ if (process.env.NODE_ENV !== "production") {
 }
 const express = require("express");
 const app = express();
+// The <<path>> module provides utilities for working with file and directory paths
 const path = require("path");
 let ejs = require("ejs");
+// <<ejs-mate>> is layout, partial and block template functions for the EJS template engine.
 const ejsMate = require("ejs-mate");
-//
+// <<method-override>> Lets you use HTTP verbs such as PUT or DELETE in places
+// where the client doesn't support it.
 const methodOverride = require("method-override");
 const session = require("express-session");
 // flash is a middleware that can be used to flash messages to the user.
@@ -18,7 +21,6 @@ const passport = require("passport");
 // passport-local is an authentication strategy.
 const LocalStrategy = require("passport-local");
 // <<connect-mongo>> MongoDB session store for Connect and Express written in Typescript.
-const MongoDBStore = require("connect-mongo");
 const mongoSanitize = require("express-mongo-sanitize");
 const cookieParser = require("cookie-parser");
 
@@ -54,10 +56,47 @@ const compression = require("compression");
 const { isLoggedIn } = require("./middleware/middleware");
 const _ = require("lodash");
 const Patient = require("./model/patient/patient");
-
+const helmet = require("helmet");
 // ==================== App Configuration =================
 app.set("trust proxy", true);
 app.disable("x-powered-by");
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: [
+        "'self'",
+        "'unsafe-inline'",
+        "https://code.jquery.com/",
+        "https://cdn.jsdelivr.net",
+        "https://ajax.googleapis.com",
+        "https://unpkg.com",
+        "https://cdnjs.cloudflare.com",
+      ],
+      scriptSrcElem: [
+        "'self'",
+        "'unsafe-inline'",
+        "https://code.jquery.com/",
+        "https://cdn.jsdelivr.net",
+        "https://ajax.googleapis.com",
+        "https://unpkg.com",
+        "https://cdnjs.cloudflare.com",
+      ],
+      styleSrc: [
+        "'self'",
+        "'unsafe-inline'",
+        "https://cdn.jsdelivr.net",
+        "https://fonts.googleapis.com",
+        "https://unpkg.com",
+        "https://getbootstrap.com",
+        "https://cdnjs.cloudflare.com",
+      ],
+      imgSrc: ["'self'", "data:", "https://ui-avatars.com"],
+      scriptSrcAttr: ["'self'", "'unsafe-inline'"],
+      // Add other directives as needed
+    },
+  })
+);
 app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "view"));
@@ -66,39 +105,42 @@ app.use(express.json());
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(cookieParser());
-
 app.use(mongoSanitize({ replaceWith: "_" }));
 app.use(session(sessionConfig));
-// flash is not working
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
-// passport.use("user", new LocalStrategy(User.authenticate()));
 passport.use(
   "user",
-  new LocalStrategy((email, password, done) => {
-    User.findOne({ email: email.toLowerCase() }).select("+salt +hash").then((user, err) => {
-      if (err) {
-        return done(err);
-      }
-      if (!user) {
-        return done(null, false, "Verifer email ou le mot de passe");
-      } else {
-        if (user.verifyPassword(password, user.hash)) {
-          if (user.approved) {
-            return done(null, user);
-          } else {
-            return done(null, false, "Votre compte n'est pas encore approuvé");
-          }
-        } else {
-          return done(
-            null,
-            false,
-            "Mot de passe incorrect, verifier votre mot de passe"
-          );
+  new LocalStrategy(async (email, password, done) => {
+    await User.findOne({ email: email.toLowerCase() })
+      .select("+salt +hash")
+      .then((user, err) => {
+        if (err) {
+          return done(err);
         }
-      }
-    });
+        if (!user) {
+          return done(null, false, "Verifer email ou le mot de passe");
+        } else {
+          if (user.verifyPassword(password, user.hash)) {
+            if (user.approved) {
+              return done(null, user);
+            } else {
+              return done(
+                null,
+                false,
+                "Votre compte n'est pas encore approuvé"
+              );
+            }
+          } else {
+            return done(
+              null,
+              false,
+              "Mot de passe incorrect, verifier votre mot de passe"
+            );
+          }
+        }
+      });
   })
 );
 
@@ -157,8 +199,10 @@ app.use("/patient/:id/acte/:idacte", detailConsultaFtionRoutes);
 app.use("/patient/:id/acte", consultationRoutes);
 app.use("/patient/:id/son", filsRoutes);
 // ========================================================
+
+// Usage
 app.get("/", isLoggedIn, (req, res) => {
-  res.render("home");``
+  res.render("home");
 });
 app.get("/reports", async (req, res) => {
   // await User.updateMany(

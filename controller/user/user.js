@@ -3,7 +3,6 @@ const Country = require("../../model/data/country");
 const moment = require("moment");
 const fonctions = require("../../seeds/fonction");
 const privileges = require("../../seeds/privileges");
-const passport = require("passport");
 const { sendMail } = require("../../utils/sendEmail");
 const crypto = require("crypto");
 const bcrypt = require("bcrypt");

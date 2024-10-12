@@ -16,7 +16,6 @@ module.exports.approveUser = async (req, res) => {
   let updatedUser = { ...user };
   if (user.approved == "on") {
     updatedUser.approved = true;
-    console.log(updatedUser.privileges)
   } else {
     updatedUser.approved = false;
     updatedUser.privileges = ["user"];

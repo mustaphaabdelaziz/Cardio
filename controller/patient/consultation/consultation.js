@@ -59,7 +59,7 @@ module.exports.addActe = async (req, res) => {
     { new: true }
   );
 
-  const redirectUrl = `back`;
+  const redirectUrl = req.get("Referrer") || "/";
   req.flash("success", "Acte ajouté avec succès");
   res.redirect(redirectUrl);
   // res.redirect("/patient")
@@ -109,7 +109,7 @@ module.exports.updatePatientActe = async (req, res) => {
       "consultation.$.status": state === "oui" ? state : "non",
     },
   };
-  // both updateOne and findOneAndUpdate work 
+  // both updateOne and findOneAndUpdate work
   patient = await Patient.updateOne(query, updateDocument, {
     rawResult: true,
   });

@@ -52,7 +52,7 @@ module.exports.addArticleBC = async (req, res) => {
       console.err("Error updating detail: " + err);
       // res.send(result);
     } else {
-      const redirectUrl = `back`;
+     const redirectUrl = req.get("Referrer") || "/";
       req.flash("success", "Bc a été ajouté avec succès");
       res.redirect(redirectUrl);
     }
@@ -93,7 +93,7 @@ module.exports.deleteArticleBc = async (req, res) => {
       console.error("Error updating detail: " + err);
       // res.send(result);
     } else {
-      const redirectUrl = `back`;
+     const redirectUrl = req.get("Referrer") || "/";
       req.flash("success", "Bc a été ajouté avec succès");
       res.redirect(redirectUrl);
     }

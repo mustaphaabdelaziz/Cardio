@@ -22,7 +22,7 @@ module.exports.sendMail = (email, token) => {
     to: email,
     subject: "Password Reset",
     text:
-      "الرجاء الضغط على الرابط لتغيير كلمة المرور: " +
+   "Veuillez cliquer sur le lien pour changer votre mot de passe: " +
       process.env.SERVER_URL +
       "user/reset-password/" +
       token,

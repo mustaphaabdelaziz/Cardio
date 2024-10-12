@@ -55,7 +55,7 @@ module.exports.addArticle = async (req, res) => {
     { new: true }
   );
 
-  const redirectUrl = `back`;
+  const redirectUrl = req.get("Referrer") || "/";
   req.flash("success", "Article a été ajouté avec succès");
   res.redirect(redirectUrl);
 };

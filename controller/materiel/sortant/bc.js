@@ -17,7 +17,7 @@ module.exports.addBc = async (req, res) => {
 
   const bc = new Bc({ date, patient: id });
   await bc.save();
-  const redirectUrl = `back`;
+ const redirectUrl = req.get("Referrer") || "/";
   req.flash("success", "Bc a été ajouté avec succès");
   res.redirect(redirectUrl);
 };

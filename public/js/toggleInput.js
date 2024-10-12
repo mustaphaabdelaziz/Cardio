@@ -215,7 +215,7 @@ function activateInput(id) {
 }
 let phoneIndex = 2;
   $(document).ready(function () {
-    console.log(phoneIndex)
+
     // Function to add a new phone input
     function addPhoneInput(value = '',container) {
       const newPhoneInput = `
@@ -233,15 +233,14 @@ let phoneIndex = 2;
     // Add initial phone inputs 
     const initialPhones = mobiles;
     initialPhones.forEach(phone => addPhoneInput(phone,'#phoneContaineredit'));
-    console.log('populating numbers section')
+
     // Add new phone input on button click
     $('#addPhoneButton').click(function () {
       addPhoneInput('','#phoneContainer');
-      console.log('this is the add button section')
+     
     });
     $('#addPhoneButtonedit').click(function () {
       addPhoneInput('','#phoneContaineredit');
-      console.log('this is the add button section')
     });
 
     // Remove phone input on button click

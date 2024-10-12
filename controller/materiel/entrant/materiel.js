@@ -59,9 +59,9 @@ module.exports.updateMateriel = async (req, res) => {
     { code: code, designation: designation },
     { new: true }
   );
-
+ const redirectUrl = req.get("Referrer") || "/"
   req.flash("success", "Materiel a été modifié avec succès");
-  res.redirect(`back`);
+  res.redirect(redirectUrl);Z
 };
 module.exports.deleteMateriel = async (req, res) => {
   const { id } = req.params;

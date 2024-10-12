@@ -81,7 +81,7 @@ module.exports.uploadFiles = async (req, res) => {
     { new: true }
   );
 
-  const redirectUrl = `back`;
+ const redirectUrl = req.get("Referrer") || "/";
   req.flash("success", "Les détails ont été ajouté avec succès");
   res.redirect(redirectUrl);
 };
