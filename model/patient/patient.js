@@ -99,12 +99,32 @@ const Patient = new Schema(
           default: 0,
         },
         saturation: {
-          type: String,
-          default: "0%",
+          type: Number,
+          default: 0,
         },
         ta: {
-          type: String,
-          default: "0/0",
+          systolicBP: {
+            type: Number,
+            default: 0,
+          },
+          diastolicBP: {
+            type: Number,
+            default: 0,
+          },
+        },
+        temperature: {},
+        imc: {
+          type: Number,
+          default: 0,
+        },
+
+        heartRate: {
+          type: Number,
+          default: 0,
+        },
+        respiratoryRate: {
+          type: Number,
+          default: 0,
         },
 
         comment: {

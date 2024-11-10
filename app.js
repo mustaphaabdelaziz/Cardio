@@ -52,51 +52,59 @@ const { errorPage } = require("./middleware/middleware");
 const User = require("./model/user/user");
 const Report = require("./model/patient/compteRendu");
 const Medicament = require("./model/medicament/medicament");
-const compression = require("compression");
+// const compression = require("compression");
 const { isLoggedIn } = require("./middleware/middleware");
 const _ = require("lodash");
 const Patient = require("./model/patient/patient");
-const helmet = require("helmet");
+// const helmet = require("helmet");
 // ==================== App Configuration =================
-app.set("trust proxy", true);
-app.disable("x-powered-by");
-app.use(
-  helmet.contentSecurityPolicy({
-    directives: {
-      defaultSrc: ["'self'"],
-      scriptSrc: [
-        "'self'",
-        "'unsafe-inline'",
-        "https://code.jquery.com/",
-        "https://cdn.jsdelivr.net",
-        "https://ajax.googleapis.com",
-        "https://unpkg.com",
-        "https://cdnjs.cloudflare.com",
-      ],
-      scriptSrcElem: [
-        "'self'",
-        "'unsafe-inline'",
-        "https://code.jquery.com/",
-        "https://cdn.jsdelivr.net",
-        "https://ajax.googleapis.com",
-        "https://unpkg.com",
-        "https://cdnjs.cloudflare.com",
-      ],
-      styleSrc: [
-        "'self'",
-        "'unsafe-inline'",
-        "https://cdn.jsdelivr.net",
-        "https://fonts.googleapis.com",
-        "https://unpkg.com",
-        "https://getbootstrap.com",
-        "https://cdnjs.cloudflare.com",
-      ],
-      imgSrc: ["'self'", "data:", "https://ui-avatars.com"],
-      scriptSrcAttr: ["'self'", "'unsafe-inline'"],
-      // Add other directives as needed
-    },
-  })
-);
+// app.set("trust proxy", true);
+// app.disable("x-powered-by");
+// app.use(
+//   helmet.contentSecurityPolicy({
+//     directives: {
+//       defaultSrc: ["'self'"],
+//       scriptSrc: [
+//         "'self'",
+//         "'unsafe-inline'",
+//         "https://code.jquery.com/",
+//         "https://cdn.jsdelivr.net",
+//         "https://ajax.googleapis.com",
+//         "https://unpkg.com",
+//         "https://cdnjs.cloudflare.com",
+//       ],
+//       scriptSrcElem: [
+//         "'self'",
+//         "'unsafe-inline'",
+//         "https://code.jquery.com/",
+//         "https://cdn.jsdelivr.net",
+//         "https://ajax.googleapis.com",
+//         "https://unpkg.com",
+//         "https://cdnjs.cloudflare.com",
+//       ],
+//       styleSrc: [
+//         "'self'",
+//         "'unsafe-inline'",
+//         "https://cdn.jsdelivr.net",
+//         "https://fonts.googleapis.com",
+//         "https://unpkg.com",
+//         "https://getbootstrap.com",
+//         "https://cdnjs.cloudflare.com",
+//       ],
+//       imgSrc: [
+//         "'self'",
+//         "data:",
+//         "https://ui-avatars.com",
+//         "https://res.cloudinary.com",
+//         "https://picsum.photos",
+//         "https://fastly.picsum.photos",
+//       ],
+//       scriptSrcAttr: ["'self'", "'unsafe-inline'"],
+//       connectSrc: ["'self'"],
+//       // Add other directives as needed
+//     },
+//   })
+// );
 app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "view"));
@@ -158,7 +166,7 @@ passport.deserializeUser((user, done) => {
 });
 app.use(locals);
 
-app.use(compression());
+// app.use(compression());
 // =========================================================
 
 // ================= App Routes =======================
@@ -264,9 +272,9 @@ app.get("/reports", async (req, res) => {
 //   next(new ExpressError("page not found", 404));
 // });
 // app.use(errorPage);
-const port = 8000;
+const port = process.env.PORT;
 
-app.listen(port, () => {
+app.listen(port,'0.0.0.0', () => {
   console.log("===================================================");
   console.log(`   ----- SERVER IS RUNNING ON PORT ${port} ----`);
   console.log("===================================================");

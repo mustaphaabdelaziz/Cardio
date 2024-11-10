@@ -1,7 +1,7 @@
 <button
   id="item2"
   type="button"
-  class="btn btn-outline-greenSea bg-gradient ms-2"
+  class="btn btn-outline-greenSea bg-gradient col-lg-2 col-md-2 col-sm-4 m-2"
   data-bs-toggle="modal"
   data-bs-target="#newPatient"
 >
@@ -99,7 +99,7 @@
           <div class="form-floating col-md-6">
             <input id="patientBirthDate" name="patient[birthdate]" type="date"
             class="form-control" max="<%=moment().format('YYYY-MM-DD')%>"
-            min="<%=moment("01/01/1900").format('YYYY-MM-DD')%>" />
+            min="<%=moment("1900-01-01").format('YYYY-MM-DD')%>" />
             <label for="patientBirthDate" class="form-label"
               >Date de Naissance
             </label>

@@ -134,7 +134,8 @@ module.exports.showpatient = async (req, res) => {
       : "/";
   } else {
     medicalInfo.saturation = "/";
-    medicalInfo.ta = "/";
+    medicalInfo.ta.systolicBP = "/";
+    medicalInfo.ta.diastolicBP = "/";
     medicalInfo.taille = "/";
     medicalInfo.poids = "/";
   }

@@ -42,6 +42,12 @@ const User = new Schema(
         ref: "Report",
       },
     ],
+    symptomes:[
+      {
+        type: String,
+        default: "non",
+      },
+    ],
     hash: {
       type: String,
       required: true,

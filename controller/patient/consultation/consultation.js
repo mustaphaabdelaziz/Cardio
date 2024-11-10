@@ -25,12 +25,21 @@ module.exports.addActe = async (req, res) => {
     poids,
     taille,
     saturation,
-    ta,
     acte,
     comment,
     status,
+    temperature,
+    imc,
+    heartRate,
+    respiratoryRate,
+    systolicBP,
+    diastolicBP,
   } = req.body.consultation;
   const { id } = req.params;
+  let ta = {
+    systolicBP: systolicBP,
+    diastolicBP: diastolicBP,
+  };
   let tech, med;
   if (technicien) tech = technicien;
   if (medecin) med = medecin;
@@ -47,6 +56,10 @@ module.exports.addActe = async (req, res) => {
           poids: poids,
           taille: taille,
           saturation: saturation,
+          temperature: temperature,
+          imc: imc,
+          heartRate: heartRate,
+          respiratoryRate: respiratoryRate,
           ta: ta,
           comment: comment,
           status: status,
@@ -87,10 +100,19 @@ module.exports.updatePatientActe = async (req, res) => {
     poids,
     taille,
     saturation,
-    ta,
+    temperature,
+    imc,
+    heartRate,
+    respiratoryRate,
+    systolicBP,
+    diastolicBP,
     comment,
     status,
   } = req.body.consultation;
+  let ta = {
+    systolicBP: systolicBP,
+    diastolicBP: diastolicBP,
+  };
   const state = status;
   let patient;
   const query = { _id: id, "consultation._id": idacte };
@@ -105,6 +127,10 @@ module.exports.updatePatientActe = async (req, res) => {
       "consultation.$.taille": taille,
       "consultation.$.saturation": saturation,
       "consultation.$.ta": ta,
+      "consultation.$.temperature": temperature,
+      "consultation.$.imc": imc,
+      "consultation.$.heartRate": heartRate,
+      "consultation.$.respiratoryRate": respiratoryRate,
       "consultation.$.comment": comment,
       "consultation.$.status": state === "oui" ? state : "non",
     },

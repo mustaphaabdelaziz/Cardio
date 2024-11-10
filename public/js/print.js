@@ -1565,7 +1565,7 @@ function printCompteRendu(consultationID, patientID) {
       }
       if (consultation.ta) {
         // [parameters,unite,title,styling,margin]
-        ta = getText(consultation.ta, "", "TA:", patientStyle, {
+        ta = getText(consultation.ta.systolicBP+"/"+consultation.ta.diastolicBP, "", "TA:", patientStyle, {
           margin: [20, 10, 0, 0],
         });
         stack.push(ta);

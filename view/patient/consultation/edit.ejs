@@ -1,251 +1,150 @@
-<button
-  type="button"
-  class="me-3 btn btn-outline-warning bg-gradient px-2 py-1"
-  data-bs-toggle="modal"
-  data-bs-target="#editCons-<%=consultation.id %>"
-  onclick="selectActe2('<%=consultation.id %>','<%=consultation.acte%>')"
->
+<button type="button" class="me-3 btn btn-outline-warning bg-gradient px-2 py-1" data-bs-toggle="modal" data-bs-target="#editCons-<%=consultation.id %>" onclick="selectActe2('<%=consultation.id %>','<%=consultation.acte%>')">
   <i class="bi bi-pencil-fill"></i>
 </button>
 
 <!-- Modal -->
-<div
-  class="modal fade"
-  id="editCons-<%= consultation.id %>"
-  data-bs-keyboard="true"
-  tabindex="-1"
-  aria-labelledby="staticBackdropLabel"
-  aria-hidden="true"
->
+<div class="modal fade" id="editCons-<%= consultation.id %>" data-bs-keyboard="true" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="staticBackdropLabel">Modification Acte</h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-          required
-        ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" required></button>
       </div>
 
       <div class="modal-body">
-        <form
-          action="/patient/<%= patient.id %>/acte/<%= consultation.id %>?_method=PUT"
-          method="POST"
-          id="personal"
-          class="needs-validation row"
-          novalidate
-        >
+        <form action="/patient/<%= patient.id %>/acte/<%= consultation.id %>?_method=PUT" method="POST" id="personal" class="needs-validation row" novalidate>
+          <!-- Date and Time Fields -->
           <div class="form-floating mb-3 col-md-8">
-            <input class="form-control" type="date" id="dateacte"
-            name="consultation[dateacte]" placeholder="date de l'acte" required
-            autofocus
-            value="<%=moment(consultation.date).format("YYYY-MM-DD")%>" />
-            <label for="dateacte" class="form-labelfs-6">Date de l'acte</label>
+            <input type="date" class="form-control" id="dateacte" name="consultation[dateacte]" placeholder="Date de l'acte" required value="<%= moment(consultation.date).format('YYYY-MM-DD') %>" />
+            <label for="dateacte">Date de l'acte</label>
             <div class="valid-feedback">BIEN</div>
           </div>
+
           <div class="form-floating mb-3 col-md-4">
-            <input
-              class="form-control"
-              type="time"
-              id="time"
-              name="consultation[time]"
-              value="<%=moment(consultation.time,"HH:mm").format("HH:mm")%>" />
-            
-            <label for="time" class="form-labelfs-6">Heure de l'acte</label>
+            <input type="time" class="form-control" id="time" name="consultation[time]" value="<%= moment(consultation.time, 'HH:mm').format('HH:mm') %>" />
+            <label for="time">Heure de l'acte</label>
             <div class="valid-feedback">BIEN</div>
           </div>
 
+          <!-- Medecin Selection -->
           <div class="form-floating mb-3">
-            <select
-              id="medecin"
-              name="consultation[medecin]"
-              class="form-select"
-              required
-            >
+            <select id="medecin" name="consultation[medecin]" class="form-select" required>
               <option disabled value="" selected>Medecin</option>
-              <% for(medecin of medecins ){ %>
-              <%if(consultation.medecin===medecin.lastname) {%>
-              <option class="option" value="<%= medecin.lastname%>" selected>
+              <% for (let medecin of medecins) { %>
+              <option class="option" value="<%= medecin.lastname %>" <%= consultation.medecin === medecin.lastname ? 'selected' : '' %>>
                 Dr. <%= medecin.lastname %>
               </option>
-              <% } else { %>
-              <option class="option" value="<%= medecin.lastname%>">
-                Dr. <%= medecin.lastname %>
-              </option>
-              <% } %> <% } %>
-            </select>
-
-            <label for="medecin" class="form-label">Medecin</label>
-            <div class="valid-feedback">BIEN</div>
-          </div>
-          <div class="form-floating mb-3">
-            <select
-              id="<%=consultation.id %>"
-              name="consultation[acte]"
-              class="form-select"
-              required
-              onchange="selectActe2('<%=consultation.id %>',this.value)"
-            >
-            <% if(!consultation.acte) {%>
-              <option disabled value selected="">Acte</option>
               <% } %>
-              <% for(acte of actes){ %>
-                <% if(consultation.acte===acte) {%>
-                  <option class="option" value="<%= consultation.acte %>" selected>
-                    <%= consultation.acte %>
-                  </option>
-                <% } else { %>
-                   <option class="option" value="<%= acte %>" >
-                    <%= acte %>
-                  </option>
-                <% }} %>
             </select>
-
-            <label for="acte2" class="form-label">Acte</label>
+            <label for="medecin">Medecin</label>
             <div class="valid-feedback">BIEN</div>
           </div>
 
-          <div class="form-floating mb-3" id="tech-<%=consultation.id%>">
-            <select
-              id="technicien"
-              name="consultation[technicien]"
-              class="form-select"
-            >
-              <option class="option" value="" disabled selected>
-                Technicen
+          <!-- Acte Selection -->
+          <div class="form-floating mb-3">
+            <select id="<%= consultation.id %>" name="consultation[acte]" class="form-select" required onchange="selectActe2('<%= consultation.id %>', this.value)">
+              <option disabled selected>Acte</option>
+              <% for (let acte of actes) { %>
+              <option class="option" value="<%= acte %>" <%= consultation.acte === acte ? 'selected' : '' %>>
+                <%= acte %>
               </option>
-              <option class="option" value="/">/</option>
-              <% for(technicien of techniciens ){ %>
-              <%if(consultation.technicien===technicien.fullname) {%>
-              <option class="option" value="<%= technicien.fullname%>" selected>
-                <%= technicien.fullname %>
-              </option>
-              <% } else { %>
-              <option class="option" value="<%= technicien.fullname%>">
-                <%= technicien.fullname %>
-              </option>
-              <% } } %>
+              <% } %>
             </select>
-
-            <label for="technicien" class="form-label">Technicien</label>
+            <label for="acte">Acte</label>
             <div class="valid-feedback">BIEN</div>
           </div>
-          <div class="form-floating col-md-3 mb-3">
-            <input
-              type="number"
-              class="form-control"
-              id="poids"
-              name="consultation[poids]"
-              maxlength="3"
-              min="1"
-              max="200"
-              value="<%= consultation.poids %>"
-            />
+
+          <!-- Technicien Selection -->
+          <div class="form-floating mb-3">
+            <select id="technicien" name="consultation[technicien]" class="form-select">
+              <option disabled selected>Technicien</option>
+              <option value="/">/</option>
+              <% for (let technicien of techniciens) { %>
+              <option class="option" value="<%= technicien.fullname %>" <%= consultation.technicien === technicien.fullname ? 'selected' : '' %>>
+                <%= technicien.fullname %>
+              </option>
+              <% } %>
+            </select>
+            <label for="technicien">Technicien</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+
+
+          <!-- Vital Signs -->
+          <div class="form-floating col-lg-4 col-md-6 col-sm-6 mb-3">
+            <input type="number" class="form-control" id="temperature" name="consultation[temperature]" min="35" max="42" step="0.1" value="<%= consultation.temperature %>" />
+            <label for="temperature">Température (°C)</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          
+          <div class="form-floating mb-3 col-lg-4 col-md-6 col-sm-6">
+            <input type="number" class="form-control" id="poids-<%= consultation.id %>" name="consultation[poids]" value="<%= consultation.poids %>" />
             <label for="poids" class="form-label">Poids (KG)</label>
             <div class="valid-feedback">BIEN</div>
           </div>
-          <div class="form-floating col-md-3 mb-3">
-            <input
-              type="number"
-              class="form-control"
-              id="taille"
-              name="consultation[taille]"
-              min="30"
-              max="200"
-              maxlength="3"
-              value="<%= consultation.taille %>"
-            />
+          <div class="form-floating mb-3 col-lg-4 col-md-6 col-sm-6">
+            <input type="number" class="form-control" id="taille-<%= consultation.id %>" name="consultation[taille]" value="<%= consultation.taille %>" onchange="calculateBMI('poids-<%= consultation.id %>','taille-<%= consultation.id %>','imc-e')" />
             <label for="taille" class="form-label">Taille (cm)</label>
             <div class="valid-feedback">BIEN</div>
           </div>
-          <div class="form-floating col-md-3  mb-3">
-            <input
-              type="number"
-              class="form-control"
-              id="saturation"
-              name="consultation[saturation]"
-              value="<%= consultation.saturation %>"
-            />
-            <label for="saturation" class="form-label">Saturation %</label>
-            <div class="valid-feedback">BIEN</div>
-          </div>
-          <div class="form-floating col-md-3 mb-3">
-            <input
-              type="text"
-              class="form-control"
-              id="ta"
-              name="consultation[ta]"
-              value="<%= consultation.ta %>"
-            />
-            <label for="ta" class="form-label">TA</label>
+          <div class="form-floating mb-3 col-lg-4 col-md-6 col-sm-6">
+            <input type="number" class="form-control" id="imc-e" name="consultation[imc]" readonly value="<%= consultation.imc %>" />
+            <label for="imc-e">Masse Corporelle (IMC)</label>
             <div class="valid-feedback">BIEN</div>
           </div>
 
-          <div class="form-floating mb-2">
-            <div class="d-flex align-item-start form-check form-switch ms-2">
-              <% if (consultation.status === "oui"){%>
-              <input
-                class="form-check-input me-2"
-                type="checkbox"
-                name="consultation[status]"
-                value="oui"
-                role="switch"
-                id="status"
-                checked
-              />
-              <% }else{ %>
-              <input
-                class="form-check-input me-2"
-                type="checkbox"
-                name="consultation[status]"
-                value="oui"
-                role="switch"
-                id="status"
-              />
-              <% } %>
-              <label class="form-check-label" for="status">Confirmé ?</label>
-              <div class="valid-feedback">BIEN</div>
-            </div>
-          </div>
-          <div class=" ">
-            <textarea
-              class="form-control"
-              name="consultation[comment]"
-              id="editcomment"
-              rows="4"
-              style="text-transform: capitalize"
-              placeholder="Motif"
-            >
-<%=consultation.comment%></textarea
-            >
+          <div class="form-floating col-lg-4 col-md-6 col-sm-6 mb-3">
+            <input type="number" class="form-control" id="saturation" name="consultation[saturation]" value="<%= consultation.saturation %>" />
+            <label for="saturation">Saturation (SpO₂)(%)</label>
+            <div class="valid-feedback">BIEN</div>
           </div>
 
+          <div class="form-floating col-lg-4 col-md-6 col-sm-6 mb-3">
+            <input type="number" class="form-control" id="heartRate" name="consultation[heartRate]" value="<%= consultation.heartRate %>" />
+            <label for="heartRate">Fréquence Cardiaque (bpm)</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+
+          <div class="form-floating col-lg-4 col-md-6 col-sm-6 mb-3">
+            <input type="number" class="form-control" id="respiratoryRate" name="consultation[respiratoryRate]" value="<%= consultation.respiratoryRate %>" />
+            <label for="respiratoryRate">Fréquence Respiratoire (rpm)</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+
+          <div class="form-floating col-lg-4 col-md-6 col-sm-6 mb-3">
+            <input type="number" class="form-control" id="systolicBP" name="consultation[systolicBP]" value="<%= consultation.ta.systolicBP %>" />
+            <label for="systolicBP">TA Systolique (mmHg)</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+
+          <div class="form-floating col-lg-4 col-md-6 col-sm-6 mb-3">
+            <input type="number" class="form-control" id="diastolicBP" name="consultation[diastolicBP]" value="<%= consultation.ta.diastolicBP %>" />
+            <label for="diastolicBP">TA Diastolique (mmHg)</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <!-- Additional Notes -->
+          <div class="form-floating mb-3">
+            <textarea class="form-control" name="consultation[comment]" id="editcomment" rows="4" style="text-transform: capitalize" placeholder="Motif"><%= consultation.comment %></textarea>
+            <label for="editcomment">Motif</label>
+          </div>
+
+          <!-- Submit and Cancel Buttons -->
           <div class="modal-footer mt-3">
-            <button
-              type="button"
-              class="btn btn-outline-lightCoral bg-gradient"
-              data-bs-dismiss="modal"
-            >
+            <button type="button" class="btn btn-outline-lightCoral bg-gradient" data-bs-dismiss="modal">
               Annuler
             </button>
-            <button
-              type="submit"
-              id="patient-register"
-              class="btn btn-outline-warning bg-gradient"
-            >
+            <button type="submit" id="patient-register" class="btn btn-outline-warning bg-gradient">
               Modifier
             </button>
           </div>
+
         </form>
       </div>
     </div>
   </div>
 </div>
 <script>
-  $(" #editCons-<%=consultation.id %>").on("shown.bs.modal", function () {
+  $(" #editCons-<%=consultation.id %>").on("shown.bs.modal", function() {
     $(this).find("[autofocus]").focus();
   });
 </script>

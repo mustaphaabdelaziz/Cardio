@@ -1,76 +1,33 @@
-<button
-  type="button"
-  class="btn me-2 btn-outline-greenSea bg-gradient px-2 py-1"
-  data-bs-toggle="modal"
-  data-bs-target="#acte-<%= patient.id %>"
->
+<button type="button" class="btn me-2 btn-outline-greenSea bg-gradient px-2 py-1" data-bs-toggle="modal" data-bs-target="#acte-<%= patient.id %>">
   <i class="bi bi-plus-lg"></i>
 </button>
 
 <!-- Modal -->
-<div
-  class="modal fade"
-  id="acte-<%= patient.id %>"
-  data-bs-keyboard="true"
-  tabindex="-1"
-  aria-labelledby="staticBackdropLabel"
-  aria-hidden="true"
->
+<div class="modal fade" id="acte-<%= patient.id %>" data-bs-keyboard="true" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="addacte-<%= patient.id %>">Ajouter Acte</h5>
 
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
       <div class="modal-body">
-        <form
-          action="/patient/<%=patient.id%>/acte"
-          method="POST"
-          class="row needs-validation"
-          novalidate
-        >
-          
+        <form action="/patient/<%=patient.id%>/acte" method="POST" class="row needs-validation" novalidate>
+
           <div class="form-floating mb-3 col-md-8">
-            <input
-              class="form-control"
-              type="date"
-              id="dateacte"
-              name="consultation[dateacte]"
-              placeholder="date de l'acte"
-              required
-              autofocus
-              value="<%= moment().format("YYYY-DD-MM") %>"
-            />
+            <input class="form-control" type="date" id="dateacte" name="consultation[dateacte]" placeholder="date de l'acte" required autofocus value="<%= moment().format("YYYY-DD-MM") %>" />
             <label for="dateacte" class="form-labelfs-6">Date de l'acte</label>
             <div class="valid-feedback">BIEN</div>
           </div>
           <div class="form-floating mb-3 col-md-4">
-            <input
-              class="form-control"
-              type="time"
-              id="time"
-              name="consultation[time]"
-              placeholder="heure de l'acte"
-             
-            />
+            <input class="form-control" type="time" id="time" name="consultation[time]" placeholder="heure de l'acte" />
             <label for="time" class="form-labelfs-6">Heure de l'acte</label>
             <div class="valid-feedback">BIEN</div>
           </div>
 
           <div class="form-floating mb-3">
-            <select
-              id="medecin"
-              name="consultation[medecin]"
-              class="form-select"
-              required
-            >
+            <select id="medecin" name="consultation[medecin]" class="form-select" required>
               <option class="option" value="" disabled selected>Medecin</option>
               <% for(medecin of medecins ){ %>
 
@@ -84,13 +41,7 @@
           </div>
 
           <div class="form-floating mb-3">
-            <select
-              id="acte"
-              name="consultation[acte]"
-              class="form-select"
-              required
-              onchange="selectActe(this, '<%= patient.id %>')"
-            >
+            <select id="acte" name="consultation[acte]" class="form-select" required onchange="selectActe(this, '<%= patient.id %>')">
               <option disabled>Acte</option>
               <option class="option" value="Consultation" selected>Consultation</option>
               <option class="option" value="Chirurgie">Chirurgie</option>
@@ -100,103 +51,106 @@
             <label for="acte" class="form-label">Acte</label>
             <div class="valid-feedback">BIEN</div>
           </div>
-          <div
-          class="form-floating mb-3"
-          id="technicien-div-<%=patient.id%>"
-          style="display: none"
-        >
-          <select
-            id="technicien-<%=patient.id%>"
-            name="consultation[technicien]"
-            class="form-select"
-          >
-            <option class="option" value="" disabled selected>
-              Technicien
-            </option>
-            <% for(technicien of techniciens ){ %>
+          <div class="form-floating mb-3" id="technicien-div-<%=patient.id%>" style="display: none">
+            <select id="technicien-<%=patient.id%>" name="consultation[technicien]" class="form-select">
+              <option class="option" value="" disabled selected>
+                Technicien
+              </option>
+              <% for(technicien of techniciens ){ %>
 
-            <option class="option" value="<%= technicien.fullname%>">
-              <%=technicien.fullname %>
-            </option>
-            <% } %>
-          </select>
+              <option class="option" value="<%= technicien.fullname%>">
+                <%=technicien.fullname %>
+              </option>
+              <% } %>
+            </select>
 
-          <label for="technicien" class="form-label">Technicien</label>
-          <div class="valid-feedback">BIEN</div>
-        </div>
-          <div class="form-floating mb-3 col-md-3">
-            <input
-              type="number"
-              class="form-control"
-              id="poids"
-              name="consultation[poids]"
-            />
+            <label for="technicien" class="form-label">Technicien</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <hr class="shadow-sm text-secondary">
+          <h5>Signes Vitaux</h5>
+          <div class="form-floating mb-3 col-lg-4 col-md-6 col-sm-6">
+            <input type="number" class="form-control" id="temperature" name="consultation[temperature]" required />
+            <label for="temperature">Température (°C)</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <div class="form-floating mb-3 col-lg-4 col-md-6 col-sm-6">
+            <input type="number" class="form-control" id="poids" name="consultation[poids]" />
             <label for="poids" class="form-label">Poids (KG)</label>
             <div class="valid-feedback">BIEN</div>
           </div>
-          <div class="form-floating mb-3 col-md-3">
-            <input
-              type="number"
-              class="form-control"
-              id="taille"
-              name="consultation[taille]"
-            />
+          <div class="form-floating mb-3 col-lg-4 col-md-6 col-sm-6">
+            <input type="number" class="form-control" id="taille" name="consultation[taille]" onchange="calculateBMI('poids','taille','imc')"" />
             <label for="taille" class="form-label">Taille (cm)</label>
             <div class="valid-feedback">BIEN</div>
           </div>
-          <div class="form-floating mb-3 col-md-3">
-            <input
-              type="number"
-              class="form-control"
-              id="saturation"
-              name="consultation[saturation]"
-            />
-            <label for="saturation" class="form-label">Saturation %</label>
+           <!-- Indice de Masse Corporelle  -->
+           <div class="form-floating mb-3 col-lg-4 col-md-6 col-sm-6">
+            <input type="text" class="form-control" id="imc" name="consultation[imc]"  readonly />
+            <label for="imc">Masse Corporelle (IMC)</label>
             <div class="valid-feedback">BIEN</div>
           </div>
-          <div class="form-floating mb-3 col-md-3">
-            <input
-              type="text"
-              class="form-control"
-              id="ta"
-              name="consultation[ta]"
-            />
-            <label for="ta" class="form-label">TA</label>
+
+          <div class="form-floating mb-3 col-lg-4 col-md-6 col-sm-6">
+            <input type="number" class="form-control" id="saturation" name="consultation[saturation]" />
+            <label for="saturation" class="form-label">Saturation (SpO₂)(%)</label>
             <div class="valid-feedback">BIEN</div>
           </div>
-         
+        
+       
+           <!-- Heart Rate -->
+           <div class="form-floating mb-3 col-lg-4 col-md-6 col-sm-6">
+            <input type="number" class="form-control" id="heartRate" name="consultation[heartRate]"  required />
+            <label for="heartRate">Fréquence cardiaque (bpm)</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <div class="form-floating col-lg-4 col-md-6 col-sm-6 mb-3">
+            <input type="number" class="form-control" id="respiratoryRate" name="consultation[respiratoryRate]" />
+            <label for="respiratoryRate">Fréquence Respiratoire (rpm)</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+
+          <!-- Blood Pressure -->
+          <div class="form-floating mb-3 col-lg-4 col-md-6 col-sm-6">
+            <input type="number" class="form-control" id="systolicBP" name="consultation[systolicBP]" required />
+            <label for="systolicBP">Pression systolique (mmHg)</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <div class="form-floating mb-3 col-lg-4 col-md-6 col-sm-6">
+            <input type="number" class="form-control" id="diastolicBP" name="consultation[diastolicBP]" required />
+            <label for="diastolicBP">Pression diastolique (mmHg)</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+
           <div class="form-floating mb-2">
             <div class="d-flex align-item-start form-check form-switch ms-2">
-              <input
-                class="form-check-input me-2"
-                type="checkbox"
-                name="consultation[status]"
-                value="oui"
-                role="switch"
-                id="status"
-                checked
-              />
+              <input class="form-check-input me-2" type="checkbox" name="consultation[status]" value="oui" role="switch" id="status" checked />
               <label class="form-check-label" for="status">Confirmé ?</label>
             </div>
           </div>
+          <div class="form-floating mb-3 position-relative">
+            <input
+            type="text"
+            id="symptomes-input"
+            class="form-control"
+            oninput="showSuggestions(this.value)"
+            autocomplete="off"
+            />
+            <div id="suggestions" class="suggestions-list" style="display: none;"></div>
+            <label for="symptomes">SYMPTÔMES</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+      
+          <div id="selected-symptoms" class="mb-3"></div>
+      
+        
 
           <div class="">
-            <textarea
-              class="form-control"
-              name="consultation[comment]"
-              id="comment"
-              rows="4"
-              placeholder="Motif"
-              style="text-transform: capitalize"
-            ></textarea>
+            <textarea class="form-control" name="consultation[comment]" id="comment" rows="4" placeholder="Motif" style="text-transform: capitalize"></textarea>
           </div>
 
           <div class="modal-footer mt-4">
-            <button
-              type="button"
-              class="btn btn-outline-lightCoral bg-gradient"
-              data-bs-dismiss="modal"
-            >
+            <button type="button" class="btn btn-outline-lightCoral bg-gradient" data-bs-dismiss="modal">
               Annuler
             </button>
             <button class="btn btn-outline-greenSea bg-gradient">Ajouter</button>
@@ -207,7 +161,36 @@
   </div>
 </div>
 <script>
-  $("#acte-<%= patient.id %>").on("shown.bs.modal", function () {
+  
+
+  $("#acte-<%= patient.id %>").on("shown.bs.modal", function() {
     $(this).find("[autofocus]").focus();
   });
 </script>
+<style>
+  .suggestions-list {
+    border: 1px solid #ccc;
+    max-height: 150px;
+    overflow-y: auto;
+    position: absolute;
+    background-color: white;
+    z-index: 1000;
+    width: calc(100% - 2rem);
+    margin-top: -1px; /* Align with input */
+  }
+
+  .suggestion-item {
+    padding: 8px;
+    cursor: pointer;
+  }
+
+  .suggestion-item:hover {
+    background-color: #f0f0f0;
+  }
+
+  #selected-symptoms .badge {
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+</style>
