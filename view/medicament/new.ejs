@@ -17,11 +17,10 @@
   aria-labelledby="staticBackdropLabel"
   aria-hidden="true"
 >
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Ajouter Médicament</h5>
-
+      <div class="modal-header bg-greenSea text-white">
+        <h5 class="modal-title" id="staticBackdropLabel">Ajouter un Médicament</h5>
         <button
           type="button"
           class="btn-close"
@@ -32,109 +31,134 @@
 
       <div class="modal-body">
         <form
-          class="row g-3 needs-validation"
+          class="row g-4 needs-validation"
           action="/medicaments"
           id="medicament"
           method="POST"
           autocomplete="off"
           novalidate
         >
-          <div class="form-floating">
-            <input
-              id="idcommercialname"
-              name="medicament[commercialname]"
-              type="text"
-              class="form-control"
-              style="text-transform: capitalize"
-              autofocus
-              required
-            />
-            <label for="idcommercialname" class="form-label">Nom Commercial</label>
-            <div class="valid-feedback">BIEN</div>
+          <!-- Commercial Name -->
+          <div class="col-md-6">
+            <div class="form-floating">
+              <input
+                id="idcommercialname"
+                name="medicament[commercialname]"
+                type="text"
+                class="form-control"
+                style="text-transform: capitalize"
+                autofocus
+                required
+              />
+              <label for="idcommercialname" class="form-label">Nom Commercial</label>
+              <div class="valid-feedback">Valide</div>
+            </div>
           </div>
 
-          <div class="form-floating">
-            <input
-              id="iddci"
-              name="medicament[dci]"
-              style="text-transform: capitalize"
-              type="text"
-              class="form-control"
-              required
-            />
-            <label for="iddci" class="form-label">DCI</label>
-            <div class="valid-feedback">BIEN</div>
+          <!-- DCI -->
+          <div class="col-md-6">
+            <div class="form-floating">
+              <input
+                id="iddci"
+                name="medicament[dci]"
+                style="text-transform: capitalize"
+                type="text"
+                class="form-control"
+                required
+              />
+              <label for="iddci" class="form-label">DCI</label>
+              <div class="valid-feedback">Valide</div>
+            </div>
           </div>
-          <div class="form-floating">
-            <input
-              id="iddosage"
-              name="medicament[dosage]"
-              style="text-transform: capitalize"
-              type="text"
-              class="form-control"
-              required
-            />
-            <label for="iddosage" class="form-label">Dosage</label>
-            <div class="valid-feedback">BIEN</div>
+
+          <!-- Dosage -->
+          <div class="col-md-6">
+            <div class="form-floating">
+              <input
+                id="iddosage"
+                name="medicament[dosage]"
+                style="text-transform: capitalize"
+                type="text"
+                class="form-control"
+                required
+              />
+              <label for="iddosage" class="form-label">Dosage</label>
+              <div class="valid-feedback">Valide</div>
+            </div>
           </div>
-         
-          <div class="form-floating">
-            <select
-              id="idform"
-              name="medicament[form]"
-              class="form-select"
-              required
-            >
-              <option selected disabled value="">Form</option>
-              <option class="option" value="Bte">Bte</option>
-              <option class="option" value="Tube">Tube</option>
-              <option class="option" value="Flc">Flc</option>
-            </select>
-            <label for="idform" class="form-label">Form</label>
-            <div class="valid-feedback">BIEN</div>
+
+          <!-- Form -->
+          <div class="col-md-6">
+            <div class="form-floating">
+              <select
+                id="idform"
+                name="medicament[form]"
+                class="form-select"
+                required
+              >
+                <option selected disabled value="">Sélectionner Forme</option>
+                <option value="Bte">Boîte</option>
+                <option value="Tube">Tube</option>
+                <option value="Flc">Flacon</option>
+              </select>
+              <label for="idform" class="form-label">Forme</label>
+              <div class="valid-feedback">Valide</div>
+            </div>
           </div>
-          <div class="form-floating">
-            <input
-              id="idtherapeutique"
-              name="medicament[therapeutique]"
-              style="text-transform: capitalize"
-              type="text"
-              class="form-control"
-            />
-            <label for="idtherapeutique" class="form-label">C.Therapeutique</label>
-            <div class="valid-feedback">BIEN</div>
+
+          <!-- C. Thérapeutique -->
+          <div class="col-md-6">
+            <div class="form-floating">
+              <input
+                id="idtherapeutique"
+                name="medicament[therapeutique]"
+                style="text-transform: capitalize"
+                type="text"
+                class="form-control"
+              />
+              <label for="idtherapeutique" class="form-label">C.Therapeutique</label>
+              <div class="valid-feedback">Valide</div>
+            </div>
           </div>
-          <div class="form-floating">
-            <input
-              id="idlaboratoire"
-              name="medicament[laboratoire]"
-              type="text"
-              class="form-control"
-              style="text-transform: capitalize"
-              
-            />
-            <label for="idlaboratoire" class="form-label">Laboratoire</label>
-            <div class="valid-feedback">BIEN</div>
+
+          <!-- Laboratoire -->
+          <div class="col-md-6">
+            <div class="form-floating">
+              <input
+                id="idlaboratoire"
+                name="medicament[laboratoire]"
+                type="text"
+                class="form-control"
+                style="text-transform: capitalize"
+              />
+              <label for="idlaboratoire" class="form-label">Laboratoire</label>
+              <div class="valid-feedback">Valide</div>
+            </div>
           </div>
-               
-        
-          <div class="modal-footer mt-4">
+
+          <!-- Modal Footer -->
+          <div class="modal-footer">
             <button
               type="button"
-              class="btn btn-outline-lightCoral bg-gradient"
+              class="btn btn-outline-secondary"
               data-bs-dismiss="modal"
             >
               Annuler
             </button>
-            <button class="btn btn-outline-greenSea">Ajouter</button>
+            <button class="btn btn-success">Ajouter</button>
           </div>
         </form>
       </div>
     </div>
   </div>
 </div>
+
 <script>
   $("#newmedicament").on("shown.bs.modal", function () {
     $(this).find("[autofocus]").focus();
   });
 </script>
+
+<style>
+ 
+</style>

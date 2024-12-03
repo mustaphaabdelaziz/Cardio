@@ -1,6 +1,6 @@
 <button
   type="button"
-  class="btn me-2 btn-outline-greenSea px-2 py-1"
+  class="btn btn-outline-greenSea bg-gradient px-2 py-1"
   data-bs-toggle="modal"
   data-bs-target="#article-<%= materiel.id %>"
 >
@@ -17,12 +17,11 @@
   aria-hidden="true"
 >
   <div class="modal-dialog modal-dialog-centered modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">
-          Ajouter au <%=materiel.designation%> <%=materiel.code%>
+    <div class="modal-content rounded-4 shadow-lg">
+      <div class="modal-header text-white bg-greenSea bg-gradient">
+        <h5 class="modal-title fw-bold" id="staticBackdropLabel">
+          Ajouter un Article à <%=materiel.designation%> (<%=materiel.code%>)
         </h5>
-
         <button
           type="button"
           class="btn-close"
@@ -31,81 +30,77 @@
         ></button>
       </div>
 
-      <div class="modal-body">
+      <div class="modal-body bg-light">
         <form
           action="/materiel/<%=materiel.id%>/article"
           method="POST"
-          class="row needs-validation"
+          class="row g-3 needs-validation"
           novalidate
           autocomplete="off"
         >
-          <div class="form-floating mb-3 col-md-12">
+          <!-- Form Inputs -->
+          <div class="col-sm-12 col-md-6">
+            <label for="etat" class="form-label">
+              <i class="bi bi-shield-check"></i> Etat
+            </label>
             <select
               id="etat"
               name="article[etat]"
               class="form-select"
               autofocus
+              style="border-radius: 10px;"
             >
-              <option class="option" value="Reçu" selected>Reçu</option>
-              <option class="option" value="Commandé">Commandé</option>
-              <option class="option" value="Retour">Retour</option>
+              <option value="Reçu" selected>Reçu</option>
+              <option value="Commandé">Commandé</option>
+              <option value="Retour">Retour</option>
             </select>
-            <label for="etat" class="form-label">Etat</label>
-            <div class="valid-feedback">BIEN</div>
           </div>
 
-          <div class="form-floating mb-3 col-md-4">
+          <div class="col-sm-12 col-md-6">
+            <label for="articlelot" class="form-label">
+              <i class="bi bi-barcode"></i> N° Lot
+            </label>
             <input
               id="articlelot"
               name="article[lot]"
               type="text"
-              class="form-control"
-              style="text-transform: capitalize"
+              class="form-control rounded-pill"
+              style="text-transform: capitalize;"
               autocomplete="off"
             />
-            <label for="articlelserie" class="form-label">N° Lot</label>
-            <div class="valid-feedback">BIEN</div>
           </div>
 
-          <div class="form-floating mb-3 col-md-4">
+          <div class="col-sm-12 col-md-6">
+            <label for="articlemarque" class="form-label">
+              <i class="bi bi-building"></i> Marque
+            </label>
             <input
               id="articlemarque"
               name="article[marque]"
               type="text"
-              class="form-control"
-              style="text-transform: capitalize"
+              class="form-control rounded-pill"
+              style="text-transform: capitalize;"
             />
-            <label for="articlemarque" class="form-label">Marque</label>
-            <div class="valid-feedback">BIEN</div>
           </div>
-          <!-- <div class="form-floating mb-3 col-md-4">
-            <input
-              id="articlequantite"
-              name="article[quantite]"
-              type="number"
-              class="form-control"
-              autocomplete="off"
-              required
-            />
-            <label for="articlequantite" class="form-label">Quantité</label>
-            <div class="valid-feedback">BIEN</div>
-          </div> -->
 
-          <div class="form-floating mb-3 col-6">
+          <div class="col-sm-12 col-md-6">
+            <label for="dateachat" class="form-label">
+              <i class="bi bi-calendar-date"></i> Date d'achat
+            </label>
             <input
-              class="form-control"
+              class="form-control rounded-pill"
               type="date"
               id="dateachat"
               name="article[dateachat]"
-              placeholder="date de l'achat"
             />
-            <label for="dateachat" class="form-label fs-6">Date d'achat</label>
-            <div class="valid-feedback">BIEN</div>
           </div>
 
-          <div class="form-floating mb-3 col-6">
+          <div class="col-sm-12 col-md-6">
+            <label for="fournisseur" class="form-label">
+              <i class="bi bi-person-badge"></i> Fournisseur
+            </label>
             <input
-              class="form-control"
+              class="form-control rounded-pill"
               id="fournisseur"
               name="article[fournisseur]"
               list="fournisseurs"
@@ -113,64 +108,68 @@
             />
             <datalist id="fournisseurs">
               <% for (fournisseur of fournisseurs) { %>
-              <option class="option" value="<%= fournisseur.name %>">
+              <option value="<%= fournisseur.name %>">
                 <%= fournisseur.name %>
               </option>
               <%} %>
             </datalist>
-            <label for="fournisseur" class="form-labelfs-6">Fournisseur</label>
-            <div class="valid-feedback">BIEN</div>
           </div>
 
-          <div class="form-floating mb-3 col-4">
+          <div class="col-sm-12 col-md-6">
+            <label for="articlebc" class="form-label">
+              <i class="bi bi-receipt"></i> BC
+            </label>
             <input
               id="articlebc"
               name="article[bc]"
               type="number"
-              class="form-control"
+              class="form-control rounded-pill"
             />
-            <label for="articlebc" class="form-label">BC</label>
-            <div class="valid-feedback">BIEN</div>
           </div>
-          <div class="form-floating mb-3 col-md-4">
+
+          <div class="col-sm-12 col-md-6">
+            <label for="articlebl" class="form-label">
+              <i class="bi bi-receipt-cutoff"></i> BL
+            </label>
             <input
               id="articlebl"
               name="article[bl]"
               type="number"
-              class="form-control"
+              class="form-control rounded-pill"
             />
-            <label for="articlebl" class="form-label">BL</label>
-            <div class="valid-feedback">BIEN</div>
           </div>
 
-          <div class="form-floating mb-3 col-md-4">
+          <div class="col-sm-12 col-md-6">
+            <label for="articlefc" class="form-label">
+              <i class="bi bi-cash-stack"></i> FC
+            </label>
             <input
               id="articlefc"
               name="article[fc]"
               type="number"
-              class="form-control"
+              class="form-control rounded-pill"
             />
-            <label for="articlefc" class="form-label">FC</label>
-            <div class="valid-feedback">BIEN</div>
           </div>
 
-          <div class="modal-footer mt-4">
+          <!-- Footer Buttons -->
+          <div class="modal-footer d-flex justify-content-end mt-3">
             <button
               type="button"
-              class="btn btn-outline-lightCoral bg-gradient"
+              class="btn btn-outline-lightCoral rounded-pill px-4 py-2"
               data-bs-dismiss="modal"
             >
               Annuler
             </button>
-            <button class="btn btn-outline-greenSea">Ajouter</button>
+            <button
+              type="submit"
+              class="btn btn-outline-greenSea rounded-pill px-4 py-2"
+              
+            >
+              Ajouter
+            </button>
           </div>
         </form>
       </div>
     </div>
   </div>
 </div>
-<script>
-  $("#article-<%= materiel.id %>").on("shown.bs.modal", function () {
-    $(this).find("[autofocus]").focus();
-  });
-</script>

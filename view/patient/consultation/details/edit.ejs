@@ -1,0 +1,80 @@
+<!-- Edit Modal -->
+<button type="button" class="btn me-2 btn-outline-warning bg-gradient px-2 py-1" data-bs-toggle="modal" data-bs-target="#edit-<%= document.id %>">
+  <i class="bi bi-pencil-fill"></i>
+</button>
+<div class="modal fade" id="edit-<%= document.id %>" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editModalLabel">
+          Modifier Pièce Jointe - <%= document.filename %>
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <form action="/patient/<%= patient.id %>/acte/<%= patientConsultation.id %>/files/<%= document._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+      
+          <!-- Service Selection -->
+          <div class="form-floating mb-3">
+            <select class="form-select" id="service" name="service" placeholder="Service" onchange="makeSubmenuAct(this.value, '')" required>
+              <option class="option" value="<%= document.service %>" selected>
+                <%= document.service %>
+              </option>
+              <% for (examen of examens) { %>
+              <option class="option" value="<%= examen.service %>">
+                <%= examen.service %>
+              </option>
+              <% } %>
+            </select>
+            <label for="service" class="form-label">Service</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+
+          <!-- Acte Selection -->
+          <div class="form-floating mb-3" style="display: block;" id="acteDiv">
+            <select id="acte" name="acte" class="form-select" required>
+              <option class="option" value="<%= document.acte %>" selected>
+                <%= document.acte %>
+              </option>
+              <% for (examen of examens) { %>
+              <% if (examen.service === document.service) { %>
+              <% examen.speciality.forEach(speciality => { %>
+              <option class="option" value="<%= speciality %>">
+                <%= speciality %>
+              </option>
+              <% }) %>
+              <% } %>
+              <% } %>
+            </select>
+            <label for="acte" class="form-label">Type D'examen</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+
+          <!-- File Input -->
+          <div class="mb-3 col">
+
+            <input class="form-control form-control-lg" type="file" id="file" name="file" required autofocus />
+
+            <div class="valid-feedback">BIEN</div>
+          </div>
+
+          <div class="modal-footer mt-4">
+            <button type="button" class="btn btn-outline-lightCoral bg-gradient" data-bs-dismiss="modal">
+              Annuler
+            </button>
+            <button class="btn btn-outline-greenSea bg-gradient">
+              Modifier
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $("#edit-<%= patient.id %>-<%= document.filename %>").on("shown.bs.modal", function() {
+    $(this).find("[autofocus]").focus();
+  });
+</script>

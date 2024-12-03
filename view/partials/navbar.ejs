@@ -1,183 +1,187 @@
-<nav
-  class="navbar navbar-expand-lg sticky-top navbar-light bg-antiqueSteel shadow fw-bold rounded"
->
+<nav class="navbar navbar-expand-lg sticky-top navbar-light bg-white shadow rounded-3 fw-semibold">
   <div class="container-fluid">
-    <a class="navbar-brand fw-bold" href="/">
+    <a class="navbar-brand d-flex align-items-center fw-bold text-greenSea" href="/">
       <img
-        id="assest"
+        id="logo"
         src="/assets/logo.png"
-        alt=""
-        width="80"
-        height="60"
-        class="d-inline-block align-text-center"
+        alt="Clinic Logo"
+        width="50"
+        height="50"
+        class="d-inline-block align-middle me-2"
       />
     </a>
     <button
       class="navbar-toggler"
       type="button"
-      id="navbarSupportedbutton"
       data-bs-toggle="collapse"
-      data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
+      data-bs-target="#navbarContent"
+      aria-controls="navbarContent"
       aria-expanded="false"
       aria-label="Toggle navigation"
     >
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse" id="navbarContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-      <% if(!currentUser.privileges.includes('acheteur')) { %>
+        <!-- Patient Management -->
+        <% if(!currentUser.privileges.includes('acheteur')) { %>
         <li class="nav-item dropdown">
           <a
-            class="nav-link dropdown-toggle fw-bold"
+            class="nav-link dropdown-toggle text-dark"
             href="#"
-            id="navbarDropdown"
+            id="patientDropdown"
             role="button"
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            Patient <i class="bi bi-heart-pulse-fill fw-bold text-lightCoral"></i>
+            Patients <i class="bi bi-heart-pulse-fill text-danger"></i>
           </a>
-          <ul
-            class="dropdown-menu bg-antiqueSteel"
-            aria-labelledby="navbarDropdown"
-          >
+          <ul class="dropdown-menu shadow-sm border-0 rounded-3">
             <li>
-              <a class="dropdown-item" href="/patient/new">Nouveau patient <i class="bi bi-person-plus-fill"></i></a>
-            </li>
-
-            <li>
-              <a class="dropdown-item" href="/patient">Liste des patients <i class="bi bi-list"></i></a>
-            </li>
-          </ul>
-        </li>
-        <li class="nav-item dropdown">
-          <a
-            class="nav-link dropdown-toggle"
-            href="#"
-            id="acte-list"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-            >Par Acte <i class="ri-stethoscope-line"></i></a
-          >
-          <ul
-            class="dropdown-menu bg-antiqueSteel"
-            aria-labelledby="navbarDropdown"
-          >
-            <li>
-              <a class="dropdown-item" href="/acte/Consultation"
-                >Liste des consultations</a
-              >
-              <a class="dropdown-item" href="/acte/Chirurgie"
-                >Liste des chirurgies</a
-              >
-              <a class="dropdown-item" href="/acte/KT">Liste des KT</a>
-            </li>
-          </ul>
-        </li>
-        <li class="nav-item dropdown">
-          <a
-            class="nav-link dropdown-toggle"
-            href="#"
-            id="acte-list"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-            >Par Conduite Médicale</a
-          >
-          <ul
-            class="dropdown-menu bg-antiqueSteel"
-            aria-labelledby="navbarDropdown"
-          >
-            <li>
-              <% for(conduiteMedicale of session.conduiteMedicale){ %>
-              <a
-                class="dropdown-item"
-                href="/conduitemedicale/<%= conduiteMedicale %>"
-                ><%= conduiteMedicale %>
+              <a class="dropdown-item text-greenSea" href="/patient/new">
+                Nouveau Patient <i class="bi bi-person-plus-fill"></i>
               </a>
-              <% } %>
+            </li>
+            <li>
+              <a class="dropdown-item text-greenSea" href="/patient">
+                Liste des Patients <i class="bi bi-list"></i>
+              </a>
             </li>
           </ul>
         </li>
 
+        <!-- Acte Management -->
         <li class="nav-item dropdown">
           <a
-            class="nav-link dropdown-toggle"
+            class="nav-link dropdown-toggle text-dark"
             href="#"
-            id="acte-list"
+            id="acteDropdown"
             role="button"
             data-bs-toggle="dropdown"
             aria-expanded="false"
-            >Par Medecin <i class="ri-nurse-fill"></i></a
           >
-          <ul
-            class="dropdown-menu bg-antiqueSteel"
-            aria-labelledby="navbarDropdown"
-          >
+            Par Acte <i class="ri-stethoscope-line"></i>
+          </a>
+          <ul class="dropdown-menu shadow-sm border-0 rounded-3">
             <li>
-              <% for(medecin of session.medecinList){ %>
-              <a class="dropdown-item" href="/medecin/<%= medecin.lastname %>"
-                >Dr.<%= medecin.lastname %>
-              </a>
-              <% } %>
+              <a class="dropdown-item text-greenSea" href="/acte/Consultation">Consultations</a>
             </li>
+            <li>
+              <a class="dropdown-item text-greenSea" href="/acte/Chirurgie">Chirurgies</a>
+            </li>
+            <li>
+              <a class="dropdown-item text-greenSea" href="/acte/KT">Liste des KT</a>
+            </li>
+          </ul>
+        </li>
+
+        <!-- Medical Conduct -->
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle text-dark"
+            href="#"
+            id="conductDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Conduite Médicale
+          </a>
+          <ul class="dropdown-menu shadow-sm border-0 rounded-3">
+            <% for(conduiteMedicale of session.conduiteMedicale){ %>
+            <li>
+              <a class="dropdown-item text-greenSea" href="/conduitemedicale/<%= conduiteMedicale %>">
+                <%= conduiteMedicale %>
+              </a>
+            </li>
+            <% } %>
+          </ul>
+        </li>
+
+        <!-- Doctor Management -->
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle text-dark"
+            href="#"
+            id="doctorDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Par Médecin <i class="ri-nurse-fill"></i>
+          </a>
+          <ul class="dropdown-menu shadow-sm border-0 rounded-3">
+            <% for(medecin of session.medecinList){ %>
+            <li>
+              <a class="dropdown-item text-greenSea" href="/medecin/<%= medecin.lastname %>">
+                Dr. <%= medecin.lastname %>
+              </a>
+            </li>
+            <% } %>
           </ul>
         </li>
         <% } %>
+
+        <!-- Admin Specific Links -->
         <% if(currentUser.privileges.includes('admin')) { %>
         <li class="nav-item">
-          <a class="nav-link" href="/staffs">Personels <i class="bi bi-person-vcard"></i></a>
+          <a class="nav-link text-dark" href="/staffs">
+            Personnel <i class="bi bi-person-vcard"></i>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-dark" href="/user">
+            Utilisateurs <i class="bi bi-people-fill"></i>
+            <% if(session.newUsers != 0) { %>
+            <span class="badge bg-danger text-white rounded-pill"><%= session.newUsers %></span>
+            <% } %>
+          </a>
         </li>
         <% } %>
         <% if(currentUser.privileges.includes('admin') || currentUser.privileges.includes('medecin')) { %>
-        <li class="nav-item">
-          <a class="nav-link" href="/medicaments">Medicaments <i class="ri-medicine-bottle-line text-greenSea"></i></a>
-        </li>
-        <% } %>
-        <% if(currentUser.privileges.includes('admin') || currentUser.privileges.includes('acheteur') || currentUser.privileges.includes('medecin') || currentUser.privileges.includes('technicien'))  { %>
-        <li class="nav-item dropdown">
-          <a
-          class="nav-link dropdown-toggle"
-          href="#"
-          id="acte-list"
-          role="button"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-          >Materiels KT</a
-          >
-          <ul
-            class="dropdown-menu bg-antiqueSteel"
-            aria-labelledby="navbarDropdown"
-          >
-            <li>
-              <% if(currentUser.privileges.includes('admin')|| currentUser.privileges.includes('acheteur')) {%>
-              <a class="dropdown-item" href="/materiels">Matériels entrants</a>
-              <% } %>
-              <% if(!currentUser.privileges.includes('assistant')) {%>
-              <a class="dropdown-item" href="/KT">Matériels sortants</a>
-              <% } %>
-              <% if(currentUser.privileges.includes('admin')|| currentUser.privileges.includes('acheteur')) {%>
-              <a class="dropdown-item" href="/fournisseur">Fournisseurs</a>
-              <% } %>
-            </li>
-          </ul>
-        </li>
-        <% } %>
-        <% if(currentUser){ %> 
-        <% if(currentUser.privileges.includes('admin')) {%>
-        <li class="nav-item">
-          <a class="nav-link" href="/user"
-            >Utilisateurs <i class="bi bi-people-fill"></i>
-            <% if(session.newUsers!=0) {%> 
-            <span class="badge bg-lightCoral"> <%=session.newUsers%></span>
-            <% } %> 
-          </a>
-        </li>
-        <% }} %>
-        <li class="dropdown nav-item"><%-include("./userDropdown") %></li>
+          <li class="nav-item">
+            <a class="nav-link text-dark" href="/medicaments">Medicaments <i class="ri-medicine-bottle-line text-greenSea"></i></a>
+          </li>
+          <% } %>
+          <% if(currentUser.privileges.includes('admin') || currentUser.privileges.includes('acheteur') || currentUser.privileges.includes('medecin') || currentUser.privileges.includes('technicien'))  { %>
+          <li class="nav-item dropdown">
+            <a
+            class="nav-link dropdown-toggle text-dark"
+            href="#"
+            id="acte-list"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            >Materiels KT</a
+            >
+            <ul
+              class="dropdown-menu shadow-sm border-0 rounded-3"
+              aria-labelledby="navbarDropdown"
+            >
+              <li>
+                <% if(currentUser.privileges.includes('admin')|| currentUser.privileges.includes('acheteur')) {%>
+                <a class="dropdown-item text-greenSea" href="/materiels">Matériels entrants</a>
+                <% } %>
+                <% if(!currentUser.privileges.includes('assistant')) {%>
+                <a class="dropdown-item text-greenSea" href="/KT">Matériels sortants</a>
+                <% } %>
+                <% if(currentUser.privileges.includes('admin')|| currentUser.privileges.includes('acheteur')) {%>
+                <a class="dropdown-item text-greenSea" href="/fournisseur">Fournisseurs</a>
+                <% } %>
+              </li>
+            </ul>
+          </li>
+          <% } %>
       </ul>
+      <div class="d-flex align-items-center">
+        <a href="/user/<%= currentUser._id %>/profile" class="btn btn-outline-greenSea me-2">
+          Mon Profil
+        </a>
+        <a href="/user/logout" class="btn btn-danger">
+          Déconnexion
+        </a>
+      </div>
     </div>
   </div>
 </nav>
+

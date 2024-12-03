@@ -1,42 +1,43 @@
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f1f1f1;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 2;
-  /* display the content above any other content*/
-}
+  /* Make sure dropdown menu items are aligned */
+  .dropdown-menu {
+    width: 200px;
+  }
 
-.dropdown:hover .dropdown-content {
-  display: block;
-}
+  /* Optional: improve button alignment and spacing */
+  .navbar-nav .nav-item {
+    margin-right: 10px;
+  }
 
-nav ul li a {
-  font-weight: 600;
+  .d-flex.align-items-center a {
+    margin-left: 10px;
+  }
 
-}
+  .navbar-brand {
+    display: flex;
+    align-items: center;
+  }
 
-nav.stroke ul li a,
-nav.fill ul li a {
-  position: relative;
-}
+  .navbar-nav {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
 
-nav.stroke ul li a:after,
-nav.fill ul li a:after {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto;
-  width: 0%;
-  /* content: "."; */
-  color: transparent;
-  background: #333;
-  height: 1px;
-}
+  .navbar-toggler-icon {
+    background-color: #4db8b2; /* Matching the text-greenSea color */
+  }
 
-nav.stroke ul li a:hover:after {
-  width: 100%;
-}
+  .btn-outline-greenSea {
+    color: #4db8b2;
+    border-color: #4db8b2;
+  }
 
+  .btn-outline-greenSea:hover {
+    background-color: #4db8b2;
+    color: white;
+  }
+
+  .btn-danger {
+    background-color: #ff4d4d;
+    border-color: #ff4d4d;
+  }

@@ -29,7 +29,11 @@ module.exports.showMateriel = async (req, res) => {
   const materiel = await Materiel.findById(id);
   const fournisseurs = await Fournisseur.find({});
   // send it to the client
-  res.render("materiel/entrant/article/show", { materiel, moment, fournisseurs });
+  res.render("materiel/entrant/article/show", {
+    materiel,
+    moment,
+    fournisseurs,
+  });
 };
 
 module.exports.createMateriel = async (req, res) => {
@@ -43,6 +47,10 @@ module.exports.createMateriel = async (req, res) => {
     designation:
       designation.charAt(0).toUpperCase() + designation.slice(1).toLowerCase(),
   });
+  materiel.picture = {
+    url: req.file.path,
+    filename: req.file.filename,
+  };
   await materiel.save();
   req.flash("success", "Materiel a été ajouté avec succès");
   res.redirect("/materiels");
@@ -56,12 +64,19 @@ module.exports.updateMateriel = async (req, res) => {
 
   await Materiel.findByIdAndUpdate(
     id,
-    { code: code, designation: designation },
+    {
+      $set: {
+        code: code,
+        designation: designation,
+        picture: { url: req.file.path, filename: req.file.filename },
+      },
+    },
+
     { new: true }
   );
- const redirectUrl = req.get("Referrer") || "/"
+  const redirectUrl = req.get("Referrer") || "/";
   req.flash("success", "Materiel a été modifié avec succès");
-  res.redirect(redirectUrl);Z
+  res.redirect(redirectUrl);
 };
 module.exports.deleteMateriel = async (req, res) => {
   const { id } = req.params;

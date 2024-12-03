@@ -1,133 +1,157 @@
 <% layout('layouts/boilerplate')%>
 
-
 <div class="container-fluid mt-3">
+  <!-- Header Section -->
+  <div class="card shadow-lg bg-white rounded-5">
+    <div class="row g-0 align-items-center p-3">
+      <!-- Image Section -->
+      <div class="col-md-4">
+        <img 
+          src="<%= materiel.picture.url%>" 
+          alt="<%= materiel.picture.filename%>" 
+          class="img-fluid rounded-5"
+        />
+      </div>
 
-    <div class="col m-auto">
-        <div class="container-fluid">
-
-            <div class=" mb-4 bg-light rounded-5 px-2">
-
-                <div class="d-flex">
-                    <div class="col d-flex m-auto">
-                        <h2>
-                            <%=materiel.designation %>
-                        </h2>
-
-                        <div class="ms-2">
-
-                            <%- include("./new")%>
-                            <%- include("../edit")%>
-                            <%- include("../delete")%>
-                            <button
-                            class="btn btn-outline-secondary bg-gradient px-2 py-1"
-                            onclick="printArticle()">
-                            <i class="bi bi-printer-fill py-2 px-2"></i>
-                            </button> 
-                        </div>
-                    </div>
-                    <div class="col-3 mt-2">
-                        <p><span class="fw-bold text-decoration-underline">REF:</span><%=materiel.code %></p>
-                        <p><span class="fw-bold text-decoration-underline">Quantité globale:</span>  <%=materiel.qteglobal %></p>
-                        <p><span class="fw-bold text-decoration-underline">Quantité Consommé:</span> <%=materiel.consumedQuantity%></p>
-                    </div>
-                   
-                </div>
-            </div>
+      <!-- Material Details -->
+      <div class="col-md-8">
+        <div class="d-flex justify-content-between align-items-start">
+          <h2 class="text-greenSea fw-bold"><%= materiel.designation %></h2>
+          <div>
+            <%- include("./new") %>
+            <%- include("../edit") %>
+            <%- include("../delete") %>
+            <button
+              class="btn btn-outline-secondary bg-gradient px-2 py-1"
+              onclick="printArticle()">
+              <i class="bi bi-printer-fill py-2 px-2"></i>
+            </button>
+          </div>
         </div>
+
+        <p class="mt-2">
+          <span class="fw-bold text-decoration-underline">REF:</span> <%= materiel.code %>
+        </p>
+        <p>
+          <span class="fw-bold text-decoration-underline">Quantité globale:</span> <%= materiel.qteglobal %>
+        </p>
+        <p>
+          <span class="fw-bold text-decoration-underline">Quantité Consommée:</span> <%= materiel.consumedQuantity %>
+        </p>
+      </div>
     </div>
+  </div>
 
+  <!-- Search Bar -->
+  <form class="d-flex my-4">
+    <input 
+      id="search" 
+      class="form-control form-control-lg shadow-sm" 
+      type="search" 
+      placeholder="Search articles..." 
+      aria-label="Search" 
+    />
+  </form>
 
-
-
-
-    <form class="d-flex">
-        <input id="search" class="form-control mb-2" type="search" placeholder="Search" aria-label="Search" />
-
-    </form>
-    <div class="table-responsive">
-        <table class="table table-striped table-hover table-borderless text-center sortable">
-            <thead class="table-greenSea shadow-sm">
-                <tr>
-                    <th scope="col">N°</th>
-                    <th scope="col">N° Lot</th>
-                    <th scope="col">Marque</th>
-                    <th scope="col">Qte</th>
-                    <th scope="col">Qte consommé</th>
-                    <th scope="col">Date d'achat</th>
-                    <th scope="col">Fournisseur</th>
-                    <th scope="col">BC</th>
-                    <th scope="col">BL</th>
-                    <th scope="col">FC</th>
-                    <th scope="col">Etat</th>
-                    <th id="hide" scope="col">Action</th>
-                </tr>
-            </thead>
-            <tbody id="tablebody">
-                <% var i=1 %>
-                <% for (article of materiel.article){%>
-                <tr>
-                    <th scope="row" class="clickable" onclick="window.location='/materiel/<%=materiel.id%>/articles/<%=article.id%>'">
-                        <%= i%>
-                        <% i=i+1; %>
-                    </th>
-                    
-                    <td class="data clickable" onclick="window.location='/materiel/<%=materiel.id%>/articles/<%=article.id%>'">
-                        <%= article.lot%>
-                    </td>
-                    <td class="data clickable" onclick="window.location='/materiel/<%=materiel.id%>/articles/<%=article.id%>'">
-                        <%= article.marque %>
-                    </td>
-
-                    <td class="data clickable" onclick="window.location='/materiel/<%=materiel.id%>/articles/<%=article.id%>'">
-                        <%=article.detail.length %>
-                    </td>
-                    <td class="data clickable" onclick="window.location='/materiel/<%=materiel.id%>/articles/<%=article.id%>'">
-                        <%= article.detail.reduce((quantity,detail) => {
-                            if (detail.taken) return quantity + detail.quantite;
-                            else return quantity;
-                        },0) %>
-                    </td>
-                    
-                    <td class="data clickable" onclick="window.location='/materiel/<%=materiel.id%>/articles/<%=article.id%>'">
-                        <%=moment(article.dateachat).format("DD/MM/YYYY")%>
-
-                    </td>
-                    <td class="data clickable" onclick="window.location='/materiel/<%=materiel.id%>/articles/<%=article.id%>'">
-                        <%=article.fournisseur %>
-                    </td>
-                    <td class="data clickable" onclick="window.location='/materiel/<%=materiel.id%>/articles/<%=article.id%>'">
-                        <%=article.bc %>
-                    </td>
-                    <td class="data clickable" onclick="window.location='/materiel/<%=materiel.id%>/articles/<%=article.id%>'">
-                        <%=article.bl %>
-                    </td>
-                    <td class="data clickable" onclick="window.location='/materiel/<%=materiel.id%>/articles/<%=article.id%>'">
-                        <%=article.fc %>
-                    </td>
-                    <% if (article.etat==="Reçu"){%>
-                        <th class="p-3"><span class="rounded-pill badge bg-greenSea bg-gradient">Reçu</span></th>
-                        <%}else if(article.etat==="Commandé"){%>
-                        <th class="p-3"><span class="rounded-pill badge bg-warning bg-gradient bg-gradient">Commandé</span></th>
-                        <%}else{%>
-                            <th class="p-3"><span class="rounded-pill badge bg-lightCoral bg-gradient">Retour</span></th>
-                    
-                    <%}%>        <th>
-                        <%- include("./detail/new",{article})%>
-                        <%- include("./edit")%>
-                        
-                        <%- include("./delete")%>
-
-                        
-                    </th>
-
-                </tr>
-                <% }%>
-            </tbody>
-        </table>
-    </div>
+  <!-- Articles Table -->
+  <div class="table-responsive">
+    <table class="table table-striped table-hover text-center align-middle">
+      <thead class="table-greenSea shadow-sm">
+        <tr>
+          <th scope="col">N°</th>
+          <th scope="col">N° Lot</th>
+          <th scope="col">Marque</th>
+          <th scope="col">Qte</th>
+          <th scope="col">Qte consommée</th>
+          <th scope="col">Date d'achat</th>
+          <th scope="col">Fournisseur</th>
+          <th scope="col">BC</th>
+          <th scope="col">BL</th>
+          <th scope="col">FC</th>
+          <th scope="col">État</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody id="tablebody">
+        <% let i = 1; %>
+        <% for (const article of materiel.article) { %>
+          <tr 
+            >
+            <th scope="row"><%= i++ %></th>
+            <td class="clickable" 
+            data-materiel-id="<%= materiel.id %>" 
+            data-article-id="<%= article.id %>" 
+            onclick="redirectToArticle(this)"><%= article.lot %></td>
+            <td class="clickable" 
+            data-materiel-id="<%= materiel.id %>" 
+            data-article-id="<%= article.id %>" 
+            onclick="redirectToArticle(this)"><%= article.marque %></td>
+            <td class="clickable" 
+            data-materiel-id="<%= materiel.id %>" 
+            data-article-id="<%= article.id %>" 
+            onclick="redirectToArticle(this)"><%= article.detail.length %></td>
+            <td class="clickable" 
+            data-materiel-id="<%= materiel.id %>" 
+            data-article-id="<%= article.id %>" 
+            onclick="redirectToArticle(this)">
+              <%= article.detail.reduce((quantity, detail) => detail.taken ? quantity + detail.quantite : quantity, 0) %>
+            </td>
+            <td class="clickable" 
+            data-materiel-id="<%= materiel.id %>" 
+            data-article-id="<%= article.id %>" 
+            onclick="redirectToArticle(this)"><%= moment(article.dateachat).format("DD/MM/YYYY") %></td>
+            <td class="clickable" 
+            data-materiel-id="<%= materiel.id %>" 
+            data-article-id="<%= article.id %>" 
+            onclick="redirectToArticle(this)"><%= article.fournisseur %></td>
+            <td class="clickable" 
+            data-materiel-id="<%= materiel.id %>" 
+            data-article-id="<%= article.id %>" 
+            onclick="redirectToArticle(this)"><%= article.bc %></td>
+            <td class="clickable" 
+            data-materiel-id="<%= materiel.id %>" 
+            data-article-id="<%= article.id %>" 
+            onclick="redirectToArticle(this)"><%= article.bl %></td>
+            <td class="clickable" 
+            data-materiel-id="<%= materiel.id %>" 
+            data-article-id="<%= article.id %>" 
+            onclick="redirectToArticle(this)"><%= article.fc %></td>
+            <td class="clickable" 
+            data-materiel-id="<%= materiel.id %>" 
+            data-article-id="<%= article.id %>" 
+            onclick="redirectToArticle(this)">
+              <% if (article.etat === "Reçu") { %>
+                <span class="badge bg-greenSea rounded-pill px-3 py-2">Reçu</span>
+              <% } else if (article.etat === "Commandé") { %>
+                <span class="badge bg-warning rounded-pill px-3 py-2">Commandé</span>
+              <% } else { %>
+                <span class="badge bg-lightCoral rounded-pill px-3 py-2">Retour</span>
+              <% } %>
+            </td>
+            <td>
+              <%- include("./detail/new", { article }) %>
+              <%- include("./edit",{ article }) %>
+              <%- include("./delete",{ article }) %>
+            </td>
+          </tr>
+        <% } %>
+      </tbody>
+      
+    </table>
+  </div>
 </div>
-</div>
+
 <script>
-    let materiel = <%- JSON.stringify(materiel) %>;
+  const materiel = <%- JSON.stringify(materiel) %>;
 </script>
+<script>
+  function redirectToArticle(row) {
+    const materielId = row.getAttribute('data-materiel-id');
+    const articleId = row.getAttribute('data-article-id');
+    const url = `/materiel/${materielId}/articles/${articleId}`;
+    window.location.href = url;
+  }
+</script>
+<style>
+  
+</style>

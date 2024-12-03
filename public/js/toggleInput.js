@@ -219,7 +219,7 @@ let phoneIndex = 2;
     // Function to add a new phone input
     function addPhoneInput(value = '',container) {
       const newPhoneInput = `
-            <div class="input-group form-floating col-6 mb-3" id="mobile-${phoneIndex}">
+            <div class="input-group form-floating col-sm-12 col-md-4 mb-3" id="mobile-${phoneIndex}">
                 <input type="text" class="form-control" name="fournisseur[mobile][]" value="${value}" required>
                 <button type="button" class="btn btn-outline-lightCoral bg-gradient removePhoneButton"><i class="bi bi-trash"></i></button>
                 <label for="mobile-${phoneIndex}" class="form-label">Mobile ${phoneIndex}</label>

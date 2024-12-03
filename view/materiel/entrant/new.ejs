@@ -18,8 +18,8 @@
   aria-hidden="true"
 >
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-    <div class="modal-content">
-      <div class="modal-header">
+    <div class="modal-content rounded-4 shadow-sm">
+      <div class="modal-header bg-greenSea border-bottom-0">
         <h5 class="modal-title" id="staticBackdropLabel">Ajouter Materiel</h5>
 
         <button
@@ -38,13 +38,15 @@
           method="POST"
           autocomplete="off"
           novalidate
+          enctype="multipart/form-data"
         >
+          <!-- REF Input -->
           <div class="form-floating">
             <input
               id="materielcode"
               name="materiel[code]"
               type="text"
-              class="form-control"
+              class="form-control border-0 shadow-sm rounded-3"
               autofocus
               required
             />
@@ -52,35 +54,102 @@
             <div class="valid-feedback">BIEN</div>
           </div>
 
+          <!-- Désignation Input -->
           <div class="form-floating">
             <input
               id="materieldesignation"
               name="materiel[designation]"
               style="text-transform: capitalize"
               type="text"
-              class="form-control"
+              class="form-control border-0 shadow-sm rounded-3"
+              required
             />
             <label for="materielName" class="form-label">Désignation</label>
             <div class="valid-feedback">BIEN</div>
           </div>
 
+          <!-- Picture Upload -->
+          <div class="col-12 input-group mb-3">
+            <input
+              type="file"
+              class="form-control"
+              id="picture"
+              name="picture"
+              required
+            />
+            <label class="input-group-text" for="pictures"
+              >Image</label
+            >
+          </div>
+
           <div class="modal-footer mt-4">
             <button
               type="button"
-              class="btn btn-outline-lightCoral bg-gradient"
+              class="btn btn-outline-lightCoral bg-gradient rounded-3"
               data-bs-dismiss="modal"
             >
               Annuler
             </button>
-            <button class="btn btn-outline-greenSea">Ajouter</button>
+            <button class="btn btn-outline-greenSea rounded-3">Ajouter</button>
           </div>
         </form>
       </div>
     </div>
   </div>
 </div>
+
 <script>
   $("#newmateriel").on("shown.bs.modal", function () {
     $(this).find("[autofocus]").focus();
   });
 </script>
+
+<!-- Optional CSS for enhanced styling -->
+<style>
+  /* Modal Background and Card Styling */
+  .modal-content {
+    border-radius: 1rem;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+  }
+
+ 
+  /* Modal Buttons */
+  .btn-outline-greenSea {
+    border-color: #2d92a7;
+    color: #2d92a7;
+    transition: all 0.3s ease;
+  }
+
+  .btn-outline-greenSea:hover {
+    background-color: #2d92a7;
+    color: white;
+  }
+
+  .btn-outline-lightCoral {
+    border-color: #f08080;
+    color: #f08080;
+    transition: all 0.3s ease;
+  }
+
+  .btn-outline-lightCoral:hover {
+    background-color: #f08080;
+    color: white;
+  }
+
+  /* Styling Input fields */
+  .form-floating input {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+  }
+
+  .form-floating {
+    margin-bottom: 1rem;
+  }
+
+  /* File Upload Input */
+  #materielimage {
+    padding: 0.75rem;
+  }
+</style>

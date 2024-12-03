@@ -1,59 +1,59 @@
-<% layout('layouts/boilerplate')%>
+<% layout('layouts/boilerplate') %>
 <div class="container">
-  <div class="card my-3">
+  <div class="card my-3 shadow-lg border-0 rounded-4">
     <div class="row">
       <div class="col-12">
-        <div class="d-flex flex-column align-items-center">
-          <img class="" src="/assets/new patient.png" alt="" height="250px" />
+        <div class="d-flex justify-content-center">
+          <img src="/assets/new patient.png" alt="New Patient" height="250px" class="mt-3" />
         </div>
       </div>
     </div>
     <div class="row">
       <div class="tab-content">
-        <!-- ============================= Creation du Patient =============================================== -->
+        <!-- Patient Registration Form -->
         <div
-          aria-labelledby="patientRegisterTab "
+          aria-labelledby="patientRegisterTab"
           role="tabpanel"
           class="mt-2 my-5 tab-pane fade active show"
           id="patientRegisterForm"
         >
-          <h3 class="m-4 text-center text-greenSea">Nouveau Patient</h3>
+          <h3 class="text-center text-greenSea mb-4">
+            <i class="bi bi-person-plus"></i> Nouveau Patient
+          </h3>
           <form
-            class="row g-3 m-2 needs-validation"
+            class="row g-3 needs-validation px-4"
             action="/patient"
             id="personal"
             method="POST"
             autocomplete="on"
             novalidate
           >
-          <div class="form-floating col-12">
-            <select
-              id="patientRole"
-              name="patient[relation]"
-              class="form-select"
-              
-            >
-              <option selected disabled value="">Relation</option>
-              <option class="option" value="Père" disabled>Père</option>
-              <option class="option" value="Mère">Mère</option>
-              <option class="option" value="Fils">Fils</option>
-            </select>
-            <label for="patientGender" class="form-label">Relation</label>
-            <div class="valid-feedback">BIEN</div>
-          </div>
+            <!-- Relation -->
+            <div class="form-floating col-12">
+              <select id="patientRole" name="patient[relation]" class="form-select">
+                <option selected disabled value="">Relation</option>
+                <option value="Père" disabled>Père</option>
+                <option value="Mère">Mère</option>
+                <option value="Fils">Fils</option>
+              </select>
+              <label for="patientRole">
+                <i class="bi bi-people"></i> Relation
+              </label>
+            </div>
+
+            <!-- Name Fields -->
             <div class="form-floating col-md-6">
               <input
                 id="patientLastName"
                 name="patient[lastname]"
                 type="text"
                 class="form-control"
-                style="text-transform: capitalize"
+                placeholder="Nom"
                 required
-                autofocus
-                autocomplete="on"
               />
-              <label for="patientLastName" class="form-label">Nom</label>
-              <div class="valid-feedback">BIEN</div>
+              <label for="patientLastName">
+                <i class="bi bi-person"></i> Nom
+              </label>
             </div>
             <div class="form-floating col-md-6">
               <input
@@ -61,166 +61,159 @@
                 name="patient[firstname]"
                 type="text"
                 class="form-control"
-                style="text-transform: capitalize"
+                placeholder="Prénom"
                 required
-                autocomplete="on"
               />
-              <label for="patientFirstName" class="form-label">Prénom</label>
-              <div class="valid-feedback">BIEN</div>
+              <label for="patientFirstName">
+                <i class="bi bi-person"></i> Prénom
+              </label>
             </div>
+
+            <!-- Parent and Birthdate -->
             <div class="form-floating col-md-6">
               <input
                 id="father"
                 name="patient[father]"
                 type="text"
                 class="form-control"
-                style="text-transform: capitalize"
+                placeholder="Père"
               />
-              <label for="father" class="form-label">Père</label>
-              <div class="valid-feedback">BIEN</div>
+              <label for="father">
+                <i class="bi bi-person"></i> Père
+              </label>
             </div>
             <div class="form-floating col-md-6">
-              <input id="patientBirthDate" name="patient[birthdate]" type="date"
-              class="form-control" max="<%= moment().format("YYYY-MM-DD") %>"
-              min="<%= moment('01/01/1900').format('YYYY-MM-DD')%>" />
-              <label for="patientBirthDate" class="form-label"
-                >Date de Naissance
+              <input
+                id="patientBirthDate"
+                name="patient[birthdate]"
+                type="date"
+                class="form-control"
+                max="<%= moment().format('YYYY-MM-DD') %>"
+                min="<%= moment('01/01/1900').format('YYYY-MM-DD') %>"
+              />
+              <label for="patientBirthDate">
+                <i class="bi bi-calendar"></i> Date de Naissance
               </label>
-              <div class="valid-feedback">BIEN</div>
             </div>
 
+            <!-- Blood Group -->
             <div class="form-floating col-md-6">
               <select id="bloodGroup" name="blood[groupe]" class="form-select">
                 <option selected disabled value="">Groupe sanguin</option>
-                <% for(groupe of bloodGroup){ %>
-                <option class="option" value="<%= groupe %>">
-                  <%=groupe %>
-                </option>
+                <% for (groupe of bloodGroup) { %>
+                <option value="<%= groupe %>"><%= groupe %></option>
                 <% } %>
               </select>
-              <label for="bloodGroup" class="form-label">Groupe sanguin</label>
-              <div class="valid-feedback">BIEN</div>
+              <label for="bloodGroup">
+                <i class="bi bi-droplet"></i> Groupe sanguin
+              </label>
             </div>
             <div class="form-floating col-md-6">
               <select id="rhesus" name="blood[rhesus]" class="form-select">
                 <option selected disabled value="">Rhésus</option>
-                <% for(rhesus of bloodRhesus){ %>
-                <option class="option" value="<%= rhesus %>">
-                  <%= rhesus %>
-                </option>
+                <% for (rhesus of bloodRhesus) { %>
+                <option value="<%= rhesus %>"><%= rhesus %></option>
                 <% } %>
               </select>
-              <label for="rhesus" class="form-label">Rhésus</label>
-              <div class="valid-feedback">BIEN</div>
+              <label for="rhesus">
+                <i class="bi bi-droplet-half"></i> Rhésus
+              </label>
             </div>
+
+            <!-- Phone Numbers -->
             <div class="form-floating col-md-6">
               <input
-                type="text"
-                class="form-control"
                 id="patientPhoneNumber"
                 name="patient[phone]"
-                required
-                maxlength="10"
-                minlength="10"
-              />
-              <label for="patientPhoneNumber" class="form-label"
-                >Téléphone 1</label
-              >
-              <div class="valid-feedback">BIEN</div>
-            </div>
-            <div class="form-floating col-md-6">
-              <input
                 type="text"
                 class="form-control"
-                id="patientPhoneNumber2"
-                name="patient[phone2]"
-                maxlength="10"
-                minlength="10"
-              />
-              <label for="patientPhoneNumber2" class="form-label"
-                >Téléphone 2</label
-              >
-              <div class="valid-feedback">BIEN</div>
-            </div>
-            <div class="form-floating col-md-6">
-              <select
-                id="patientGender"
-                name="patient[gender]"
-                class="form-select"
+                placeholder="Téléphone 1"
                 required
-              >
-                <option selected disabled value="">Genre</option>
-                <option class="option" value="Male">Male</option>
-                <option class="option" value="Female">Female</option>
-              </select>
-              <label for="patientGender" class="form-label">Genre</label>
-              <div class="valid-feedback">BIEN</div>
+              />
+              <label for="patientPhoneNumber">
+                <i class="bi bi-telephone"></i> Téléphone 1
+              </label>
             </div>
             <div class="form-floating col-md-6">
               <input
-                class="form-select"
-                id="wilaya"
-                name="patient[wilaya]"
-                list="cities"
-                placeholder="Wilaya"
-                onchange="makeSubmenu(this.value, '')"
+                id="patientPhoneNumber2"
+                name="patient[phone2]"
+                type="text"
+                class="form-control"
+                placeholder="Téléphone 2"
               />
-              <datalist id="cities">
-                <option class="option" value="">Ville</option>
-                <% for (city of states) { %>
-                <option class="option" value="<%= city.name %>">
-                  <%= city.id + " - " + city.name %>
-                </option>
-                <%} %>
-              </datalist>
-              <label for="wilaya" class="form-label">Wilaya</label>
-              <div class="valid-feedback">BIEN</div>
+              <label for="patientPhoneNumber2">
+                <i class="bi bi-telephone-plus"></i> Téléphone 2
+              </label>
             </div>
-
             <div class="form-floating col-md-6">
-              <select id="city" name="patient[city]" class="form-select">
-                <option class="option" value="" disabled selected>Ville</option>
+              <select id="patientGender" name="patient[gender]" class="form-select" required>
+                <option selected disabled value="">Genre</option>
+                <option value="Male">👨 Male</option>
+                <option value="Female">👩 Female</option>
               </select>
-              <label for="city" class="form-label">Ville</label>
-              <div class="valid-feedback">BIEN</div>
-            </div>
-
-            <div class="form-floating col-md-6">
-              <select
-                id="medecinref"
-                name="patient[medecinref]"
-                class="form-select"
-              >
-                <option class="option" value="" disabled selected>
-                  Medecin Ref
-                </option>
-                <% for(medecin of medecins ){ %>
-
-                <option class="option" value="<%= medecin.lastname%>">
-                  Dr. <%= medecin.lastname %>
-                </option>
-                <% } %>
-              </select>
-              <label for="medecinref" class="form-label">Medecin Ref</label>
+              <label for="patientGender" class="form-label">
+                <i class="bi bi-gender-ambiguous"></i> Genre
+              </label>
               <div class="valid-feedback">BIEN</div>
             </div>
             
+            
 
-            <div class="mb-2 mt-4 text-center">
+            <!-- Location -->
+            <div class="form-floating col-md-6">
+              <input
+                id="wilaya"
+                name="patient[wilaya]"
+                list="cities"
+                class="form-select"
+                placeholder="Wilaya"
+              />
+              <datalist id="cities">
+                <% for (city of states) { %>
+                <option value="<%= city.name %>"><%= city.id %> - <%= city.name %></option>
+                <% } %>
+              </datalist>
+              <label for="wilaya">
+                <i class="bi bi-geo"></i> Wilaya
+              </label>
+            </div>
+            <div class="form-floating col-md-6">
+              <select id="city" name="patient[city]" class="form-select">
+                <option value="" disabled selected>Ville</option>
+              </select>
+              <label for="city">
+                <i class="bi bi-geo-alt"></i> Ville
+              </label>
+            </div>
+
+            <!-- Doctor Reference -->
+            <div class="form-floating col-md-6">
+              <select id="medecinref" name="patient[medecinref]" class="form-select">
+                <option value="" disabled selected>Medecin Ref</option>
+                <% for (medecin of medecins) { %>
+                <option value="<%= medecin.lastname %>">Dr. <%= medecin.lastname %></option>
+                <% } %>
+              </select>
+              <label for="medecinref">
+                <i class="bi bi-person-badge"></i> Medecin Ref
+              </label>
+            </div>
+
+            <!-- Submit Buttons -->
+            <div class="col-12 text-center mt-4">
               <button
                 type="submit"
-                id="patient-register"
-                class="btn btn-outline-greenSea bg-gradient bg-opacity-25"
-                formaction="patient/new"
+                class="btn btn-greenSea me-2 px-4"
               >
-                Ajouter autre patient <i class="bi bi-person-plus-fill"></i>
+                Ajouter <i class="bi bi-person-plus-fill"></i>
               </button>
               <button
                 type="submit"
-                id="patient-register"
-                class="btn btn-outline-greenSea bg-gradient"
+                class="btn btn-outline-secondary px-4"
+                formaction="patient/new"
               >
-                Ajouter <i class="bi bi-person-plus-fill"></i>
+                Ajouter autre patient <i class="bi bi-person-plus"></i>
               </button>
             </div>
           </form>

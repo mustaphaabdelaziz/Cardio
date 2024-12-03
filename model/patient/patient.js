@@ -264,9 +264,6 @@ const Patient = new Schema(
     status: {
       type: String,
     },
-    status: {
-      type: String,
-    },
 
     createdBy: {
       _id: false,

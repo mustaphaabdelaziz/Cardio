@@ -6,6 +6,8 @@
   <link rel="shortcut icon" type="x-icon" href="/assets/logo.png" />
   <title>Oasis Cardiologie</title>
   <link rel="stylesheet" href="/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="/css/navbar.css" />
+  <!-- <link rel="stylesheet" href="/css/main.css" /> -->
   <link rel="stylesheet" href="/css/carousel.css" />
   <link rel="stylesheet" href="/css/userProfile.css" />
   <link rel="stylesheet" href="/css/color.css" />
@@ -27,6 +29,9 @@
       $("#search").on("keyup", function () {
         var value = $(this).val().toLowerCase();
         $("#tablebody tr").filter(function () {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+        });
+        $("mb-3 h5").filter(function () {
           $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
         });
       });

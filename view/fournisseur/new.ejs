@@ -1,118 +1,136 @@
-<button id="item2" type="button" class="btn btn-outline-greenSea" data-bs-toggle="modal"
-  data-bs-target="#newfournisseur">
+<button id="item2" type="button" class="btn btn-outline-greenSea" data-bs-toggle="modal" data-bs-target="#newfournisseur">
   <i class="bi bi-person-plus-fill me-2"></i>Ajouter
 </button>
 
 <!-- Modal -->
-<div class="modal fade" id="newfournisseur" data-bs-keyboard="true" tabindex="-1" aria-labelledby="staticBackdropLabel"
-  aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable ">
+<div class="modal fade" id="newfournisseur" data-bs-keyboard="true" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="staticBackdropLabel">Ajouter Fournisseur</h5>
-
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
       <div class="modal-body">
-        <form class="row g-3 needs-validation" action="/fournisseur" id="fournisseur" method="POST" autocomplete="off"
-          novalidate>
-          <div class="form-floating col-12">
-            <input id="name" name="fournisseur[name]" type="text" class="form-control"
-              style="text-transform: capitalize" autofocus required />
-            <label for="name" class="form-label">Raison sociale</label>
+        <form class="row g-3 needs-validation" action="/fournisseur" id="fournisseur" method="POST" autocomplete="off" novalidate>
+
+          <!-- Raison Sociale -->
+          <div class="form-floating col-sm- 12 col-md-6">
+            <input id="name" name="fournisseur[name]" type="text" class="form-control" style="text-transform: capitalize" autofocus required />
+            <label for="name" class="form-label"><i class="bi bi-briefcase me-2"></i>Raison sociale</label>
             <div class="valid-feedback">BIEN</div>
           </div>
+
+          <!-- Wilaya -->
           <div class="form-floating col-md-6">
-            <input class="form-control" id="wilaya" name="fournisseur[wilaya]" list="cities"
-              onchange="makeSubmenu(this.value, '')" required />
+            <input class="form-control" id="wilaya" name="fournisseur[wilaya]" list="cities" onchange="makeSubmenu(this.value, '')" required />
             <datalist id="cities">
               <option class="option" value="">Ville</option>
               <% for (city of states) { %>
-              <option class="option" value="<%= city.name %>">
-                <%= city.id + " - " + city.name %>
-              </option>
-              <%} %>
+              <option class="option" value="<%= city.name %>"><%= city.id + " - " + city.name %></option>
+              <% } %>
             </datalist>
-            <label for="wilaya" class="form-label">Wilaya</label>
+            <label for="wilaya" class="form-label"><i class="bi bi-geo-alt me-2"></i>Wilaya</label>
             <div class="valid-feedback">BIEN</div>
           </div>
-          <div class="form-floating col-md-6">
+
+          <!-- Ville -->
+          <div class="form-floating col-sm-12 col-md-6">
             <select id="city" name="fournisseur[city]" class="form-select" required>
               <option class="option" value="" disabled selected>Ville</option>
             </select>
-            <label for="city" class="form-label">Ville</label>
-            <div class="valid-feedback">BIEN</div>
-          </div>
-          <div class="form-floating col-md-6">
-            <input type="text" class="form-control" id="postalCode" name="fournisseur[postalCode]" maxlength="10"
-              required />
-            <label for="postalCode" class="form-label">Code postal</label>
+            <label for="city" class="form-label"><i class="bi bi-geo-alt-fill me-2"></i>Ville</label>
             <div class="valid-feedback">BIEN</div>
           </div>
 
-          <div class="form-floating col-md-6">
-            <input type="text" class="form-control" id="phone" name="fournisseur[phone]" maxlength="20" />
-            <label for="phone" class="form-label">Télephone</label>
+          <!-- Postal Code -->
+          <div class="form-floating col-sm-12 col-md-6">
+            <input type="text" class="form-control" id="postalCode" name="fournisseur[postalCode]" maxlength="10" required />
+            <label for="postalCode" class="form-label"><i class="bi bi-envelope me-2"></i>Code postal</label>
             <div class="valid-feedback">BIEN</div>
           </div>
+
+          <!-- Phone -->
+          <div class="form-floating col-sm-12 col-md-12">
+            <input type="text" class="form-control" id="phone" name="fournisseur[phone]" maxlength="20" />
+            <label for="phone" class="form-label"><i class="bi bi-telephone me-2"></i>Téléphone</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+          <!-- Mobile -->
+          <div class="mt-3 row g-3" id="phoneContainer">
+            <div class="input-group form-floating col-sm-12 col-md-6">
+              <input type="text" class="form-control" id="mobile-1" name="fournisseur[mobile]" maxlength="20" />
+              <button type="button" class="btn btn-outline-primary bg-gradient" id="addPhoneButton">
+                <i class="bi bi-telephone-plus-fill"></i>
+              </button>
+              <label for="mobile-1" class="form-label"><i class="bi bi-phone-fill me-2"></i>Mobile 1</label>
+              <div class="valid-feedback">BIEN</div>
+            </div>
+          </div>
+          <!-- Fax -->
           <div class="form-floating col-md-6">
             <input type="text" class="form-control" id="fax" name="fournisseur[fax]" maxlength="20" />
-            <label for="fix" class="form-label">Fax</label>
+            <label for="fax" class="form-label"><i class="bi bi-fax me-2"></i>Fax</label>
             <div class="valid-feedback">BIEN</div>
-          </div>
-          <div class="mt-3 row g-3" id="phoneContainer">
-          <div class="form-floating col-md-6">
-            <input type="text" class="form-control" id="mobile-1" name="fournisseur[mobile]" maxlength="20" />
-            <label for="mobile-1" class="form-label">Mobile 1</label>
-            <div class="valid-feedback">BIEN</div>
-          </div>
-         
           </div>
 
-          <button type="button" class="btn btn-outline-primary bg-gradient col-md-6" id="addPhoneButton">
-            <i class="bi bi-plus-circle-fill"></i>
-          </button>
 
+
+          <!-- Add Phone Button -->
+
+
+          <!-- Email -->
           <div class="form-floating col-md-6">
-            <input type="email" class="form-control" id="email" name="fournisseur[email]"
-              style="text-transform: lowercase" required />
-            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="fournisseur[email]" style="text-transform: lowercase" required />
+            <label for="email" class="form-label"><i class="bi bi-envelope-at me-2"></i>Email</label>
             <div class="valid-feedback">BIEN</div>
           </div>
+
+          <!-- Website -->
           <div class="form-floating col-md-6">
             <input type="text" class="form-control" id="website" name="fournisseur[website]" />
-            <label for="website" class="form-label">Site Web</label>
+            <label for="website" class="form-label"><i class="bi bi-globe me-2"></i>Site Web</label>
             <div class="valid-feedback">BIEN</div>
           </div>
+
+          <!-- Description -->
           <div class="col-12">
-            <textarea class="form-control" name="fournisseur[description]" id="description" rows="4"
-              placeholder="Description" style="text-transform: capitalize"></textarea>
+            <textarea class="form-control" name="fournisseur[description]" id="description" rows="4" placeholder="Description" style="text-transform: capitalize"></textarea>
           </div>
 
+          <!-- Billing Info Section -->
           <span>Données de facturation</span>
           <hr>
+
+          <!-- N° RC -->
           <div class="form-floating col-md-6">
             <input type="text" class="form-control" id="nrc" name="fournisseur[nrc]" />
-            <label for="nrc" class="form-label">N° RC</label>
-            <div class="valid-feedback">BIEN</div>
-          </div>
-          <div class="form-floating col-md-6">
-            <input type="text" class="form-control" id="nif" name="fournisseur[nif]" />
-            <label for="nif" class="form-label">NIF</label>
-            <div class="valid-feedback">BIEN</div>
-          </div>
-          <div class="form-floating col-md-6">
-            <input type="text" class="form-control" id="narticle" name="fournisseur[narticle]" />
-            <label for="narticle" class="form-label">N° Article</label>
-            <div class="valid-feedback">BIEN</div>
-          </div>
-          <div class="form-floating col-md-6">
-            <input type="text" class="form-control" id="nis" name="fournisseur[nis]" />
-            <label for="nis" class="form-label">NIS</label>
+            <label for="nrc" class="form-label"><i class="bi bi-file-earmark me-2"></i>N° RC</label>
             <div class="valid-feedback">BIEN</div>
           </div>
 
+          <!-- NIF -->
+          <div class="form-floating col-md-6">
+            <input type="text" class="form-control" id="nif" name="fournisseur[nif]" />
+            <label for="nif" class="form-label"><i class="bi bi-file-earmark-code me-2"></i>NIF</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+
+          <!-- N° Article -->
+          <div class="form-floating col-md-6">
+            <input type="text" class="form-control" id="narticle" name="fournisseur[narticle]" />
+            <label for="narticle" class="form-label"><i class="bi bi-file-earmark-post me-2"></i>N° Article</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+
+          <!-- NIS -->
+          <div class="form-floating col-md-6">
+            <input type="text" class="form-control" id="nis" name="fournisseur[nis]" />
+            <label for="nis" class="form-label"><i class="bi bi-file-earmark-lock me-2"></i>NIS</label>
+            <div class="valid-feedback">BIEN</div>
+          </div>
+
+          <!-- Footer -->
           <div class="modal-footer mt-4">
             <button type="button" class="btn btn-outline-lightCoral bg-gradient" data-bs-dismiss="modal">
               Annuler
@@ -124,8 +142,9 @@
     </div>
   </div>
 </div>
+
 <script>
-  $("#newfournisseur").on("shown.bs.modal", function () {
+  $("#newfournisseur").on("shown.bs.modal", function() {
     $(this).find("[autofocus]").focus();
   });
 </script>

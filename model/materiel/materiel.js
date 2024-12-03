@@ -10,6 +10,10 @@ const Materiel = new Schema(
   {
     code: String,
     designation: { type: String, unique: true, trim: true, required: true },
+    picture: {
+      url: String,
+      filename: String,
+    },
     article: [
       {
         etat: String,

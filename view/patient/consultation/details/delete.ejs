@@ -1,0 +1,33 @@
+<!-- Delete Modal -->
+<button type="button" class="btn me-2 btn-outline-lightCoral bg-gradient px-2 py-1" data-bs-toggle="modal" data-bs-target="#delete-<%= document.id %>">
+  <i class="bi bi-trash-fill"></i>
+</button>
+<div class="modal fade" id="delete-<%= document.id %>" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">
+          Supprimer Pièce Jointe - <%= document.filename %>
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <p>Êtes-vous sûr de vouloir supprimer ce fichier ?</p>
+        <p><strong><%= document.filename %></strong></p>
+
+        <form action="/patient/<%= patient.id %>/acte/<%= patientConsultation.id %>/file/<%= document._id %>?_method=DELETE" method="POST">
+          <input type="hidden" name="documentPath" value="<%= document.path %>" />
+          <div class="modal-footer mt-4">
+            <button type="button" class="btn btn-outline-lightCoral bg-gradient" data-bs-dismiss="modal">
+              Annuler
+            </button>
+            <button class="btn btn-outline-lightCoral bg-gradient" type="submit">
+              Supprimer
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

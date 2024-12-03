@@ -6,126 +6,129 @@
   data-bs-target="#newPatient"
 >
   Nouveau patient <i class="bi bi-person-plus-fill me-2"></i>
-  
 </button>
 
 <!-- Modal -->
 <div
   class="modal fade"
   id="newPatient"
-  data-bs-keyboard="true"
   tabindex="-1"
-  aria-labelledby="staticBackdropLabel"
+  aria-labelledby="newPatientLabel"
   aria-hidden="true"
 >
-  <div
-    class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg"
-  >
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
     <div class="modal-content">
-      <div class="modal-header">
-        <img src="/assets/new patient.png" alt="" height="40px" />
-        <h5 class="modal-title" id="staticBackdropLabel">Ajouter Patient</h5>
-        
+      <div class="modal-header bg-greenSea text-white">
+        <h5 class="modal-title" id="newPatientLabel">
+          <i class="bi bi-person-fill me-2"></i> Ajouter Patient
+        </h5>
         <button
           type="button"
-          class="btn-close"
+          class="btn-close btn-close-white"
           data-bs-dismiss="modal"
           aria-label="Close"
         ></button>
       </div>
-
       <div class="modal-body">
-        <form
-          class="row g-3 m-2 needs-validation"
-          action="/patient"
-          id="personal"
-          method="POST"
-          autocomplete="on"
-          novalidate
-        >
-        <div class="form-floating col-12">
-          <select
-            id="patientRole"
-            name="patient[relation]"
-            class="form-select"
-            
-          >
-            <option  disabled value="">Relation</option>
-            <option class="option" value="Père" disabled>Père</option>
-            <option class="option" value="Mère">Mère</option>
-            <option class="option" value="Fils" selected>Fils</option>
-          </select>
-          <label for="patientGender" class="form-label">Relation</label>
-          <div class="valid-feedback">BIEN</div>
-        </div>
+        <form class="row g-3 needs-validation" novalidate>
+          <!-- Relation -->
+          <div class="form-floating col-md-6">
+            <select
+              id="patientRole"
+              name="patient[relation]"
+              class="form-select"
+              required
+            >
+              <option disabled selected value="">Choisir relation</option>
+              <option value="Père">Père</option>
+              <option value="Mère">Mère</option>
+              <option value="Fils">Fils</option>
+            </select>
+            <label for="patientRole"><i class="bi bi-people-fill me-2"></i>Relation</label>
+            <div class="invalid-feedback">Veuillez sélectionner une relation.</div>
+          </div>
+
+          <!-- Nom et Prénom -->
           <div class="form-floating col-md-6">
             <input
+              type="text"
+              class="form-control"
               id="patientLastName"
               name="patient[lastname]"
-              type="text"
-              class="form-control"
-              style="text-transform: capitalize"
               required
-              autofocus
-              autocomplete="on"
             />
-            <label for="patientLastName" class="form-label">Nom</label>
-            <div class="valid-feedback">BIEN</div>
+            <label for="patientLastName"><i class="bi bi-person me-2"></i>Nom</label>
+            <div class="invalid-feedback">Le nom est obligatoire.</div>
           </div>
           <div class="form-floating col-md-6">
             <input
+              type="text"
+              class="form-control"
               id="patientFirstName"
               name="patient[firstname]"
-              type="text"
-              class="form-control"
-              style="text-transform: capitalize"
               required
-              autocomplete="on"
             />
-            <label for="patientFirstName" class="form-label">Prénom</label>
-            <div class="valid-feedback">BIEN</div>
-          </div>
-          <div class="form-floating col-md-6">
-            <input
-              id="father"
-              name="patient[father]"
-              style="text-transform: capitalize"
-              type="text"
-              class="form-control"
-            />
-            <label for="father" class="form-label">Père</label>
-            <div class="valid-feedback">BIEN</div>
-          </div>
-          <div class="form-floating col-md-6">
-            <input id="patientBirthDate" name="patient[birthdate]" type="date"
-            class="form-control" max="<%=moment().format('YYYY-MM-DD')%>"
-            min="<%=moment("1900-01-01").format('YYYY-MM-DD')%>" />
-            <label for="patientBirthDate" class="form-label"
-              >Date de Naissance
-            </label>
-            <div class="valid-feedback">BIEN</div>
-          </div>
-          <div class="form-floating col-md-6">
-            <select id="bloodGroup" name="blood[groupe]" class="form-select">
-              <option selected disabled value="">Groupe sanguin</option>
-              <% for(groupe of bloodGroup){ %>
-                <option class="option" value="<%= groupe %>"><%=groupe  %></option>
-                <% } %>
-            </select>
-            <label for="bloodGroup" class="form-label">Groupe sanguin</label>
-            <div class="valid-feedback">BIEN</div>
-          </div>
-          <div class="form-floating col-md-6">
-            <select id="rhesus" name="blood[rhesus]" class="form-select">
-              <option selected disabled value="">Rhésus</option>
-              <% for(rhesus of bloodRhesus){ %>
-              <option class="option" value="<%= rhesus %>">+</option>
-              <% } %>
-            </select>
-            <label for="rhesus" class="form-label">Rhésus</label>
-            <div class="valid-feedback">BIEN</div>
+            <label for="patientFirstName"><i class="bi bi-person me-2"></i>Prénom</label>
+            <div class="invalid-feedback">Le prénom est obligatoire.</div>
           </div>
 
+          <!-- Père -->
+          <div class="form-floating col-md-6">
+            <input
+              type="text"
+              class="form-control"
+              id="father"
+              name="patient[father]"
+            />
+            <label for="father"><i class="bi bi-person-circle me-2"></i>Père</label>
+          </div>
+
+          <!-- Date de Naissance -->
+          <div class="form-floating col-md-6">
+            <input
+              type="date"
+              class="form-control"
+              id="patientBirthDate"
+              name="patient[birthdate]"
+              required
+            />
+            <label for="patientBirthDate"><i class="bi bi-calendar-event me-2"></i>Date de Naissance</label>
+            <div class="invalid-feedback">Veuillez saisir une date valide.</div>
+          </div>
+
+          <!-- Groupe Sanguin et Rhésus -->
+          <div class="form-floating col-md-6">
+            <select
+              id="bloodGroup"
+              name="blood[groupe]"
+              class="form-select"
+              required
+            >
+              <option disabled selected value="">Groupe sanguin</option>
+              <option value="A">A</option>
+              <option value="B">B</option>
+              <option value="AB">AB</option>
+              <option value="O">O</option>
+            </select>
+            <label for="bloodGroup"><i class="bi bi-droplet me-2"></i>Groupe sanguin</label>
+            <div class="invalid-feedback">Veuillez sélectionner un groupe sanguin.</div>
+          </div>
+          <div class="form-floating col-md-6">
+            <select
+              id="rhesus"
+              name="blood[rhesus]"
+              class="form-select"
+              required
+            >
+              <option disabled selected value="">Rhésus</option>
+              <option value="+">+</option>
+              <option value="-">-</option>
+            </select>
+            <label for="rhesus"><i class="bi bi-droplet-half me-2"></i>Rhésus</label>
+            <div class="invalid-feedback">Veuillez sélectionner un rhésus.</div>
+          </div>
+
+          <!-- Téléphone -->
           <div class="form-floating col-md-6">
             <input
               type="text"
@@ -133,13 +136,9 @@
               id="patientPhoneNumber"
               name="patient[phone]"
               required
-              maxlength="10"
-              minlength="10"
             />
-            <label for="patientPhoneNumber" class="form-label"
-              >Téléphone 1</label
-            >
-            <div class="valid-feedback">BIEN</div>
+            <label for="patientPhoneNumber"><i class="bi bi-telephone me-2"></i>Téléphone 1</label>
+            <div class="invalid-feedback">Numéro de téléphone requis.</div>
           </div>
           <div class="form-floating col-md-6">
             <input
@@ -147,94 +146,65 @@
               class="form-control"
               id="patientPhoneNumber2"
               name="patient[phone2]"
-              maxlength="10"
-              minlength="10"
             />
-            <label for="patientPhoneNumber2" class="form-label"
-              >Téléphone 2</label
-            >
-            <div class="valid-feedback">BIEN</div>
+            <label for="patientPhoneNumber2"><i class="bi bi-telephone me-2"></i>Téléphone 2</label>
           </div>
+
+          <!-- Genre -->
           <div class="form-floating col-md-6">
-            <select
-              id="patientGender"
-              name="patient[gender]"
-              class="form-select"
-              required
-            >
+            <select id="patientGender" name="patient[gender]" class="form-select" required>
               <option selected disabled value="">Genre</option>
-              <option class="option" value="Male">Male</option>
-              <option class="option" value="Female">Female</option>
+              <option value="Male">👨 Male</option>
+              <option value="Female">👩 Female</option>
             </select>
-            <label for="patientGender" class="form-label">Genre</label>
+            <label for="patientGender" class="form-label">
+              <i class="bi bi-gender-ambiguous"></i> Genre
+            </label>
             <div class="valid-feedback">BIEN</div>
           </div>
+
+          <!-- Wilaya et Ville -->
           <div class="form-floating col-md-6">
             <input
-              class="form-select"
+              type="text"
+              class="form-control"
               id="wilaya"
               name="patient[wilaya]"
               list="cities"
               placeholder="Wilaya"
-              onchange="makeSubmenu(this.value, '')"
+              required
             />
-            <datalist id="cities">
-              <option class="option" value="">Ville</option>
-              <% for (city of states) { %>
-              <option class="option" value="<%= city.name %>">
-                <%= city.id + " - " + city.name %>
-              </option>
-              <%} %>
-            </datalist>
-            <label for="wilaya" class="form-label">Wilaya</label>
-            <div class="valid-feedback">BIEN</div>
-          </div>
-
-          <div class="form-floating col-md-6">
-            <select id="city" name="patient[city]" class="form-select">
-              <option class="option" value="" disabled selected>Ville</option>
-            </select>
-            <label for="city" class="form-label">Ville</label>
-            <div class="valid-feedback">BIEN</div>
+            <label for="wilaya"><i class="bi bi-geo-alt me-2"></i>Wilaya</label>
+            <div class="invalid-feedback">Veuillez sélectionner une wilaya.</div>
           </div>
           <div class="form-floating col-md-6">
             <select
-              id="medecinref"
-              name="patient[medecinref]"
+              id="city"
+              name="patient[city]"
               class="form-select"
+              required
             >
-              <option class="option" value="" disabled selected>
-                Medecin Ref
-              </option>
-              <% for(medecin of medecins ){ %>
-
-              <option class="option" value="<%= medecin.lastname%>">
-                Dr. <%= medecin.lastname %>
-              </option>
-              <% } %>
+              <option disabled selected value="">Ville</option>
             </select>
-            <label for="medecinref" class="form-label">Medecin Ref</label>
-            <div class="valid-feedback">BIEN</div>
+            <label for="city"><i class="bi bi-building me-2"></i>Ville</label>
+            <div class="invalid-feedback">Veuillez sélectionner une ville.</div>
           </div>
-         
 
-          <div class="modal-footer mt-4">
+          <!-- Buttons -->
+          <div class="modal-footer">
             <button
               type="button"
-              class="btn btn-outline-lightCoral bg-gradient"
+              class="btn btn-secondary"
               data-bs-dismiss="modal"
             >
               Annuler
             </button>
-            <button class="btn btn-outline-greenSea bg-gradient">Ajouter</button>
+            <button type="submit" class="btn btn-greenSea">
+              <i class="bi bi-check-circle me-2"></i>Ajouter
+            </button>
           </div>
         </form>
       </div>
     </div>
   </div>
 </div>
-<script>
-  $("#newPatient").on("shown.bs.modal", function () {
-    $(this).find("[autofocus]").focus();
-  });
-</script>

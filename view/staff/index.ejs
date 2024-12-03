@@ -2,60 +2,58 @@
 
 <div class="container-fluid mt-4">
   <div class="col m-auto">
-    <h3 class="mb-4 text-center text-greenSea fs-1">Liste des personnels</h3>
+    <h3 class="mb-4 text-center text-greenSea fs-1">Liste des Personnels</h3>
     <div class="mb-3">
-      <%- include("./new")%>
-      <a
-        class="btn btn-outline-secondary ms-2"
-        href="/staffs/generatepdf"
-        target="_blank"
-        >Imprimer <i class="bi bi-printer-fill py-3 px-2"></i>
+      <%- include("./new") %>
+      <a class="btn btn-outline-secondary ms-2" href="/staffs/generatepdf" target="_blank">
+        Imprimer <i class="bi bi-printer-fill py-3 px-2"></i>
       </a>
     </div>
 
-    <form class="d-flex">
+    <form class="d-flex mb-4">
       <input
         id="search"
-        class="form-control mb-2"
+        class="form-control form-control-lg"
         type="search"
-        placeholder="Search"
+        placeholder="Rechercher un personnel"
         aria-label="Search"
       />
     </form>
-    <div class="table-responsive">
-      <table
-        class="table table-striped table-hover table-borderless text-center sortable"
-      >
-        <thead class="table-greenSea">
-          <tr>
-            <th scope="col">N°</th>
-            <th scope="col">Nom</th>
-            <th scope="col">Prénom</th>
-            <th scope="col">Fonction</th>
-            <th scope="col">Email</th>
-            <th scope="col">Téléphone</th>
-            <th id="item1" scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody id="tablebody">
-          <% var i=1 %> <% for (staff of staffs){%>
 
-          <tr>
-            <th scope="row"><%= i%><% i=i+1; %></th>
-            <td><%= staff.lastname %></td>
-            <td><%=staff.firstname %></td>
-            <td><%=staff.typestuff %></td>
-            <td><%=staff.email%></td>
-            <td><%=staff.phone%></td>
-            <th>
-              <div class="d-flex justify-content-center align-items-center">
-                <%- include("./edit")%> <%- include("./delete")%>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+      <% var i = 1 %>
+      <% for (staff of staffs) { %>
+      <div class="col">
+        <div class="card h-100 border-0 shadow-lg rounded-4">
+          <div class="card-body p-4">
+            <div class="d-flex flex-column h-100">
+              <!-- Name and Role -->
+              <div class="mb-3">
+                <h5 class="card-title text-greenSea fs-4 fw-bold"><%= staff.lastname %> <%= staff.firstname %></h5>
+                <h6 class="card-subtitle text-muted"><%= staff.typestuff %></h6>
               </div>
-            </th>
-          </tr>
-          <% }%>
-        </tbody>
-      </table>
+
+              <!-- Email and Phone -->
+              <div class="mb-3">
+                <p class="card-text"><i class="bi bi-envelope-fill"></i> <strong>Email:</strong> <%= staff.email %></p>
+                <p class="card-text"><i class="bi bi-phone-fill"></i> <strong>Téléphone:</strong> <%= staff.phone %></p>
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="d-flex justify-content-between align-items-center mt-auto">
+                <span class="text-muted">N° <%= i %></span>
+                <div class="d-flex">
+                  <%- include("./edit") %> 
+                  <%- include("./delete") %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% i = i + 1; %>
+      <% } %>
     </div>
   </div>
 </div>
+

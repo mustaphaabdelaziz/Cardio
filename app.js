@@ -56,55 +56,11 @@ const Medicament = require("./model/medicament/medicament");
 const { isLoggedIn } = require("./middleware/middleware");
 const _ = require("lodash");
 const Patient = require("./model/patient/patient");
-// const helmet = require("helmet");
+
 // ==================== App Configuration =================
 // app.set("trust proxy", true);
 // app.disable("x-powered-by");
-// app.use(
-//   helmet.contentSecurityPolicy({
-//     directives: {
-//       defaultSrc: ["'self'"],
-//       scriptSrc: [
-//         "'self'",
-//         "'unsafe-inline'",
-//         "https://code.jquery.com/",
-//         "https://cdn.jsdelivr.net",
-//         "https://ajax.googleapis.com",
-//         "https://unpkg.com",
-//         "https://cdnjs.cloudflare.com",
-//       ],
-//       scriptSrcElem: [
-//         "'self'",
-//         "'unsafe-inline'",
-//         "https://code.jquery.com/",
-//         "https://cdn.jsdelivr.net",
-//         "https://ajax.googleapis.com",
-//         "https://unpkg.com",
-//         "https://cdnjs.cloudflare.com",
-//       ],
-//       styleSrc: [
-//         "'self'",
-//         "'unsafe-inline'",
-//         "https://cdn.jsdelivr.net",
-//         "https://fonts.googleapis.com",
-//         "https://unpkg.com",
-//         "https://getbootstrap.com",
-//         "https://cdnjs.cloudflare.com",
-//       ],
-//       imgSrc: [
-//         "'self'",
-//         "data:",
-//         "https://ui-avatars.com",
-//         "https://res.cloudinary.com",
-//         "https://picsum.photos",
-//         "https://fastly.picsum.photos",
-//       ],
-//       scriptSrcAttr: ["'self'", "'unsafe-inline'"],
-//       connectSrc: ["'self'"],
-//       // Add other directives as needed
-//     },
-//   })
-// );
+
 app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "view"));
@@ -112,6 +68,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
+app.use("/patients", express.static("G:/Patients"));
 app.use(cookieParser());
 app.use(mongoSanitize({ replaceWith: "_" }));
 app.use(session(sessionConfig));

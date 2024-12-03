@@ -2,108 +2,134 @@
 <div class="container-fluid mt-3">
   <div class="col m-auto bg-light shadow-sm rounded-5 px-2">
     <div class="container-fluid">
-      <div class="mb-4">
-        <div class="d-flex">
-          <div class="col d-flex m-auto">
-            <h2><%=patient.fullname %></h2>
-            <div class="ms-2">
+      <div class="card shadow-sm border-0 p-4 mb-4">
+        <div class="d-flex flex-wrap align-items-center justify-content-between">
+          <!-- Patient Name and Actions -->
+          <div class="d-flex align-items-center me-4">
+            <h2 class="text-primary fw-bold mb-0 me-3">
+              <i class="bi bi-person-circle me-2"></i><%= patient.fullname %>
+            </h2>
+            <div>
               <button
-                class="btn btn-outline-secondary px-2 py-1 ms-2"
+                class="btn btn-outline-primary btn-sm rounded-circle me-2"
                 onclick="printCompteRendu('','non')"
+                title="Print"
               >
-                <i class="bi bi-printer-fill px-1 py-1"></i>
+                <i class="bi bi-printer-fill"></i>
               </button>
-              <%- include("./new")%>
+              <%- include("./new") %>
             </div>
           </div>
-          <div class="col-3 mt-2 border-start">
-            <p class="">
-              <span class="fw-bold">Acte:</span>
-              <span> <%=patientConsultation.acte%></span>
-            </p>
-            <p>
-              <span class="fw-bold">Medecin:</span>
-              <span> <%=patientConsultation.medecin%></span>
-            </p>
-            <p>
-              <span class="fw-bold">Technicien:</span>
-              <span> <%= patientConsultation.technicien %></span>
-            </p>
-            <p>
-              <span class="fw-bold">Date et Heure:</span>
-              <span>
-                <%=moment(patientConsultation.date).format("DD-MM-YYYY - HH:mm")
-                %></span
-              >
-            </p>
-            <p>
-              <span class="fw-bold">Confirmé:</span>
-              <span> <%=patientConsultation.status%></span>
-            </p>
+    
+          <!-- Compte Rendu -->
+          <div class="d-flex align-items-center border-start ps-3">
+            <div>
+              <h5 class="fw-bold text-secondary mb-2">Compte rendu</h5>
+              <div class="d-flex">
+                <% if (!patientConsultation.compterendu.isEmpty) { %>
+                  <% if (!currentUser.privileges.includes('assistant') && !currentUser.privileges.includes('technicien')) { %>
+                    <%- include("../comptRendu/editCompteRendu", { i, consultation: patientConsultation }) %>
+                    <%- include("../comptRendu/deleteCompteRendu", { i, consultation: patientConsultation }) %>
+                  <% } %>
+                  <button
+                    class="btn btn-outline-primary btn-sm rounded-circle"
+                    onclick="printCompteRendu('<%= patientConsultation._id %>', 'non')"
+                    title="View"
+                  >
+                    <i class="bi bi-eye-fill"></i>
+                  </button>
+                <% } else if (!currentUser.privileges.includes('assistant') && !currentUser.privileges.includes('technicien')) { %>
+                  <%- include("../comptRendu/addCompteRendu", { i, consultation: patientConsultation }) %>
+                <% } %>
+              </div>
+            </div>
           </div>
-          <div class="col-2 mt-2 border-start justify-content-end">
-            <p>
-              <span class="fw-bold">Groupage:</span>
-              <span> <%=patient.groupage%></span>
-            </p>
-            <p>
-              <span class="fw-bold">Saturation:</span>
-              <span> <%=medicalInfo.saturation%></span>
-            </p>
-            <p>
-              <span class="fw-bold">TA:</span>
-              <span> <%=medicalInfo.ta%></span>
-            </p>
-            <p>
-              <span class="fw-bold">Poids:</span>
-              <span> <%= medicalInfo.poids%> </span>
-            </p>
-            <p>
-              <span class="fw-bold">Taille:</span>
-              <span> <%= medicalInfo.taille%></span>
-            </p>
+        </div>
+    
+        <!-- Additional Details -->
+        <div class="row mt-4">
+          <div class="col-md-6">
+            <div class="bg-light rounded-3 p-3 mb-3">
+              <p class="mb-2">
+                <span class="text-secondary fw-bold">Acte:</span> <%= patientConsultation.acte %>
+              </p>
+              <p class="mb-2">
+                <span class="text-secondary fw-bold">Médecin:</span> <%= patientConsultation.medecin %>
+              </p>
+              <p class="mb-2">
+                <span class="text-secondary fw-bold">Technicien:</span> <%= patientConsultation.technicien %>
+              </p>
+              <p class="mb-2">
+                <span class="text-secondary fw-bold">Date et Heure:</span>
+                <%= moment(patientConsultation.date).format("DD-MM-YYYY - HH:mm") %>
+              </p>
+              <p class="mb-0">
+                <span class="text-secondary fw-bold">Confirmé:</span>
+                <span class="badge bg-success"><%= patientConsultation.status %></span>
+              </p>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="bg-light rounded-3 p-3">
+              <p class="mb-2">
+                <span class="text-secondary fw-bold">Groupage:</span> <%= patient.groupage %>
+              </p>
+              <p class="mb-2">
+                <span class="text-secondary fw-bold">Saturation:</span> <%= medicalInfo.saturation %>
+              </p>
+              <p class="mb-2">
+                <span class="text-secondary fw-bold">TA:</span>
+                <%= medicalInfo.ta.systolicBP %>/<%= medicalInfo.ta.diastolicBP %>
+              </p>
+              <p class="mb-2">
+                <span class="text-secondary fw-bold">Poids:</span> <%= medicalInfo.poids %> kg
+              </p>
+              <p class="mb-0">
+                <span class="text-secondary fw-bold">Taille:</span> <%= medicalInfo.taille %> cm
+              </p>
+            </div>
           </div>
         </div>
       </div>
     </div>
+    
   </div>
-  <form class="d-flex shadow-sm">
-    <input
-      id="search"
-      class="form-control mb-2"
-      type="search"
-      placeholder="Search"
-      aria-label="Search"
-    />
+  <form class="d-flex shadow-sm mb-3">
+    <input id="search" class="form-control mb-2" type="search" placeholder="Search" aria-label="Search" />
   </form>
   <div class="table-responsive shadow-sm">
-    <table
-      class="table table-striped table-hover table-borderless text-center sortable"
-    >
+    <table class="table table-striped table-hover table-borderless text-center sortable">
       <thead class="table-greenSea">
         <tr>
           <th scope="col">N°</th>
-          <th scope="col">Fichier</th>
           <th scope="col">Service</th>
           <th scope="col">Type d'examen</th>
+          <th scope="col">Fichier</th>
           <th scope="col">Action</th>
         </tr>
       </thead>
       <tbody id="tablebody">
-        <% var i=1 %> <% for (document of patientConsultation.documents){%>
-        <tr>
-          <th class="clickable data" scope="row" scope="row">
-            <%= i%> <% i=i+1; %>
-          </th>
-          <td class="clickable data" scope="row">
-            <a href="<%= document.path%>"target="_blank"><i class="bi bi-eye-fill"></i></a>
-          </td>
-          <td class="clickable data" scope="row"><%= document.service%></td>
-          <td class="clickable data" scope="row"><%= document.acte%></td>
-          <td class="clickable data" scope="row">Edit/Delete</td>
-        </tr>
+        <% var i = 1 %> 
+        <% for (document of patientConsultation.documents) { %>
+          <tr>
+            <th class="clickable data" scope="row"><%= i %> <% i = i + 1; %></th>
+            <td class="clickable data" scope="row"><%= document.service %></td>
+            <td class="clickable data" scope="row"><%= document.acte %></td>
+            <td class="clickable data" scope="row">
+              <a class="btn btn-outline-secondary" href=<%= document.path %> target="_blank"><i class="bi bi-file-earmark-pdf-fill"></i></a>
+            </td>
+            <td class="clickable data" scope="row"> 
+              <%- include("./edit") %> 
+              <%- include("./delete") %>
+            </td>
+          </tr>
         <% } %>
       </tbody>
     </table>
   </div>
 </div>
+<script>
+  let reports = <%- JSON.stringify(reports) %>;
+  let selectedPatient = <%- JSON.stringify(patient) %>;
+  let states = <%- JSON.stringify(states) %>;
+</script>

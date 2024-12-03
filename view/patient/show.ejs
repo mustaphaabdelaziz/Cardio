@@ -1,143 +1,77 @@
 <% layout('layouts/boilerplate')%>
 <div class="container-fluid mt-3">
-  <div class="col m-auto bg-light shadow-sm rounded-5 px-2">
+  <div class="col m-auto bg-light shadow-sm rounded-5 p-4">
     <div class="container-fluid">
-      <div class="mb-4">
-        <div class="d-flex">
-          
-          <div class="col m-auto">
-            <div class="d-flex">  
-                <h1>
-                <%=patient.fullname %>
-               </h1>
-              
-              <div class="m-2">
-                <%- include("./consultation/new")%>
-                <%- include("./edit")%> 
-                <%- include("./delete")%>
-                <a
-                class="btn btn-outline-secondary px-2 py-1 ms-2"
-                href="/patient/generatepdf/<%=patient.id%>"
-                target="_blank"
-              >
-                <i class="bi bi-printer-fill px-1 py-1"></i>
-              </a>
-               
-               
-              </div>
-            </div>
-            
-            <div class="pe-1 ">
-             
-              <span  id="relation" value="<%=patient.isParent.relation%>" class="rounded-pill badge  bg-mediumTurquoise bg-gradient fs-5"><%=patient.isParent.relation%></span>
-               <span class="rounded-pill badge bg-lightCoral bg-gradient fs-5"><%= patient.status %></span> 
-               <% if (patient.isParent.activate){%>
-                <%- include("./fils/new")%>
-                <%- include("./fils/index")%>
-                
-                <% } %>
-                <% if(patient.isParent.idMother) {%>
-                  <a href="<%=patient.isParent.idMother%>">
-                    <span  class="btn btn-outline-lightCoral bg-gradient mb-2"><i class="fa-solid fa-person-breastfeeding fa-xl me-1"></i><span class="fw-bold">Mère</span></span>
-                    
-                  </a>
-                  <% } %>
-                <% if(patient.isParent.idFather) {%>
-                  <a href="<%=patient.isParent.idFather%>">
-                    <span  class="btn btn-outline-lightCoral bg-gradient mb-2"><i class="fa-solid fa-person-breastfeeding fa-xl me-1"></i><span class="fw-bold">Mère</span></span>
-                  </a>
-                  <% } %>
-            </div>
-            
-            
-            
-         
-          </div>
-
-          <div class="col-3 mt-2 border-start">
-            <p class="">
-              <span class="fw-bold">Date de Naissance:</span>
-               <span> <%=moment(patient.birthdate).format("DD-MM-YYYY")%> (<%=patient.age%>) </span>
-            </p>
-            <p>
-              <span class="fw-bold"> Genre:</span>
-              <span> <%=patient.gender%></span>
-            </p>
-            <p>
-              <span class="fw-bold">Wilaya:</span>
-              <span> <%= (!patient.wilaya)? "/":patient.wilaya %></span>
-            </p>
-            <p>
-              <span class="fw-bold">Ville:</span>
-              <span> <%= (!patient.city)? "/":patient.city %></span>
-            </p>
-            <p>
-              <span class="fw-bold">Téléphone 1:</span>
-              <span> <%=patient.phone%></span>
-            </p>
-            <p>
-              <span class="fw-bold">Téléphone 2:</span>
-              <span> <%=patient.phone2%></span>
-            </p>
-            <p>
-              <span class="fw-bold">Prochaine acte:</span>
-              <span> <%=patient.nextacte.acte%></span>
-            </p>
-            <% if (patient.nextacte.date!="Rien" ){%>
-            <p>
-              <span class="fw-bold">Date:</span>
-              <span
-                ><%=moment(patient.nextacte.date).format("DD/MM/YYYY")%></span
-              >
-            </p>
-            <% }else{ %>
-            <p><span class="fw-bold">Date:</span> /</p>
-            <% } %>
-            <p>
-              <span class="fw-bold">Medecin Ref:</span>
-              <span><%=patient.drlastname %></span>
-            </p>
-          </div>
-          <div class="col-2 mt-2 border-start justify-content-end">
-            <p>
-              <span class="fw-bold">Groupage:</span>
-              <span> <%=patient.groupage%></span>
-            </p>
-            <p>
-       
-              <span class="fw-bold">Saturation:</span>
-              <span> <%=medicalInfo.saturation%></span>
-            </p>
-            <p>
-              <span class="fw-bold">TA:</span>
-              <span> <%=medicalInfo.ta.systolicBP%>/<%=medicalInfo.ta.diastolicBP%></span>
-            </p>
-            <p>
-              <span class="fw-bold">Poids:</span>
-              <span> <%= medicalInfo.poids%> </span>
-            </p>
-            <p>
-              <span class="fw-bold">Taille:</span>
-              <span> <%= medicalInfo.taille%></span>
-            </p>
+      <!-- Patient Info Header -->
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="d-flex align-items-center">
+          <h1 class="me-3 fw-bold text-greenSea"><%= patient.fullname %></h1>
+          <div class="d-flex">
+            <%- include("./consultation/new") %>
+            <%- include("./edit") %>
+            <%- include("./delete") %>
+            <a class="btn btn-outline-secondary ms-2" href="/patient/generatepdf/<%= patient.id %>" target="_blank">
+              <i class="bi bi-printer-fill"></i>
+            </a>
           </div>
         </div>
       </div>
+
+      <!-- Patient Badges -->
+      <div class="mb-3">
+        <span class="badge bg-info fs-6 rounded-pill"><%= patient.isParent.relation %></span>
+        <span class="badge bg-danger fs-6 rounded-pill"><%= patient.status %></span>
+        <% if (patient.isParent.activate) { %>
+        <%- include("./fils/new") %>
+        <%- include("./fils/index") %>
+        <% } %>
+        <% if (patient.isParent.idMother) { %>
+        <a href="<%= patient.isParent.idMother %>" class="btn btn-outline-danger me-2">
+          <i class="fa-solid fa-person-breastfeeding me-1"></i>Mère
+        </a>
+        <% } %>
+        <% if (patient.isParent.idFather) { %>
+        <a href="<%= patient.isParent.idFather %>" class="btn btn-outline-danger">
+          <i class="fa-solid fa-person-breastfeeding me-1"></i>Père
+        </a>
+        <% } %>
+      </div>
+
+      <!-- Patient Details -->
+      <div class="row">
+        <div class="col-lg-5 border-end pe-4">
+          <p><strong>Date de Naissance:</strong> <%= moment(patient.birthdate).format("DD-MM-YYYY") %> (<%= patient.age %>)</p>
+          <p><strong>Genre:</strong> <%= patient.gender %></p>
+          <p><strong>Wilaya:</strong> <%= patient.wilaya || "/" %></p>
+          <p><strong>Ville:</strong> <%= patient.city || "/" %></p>
+          <p><strong>Téléphone 1:</strong> <%= patient.phone %></p>
+          <p><strong>Téléphone 2:</strong> <%= patient.phone2 %></p>
+          <p><strong>Prochaine Acte:</strong> <%= patient.nextacte.acte %></p>
+          <% if (patient.nextacte.date != "Rien") { %>
+          <p><strong>Date:</strong> <%= moment(patient.nextacte.date).format("DD/MM/YYYY") %></p>
+          <% } else { %>
+          <p><strong>Date:</strong> /</p>
+          <% } %>
+          <p><strong>Médecin Ref:</strong> <%= patient.drlastname %></p>
+        </div>
+        <div class="col-lg-4 border-end pe-4">
+          <p><strong>Groupage:</strong> <%= patient.groupage %></p>
+          <p><strong>Saturation:</strong> <%= medicalInfo.saturation %></p>
+          <p><strong>TA:</strong> <%= medicalInfo.ta.systolicBP %>/<%= medicalInfo.ta.diastolicBP %></p>
+          <p><strong>Poids:</strong> <%= medicalInfo.poids %> kg</p>
+          <p><strong>Taille:</strong> <%= medicalInfo.taille %> cm</p>
+        </div>
+      </div>
+
+      <!-- Search Bar -->
+      <form class="d-flex shadow-sm mt-4">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search" />
+      </form>
     </div>
   </div>
-  <form class="d-flex shadow-sm">
-    <input
-      id="search"
-      class="form-control mb-2"
-      type="search"
-      placeholder="Search"
-      aria-label="Search"
-    />
-  </form>
+
   <div class="table-responsive shadow-sm">
-    <table
-      class="table table-striped table-hover table-borderless text-center sortable"
-    >
+    <table class="table table-striped table-hover table-borderless text-center sortable">
       <thead class="table-greenSea">
         <tr>
           <th scope="col">N°</th>
@@ -152,24 +86,14 @@
         </tr>
       </thead>
       <tbody id="tablebody">
-        <% var i=1 %> 
+        <% var i=1 %>
         <% for (consultation of patient.sortedConsultation){%>
         <tr>
-          <th class="clickable data"
-            onclick="window.location='/patient/<%=patient.id%>/acte/<%=consultation.id%>'"
-            scope="row" scope="row"><%= i%> <% i=i+1; %></th>
-          <td class="clickable data"
-            onclick="window.location='/patient/<%=patient.id%>/acte/<%=consultation.id%>'"
-            scope="row" ><%= consultation.acte%></td>
-          <td class="clickable data"
-            onclick="window.location='/patient/<%=patient.id%>/acte/<%=consultation.id%>'"
-            scope="row">Dr. <%=consultation.medecin %></td>
-          <td class="clickable data"
-            onclick="window.location='/patient/<%=patient.id%>/acte/<%=consultation.id%>'"
-            scope="row" ><%= consultation.technicien %></td>
-          <td class="clickable data"
-            onclick="window.location='/patient/<%=patient.id%>/acte/<%=consultation.id%>'"
-            scope="row">
+          <th class="clickable data" onclick="window.location='/patient/<%=patient.id%>/acte/<%=consultation.id%>'" scope="row" scope="row"><%= i%> <% i=i+1; %></th>
+          <td class="clickable data" onclick="window.location='/patient/<%=patient.id%>/acte/<%=consultation.id%>'" scope="row"><%= consultation.acte%></td>
+          <td class="clickable data" onclick="window.location='/patient/<%=patient.id%>/acte/<%=consultation.id%>'" scope="row">Dr. <%=consultation.medecin %></td>
+          <td class="clickable data" onclick="window.location='/patient/<%=patient.id%>/acte/<%=consultation.id%>'" scope="row"><%= consultation.technicien %></td>
+          <td class="clickable data" onclick="window.location='/patient/<%=patient.id%>/acte/<%=consultation.id%>'" scope="row">
             <%=moment(consultation.date).format("DD/MM/YYYY")%> - <%= consultation.time %>
           </td>
 
@@ -180,15 +104,12 @@
             <%-include("./consultation/comptRendu/editCompteRendu",{i})%>
             <%-include("./consultation/comptRendu/deleteCompteRendu",{i})%>
             <% } %>
-            <button
-              class="btn btn-outline-secondary px-2 py-1 ms-2"
-              onclick="printCompteRendu('<%=consultation.id%>','non')"
-            >
+            <button class="btn btn-outline-secondary px-2 py-1 ms-2" onclick="printCompteRendu('<%=consultation.id%>','non')">
               <i class="bi bi-eye-fill px-1 py-1"></i>
             </button>
             <!-- delete comptrendu -->
             <% }else if(!currentUser.privileges.includes('assistant') && !currentUser.privileges.includes('technicien')) {%>
-             
+
             <%-include("./consultation/comptRendu/addCompteRendu",{i})%>
             <% }%>
           </th>
@@ -207,31 +128,31 @@
           <th>
             <div class="d-flex justify-content-center align-items-center">
               <% if(!consultation.compterendu.isEmpty){%>
-              <% if(!currentUser.privileges.includes('assistant') && !currentUser.privileges.includes('acheteur')){ %>
-                <%- include("./consultation/edit")%> 
-                <%- include("./consultation/delete")%>
-                <% }else{ %>
-                  <%- include("./consultation/edit")%> 
-                  <% }}else{ %>
-                    <%- include("./consultation/edit")%> 
-                    <%- include("./consultation/delete")%>
-                  <% } %>
-            </div>
-          </th>
-          <%  %>
-        </tr>
-        <%}%>
+          <% if(!currentUser.privileges.includes('assistant') && !currentUser.privileges.includes('acheteur')){ %>
+          <%- include("./consultation/edit")%>
+          <%- include("./consultation/delete")%>
+          <% }else{ %>
+          <%- include("./consultation/edit")%>
+          <% }}else{ %>
+          <%- include("./consultation/edit")%>
+          <%- include("./consultation/delete")%>
+          <% } %>
+  </div>
+  </th>
+  <%  %>
+  </tr>
+  <%}%>
       </tbody>
     </table>
   </div>
 </div>
 <script>
   let reports = <%- JSON.stringify(reports) %>;
-</script>
-<script>
-  let selectedPatient = <%- JSON.stringify(patient) %>;
-</script>
+  </script>
+  <script>
+    let selectedPatient = <%- JSON.stringify(patient) %>;
+  </script>
 
-<script>
-  let states = <%- JSON.stringify(states) %>;
-</script>
+  <script>
+    let states = <%- JSON.stringify(states) %>;
+  </script>

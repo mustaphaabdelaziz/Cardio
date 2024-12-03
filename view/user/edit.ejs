@@ -164,36 +164,25 @@
               <div class="valid-feedback">BIEN</div>
             </div>
           </div>
-          <div class="row">
-            <% for(privilege of privileges) {%>
-              <% if(user.privileges.includes(privilege.role)) {%>
-            <div class="form-check form-check-inline col-md-4">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                name="user[privileges]"
-                value="<%= privilege.role %>"
-                id="<%= privilege.role %>"
-                checked
-              />
-              <label class="form-check-label" for="<%= privilege.role %>">
-                <%=privilege.label %>
-              </label>  
+          <div class="mb-3">
+            <h6><i class="bi bi-shield-lock"></i> Privileges</h6>
+            <div class="row">
+              <% for(privilege of privileges) {%>
+                <div class="form-check form-check-inline col-md-4">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    name="user[privileges]"
+                    value="<%= privilege.role %>"
+                    id="<%= privilege.role %>"
+                    <%= user.privileges.includes(privilege.role) ? 'checked' : '' %>
+                  />
+                  <label class="form-check-label" for="<%= privilege.role %>">
+                    <%= privilege.label %>
+                  </label>  
+                </div>
+              <% } %>
             </div>
-            <% }else{ %>
-              <div class="form-check form-check-inline col-md-4">
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  name="user[privileges]"
-                  value="<%= privilege.role %>"
-                  id="<%= privilege.role %>"
-                />
-                <label class="form-check-label" for="<%= privilege.role %>">
-                  <%=privilege.label %>
-                </label>
-              </div>
-            <% }} %>
           </div>
           <div class="modal-footer mt-3">
             <button

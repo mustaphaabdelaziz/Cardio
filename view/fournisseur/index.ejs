@@ -2,59 +2,124 @@
 
 <div class="container-fluid mt-4">
   <div class="col m-auto">
-    <h3 class="mb-4 text-center text-greenSea">Liste des Foursnisseurs</h3>
-    <div class="mb-3">
+    <h3 class="mb-4 text-center text-greenSea">Liste des Fournisseurs</h3>
+
+    <!-- Action buttons -->
+    <div class="d-flex justify-content-between mb-3">
       <%- include("./new")%>
-      <a class="btn btn-outline-secondary ms-2" href="/fournisseur/generatepdf" target="_blank">Imprimer <i
-          class="bi bi-printer-fill py-3 px-2"></i>
+      <a class="btn btn-outline-secondary ms-2" href="/fournisseur/generatepdf" target="_blank">
+        Imprimer <i class="bi bi-printer-fill py-2 px-3"></i>
       </a>
     </div>
 
-    <form class="d-flex">
-      <input id="search" class="form-control mb-2" type="search" placeholder="Search" aria-label="Search" />
+    <!-- Search input -->
+    <form class="d-flex mb-4">
+      <input id="search" class="form-control" type="search" placeholder="Rechercher un fournisseur..." aria-label="Search" oninput="searchBar()" />
+      <button type="submit" class="btn btn-outline-greenSea ms-2">Rechercher</button>
     </form>
 
-    <table class="table table-striped table-hover table-borderless text-center sortable">
-      <thead class="table-greenSea">
-        <tr>
-          <th scope="col">N°</th>
-          <th scope="col">Raison sociale</th>
-          <th scope="col">Wilaya</th>
-          <th scope="col">Email</th>
-          <th scope="col">Fix</th>
-          <th scope="col">Mobile</th>
-          <th scope="col">Fax</th>
-          <th id="item1" scope="col">Action</th>
-        </tr>
-      </thead>
-      <tbody id="tablebody">
-        <% var i=1 %> <% for (fournisseur of fournisseurs){%>
+    <!-- Supplier Cards -->
+    <div class="row" id="fournisseur-list">
+      <% for (fournisseur of fournisseurs) { %>
+      <div class="col-md-4 mb-4 fournisseur-card">
+        <div class="card shadow-sm h-100">
+          <div class="card-body">
+            <h5 class="card-title text-center text-greenSea"><%= fournisseur.name %></h5>
+            <h6 class="card-subtitle mb-2 text-muted text-center"><i class="bi bi-geo-alt-fill"></i> <%= fournisseur.wilaya %></h6>
+            
+            <p class="card-text">
+              <div><i class="bi bi-envelope-fill text-greenSea"></i> <strong>Email:</strong> <%= fournisseur.email %></div>
+              <div><i class="bi bi-telephone-fill text-greenSea"></i> <strong>Fix:</strong> <%= fournisseur.phone %></div>
+              <div><i class="bi bi-phone-vibrate text-greenSea"></i> <strong>Mobile:</strong> <%= fournisseur.mobile.join(", ") %></div>
+              <div><i class="bi bi-printer-fill text-greenSea"></i> <strong>Fax:</strong> <%= fournisseur.fax %></div>
+            </p>
 
-        <tr>
-          <th scope="row"><%= i%><% i=i+1; %></th>
-          <td><%= fournisseur.name %></td>
-          <td><%= fournisseur.wilaya %></td>
-
-          <td><%=fournisseur.email%></td>
-          <td><%=fournisseur.phone%></td>
-          <td><%=[...fournisseur.mobile] %></td>
-          <td><%=fournisseur.fax %></td>
-          <th>
-            <div class="d-flex justify-content-center align-items-center">
-              <%- include("./edit")%> <%- include("./delete")%>
+            <div class="d-flex justify-content-center">
+              <!-- Edit and Delete buttons -->
+              <%- include("./edit")%>
+              <%- include("./delete")%>
             </div>
-          </th>
-        </tr>
-        <% }%>
-      </tbody>
-    </table>
+          </div>
+        </div>
+      </div>
+      <% } %>
+    </div>
   </div>
 </div>
 
 <script>
-  let states = <%- JSON.stringify(states) %>  
-</script>
-<script>
-  
+  // Function to filter the fournisseurs based on search input
+  function searchBar() {
+    let input = document.getElementById('search').value.toLowerCase(); // Get the search query
+    let cards = document.querySelectorAll('.fournisseur-card'); // Get all supplier cards
 
+    cards.forEach(function(card) {
+      let name = card.querySelector('.card-title').textContent.toLowerCase(); // Get the name of the supplier
+      let wilaya = card.querySelector('.card-subtitle').textContent.toLowerCase(); // Get the wilaya (region)
+      
+      // If the search term matches the name or wilaya, show the card, else hide it
+      if (name.includes(input) || wilaya.includes(input)) {
+        card.style.display = '';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
 </script>
+
+<style>
+  .table-greenSea {
+    background-color: #2b6e46; /* Custom green color */
+  }
+
+  .card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    transition: box-shadow 0.3s ease-in-out;
+  }
+
+  .card:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .card-title {
+    font-size: 1.2rem;
+    color: #2b6e46;
+  }
+
+  .card-text {
+    font-size: 0.9rem;
+    color: #333;
+  }
+
+  .btn-outline-greenSea {
+    border-color: #2b6e46;
+    color: #2b6e46;
+  }
+
+  .btn-outline-greenSea:hover {
+    background-color: #2b6e46;
+    color: white;
+  }
+
+  .form-control {
+    max-width: 350px;
+  }
+
+  /* Responsive design for mobile */
+  @media (max-width: 768px) {
+    .col-md-4 {
+      width: 100%;
+    }
+  }
+
+  /* Icon styling */
+  .card-text i {
+    margin-right: 8px;
+    font-size: 1.2rem;
+  }
+
+  .card-text {
+    margin-bottom: 10px;
+  }
+</style>

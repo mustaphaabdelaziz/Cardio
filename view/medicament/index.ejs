@@ -1,62 +1,114 @@
 <% layout('layouts/boilerplate')%>
 
 <div class="container-fluid mt-4">
-  <div class="col m-auto bg-light rounded-5 p-2">
-    <h3 class="text-center text-greenSea fs-1">Liste des Médicaments</h3>
-    <div class="d-flex mb-2">
+  <!-- Header Section -->
+  <div class="col m-auto bg-white rounded-5 p-4 shadow-lg">
+    <h3 class="text-center text-greenSea fs-1 mb-4">Liste des Médicaments</h3>
+    <div class="d-flex justify-content-between align-items-center mb-3">
       <%- include("./new")%>
       <a
-        class="btn btn-outline-secondary ms-2"
+        class="btn btn-outline-secondary d-flex align-items-center"
         href="/medicament/generatepdf"
         target="_blank"
-        >Imprimer <i class="bi bi-printer-fill py-3 px-2"></i>
+      >
+        <i class="bi bi-printer-fill me-2"></i> Imprimer
       </a>
     </div>
   </div>
-  <form class="d-flex mt-2">
+
+  <!-- Search Bar -->
+  <form class="d-flex mt-3 justify-content-center">
     <input
       id="search"
-      class="form-control mb-2"
+      class="form-control w-50 p-3 border-0 rounded-3 shadow-sm"
       type="search"
-      placeholder="Search"
+      placeholder="Search for a medicament..."
       aria-label="Search"
     />
   </form>
-  <div class="table-responsive shadow-sm">
-    <table
-      class="table table-striped table-hover table-borderless text-center sortable"
-      width="100"
-      id="patientTable"
-    >
-      <thead class="table-greenSea">
+
+  <!-- Medicament Table Section -->
+  <div class="table-responsive mt-4 shadow-sm">
+    <table class="table table-hover table-bordered table-striped text-center">
+      <thead class="table-primary">
         <tr>
           <th scope="col">N°</th>
           <th scope="col">Nom Commercial</th>
           <th scope="col">DCI</th>
           <th scope="col">Dosage</th>
           <th scope="col">Form</th>
-          <th scope="col">C.Therapeutique</th>
+          <th scope="col">C. Thérapeutique</th>
           <th scope="col">Laboratoire</th>
-          
         </tr>
       </thead>
       <tbody id="tablebody">
         <% var i=1 %> <% for (medicament of medicaments){%>
-        <tr>
-          <th scope="row"><%= i%> <% i=i+1; %></th>
-          <td style="overflow-wrap: break-word">
-            <%= medicament.commercialname %>
-          </td>
-          <td><%=medicament.dci %></td>
-          <td><%=medicament.dosage %></td>
-          <td><%=medicament.form%></td>
-          <td><%=medicament.therapeutique %></td>
-          <td><%=medicament.laboratoire %></td>
-        
+        <tr class="table-hover">
+          <th scope="row"><%= i %> <% i=i+1; %></th>
+          <td class="text-wrap"><%= medicament.commercialname %></td>
+          <td><%= medicament.dci %></td>
+          <td><%= medicament.dosage %></td>
+          <td><%= medicament.form %></td>
+          <td><%= medicament.therapeutique %></td>
+          <td><%= medicament.laboratoire %></td>
         </tr>
         <% }%>
       </tbody>
     </table>
   </div>
 </div>
-<style></style>
+
+<!-- Custom CSS -->
+<style>
+  .table thead th {
+    background-color: #009688;
+    color: white;
+  }
+  
+  .table tbody tr:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+  }
+
+  .table-responsive {
+    max-height: 500px;
+    overflow-y: auto;
+  }
+
+  /* Search Bar Styling */
+  .form-control:focus {
+    box-shadow: 0 0 10px rgba(0, 150, 136, 0.5);
+    border-color: #009688;
+  }
+
+  .btn-primary {
+    font-size: 1.1rem;
+    border-radius: 30px;
+    padding: 10px 20px;
+  }
+
+  .btn-primary:hover {
+    background-color: #00796b;
+  }
+
+  /* Add spacing between rows */
+  .table td, .table th {
+    padding: 1.2rem;
+  }
+
+  /* Ensure proper responsive behavior */
+  @media (max-width: 768px) {
+    .form-control {
+      width: 100%;
+    }
+
+    .table {
+      font-size: 0.9rem;
+    }
+
+    .container-fluid {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+  }
+</style>

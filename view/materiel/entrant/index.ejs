@@ -1,85 +1,113 @@
 <% layout('layouts/boilerplate')%>
 
 <div class="container-fluid mt-4">
-  <div class="col m-auto bg-light rounded-5 p-2">
-    <h3 class="text-center text-greenSea">Liste de Materiels KT</h3>
-    <div class="d-flex mb-2">
+  <div class="col m-auto bg-light rounded-5 p-4">
+    <h3 class="text-center text-greenSea mb-4">Liste de Matériels KT</h3>
+
+    <!-- Action Buttons -->
+    <div class="d-flex justify-content-between mb-4">
       <%- include("./new")%>
-      <!-- <a
-        class="btn btn-outline-secondary ms-2"
-        href="/materiel/generatepdf"
-        target="_blank"
-        >Imprimer <i class="bi bi-printer-fill py-3 px-2"></i>
-      </a> -->
+      <!-- Uncomment if you want to add a print button -->
+      <!-- <a class="btn btn-outline-secondary ms-2" href="/materiel/generatepdf" target="_blank">Imprimer <i class="bi bi-printer-fill py-3 px-2"></i></a> -->
+    </div>
+
+    <!-- Search Input -->
+    <form class="d-flex mt-2 mb-4">
+      <input id="search" class="form-control mb-2" type="search" placeholder="Rechercher un matériel" aria-label="Search" />
+    </form>
+
+    <!-- Cards Container -->
+    <div id="materielCardsContainer" class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
+      <% for (materiel of materiels){ %>
+        <div class="col">
+          <div class="card shadow-sm rounded-lg">
+            <!-- Product Image -->
+            <img src="<%= materiel.picture.url %>" class="card-img-top" alt="<%= materiel.picture.filename %>" style="object-fit: cover; height: 250px;">
+
+            <div class="card-body">
+              <h5 class="card-title text-center text-dark fw-bold"><%= materiel.designation %></h5>
+              <p class="card-text text-center text-muted">
+                <strong>REF:</strong> <%= materiel.code %> <br>
+                <strong>Quantité:</strong> <%= materiel.qteglobal %> <br>
+                <strong>Consommé:</strong> coming soon!
+              </p>
+
+              <!-- Action Buttons and View Details -->
+              <div class="d-flex justify-content-between mt-3">
+                <button class="btn btn-sm btn-outline-info" onclick="window.location='/materiels/<%= materiel.id %>'">
+                  <i class="bi bi-eye"></i> Voir Détails
+                </button>
+                <div class="d-flex">
+                  <%- include("./article/new")%>
+                  <%- include("./edit")%>
+                  <%- include("./delete")%>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% } %>
     </div>
   </div>
-  <form class="d-flex mt-2">
-    <input
-      id="search"
-      class="form-control mb-2"
-      type="search"
-      placeholder="Search"
-      aria-label="Search"
-    />
-  </form>
-  <div class="table-responsive">
-    <table
-      class="table table-striped table-hover table-borderless text-center sortable"
-      id="materielTable"
-    >
-      <thead class="table-greenSea shadow-sm">
-        <tr>
-          <th scope="col">N°</th>
-          <th scope="col">REF</th>
-          <th scope="col">Désignation</th>
-          <th scope="col">Qte Globale</th>
-          <th scope="col">Qte Consommé</th>
-          <th id="hide" scope="col">Action</th>
-        </tr>
-      </thead>
-      <tbody id="tablebody">
-        <% var i=1 %> <% for (materiel of materiels){%>
-
-        <tr>
-          <th
-            class="clickable"
-            onclick="window.location='/materiels/<%=materiel.id%>'"
-            scope="row"
-          >
-            <%= i%><% i=i+1; %>
-          </th>
-          <td
-            class="clickable"
-            onclick="window.location='/materiels/<%=materiel.id%>'"
-          >
-            <%= materiel.code %>
-          </td>
-          <td
-            class="clickable"
-            onclick="window.location='/materiels/<%=materiel.id%>'"
-          >
-            <%=materiel.designation %>
-          </td>
-          <td
-            class="clickable"
-            onclick="window.location='/materiels/<%=materiel.id%>'"
-          >
-            <%=materiel.qteglobal %>
-          </td>
-          <td
-            class="clickable"
-            onclick="window.location='/materiels/<%=materiel.id%>'"
-          >
-            coming soon!
-          </td>
-
-          <th>
-            <%- include("./article/new")%> <%- include("./edit")%> <%-
-            include("./delete")%>
-          </th>
-        </tr>
-        <% }%>
-      </tbody>
-    </table>
-  </div>
 </div>
+
+<!-- JavaScript for Local Search Functionality -->
+<script>
+  // Search function for filtering materials cards
+  document.getElementById('search').addEventListener('input', function() {
+    let filter = this.value.toLowerCase();
+    let cards = document.querySelectorAll('#materielCardsContainer .col');
+
+    cards.forEach(function(card) {
+      let title = card.querySelector('.card-title').innerText.toLowerCase();
+      let code = card.querySelector('.card-text').innerText.toLowerCase();
+
+      if (title.includes(filter) || code.includes(filter)) {
+        card.style.display = ''; // Show card
+      } else {
+        card.style.display = 'none'; // Hide card
+      }
+    });
+  });
+</script>
+
+<!-- Optional CSS for enhanced styling -->
+<style>
+  /* Hover effects for cards */
+  .card:hover {
+    background-color: #e7fdfb41;
+  }
+
+  .card-title {
+    font-size: 1.1rem;
+    font-weight: 500;
+  }
+
+  /* Button Styles */
+  .btn-outline-info {
+    border-color: #17a2b8;
+    color: #17a2b8;
+  }
+
+  .btn-outline-info:hover {
+    background-color: #17a2b8;
+    color: white;
+  }
+
+  /* Card Styling */
+  .card {
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .card-body {
+    padding: 1.5rem;
+  }
+
+  /* Card image responsiveness */
+  .card-img-top {
+    max-height: 250px;
+    object-fit: cover;
+  }
+</style>

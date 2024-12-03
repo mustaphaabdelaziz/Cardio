@@ -876,20 +876,11 @@ function printMedecinList(medecin) {
     });
 }
 function printPDF() {
-  // let start =
-  //   document.getElementById("start").value ||
-  //   moment("01/01/1800", "DD/MM/YYYY").format("YYYY-MM-DD");
-
-  // let end =
-  //   document.getElementById("end").value ||
-  //   moment("31/12/" + moment().add(2000, "year").year(), "DD/MM/YYYY");
-
   this.getBase64ImageFromURL("/assets/ENTETE.PNG")
     .then((url) => {
       let docDefinition = {
         pageSize: "A4",
         pageOrientation: "portrait",
-        // [left, top, right, bottom]
         pageMargins: [10, 120, 10, 70],
 
         header: {
@@ -903,17 +894,10 @@ function printPDF() {
             margin: 10,
             columns: [
               {
-                fontSize: 12,
+                fontSize: 10,
                 text: [
-                  {
-                    text:
-                      "----------------------------------------------------------------------------------------------------" +
-                      "\n",
-                    margin: [0, 20],
-                  },
-                  {
-                    text: currentPage.toString() + " of " + pageCount,
-                  },
+                  { text: "----------------------------------------------------------------------------------------------------", margin: [0, 20] },
+                  { text: currentPage + " of " + pageCount },
                 ],
                 alignment: "center",
               },
@@ -921,10 +905,11 @@ function printPDF() {
           };
         },
         content: [
-          // { image: "public/assets/en-tete.png"},
           {
             text: "Liste Des Patients",
             style: "header",
+            alignment: "center", // Center the title for better presentation
+            margin: [0, 20, 0, 10], // Add spacing above and below the header
           },
           {
             columns: [
@@ -933,56 +918,32 @@ function printPDF() {
                 width: "auto",
                 table: {
                   style: "table",
-                  // headers are automatically repeated if the table spans over multiple pages
-                  // you can declare how many rows should be treated as headers
                   headerRows: 1,
-                  // widths:number of columns in the table here we have 8 columns
                   widths: ["auto", "auto", "auto", "auto", "auto", "auto"],
 
                   body: [
                     [
-                      {
-                        text: "N°",
-                        style: "tableHeader",
-                      },
-                      {
-                        text: "Nom",
-                        style: "tableHeader",
-                      },
-
-                      {
-                        text: "Père",
-                        style: "tableHeader",
-                      },
-
-                      {
-                        text: "Date",
-                        style: "tableHeader",
-                      },
-                      {
-                        text: "Tél 1",
-                        style: "tableHeader",
-                      },
-                      {
-                        text: "Tél 2",
-                        style: "tableHeader",
-                      },
+                      { text: "N°", style: "tableHeader" },
+                      { text: "Nom", style: "tableHeader" },
+                      { text: "Père", style: "tableHeader" },
+                      { text: "Date", style: "tableHeader" },
+                      { text: "Tél 1", style: "tableHeader" },
+                      { text: "Tél 2", style: "tableHeader" },
                     ],
-
-                    ...filterPatient(12, selected.value).map(
-                      (patient, index) => {
-                        return [
-                          index + 1,
-                          patient.fullname,
-                          patient.father,
-                          patient.age,
-                          patient.phone,
-                          patient.phone2,
-                        ];
-                      }
-                    ),
+                    ...filterPatient(12, selected.value).map((patient, index) => {
+                      return [
+                        index + 1,
+                        patient.fullname,
+                        patient.father,
+                        patient.age,
+                        patient.phone,
+                        patient.phone2,
+                      ];
+                    }),
                   ],
                   alignment: "center",
+                  margin: [0, 10], // Add margin for spacing
+                  layout: "lightHorizontalLines", // Add horizontal lines between rows
                 },
               },
               { width: "*", text: "" },
@@ -990,8 +951,27 @@ function printPDF() {
           },
         ],
 
-        // Define styles
-        styles,
+        styles: {
+          header: {
+            fontSize: 18,
+            bold: true,
+            color: "#2e6da4", // Add color to the header
+            margin: [0, 20, 0, 10],
+          },
+          tableHeader: {
+            fontSize: 12,
+            bold: true,
+            color: "#ffffff",
+            fillColor: "#2e6da4", // Header background color
+            alignment: "center",
+            padding: [5, 5],
+          },
+          table: {
+            fontSize: 10,
+            margin: [0, 5],
+            fillColor: "#f9f9f9", // Light background color for table rows
+          },
+        },
       };
       pdfMake.createPdf(docDefinition).open();
     })
@@ -999,6 +979,7 @@ function printPDF() {
       console.error(error);
     });
 }
+
 
 function filterPatient(age, base) {
   if (base === "all") {

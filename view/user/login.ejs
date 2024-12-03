@@ -1,67 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <%- include("../layouts/head")%>
-  <!-- <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" type="x-icon" href="/assets/logo.png" />
-    <title>Oasis Cardiologie</title>
-    <link rel="stylesheet" href="/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="/css/carousel.css" />
-    <link rel="stylesheet" href="/css/userProfile.css" />
-    <link rel="stylesheet" href="/css/color.css" />
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css"
-    />
+  <style>
+    /* Additional styles for a medical-themed design */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f8f9; /* Soft background color for a medical environment */
+    }
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script
-      type="text/javascript"
-      src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
-    ></script>
-    <script>
-      $(document).ready(function () {
-        $("#search").on("keyup", function () {
-          var value = $(this).val().toLowerCase();
-          $("#tablebody tr").filter(function () {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
-          });
-        });
-      });
-    </script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.5/pdfmake.min.js"
-      integrity="sha512-rDbVu5s98lzXZsmJoMa0DjHNE+RwPJACogUCLyq3Xxm2kJO6qsQwjbE5NDk2DqmlKcxDirCnU1wAzVLe12IM3w=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.5/vfs_fonts.min.js"
-      integrity="sha512-BDZ+kFMtxV2ljEa7OWUu0wuay/PAsJ2yeRsBegaSgdUhqIno33xmD9v3m+a2M3Bdn5xbtJtsJ9sSULmNBjCgYw=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
-    <script src="https://unpkg.com/scrollreveal"></script> -->
-  </head>
+    
 
-  <body class="d-flex flex-column">
-    <main class="">
+    .logo-img {
+      width: 150px;
+      height: auto;
+    }
+  </style>
+
+  <body class="d-flex flex-column  bg-light">
+    <main class="flex-grow-1">
       <%- include("../partials/flash")%>
+
       <div class="container">
-        <div class="card my-5">
-          <div class="row">
-            <div class="col-12">
-              <div class="d-flex flex-column align-items-center my-5">
-                <a href="/">
-                  <img src="/assets/logo.png" alt="" height="100px" />
-                </a>
-              </div>
+        <div class="card shadow-lg border-0 my-5 p-4 rounded-4">
+          <div class="row justify-content-center">
+            <div class="col-12 text-center mb-4">
+              <a href="/">
+                <img src="/assets/logo.png" alt="Logo" class="logo-img" />
+              </a>
             </div>
+
             <div class="col-12">
-              <ul class="nav nav-tabs" role="tablist">
+              <ul class="nav nav-tabs d-flex justify-content-center" role="tablist">
                 <li class="nav-item">
                   <button
                     id="userLoginTab"
@@ -72,7 +41,7 @@
                     aria-controls="userLoginForm"
                     aria-selected="true"
                   >
-                    Login <i class="bi bi-box-arrow-in-right"></i>
+                    <i class="bi bi-box-arrow-in-right me-2"></i> Login
                   </button>
                 </li>
                 <li class="nav-item">
@@ -85,28 +54,26 @@
                     aria-controls="userRegisterForm"
                     aria-selected="false"
                   >
-                    Register <i class="bi bi-person-plus-fill"></i>
+                    <i class="bi bi-person-plus-fill me-2"></i> Register
                   </button>
                 </li>
               </ul>
             </div>
           </div>
-          <div class="row">
-            <div class="tab-content">
-              <div
-                aria-labelledby="userLoginTab"
-                role="tabpanel"
-                class="px-5 my-5 tab-pane fade active show"
-                id="userLoginForm"
-              >
-                <h3 class="my-5 text-center text-primary">Login</h3>
-                <form
-                  action="/user/login"
-                  method="POST"
-                  class="needs-validation"
-                  novalidate
-                >
-                  <div class="form-floating mb-3">
+
+          <div class="tab-content mt-4">
+            <!-- ============================= Login Form =============================================== -->
+            <div
+              aria-labelledby="userLoginTab"
+              role="tabpanel"
+              class="tab-pane fade active show"
+              id="userLoginForm"
+            >
+              <h3 class="my-4 text-center text-primary">Login</h3>
+              <form action="/user/login" method="POST" class="needs-validation" novalidate>
+                <div class="form-floating mb-3">
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-envelope"></i></span>
                     <input
                       type="email"
                       class="form-control"
@@ -116,56 +83,58 @@
                       style="text-transform: lowercase"
                       required
                     />
-                    <label for="loginEmail" class="form-label">Email</label>
-                    <div class="valid-feedback">BIEN</div>
                   </div>
-                  <div class="form-floating input-group mb-3">
-                    <input
-                      type="password"
-                      class="form-control"
-                      id="loginPassword"
-                      name="password"
-                      placeholder="Password"
-                      required
-                    />
-                    <label for="loginPassword" class="form-label"
-                      >Password</label
-                    >
-                    <div class="valid-feedback">BIEN</div>
-                    <div class="input-group-text">
-                      <span id="show_hide_login">
-                        <i id="icon-eye" class="bi bi-eye-fill"></i>
-                      </span>
-                    </div>
+                  <!-- <label for="loginEmail" class="form-label"></label> -->
+                </div>
+
+                <div class="form-floating input-group mb-3">
+                  <span class="input-group-text"><i class="bi bi-key"></i></span>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="loginPassword"
+                    name="password"
+                    placeholder="Password"
+                    required
+                  />
+                  <div class="input-group-text">
+                    <span id="show_hide_login">
+                      <i id="icon-eye" class="bi bi-eye-fill"></i>
+                    </span>
                   </div>
-                  <div class="mb-3 text-center">
-                    <button
-                      type="submit"
-                      id="user-submit"
-                      class="btn btn-outline-primary bg-gradient bg-opacity-25"
-                    >
-                      Login <i class="bi bi-box-arrow-in-right ms-2"></i>
-                    </button>
-                  </div>
-                </form>
-                <a href="/user/reset-password">Mot de passe oublié ?</a>
-              </div>
-              <!-- ============================= Register =============================================== -->
-              <div
-                aria-labelledby="userRegisterTab"
-                role="tabpanel"
-                class="px-5 my-5 tab-pane fade"
-                id="userRegisterForm"
+                  <!-- <label for="loginPassword" class="form-label"></label> -->
+                </div>
+
+                <div class="mb-3 text-center">
+                  <button type="submit" id="user-submit" class="btn btn-outline-greenSea">
+                    Login <i class="bi bi-box-arrow-in-right ms-2"></i>
+                  </button>
+                </div>
+
+                <div class="text-center">
+                  <a href="/user/reset-password" class="text-decoration-none">Forgot Password?</a>
+                </div>
+              </form>
+            </div>
+
+            <!-- ============================= Register Form =============================================== -->
+            <div
+              aria-labelledby="userRegisterTab"
+              role="tabpanel"
+              class="tab-pane fade"
+              id="userRegisterForm"
+            >
+              <h3 class="my-4 text-center text-primary">Register</h3>
+              <form
+                class="row g-3 needs-validation"
+                action="/user/register"
+                id="personal"
+                method="POST"
+                novalidate
               >
-                <h3 class="my-5 text-center text-primary">Register</h3>
-                <form
-                  class="row g-3 needs-validation"
-                  action="/user/register"
-                  id="personal"
-                  method="POST"
-                  novalidate
-                >
-                  <div class="form-floating col-6 mb-3">
+                <div class="form-floating col-sm-12 col-md-6   mb-3">
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-person"></i></span>
                     <input
                       id="lastname"
                       name="user[lastname]"
@@ -174,126 +143,109 @@
                       style="text-transform: capitalize"
                       autofocus
                       required
+                      placeholder="Lastname"
                     />
-                    <label for="lastname" class="form-label">Nom</label>
-                    <div class="valid-feedback">BIEN</div>
                   </div>
+                  <!-- <label for="lastname" class="form-label">Last Name</label> -->
+                </div>
 
-                  <div class="form-floating col-6 mb-3">
+                <div class="form-floating col-sm-12 col-md-6   mb-3">
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-person"></i></span>
                     <input
                       id="firstName"
                       name="user[firstname]"
                       style="text-transform: capitalize"
                       type="text"
                       class="form-control"
+                      placeholder="Firstname"
                     />
-                    <label for="firstName" class="form-label">Prénom</label>
-                    <div class="valid-feedback">BIEN</div>
                   </div>
-                  <div class="form-floating">
-                    <select
-                      id="fonction"
-                      name="user[fonction]"
-                      class="form-select"
-                      required
-                    >
-                      <option selected disabled value="">Fonction</option>
+                  <!-- <label for="firstName" class="form-label">First Name</label> -->
+                </div>
+
+                <div class="form-floating col-sm-12 col-md-6 mb-3">
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-briefcase"></i></span>
+                    <select id="fonction" name="user[fonction]" class="form-select" required>
+                      <option selected disabled value="">Function</option>
                       <% for(fonction of fonctions) {%>
                       <option class="option" value="<%= fonction %>">
                         <%= fonction %>
                       </option>
                       <% } %>
                     </select>
-                    <label for="fonction" class="form-label">Fonction</label>
-                    <div class="valid-feedback">BIEN</div>
                   </div>
-                  <div class="form-floating">
-                    <div class="form-check form-switch ms-2">
-                      <input
-                        class="form-check-input"
-                        type="checkbox"
-                        name="user[externe]"
-                        value="externe"
-                        role="switch"
-                        id="externe"
-                      />
-                      <label class="form-check-label" for="externe"
-                        >Externe</label
-                      >
-                      <div class="valid-feedback">BIEN</div>
-                    </div>
-                  </div>
-                  <div class="form-floating mb-3">
+                  <!-- <label for="fonction" class="form-label">Function</label> -->
+                </div>
+
+                <div class="form-floating mb-3 col-sm-12 col-md-6  ">
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-phone"></i></span>
                     <input
-                      type="text"
-                      class="form-control"
                       id="phone"
                       name="user[phone]"
+                      type="text"
+                      class="form-control"
                       maxlength="10"
+                      required
+                      placeholder="Phone"
                     />
-                    <label for="phone" class="form-label">Télephone</label>
-                    <div class="valid-feedback">BIEN</div>
                   </div>
+                  <!-- <label for="phone" class="form-label">Phone</label> -->
+                </div>
 
-                  <div class="form-floating mb-3 col-md-12">
+                <div class="form-floating mb-3 col-sm-12 col-md-6  ">
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-envelope"></i></span>
                     <input
                       id="email"
                       name="user[email]"
                       type="email"
                       class="form-control"
                       required
+                      placeholder="Email"
                     />
-                    <label for="email" class="form-label">Email</label>
-                    <div class="valid-feedback">BIEN</div>
                   </div>
-                  <div class="form-floating input-group mb-3 col-md-12">
-                    <input
-                      type="password"
-                      class="form-control"
-                      id="registerPassword"
-                      name="user[password]"
-                      required
-                    />
-                    <div class="input-group-text">
-                      <span id="show_hide_register">
-                        <i id="icon-eye-register" class="bi bi-eye-fill"></i>
-                      </span>
-                    </div>
-                    <label for="registerPassword" class="form-label"
-                      >Password</label
-                    >
-                    <div class="valid-feedback">BIEN</div>
-                  </div>
-                  <div class="form-floating input-group mb-3 col-md-12">
-                    <input
-                      id="confirmedPassword"
-                      type="password"
-                      class="form-control"
-                      name="user[confirmedPassword]"
-                      required
-                    />
-                    <div class="input-group-text">
-                      <span id="show_hide_confirmed">
-                        <i id="icon-eye-confirmed" class="bi bi-eye-fill"></i>
-                      </span>
-                    </div>
-                    <label for="confirmedPassword" class="form-label"
-                      >Confirmé Mot de pass</label
-                    >
-                  </div>
-                  <div  id="checkPasswordMatch"></div>
+                  <!-- <label for="email" class="form-label">Email</label> -->
+                </div>
 
-                  <div class="mb-3 text-center">
-                    <button
-                      type="submit"
-                      id="user-register"
-                      class="btn btn-outline-primary bg-gradient bg-opacity-25"
-                    >
-                      Register <i class="bi bi-person-plus-fill ms-2"></i>
-                    </button>
+                <div class="form-floating col-sm-12 col-md-6  mb-3">
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                    <input
+                      id="password"
+                      name="user[password]"
+                      type="password"
+                      class="form-control"
+                      required
+                      placeholder="Mot de password"
+                    />
                   </div>
-                </form>
-              </div>
+                  <!-- <label for="password" class="form-label">Password</label> -->
+                </div>
+
+                <div class="form-floating col-sm-12 col-md-6  mb-3">
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                    <input
+                      id="confirmPassword"
+                      name="user[confirmPassword]"
+                      type="password"
+                      class="form-control"
+                      required
+                      placeholder="Confirmer Mot de password"
+                    />
+                  </div>
+                  <!-- <label for="confirmPassword" class="form-label">Confirm Password</label> -->
+                </div>
+
+                <div class="mb-3 text-center">
+                  <button type="submit" class="btn btn-outline-greenSea ">
+                    Register <i class="bi bi-person-plus ms-2"></i>
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         </div>
@@ -302,3 +254,5 @@
     <%- include("../layouts/imports")%>
   </body>
 </html>
+
+  

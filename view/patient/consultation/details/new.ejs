@@ -35,7 +35,7 @@
 
       <div class="modal-body">
         <form
-          action="/patient/<%=patient.id%>/acte/<%= idacte %>/files?name=<%= patient.fullname%>&date=<%= patientConsultation.date%>"
+          action="/patient/<%=patient.id%>/acte/<%= idacte %>/file?name=<%= patient.fullname%>&date=<%= patientConsultation.date%>"
           method="POST"
           class="row needs-validation"
           enctype="multipart/form-data"
@@ -60,7 +60,7 @@
             <div class="valid-feedback">BIEN</div>
           </div>
 
-          <div class="form-floating" style="display: none;" id="acteDiv">
+          <div class="form-floating mb-3" style="display: none;" id="acteDiv">
             <select id="acte" name="acte" class="form-select">
               <option class="option" value="" disabled selected>
                 Type D'examen
@@ -70,9 +70,8 @@
             <div class="valid-feedback">BIEN</div>
           </div>
           <div class="mb-3 col">
-            <label for="file" class="form-label fs-6">Choisir un Fichier</label>
             <input
-              class="form-control"
+              class="form-control form-control-lg"
               type="file"
               id="file"
               name="file"
