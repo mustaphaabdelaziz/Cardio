@@ -11,23 +11,11 @@
     <div class="row">
       <div class="tab-content">
         <!-- Patient Registration Form -->
-        <div
-          aria-labelledby="patientRegisterTab"
-          role="tabpanel"
-          class="mt-2 my-5 tab-pane fade active show"
-          id="patientRegisterForm"
-        >
+        <div aria-labelledby="patientRegisterTab" role="tabpanel" class="mt-2 my-5 tab-pane fade active show" id="patientRegisterForm">
           <h3 class="text-center text-greenSea mb-4">
             <i class="bi bi-person-plus"></i> Nouveau Patient
           </h3>
-          <form
-            class="row g-3 needs-validation px-4"
-            action="/patient"
-            id="personal"
-            method="POST"
-            autocomplete="on"
-            novalidate
-          >
+          <form class="row g-3 m-2 needs-validation" action="/patient" id="personal" method="POST" autocomplete="on" novalidate>
             <!-- Relation -->
             <div class="form-floating col-12">
               <select id="patientRole" name="patient[relation]" class="form-select">
@@ -43,27 +31,13 @@
 
             <!-- Name Fields -->
             <div class="form-floating col-md-6">
-              <input
-                id="patientLastName"
-                name="patient[lastname]"
-                type="text"
-                class="form-control"
-                placeholder="Nom"
-                required
-              />
+              <input id="patientLastName" name="patient[lastname]" type="text" class="form-control" placeholder="Nom" required />
               <label for="patientLastName">
                 <i class="bi bi-person"></i> Nom
               </label>
             </div>
             <div class="form-floating col-md-6">
-              <input
-                id="patientFirstName"
-                name="patient[firstname]"
-                type="text"
-                class="form-control"
-                placeholder="Prénom"
-                required
-              />
+              <input id="patientFirstName" name="patient[firstname]" type="text" class="form-control" placeholder="Prénom" required />
               <label for="patientFirstName">
                 <i class="bi bi-person"></i> Prénom
               </label>
@@ -71,26 +45,13 @@
 
             <!-- Parent and Birthdate -->
             <div class="form-floating col-md-6">
-              <input
-                id="father"
-                name="patient[father]"
-                type="text"
-                class="form-control"
-                placeholder="Père"
-              />
+              <input id="father" name="patient[father]" type="text" class="form-control" placeholder="Père" />
               <label for="father">
                 <i class="bi bi-person"></i> Père
               </label>
             </div>
             <div class="form-floating col-md-6">
-              <input
-                id="patientBirthDate"
-                name="patient[birthdate]"
-                type="date"
-                class="form-control"
-                max="<%= moment().format('YYYY-MM-DD') %>"
-                min="<%= moment('01/01/1900').format('YYYY-MM-DD') %>"
-              />
+              <input id="patientBirthDate" name="patient[birthdate]" type="date" class="form-control" max="<%= moment().format('YYYY-MM-DD') %>" min="<%= moment('01/01/1900').format('YYYY-MM-DD') %>" />
               <label for="patientBirthDate">
                 <i class="bi bi-calendar"></i> Date de Naissance
               </label>
@@ -122,26 +83,13 @@
 
             <!-- Phone Numbers -->
             <div class="form-floating col-md-6">
-              <input
-                id="patientPhoneNumber"
-                name="patient[phone]"
-                type="text"
-                class="form-control"
-                placeholder="Téléphone 1"
-                required
-              />
+              <input id="patientPhoneNumber" name="patient[phone]" type="text" class="form-control" placeholder="Téléphone 1" required />
               <label for="patientPhoneNumber">
                 <i class="bi bi-telephone"></i> Téléphone 1
               </label>
             </div>
             <div class="form-floating col-md-6">
-              <input
-                id="patientPhoneNumber2"
-                name="patient[phone2]"
-                type="text"
-                class="form-control"
-                placeholder="Téléphone 2"
-              />
+              <input id="patientPhoneNumber2" name="patient[phone2]" type="text" class="form-control" placeholder="Téléphone 2" />
               <label for="patientPhoneNumber2">
                 <i class="bi bi-telephone-plus"></i> Téléphone 2
               </label>
@@ -157,18 +105,12 @@
               </label>
               <div class="valid-feedback">BIEN</div>
             </div>
-            
-            
+
+
 
             <!-- Location -->
             <div class="form-floating col-md-6">
-              <input
-                id="wilaya"
-                name="patient[wilaya]"
-                list="cities"
-                class="form-select"
-                placeholder="Wilaya"
-              />
+              <input id="wilaya" name="patient[wilaya]" list="cities" class="form-select" placeholder="Wilaya" onchange="makeSubmenu(this.value, '')" />
               <datalist id="cities">
                 <% for (city of states) { %>
                 <option value="<%= city.name %>"><%= city.id %> - <%= city.name %></option>
@@ -202,17 +144,10 @@
 
             <!-- Submit Buttons -->
             <div class="col-12 text-center mt-4">
-              <button
-                type="submit"
-                class="btn btn-greenSea me-2 px-4"
-              >
+              <button type="submit" class="btn btn-greenSea me-2 px-4">
                 Ajouter <i class="bi bi-person-plus-fill"></i>
               </button>
-              <button
-                type="submit"
-                class="btn btn-outline-secondary px-4"
-                formaction="patient/new"
-              >
+              <button type="submit" class="btn btn-outline-secondary px-4" formaction="patient/new">
                 Ajouter autre patient <i class="bi bi-person-plus"></i>
               </button>
             </div>

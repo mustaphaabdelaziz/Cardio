@@ -70,8 +70,8 @@
               id="userLoginForm"
             >
               <h3 class="my-4 text-center text-primary">Login</h3>
-              <form action="/user/login" method="POST" class="needs-validation" novalidate>
-                <div class="form-floating mb-3">
+              <form action="/user/login" method="POST" class="needs-validation row" novalidate>
+                <div class="form-floating mb-2 col-sm-12 col-md-6 col-lg-6">
                   <div class="input-group">
                     <span class="input-group-text"><i class="bi bi-envelope"></i></span>
                     <input
@@ -84,29 +84,27 @@
                       required
                     />
                   </div>
-                  <!-- <label for="loginEmail" class="form-label"></label> -->
                 </div>
 
-                <div class="form-floating input-group mb-3">
-                  <span class="input-group-text"><i class="bi bi-key"></i></span>
-                  <input
-                    type="password"
-                    class="form-control"
-                    id="loginPassword"
-                    name="password"
-                    placeholder="Password"
-                    required
-                  />
-                  <div class="input-group-text">
-                    <span id="show_hide_login">
-                      <i id="icon-eye" class="bi bi-eye-fill"></i>
-                    </span>
+                <div class="form-floating mb-2 col-sm-12 col-md-6 col-lg-6">
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-key"></i></span>
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="loginPassword"
+                      name="password"
+                      placeholder="Password"
+                      required
+                    />
+                    <div class="input-group-text" id="show_hide_login" style="cursor: pointer;">
+                      <span id="icon-eye" class="bi bi-eye-fill"></span>
+                    </div>
                   </div>
-                  <!-- <label for="loginPassword" class="form-label"></label> -->
+                 
                 </div>
-
-                <div class="mb-3 text-center">
-                  <button type="submit" id="user-submit" class="btn btn-outline-greenSea">
+                <div class="mb-2 text-center col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center">
+                  <button type="submit" id="user-submit" class="btn btn-outline-greenSea w-25">
                     Login <i class="bi bi-box-arrow-in-right ms-2"></i>
                   </button>
                 </div>
@@ -214,29 +212,41 @@
                   <div class="input-group">
                     <span class="input-group-text"><i class="bi bi-lock"></i></span>
                     <input
-                      id="password"
+                      id="registerPassword"
                       name="user[password]"
                       type="password"
                       class="form-control"
                       required
                       placeholder="Mot de password"
                     />
+                    <div class="input-group-text">
+                      <span id="show_hide_register">
+                        <i id="icon-eye-register" class="bi bi-eye-fill"></i>
+                      </span>
+                    </div>
                   </div>
+                  
                   <!-- <label for="password" class="form-label">Password</label> -->
                 </div>
 
-                <div class="form-floating col-sm-12 col-md-6  mb-3">
+                <div class="form-floating col-sm-12 col-md-6 mb-3">
                   <div class="input-group">
                     <span class="input-group-text"><i class="bi bi-lock"></i></span>
                     <input
-                      id="confirmPassword"
+                      id="confirmedPassword"
                       name="user[confirmPassword]"
                       type="password"
                       class="form-control"
                       required
                       placeholder="Confirmer Mot de password"
                     />
+                    <div class="input-group-text">
+                      <span id="show_hide_confirmed">
+                        <i id="icon-eye-confirmed" class="bi bi-eye-fill"></i>
+                      </span>
+                    </div>
                   </div>
+                 
                   <!-- <label for="confirmPassword" class="form-label">Confirm Password</label> -->
                 </div>
 

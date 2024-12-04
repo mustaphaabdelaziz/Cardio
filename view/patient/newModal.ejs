@@ -30,7 +30,14 @@
         ></button>
       </div>
       <div class="modal-body">
-        <form class="row g-3 needs-validation" novalidate>
+        <form
+          class="row g-3 m-2 needs-validation"
+          action="/patient"
+          id="personal"
+          method="POST"
+          autocomplete="on"
+          novalidate
+        >
           <!-- Relation -->
           <div class="form-floating col-md-6">
             <select
@@ -166,28 +173,29 @@
           <!-- Wilaya et Ville -->
           <div class="form-floating col-md-6">
             <input
-              type="text"
-              class="form-control"
               id="wilaya"
               name="patient[wilaya]"
               list="cities"
+              class="form-select"
               placeholder="Wilaya"
-              required
+              onchange="makeSubmenu(this.value, '')"
             />
-            <label for="wilaya"><i class="bi bi-geo-alt me-2"></i>Wilaya</label>
-            <div class="invalid-feedback">Veuillez sélectionner une wilaya.</div>
+            <datalist id="cities">
+              <% for (city of states) { %>
+              <option value="<%= city.name %>"><%= city.id %> - <%= city.name %></option>
+              <% } %>
+            </datalist>
+            <label for="wilaya">
+              <i class="bi bi-geo"></i> Wilaya
+            </label>
           </div>
           <div class="form-floating col-md-6">
-            <select
-              id="city"
-              name="patient[city]"
-              class="form-select"
-              required
-            >
-              <option disabled selected value="">Ville</option>
+            <select id="city" name="patient[city]" class="form-select">
+              <option value="" disabled selected>Ville</option>
             </select>
-            <label for="city"><i class="bi bi-building me-2"></i>Ville</label>
-            <div class="invalid-feedback">Veuillez sélectionner une ville.</div>
+            <label for="city">
+              <i class="bi bi-geo-alt"></i> Ville
+            </label>
           </div>
 
           <!-- Buttons -->
